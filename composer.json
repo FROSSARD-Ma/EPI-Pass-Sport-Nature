@@ -1,0 +1,26 @@
+{
+	
+	"name": "EPI-Pass-Sport-Nature",
+
+	"require": {
+        "twig/twig": "v3.0.3",
+        "swiftmailer/swiftmailer": "v6.2.3"
+    },
+
+	"authors": [ 
+		{
+	        "name": "Marie FROSSARD",
+	        "email": "marie@pass-sport-nature.fr",
+	        "homepage": "https://pass-sport-nature.fr/",
+	        "role": "Developer"
+    	}
+	],
+    
+	"autoload": {
+		"psr-4": {
+			"Epi_Model\\" : "model/",
+			"Epi_Controller\\": "controller/"
+		}
+	}
+
+}
