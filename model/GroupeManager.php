@@ -1,11 +1,9 @@
 <?php
-namespace Alaska_Model;
+namespace Epi_Model;
 use \PDO;
 
 class GroupeManager extends Manager
 {
-    //========= CRUD Chapitre ======== */
-
     /*---  CREAT -------------------------------------------------------- */
     public function addGroupe()
     {

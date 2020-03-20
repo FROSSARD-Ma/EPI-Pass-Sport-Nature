@@ -1,5 +1,5 @@
 <?php
-namespace Alaska_Model;
+namespace Epi_Model;
 use \PDO;
 
 class UserManager extends Manager

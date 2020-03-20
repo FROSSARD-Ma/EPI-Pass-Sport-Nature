@@ -1,5 +1,5 @@
 <?php
-namespace Alaska_Model;
+namespace Epi_Model;
 use \DateTime;
 
 class Groupe extends Manager
@@ -104,7 +104,7 @@ class Groupe extends Manager
     {
         if (is_string($statut))
         {
-          $this->_groupe_statut = $img;
+          $this->_groupe_statut = $statut;
         }
     }
 
