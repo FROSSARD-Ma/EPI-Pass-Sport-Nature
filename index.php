@@ -14,11 +14,10 @@ define('HOST', 'https://'.$host.'/'); // model/View.php
 define('ROOT', $root . '/');
 define('VIEW', ROOT.'views/'); // model/View.php
 
+//== ROOTER =========================
+$url = $_GET['url'];
 
-//== Appel CONTROLLER =========================
-$page= $_GET['page']; // index.php?page
-
-$router = new Epi_Model\Router($page);
-$router->getController();
+$router = new Epi_Model\Router($url);
+$router->run();
 
 ?>

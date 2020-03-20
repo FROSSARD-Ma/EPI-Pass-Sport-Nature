@@ -3,95 +3,66 @@ namespace Epi_Model;
 
 class Router {
 
-	private $_page;
-	private $_routes = [ 
+    private $_url;
+	private $_routes = [
 
-		// ---- FRONT Controller -----------------------------------------------------
-		/* Menu */
-		"about" 		=> ['controller'=> '\Epi_Controller\FrontController', 'method'=>'about'],
-		"home" 			=> ['controller'=> '\Epi_Controller\FrontController', 'method'=>'home'],
-		"chapters" 		=> ['controller'=> '\Epi_Controller\FrontController', 'method'=>'chapters'],
-		"contact" 		=> ['controller'=> '\Epi_Controller\FrontController', 'method'=>'contact'],
-		"inscription" 	=> ['controller'=> '\Epi_Controller\FrontController', 'method'=>'inscription'],
-		"admin" 		=> ['controller'=> '\Epi_Controller\FrontController', 'method'=>'admin'],
-		"login" 		=> ['controller'=> '\Epi_Controller\FrontController', 'method'=>'login'],
-		"logout" 		=> ['controller'=> '\Epi_Controller\FrontController', 'method'=>'logout'],
+    // ---- FRONT Controller -----------------------------------------------------
+        /* Menu */
+        "home"      => ['FrontController','home'],
+        "404"       => ['FrontController','page404']
 
-		/* Link Button */
+    // ---- BACK Controller -----------------------------------------------------
 
-		
-		/* Erreur Page 404 */
-		"page404" 		=> ['controller'=> '\Epi_Controller\FrontController', 'method'=>'page404'],
+    // ---- USER Controller -----------------------------------------------------
+        
+    ];
 
-		// ---- USER Controller -----------------------------------------------------
-		"creatUser" 	=> ['controller'=> '\Epi_Controller\UserController', 'method'=>'creatUser'],
-		"users" 		=> ['controller'=> '\Epi_Controller\UserController', 'method'=>'users'],
-		"loginUser" 	=> ['controller'=> '\Epi_Controller\UserController', 'method'=>'loginUser'],
-		"nxPass" 		=> ['controller'=> '\Epi_Controller\UserController', 'method'=>'nxPass'],
-		"creatPass" 	=> ['controller'=> '\Epi_Controller\UserController', 'method'=>'creatPass'],
+    public function __construct($url)
+    {
+        $this->_url = $url;
+    }
 
-		// ---- BOOK Controller -----------------------------------------------------
-		/* Contact */
-		"creatContact" 	=> ['controller'=> 'BookController', 'method'=>'creatContact'],
+    public function getRoute()
+    {
+        $page = explode('/', $this->_url); // crée un chemin sous format tableau
+        return $page[0]; // route = premier élément de la route
+    }
 
-	];
+    public function getParams()
+    {   
+        $params = explode('/', $this->_url); // tableau
+        unset($params[0]); // Suppression Element page
+        if (!isset($params)) $params = null;
+        return $params;
+    }
+    
+	public function run()
+    {
+        $route = $this->getRoute();
+        $params = $this->getParams();
 
+        if(!empty($route))
+        {
+            if (key_exists($route, $this->_routes))
+            {
+                $controller = '\Epi_Controller\\'.$this->_routes[$route][0];
+                $methode    = $this->_routes[$route][1];
 
-	public function __construct($page)
-	{
-		$this->_page = $page;
-	}
+                $currentController = new $controller();
+                $currentController->$methode($params);
+            }
+            else
+            {
+                echo 'Page 404';
+            }
+        }
+        else
+        {
+            // Redirection page accueil
+            echo 'Page accueil';
 
-	public function getRoute()
-	{
-		$elements = explode('/', $this->_page); // crée un chemin sous format tableau
-		return $elements[0] ; // page = premier élément de la route
-	}
-
-	public function getParams()
-	{	
-		$elements = explode('/', $this->_page); // tableau
-		// suppression du premier element (page) dans le tableau
-		unset($elements[0]); 
-		// récupère les PARAMS
-		for ($i=1; $i<count($elements); $i++)
-		{
-			$params[$elements[$i]] = $elements[$i+1];
-			$i++;
-		}
-		// si pas de PARAMS, instancier PARAMS à null
-		if (!isset($params)) $params = null;
-
-		return $params;
-	}	
-
-	public function getController()
-	{
-		$route = $this->getRoute();
-		$params = $this->getParams();
-
-		if(!empty($route))
-		{
-			if (key_exists($route, $this->_routes))
-			{
-				$controller = $this->_routes[$route]['controller'];
-				$method		= $this->_routes[$route]['method'];
-
-				$currentController = new $controller();
-				$currentController->$method($params);
-			}
-			else
-			{
-				$nxView = new \Alaska_Model\View ('page404');
-	        	$nxView->getView();
-			}
-		}
-		else
-		{
-			// Redirection page accueil
-			$nxView = new \Alaska_Model\View();
-        	$nxView->redirect('home');
-		}
-	}
+        }
+    	
+    }
 
 }

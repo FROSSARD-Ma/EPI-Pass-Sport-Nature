@@ -4,7 +4,10 @@ namespace Epi_Controller;
 class FrontController
 {
     /* Menu ----------------------------------- */
-    
+     public function home($params) // $params = array : $params[1]
+    {
+		echo 'Page HOME';
+    }
 
 
 
@@ -16,7 +19,6 @@ class FrontController
     /* Erreur 404  ----------------------------*/
     public function page404($params)
     {
-        $nxView = new \Epi_Model\View ('page404');
-        $nxView->getView();
+        echo 'Page 404';
     }
 }
