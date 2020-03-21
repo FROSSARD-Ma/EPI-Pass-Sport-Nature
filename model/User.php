@@ -5,7 +5,6 @@ use \DateTime;
 class User extends Manager
 {
     private $_user_id;
-    private $_user_groupeId;
     private $_user_name;
     private $_user_firstname;
     private $_user_mail;
@@ -13,6 +12,11 @@ class User extends Manager
     private $_user_notification;
     private $_user_statut;
     private $_user_inscription;
+    private $_user_groupeId;
+
+    // Jointures id
+    private $_user_groupe;
+
 
     public function __construct(array $dataSQL)
     {
@@ -77,6 +81,10 @@ class User extends Manager
     public function getInscription()
     { 
         return $this->_user_inscription; 
+    }
+    public function getGroupe()
+    { 
+        return $this->_user_groupe; 
     }
    
     
@@ -148,6 +156,13 @@ class User extends Manager
     {
         $date = new DateTime($dateCreated);
         $this->_user_inscription = $date->format('d-m-Y');
+    }
+    public function setGroupe($groupe)
+    {
+        if (is_string($groupe))
+        {
+          $this->_user_groupe = $groupe;
+        }
     }
 }
 ?>

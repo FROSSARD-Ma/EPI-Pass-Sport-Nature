@@ -47,7 +47,28 @@ class EquipementManager extends Manager
     {
         $idEq = (int)$id;
 
-        $sql = 'SELECT * FROM EPI_equipement WHERE equipement_id =:idEq';
+        $sql = 'SELECT EPI_equipement.*, EPI_groupes.groupe_name, EPI_kits.kit_name, EPI_lots.lot_name, EPI_categories.cat_name, EPI_activites.activite_name
+
+            FROM EPI_equipement 
+
+                JOIN EPI_groupes
+                ON EPI_equipement.eq_id=EPI_groupes.groupe_id
+
+                JOIN EPI_categories
+                ON EPI_equipement.eq_id=EPI_categories.cat_id
+
+                JOIN EPI_activites
+                ON EPI_categories.cat_id=EPI_activites.activite_id
+
+                JOIN EPI_kits
+                ON EPI_equipement.eq_id=EPI_kits.kit_id
+
+                JOIN EPI_lots
+                ON EPI_equipement.eq_id=EPI_lots.lot_id
+
+            WHERE equipement_id =:idEq';
+
+
 
         $datas = $this->getPDO()->prepare($sql);
         $datas->bindValue(':idEq', $idEq, PDO::PARAM_STR);

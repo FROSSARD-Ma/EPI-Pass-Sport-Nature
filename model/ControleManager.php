@@ -32,7 +32,21 @@ class ControleManager extends Manager
     {
         $idControle = (int)$id;
 
-        $sql = 'SELECT * FROM EPI_controles WHERE controle_id =:id';
+        $sql = 'SELECT EPI_controles.*, EPI_categories.cat_name, EPI_users.user_name, EPI_users.user_firstname
+
+            FROM EPI_controles 
+
+                JOIN EPI_equipement
+                ON EPI_equipement.eq_id=EPI_controles.controle_equipementId
+
+                JOIN EPI_categories
+                ON EPI_equipement.eq_id=EPI_categories.cat_id
+
+                JOIN EPI_users
+                ON EPI_controles.controle_userId=EPI_users.user_id
+
+
+            WHERE controle_id =:id';
 
         $datas = $this->getPDO()->prepare($sql);
         $datas->bindValue(':id', $idControle, PDO::PARAM_STR);

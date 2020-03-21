@@ -26,12 +26,13 @@ class Equipement extends Manager
     private $_eq_prochainControle;
     private $_eq_frequenceControle;
 
-    // Lien ID
-    // private $_eq_groupeId;
-    // private $_eq_categorieId;
-    // private $_eq_kitId;
-    // private $_eq_lotId;
+    // Jonctions ID
+    private $_eq_groupeId;
+    private $_eq_categorieId;
+    private $_eq_kitId;
+    private $_eq_lotId;
 
+    // Jonctions
     private $_eq_groupe;
     private $_eq_activite;
     private $_eq_categorie;
@@ -51,7 +52,7 @@ class Equipement extends Manager
         {
             // Forcer Majuscule, supp 'eq_' = 3 caractères
             // On récupère le nom du setter correspondant à l'attribut
-            $method = 'set' . ucfirst(substr($key,5));
+            $method = 'set' . ucfirst(substr($key,3));
             if (method_exists($this, $method))
             {
                 if ($method == 'setContent')
@@ -146,7 +147,25 @@ class Equipement extends Manager
             return $this->_eq_frequenceControle; 
         }
 
-        //  Lien infos
+        // id Jonctions
+        public function getGroupeId()
+        { 
+            return $this->_eq_groupeId; 
+        }
+        public function getCategorieId()
+        { 
+            return $this->_eq_categorieId; 
+        }
+        public function getKitId()
+        { 
+            return $this->_eq_kitId; 
+        }
+        public function getLotId()
+        { 
+            return $this->_eq_lotId; 
+        }
+
+        // Jonctions
         public function getGroupe()
         { 
             return $this->_eq_groupe; 
@@ -267,7 +286,6 @@ class Equipement extends Manager
         }
 
         // Dates
-
         public function SetFabrication($dateCreated)
         { 
             $date = new DateTime($dateCreated);
@@ -299,7 +317,50 @@ class Equipement extends Manager
             $this->_eq_frequenceControle = $date->format('d-m-Y');
         }
 
-        //  Lien infos
+
+        // ID jonction
+        public function setgroupeId($id)
+        {
+            // convertit l'argument en nombre entier.
+            $groupeId = (int) $id;
+            
+            if ($groupeId > 0)
+            {
+                $this->_eq_groupeId = $groupeId;
+            }
+        }
+        public function setCategorieId($id)
+        {
+            // convertit l'argument en nombre entier.
+            $categorieId = (int) $id;
+            
+            if ($categorieId > 0)
+            {
+                $this->_eq_categorieId = $categorieId;
+            }
+        }
+        public function setKitId($id)
+        {
+            // convertit l'argument en nombre entier.
+            $kitId = (int) $id;
+            
+            if ($kitId > 0)
+            {
+                $this->_eq_kitId = $kitId;
+            }
+        }
+        public function setLotId($id)
+        {
+            // convertit l'argument en nombre entier.
+            $lotId = (int) $id;
+            
+            if ($lotId > 0)
+            {
+                $this->_eq_lotId = $lotId;
+            }
+        }
+
+        //  Jonctions 
         public function SetGroupe($groupe)
         {
             if (is_string($groupe))

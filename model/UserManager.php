@@ -30,7 +30,14 @@ class UserManager extends Manager
     {
         $idUser = (int)$id;
 
-        $sql = 'SELECT * FROM EPI_users WHERE user_id =:id';
+        $sql = 'SELECT EPI_users.*, EPI_groupes.groupe_name
+
+            FROM EPI_users 
+
+                JOIN EPI_groupes
+                     ON EPI_users.user_groupeId=EPI_groupes.groupe_id
+
+            WHERE user_id =:id';
 
         $datas = $this->getPDO()->prepare($sql);
         $datas->bindValue(':id', $idUser, PDO::PARAM_STR);

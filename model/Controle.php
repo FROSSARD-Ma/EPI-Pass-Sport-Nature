@@ -13,7 +13,10 @@ class Controle extends Manager
     private $_controle_equipementId;
     private $_controle_userId;
 
-
+    // Jointures id
+    private $_controle_equipCatName;
+    private $_controle_userControle;
+    
     public function __construct(array $dataSQL)
     {
         $this->hydrate($dataSQL);
@@ -73,6 +76,14 @@ class Controle extends Manager
         public function getUserId()
         { 
             return $this->_controle_userId; 
+        }
+        public function getEquipCatName()
+        { 
+            return $this->_controle_equipCatName; 
+        }
+        public function getUserControle()
+        { 
+            return $this->_controle_userControle; 
         }
         
         
@@ -137,6 +148,20 @@ class Controle extends Manager
             if ($id > 0)
             {
                 $this->_controle_userId = $id;
+            }
+        }
+        public function setEquipCatName($equipement)
+        {
+            if (is_string($equipement))
+            {
+              $this->_controle_equipCatName = $equipement;
+            }
+        }
+        public function setUserControle($name)
+        {
+            if (is_string($name))
+            {
+              $this->_controle_userControle = $name;
             }
         }
 }
