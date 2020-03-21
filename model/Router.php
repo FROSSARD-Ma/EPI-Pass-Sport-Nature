@@ -9,7 +9,7 @@ class Router {
     // ---- FRONT Controller -----------------------------------------------------
         /* Menu */
         "home"      => ['FrontController','home'],
-        "404"       => ['FrontController','page404']
+        "page404"       => ['FrontController','page404']
 
     // ---- BACK Controller -----------------------------------------------------
 
@@ -41,6 +41,7 @@ class Router {
         $route = $this->getRoute();
         $params = $this->getParams();
 
+
         if(!empty($route))
         {
             if (key_exists($route, $this->_routes))
@@ -53,14 +54,14 @@ class Router {
             }
             else
             {
-                echo 'Page 404';
+                $nxView = new \Epi_Model\View('page404');
+                $nxView->getView();
             }
         }
         else
         {
-            // Redirection page accueil
-            echo 'Page accueil';
-
+            $nxView = new \Epi_Model\View('home');
+            $nxView->getView();
         }
     	
     }
