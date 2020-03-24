@@ -1,0 +1,93 @@
+{% extends 'layout.twig' %}
+
+{% block title %}
+	<title>Gestion EPI Pass'Sport Nature</title>
+{% endblock %}
+
+
+{% block headerpage %}
+	<h1 class="mt-4">Bienvenue</h1>
+	<ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Page d'accueil</li>
+    </ol>
+
+	<p>Ergo ego senator inimicus, si ita vultis, homini, amicus esse, sicut semper fui, rei publicae debeo. Quid? si ipsas inimicitias, depono rei publicae causa, quis me tandem iure reprehendet, praesertim cum ego omnium meorum consiliorum atque factorum exempla semper ex summorum hominum consiliis atque factis mihi censuerim petenda.</p>
+{% endblock %}
+
+
+{% block sidebar %}
+    <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+{% endblock %}
+
+
+{% block content %}
+
+
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h2>Se connecter !</h2>
+          <form method="post" action="index.php?url=loginUser" id="login_form">
+            <div class="form-group">
+                <label for="inputEmail">Email</label>
+                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+            </div>
+
+            <div class="form-group">
+                <label for="inputPassword">Mot de passe</label>
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+            </div>
+
+            <div class="custom-control custom-checkbox mb-3">
+                <label class="custom-control-label" for="customCheck1">Remember password</label>
+                <input type="checkbox" class="custom-control-input" id="customCheck1">
+            </div>
+
+            <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Se connecter</button>
+
+            <div class="text-center">
+              <a class="small" href="#">Mot de passe oublié ?</a>
+            </div>
+
+          </form>
+        </div>
+        <div class="col">
+          <h2>S'inscrire !</h2>
+
+          <form method="post" action="index.php?url=creatGroupe" id="inscription_form">
+            <div class="form-group">
+                <label for="inputStatut">Statut</label>
+                <select class="form-control" id="inputStatut">
+                    <option>Particulier</option>
+                    <option>Associations</option>
+                    <option>Entreprises</option>
+                    <option>Etablissements scolaires</option>
+                    <option>Services secours</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+              <label for="inputEmail">Email</label>
+              <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+            </div>
+
+            <div class="form-group">
+              <label for="inputPassword">Mot de passe</label>
+              <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+            </div>
+
+            <div class="custom-control custom-checkbox mb-3">
+              <label class="custom-control-label" for="customCheck1">Remember password</label>
+              <input type="checkbox" class="custom-control-input" id="customCheck1">
+            </div>
+
+            <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">S'inscrire</button>
+
+          </form>
+        </div>
+      </div>
+
+{% endblock %}
+
+
+
