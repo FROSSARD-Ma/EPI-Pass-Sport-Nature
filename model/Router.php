@@ -8,13 +8,17 @@ class Router {
 
     // ---- FRONT Controller -----------------------------------------------------
         /* Menu */
-        "home"      => ['FrontController','home'],
-        "404"       => ['FrontController','page404']
+        "home"          => ['FrontController','home'],
+        "404"           => ['FrontController','page404'],
+        "inscription"   => ['FrontController','inscription'],
+        
 
     // ---- BACK Controller -----------------------------------------------------
 
     // ---- USER Controller -----------------------------------------------------
-        
+        "creatGroupe"   => ['UserController','creatGroupe'],
+        "loginUser"     => ['UserController','loginUser'],
+
     ];
 
     public function __construct($url)
@@ -53,14 +57,14 @@ class Router {
             }
             else
             {
-                echo 'Page 404';
+                $nxView = new \Epi_Model\View('page404');
+                $nxView->getView();
             }
         }
         else
         {
-            // Redirection page accueil
-            echo 'Page accueil';
-
+            $nxView = new \Epi_Model\View('home');
+            $nxView->getView();
         }
     	
     }

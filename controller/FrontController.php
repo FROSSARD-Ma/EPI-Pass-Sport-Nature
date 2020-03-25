@@ -4,21 +4,27 @@ namespace Epi_Controller;
 class FrontController
 {
     /* Menu ----------------------------------- */
-     public function home($params) // $params = array : $params[1]
+    public function home($params)
     {
-		echo 'Page HOME';
+		$nxView = new \Epi_Model\View('home');
+        $nxView->getView();
     }
 
 
 
     /* Link Button ----------------------------*/
-    
+    public function inscription($params)
+    {
+        $nxView = new \Epi_Model\View('inscription');
+        $nxView->getView();
+    }
 
 
 
     /* Erreur 404  ----------------------------*/
     public function page404($params)
     {
-        echo 'Page 404';
+        $nxView = new \Epi_Model\View('page404');
+        $nxView->getView();
     }
 }

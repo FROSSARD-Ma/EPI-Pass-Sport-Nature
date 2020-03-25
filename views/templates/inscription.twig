@@ -1,0 +1,102 @@
+{% extends 'layout.twig' %}
+
+{% block title %}
+    <title>Inscritpion</title>
+{% endblock %}
+
+
+{% block headerpage %}
+    <h1 class="mt-4">Inscription</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Page d'inscription</li>
+    </ol>
+
+    <p>Ergo ego senator inimicus, si ita vultis, homini, amicus esse, sicut semper fui, rei publicae debeo. Quid? si ipsas inimicitias, depono rei publicae causa, quis me tandem iure reprehendet, praesertim cum ego omnium meorum consiliorum atque factorum exempla semper ex summorum hominum consiliis atque factis mihi censuerim petenda.</p>
+{% endblock %}
+
+
+{% block sidebar %}
+    <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-6">
+
+                <h2>S'inscrire !</h2>
+                <form method="post" action="creatGroupe">
+
+                    <!-- Groupe -->
+                    <div class="form-group">
+                        <label for="groupeStatut">Statut</label>
+                        <select class="form-control" id="groupeStatut" name="groupeStatut" autofocus>
+                            <option value="Particulier">Particulier</option>
+                            <option value="Associations">Associations</option>
+                            <option value="Entreprises">Entreprises</option>
+                            <option value="Etablissements scolaires">Etablissements scolaires</option>
+                            <option value="Services secours">Services secours</option>
+                            <option value="Autre">Autre</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="groupeName">Nom du groupe</label>
+                        <input type="text" id="groupeName" name="groupeName" class="form-control" placeholder="Nom de l'organisme" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="groupeMail">Email</label>
+                        <input type="email" id="groupeMail" name="groupeMail" class="form-control" placeholder="Adresse mail de l'organisme" required>
+                    </div>
+
+
+                    <!-- User -->
+                    <div class="form-group">
+                        <label for="userName">Nom du responsable</label>
+                        <input type="text" id="userName" name="userName" class="form-control" placeholder="Votre nom" required autofocus>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userFirstname">Prénom</label>
+                        <input type="text" id="userFirstname" name="userFirstname" class="form-control" placeholder="Votre prénom" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userStatut">Statut</label>
+                        <select class="form-control" id="userStatut" name="userStatut" autofocus>
+                            <option value="Responsable">Responsable</option>
+                            <option value="Controleur">Controleur</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="userMail">Email</label>
+                      <input type="email" id="userMail" name="userMail" class="form-control" placeholder="Votre adresse mail" required>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="userPass">Mot de passe</label>
+                      <input type="password" id="userPass" name="userPass" class="form-control" placeholder="Choisir un mot de passe" required>
+                    </div>
+
+                    <button class="btn btn-primary btn-block" type="submit">S'inscrire</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+           
+
+
+
+
+            
+
+
+                
