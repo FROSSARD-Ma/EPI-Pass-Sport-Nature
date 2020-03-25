@@ -57,8 +57,13 @@ class UserController
 		$creatUser = $UserManager->addUser($params);
 		if ($creatUser)
 		{
-			echo 'Utilisateur ajouté !!!!!! Yesss';
 			// Envoyer Email de confirmation
+
+
+
+			// Nouvelle page 
+			$nxView = new \Epi_Model\View('dashboard');
+			$nxView->getView();
 
 		}
 		else
@@ -66,14 +71,6 @@ class UserController
 			// Message erreur
 			echo 'le responsable n\a pas été créé';
 		}
-
-
-
-		
-
-	  
-					
-
 
 
 	}

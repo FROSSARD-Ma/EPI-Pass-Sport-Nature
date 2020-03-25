@@ -11,6 +11,7 @@ class Router {
         "home"          => ['FrontController','home'],
         "404"           => ['FrontController','page404'],
         "inscription"   => ['FrontController','inscription'],
+        "dashboard"     => ['FrontController','dashboard'],
         
 
     // ---- BACK Controller -----------------------------------------------------
