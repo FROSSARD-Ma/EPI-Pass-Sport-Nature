@@ -86,8 +86,8 @@ class UserController
 	    if ($mailExist)
 	    {
 	    	$nxUser = new \Epi_Model\User($mailExist);
-			$PassCorrect = password_verify($_POST['userPass'], $nxUser->getPass());
-			if ($PassCorrect)
+	    	
+			if (password_verify($_POST['userPass'], $nxUser->getPass()))
 			{
 				// enregistrement pour la session
 				$_SESSION['userId']			= $nxUser->getId();
