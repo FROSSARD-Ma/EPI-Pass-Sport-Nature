@@ -4,8 +4,18 @@ use \PDO;
 
 class UserManager extends Manager
 {
+
+    public function existUser($email)
+    {
+        $sql ='SELECT *
+            FROM EPI_users 
+            WHERE user_mail = ?';
+        $data = $this->reqSQL($sql, array (htmlspecialchars($email)), $one = true);
+        return $data;
+    }
+
     /*---  CREAT -------------------------------------------------------- */
-    public function addUser($groupeId)
+    public function addUser($groupeId, $nxPassCrypt)
     {
         $idGroupe = (int)$groupeId;
 
@@ -17,7 +27,7 @@ class UserManager extends Manager
         $data->bindValue(':name', htmlspecialchars($_POST['userName']), PDO::PARAM_STR);
         $data->bindValue(':firstname', htmlspecialchars($_POST['userFirstname']), PDO::PARAM_STR);
         $data->bindValue(':mail', htmlspecialchars($_POST['userMail']), PDO::PARAM_STR);
-        $data->bindValue(':pass', htmlspecialchars($_POST['userPass']), PDO::PARAM_STR);
+        $data->bindValue(':pass', htmlspecialchars($nxPassCrypt), PDO::PARAM_STR);
         $data->bindValue(':statut',htmlspecialchars($_POST['userStatut']), PDO::PARAM_STR);
         $data->execute();  
 
