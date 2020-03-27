@@ -18,7 +18,7 @@ class Router {
 
     // ---- USER Controller -----------------------------------------------------
         "creatGroupe"   => ['UserController','creatGroupe'],
-        "loginUser"     => ['UserController','loginUser'],
+        "loginUser"     => ['UserController','loginUser']
 
     ];
 
@@ -40,12 +40,35 @@ class Router {
         if (!isset($params)) $params = null;
         return $params;
     }
+
+    public function getCookie()
+    {
+        // Vérifie s'il existe un COOKIE
+        if (isset($_COOKIE['userMail']) && isset($_COOKIE['userPass'])) 
+        {   
+            // Vérifier si Utilisateur existe / mail
+            $mailManager = new \Epi_Model\UserManager; 
+            $mailExist = $mailManager->existUser($_COOKIE['userMail']);
+            if ($mailExist)
+            {
+                $nxUser = new \Epi_Model\User($mailExist);
+
+                if (password_verify($_COOKIE['userPass'], $nxUser->getPass()))
+                {
+                    // enregistrement pour la session
+                    $_SESSION['userId']         = $nxUser->getId();
+                    $_SESSION['userFirstname']  = $nxUser->getFirstname();
+                    $_SESSION['userStatut']     = $nxUser->getStatut();
+                }
+            }
+        }
+    }
     
 	public function run()
     {
+        $this->getCookie();
         $route = $this->getRoute();
         $params = $this->getParams();
-
         if(!empty($route))
         {
             if (key_exists($route, $this->_routes))
@@ -64,7 +87,15 @@ class Router {
         }
         else
         {
-            $nxView = new \Epi_Model\View('home');
+            if ($_SESSION['userId'])
+            {
+                $nxView = new \Epi_Model\View('dashboard');
+            }
+            else
+            {
+                $nxView = new \Epi_Model\View('home');
+            }
+           
             $nxView->getView();
         }
     	

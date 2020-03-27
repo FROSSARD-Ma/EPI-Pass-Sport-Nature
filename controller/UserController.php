@@ -77,7 +77,17 @@ class UserController
 
 	}
 
-	// ---- LOGIN ----------------------------------------------------
+	// ---- COOKIE -------------------------------------------
+	public function addCookieUser()
+	{
+		$dureeCookie = time()+ 365*24*3600; // 1 an
+		$secureHttpsCookie = true; // Https only
+
+		setcookie('userMail', $_POST['userMail'], $dureeCookie, null, null, $secureHttpsCookie, false);
+		setcookie('userPass', $_POST['userPass'], $dureeCookie, null, null, $secureHttpsCookie, false);
+	}
+
+	// ---- LOGIN -----------------------------------------------------
 	public function loginUser($params)
 	{
 		// Vérifier si Utilisateur existe / mail
@@ -86,13 +96,19 @@ class UserController
 	    if ($mailExist)
 	    {
 	    	$nxUser = new \Epi_Model\User($mailExist);
-	    	
+
 			if (password_verify($_POST['userPass'], $nxUser->getPass()))
 			{
 				// enregistrement pour la session
 				$_SESSION['userId']			= $nxUser->getId();
 				$_SESSION['userFirstname']	= $nxUser->getFirstname();
 		        $_SESSION['userStatut']		= $nxUser->getStatut();
+
+		        //-- Se SOUVENIR du MDP
+		        if (isset($_POST['userRemember']))
+		        { 
+		            $this->addCookieUser();
+		        }
 
 		        $nxView = new \Epi_Model\View('dashboard');
 		        $nxView->getView();
@@ -112,7 +128,6 @@ class UserController
 	    	$nxView = new \Epi_Model\View('home');
 		    $nxView->getView();
 	    }
-
 	}
 
 	// ---- PASS -----------------------------------------------------
