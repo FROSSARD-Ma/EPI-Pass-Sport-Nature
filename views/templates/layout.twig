@@ -11,42 +11,23 @@
     <!-- Feuille de style CSS -->
     <link href="public/css/style.css" rel="stylesheet"/>
 
-
-
-    
     {% block title %}
     {% endblock %}
-
 
   </head>
   <body>
     
     <!-- NAV bar-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-
-      <a class="navbar-brand" href="home">Gestion EPI - Pass'Sport Nature</a>
-
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-item nav-link active" href="home">Accueil</a>
-        </div>
-      </div>
-    </nav>
-    
+    {% include('navbarTop.twig') %}
+ 
     <div class="container-fluid">
       <div class="row">
 
-          <aside class="col-md-2 d-none d-md-block bg-light sidebar">
-            {% block sidebar %}
-            {% endblock %}
-          </aside>
+        {% block sidebar %}
+        {% endblock %}
 
           <!-- Main Content -->
-          <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+          <main role="main" class="col-md-6 ml-sm-auto col-lg-8 px-4">
             
             <!-- Header Page -->
             <header>
@@ -54,7 +35,7 @@
               {% endblock %}
             </header>
 
-            <article class="row">
+            <article class="container-fluid">
               {% block content %}
               {% endblock %}
             </article>
