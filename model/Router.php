@@ -14,7 +14,7 @@ class Router {
         "dashboard"     => ['FrontController','dashboard'],
         "nxPass"        => ['FrontController','nxPass'],
         "changePass"    => ['FrontController','changePass'],
-        
+        "deconnexion"   => ['FrontController','deconnexion'],
 
     // ---- BACK Controller -----------------------------------------------------
 

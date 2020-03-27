@@ -31,6 +31,21 @@ class FrontController
         $nxView->getView();
     }
 
+    public function deconnexion($params)
+    {
+        unset($_SESSION['userId']); 
+        unset($_SESSION['userFirstname']);
+        unset($_SESSION['userStatut']);
+
+        setcookie('userMail');
+        setcookie('userPass');
+
+        $_SESSION['message'] = 'Vous êtes déconnecté de votre espace !';
+
+        $nxView = new \Epi_Model\View('home');
+        $nxView->getView();
+    }
+
 
     /* Erreur 404  ----------------------------*/
     public function page404($params)
