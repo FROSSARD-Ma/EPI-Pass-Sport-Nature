@@ -12,14 +12,17 @@ class Router {
         "404"           => ['FrontController','page404'],
         "inscription"   => ['FrontController','inscription'],
         "dashboard"     => ['FrontController','dashboard'],
+        "nxPass"        => ['FrontController','nxPass'],
+        "changePass"    => ['FrontController','changePass'],
         
 
     // ---- BACK Controller -----------------------------------------------------
 
     // ---- USER Controller -----------------------------------------------------
         "creatGroupe"   => ['UserController','creatGroupe'],
-        "loginUser"     => ['UserController','loginUser']
-
+        "loginUser"     => ['UserController','loginUser'],
+        "askPassMail"   => ['UserController','askPassMail'],
+        "addPass"       => ['UserController','addPass']
     ];
 
     public function __construct($url)

@@ -1,0 +1,43 @@
+{% extends 'layout.twig' %}
+
+{% block title %}
+	<title>Mot de passe - Gestion EPI</title>
+{% endblock %}
+
+
+{% block headerpage %}
+	<h1 class="mt-4">Mon Compte</h1>
+	<ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Demande d'un nouveau mot de passe</li>
+    </ol>
+
+	<p>Ergo ego senator inimicus, si ita vultis, homini, amicus esse, sicut semper fui, rei publicae debeo. Quid? si ipsas inimicitias, depono rei publicae causa, quis me tandem iure reprehendet, praesertim cum ego omnium meorum consiliorum atque factorum exempla semper ex summorum hominum consiliis atque factis mihi censuerim petenda.</p>
+
+{% endblock %}
+
+
+{% block sidebar %}
+    {% include('sidebarImg.twig') %}
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <h2>Se connecter !</h2>
+            <form method="post" action="askPassMail">
+                <div class="form-group">
+                    <label for="userMail">Email</label>
+                    <input type="email" id="userMail" name="userMail" class="form-control" placeholder="Adresse Email" required autofocus>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Demander un nouveau mot de passe</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+

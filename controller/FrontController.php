@@ -19,6 +19,17 @@ class FrontController
         $nxView->getView();
     }
 
+    public function nxPass($params)
+    {
+        $nxView = new \Epi_Model\View('nxPass');
+        $nxView->getView();
+    }
+
+    public function changePass($params)
+    {
+        $nxView = new \Epi_Model\View('changePass');
+        $nxView->getView();
+    }
 
 
     /* Erreur 404  ----------------------------*/

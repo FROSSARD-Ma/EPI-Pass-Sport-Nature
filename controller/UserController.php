@@ -72,7 +72,7 @@ class UserController
 		else
 		{
 			// Message erreur
-			echo 'le responsable n\a pas été créé';
+echo 'le responsable n\a pas été créé';
 		}
 
 	}
@@ -115,7 +115,7 @@ class UserController
 		    }
 		    else
 		    {
-		       	// Message erreur
+		       	// erreur
 
 				$nxView = new \Epi_Model\View('home');
 		        $nxView->getView();
@@ -139,4 +139,82 @@ class UserController
         */
         return password_hash($password, PASSWORD_DEFAULT);
 	}
+	public function askPassMail()
+	{
+		// Vérifier si le mail existe
+		$mailManager = new \Epi_Model\UserManager; 
+	    $mailExist = $mailManager->existUser($_POST['userMail']);
+	    if ($mailExist)
+	    {
+	    	// Envoyer un email
+
+
+	    	// Faire message Pop-Up de confirmation
+			// JS
+			$_SESSION['message'] = 'Une demande de changement vous a été envoyé par Email !';
+			// Redirection page
+	    	$nxView = new \Epi_Model\View('home');
+		    $nxView->getView();
+	    }
+	    else
+	    {
+	    	// Erreur : vous n'êtes pas enregistré avec cet email
+echo 'vous n\'êtes pas enregistré avec cet email';
+
+	    	$nxView = new \Epi_Model\View('nxPass');
+		    $nxView->getView();
+	    }
+	}
+
+	public function addPass()
+	{
+		if(isset($_POST['userPass1']) AND !empty($_POST['userPass1'])
+			AND isset($_POST['userPass2'])
+			AND !empty($_POST['userPass2']))
+		{
+			if ($_POST['userPass1'] == $_POST['userPass2'])
+			{
+				$nxPassCrypt = $this->cryptPass($_POST['userPass1']);
+
+				$passManager = new \Epi_Model\UserManager; 
+			    if ($passManager->updatePass($_SESSION['userId'], $nxPassCrypt))
+			    {
+			    	
+			    	// Faire message Pop-Up de confirmation
+			    	// JS
+					$_SESSION['message'] = 'Votre mot de passe a été mis à jour !';
+			    	// Redirection page
+			    	$nxView = new \Epi_Model\View('home');
+				    $nxView->getView();
+			    }
+			    else
+			    {
+			    	// Erreur : vous n'êtes pas enregistré avec cet email
+echo 'vous n\'êtes pas enregistré avec cet email';
+			    	$nxView = new \Epi_Model\View('nxPass');
+				    $nxView->getView();
+			    }
+
+			}
+			else
+			{
+echo 'Les deux mot de passe ne correspondent pas';
+				$nxView = new \Epi_Model\View('changePass');
+				$nxView->getView();
+			}
+		}
+		else
+		{
+echo 'Il y a un problème';	
+			$nxView = new \Epi_Model\View('changePass');
+			$nxView->getView();		
+		}
+
+
+
+	}
+
+
+
+
 }
