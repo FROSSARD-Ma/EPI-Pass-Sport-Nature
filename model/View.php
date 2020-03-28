@@ -23,8 +23,6 @@ class View
 		// Ajout variable de SESSION
 		$twig->addGlobal('session', $_SESSION);
 
-		
-
 		echo $twig->render($this->_page . '.twig');
 		
 	}
@@ -34,6 +32,5 @@ class View
 		header('Location:'.HOST.'index.php?url='.$route);
 		exit;
 	}
-
 }
 ?>
