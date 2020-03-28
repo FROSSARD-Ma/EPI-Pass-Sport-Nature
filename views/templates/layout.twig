@@ -27,12 +27,16 @@
         {% endblock %}
 
           <!-- Main Content -->
-          <main role="main" class="col-md-6 ml-sm-auto col-lg-8 px-4">
+          <main role="main" class="col-md-6 ml-sm-auto col-lg-10 px-4">
             
             <!-- Header Page -->
             <header>
               {% block headerpage %}
               {% endblock %}
+
+              <section class="alert alert-success" role="alert">
+                  {{ session.message }}
+              </section>
             </header>
 
             <article class="container-fluid">

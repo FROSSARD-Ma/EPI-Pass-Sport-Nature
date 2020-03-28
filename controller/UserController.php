@@ -25,7 +25,8 @@ class UserController
 	    if ($mailExist) 
 	    {
 	    	// Message erreur
-			echo 'le mail existe !!!!!';
+echo 'ERREUR : le mail existe !!!!!';
+
 	    }
 	    else
 	    {
@@ -41,7 +42,7 @@ class UserController
 				else
 				{
 					// Message erreur
-					echo 'le groupe n\'a pas été créé';
+echo 'ERREUR : le groupe n\'a pas été créé';
 				}
 	    }
 
@@ -64,8 +65,7 @@ class UserController
 
 
 			// Message
-echo 'Email de confirmation';
-			$_SESSION['message'] = 'Votre inscription est validé. Vous allez recevoir un email de confirmation.';
+			$_SESSION['message'] = 'Votre inscription est validée ! Vous allez recevoir un email de confirmation.';
 			// Nouvelle page 
 			$nxView = new \Epi_Model\View('dashboard');
 			$nxView->getView();
@@ -74,7 +74,7 @@ echo 'Email de confirmation';
 		else
 		{
 			// erreur
-echo 'le responsable n\a pas été créé';
+echo 'ERREUR : votre compte n\a pas été créé.';
 
 			$nxView = new \Epi_Model\View('inscription');
 			$nxView->getView();
@@ -113,7 +113,6 @@ echo 'le responsable n\a pas été créé';
 		        { 
 		            $this->addCookieUser();
 		        }
-
 		        $nxView = new \Epi_Model\View('dashboard');
 		        $nxView->getView();
 		    }
@@ -143,6 +142,7 @@ echo 'ERREUR : aucun compte n\'est enregistré avec cet email !';
         */
         return password_hash($password, PASSWORD_DEFAULT);
 	}
+
 	public function askPassMail()
 	{
 		// Vérifier si le mail existe
@@ -154,7 +154,6 @@ echo 'ERREUR : aucun compte n\'est enregistré avec cet email !';
 // penser à rajouter l'id user
 
 	    	// Message
-echo 'Une demande de changement vous a été envoyé par Email !';		
 			$_SESSION['message'] = 'Une demande de changement vous a été envoyé par Email !';
 			// Redirection page
 	    	$nxView = new \Epi_Model\View('home');
@@ -183,9 +182,7 @@ echo 'ERREUR : aucun compte n\'est enregistré avec cet Email !';
 				$passManager = new \Epi_Model\UserManager; 
 			    if ($passManager->updatePass($_SESSION['userId'], $nxPassCrypt))
 			    {
-			    	
-			    	// Message
-echo 'Votre mot de passe a été mis à jour !';			    	
+			    	// Message		    	
 					$_SESSION['message'] = 'Votre mot de passe a été mis à jour !';
 			    	// Redirection page
 			    	$nxView = new \Epi_Model\View('home');
