@@ -4,19 +4,29 @@ use \PDO;
 
 class GroupeManager extends Manager
 {
-    /*---  CREAT -------------------------------------------------------- */
-    public function addGroupe()
-    {
-        $sql ='INSERT INTO EPI_groupes(groupe_name, groupe_mail, groupe_statut, groupe_notification)
-            VALUES(:name, :mail, :statut, :notification)';
-        $datas = $this->getPDO()->prepare($sql);
-        $datas->bindValue(':title', htmlspecialchars($_POST['name']), PDO::PARAM_STR);
-        $datas->bindValue(':mail', htmlspecialchars($_POST['mail']), PDO::PARAM_STR); 
-        $datas->bindValue(':statut',htmlspecialchars($_POST['statut']), PDO::PARAM_STR);
-        $datas->bindValue(':notification', htmlspecialchars($_POST['notification']), PDO::PARAM_STR); 
-        $datas->execute();  
 
-        return $datas;
+    public function existGroupe($email)
+    {
+        $sql ='SELECT *
+            FROM EPI_groupes 
+            WHERE groupe_mail = ?';
+        $data = $this->reqSQL($sql, array (htmlspecialchars($email)), $one = true);
+        return $data;
+    }
+
+    /*---  CREAT -------------------------------------------------------- */
+    public function addGroupe($groupeName, $groupeMail, $groupeStatut)
+    {
+        $sql ='INSERT INTO EPI_groupes(groupe_name, groupe_mail, groupe_statut)
+            VALUES(:name, :mail, :statut)';
+        $data = $this->getPDO()->prepare($sql);
+        $data->bindValue(':name', htmlspecialchars($groupeName), PDO::PARAM_STR);
+        $data->bindValue(':mail', htmlspecialchars($groupeMail), PDO::PARAM_STR); 
+        $data->bindValue(':statut',htmlspecialchars($groupeStatut), PDO::PARAM_STR);
+        $data->execute();
+
+        $lastInsertId = $this->getPDO()->lastInsertId();
+        return $lastInsertId;
     }
 
     /*---  READ ---------------------------------------------------------- */
@@ -26,11 +36,11 @@ class GroupeManager extends Manager
 
         $sql = 'SELECT * FROM EPI_groupes WHERE groupe_id =:id';
 
-        $datas = $this->getPDO()->prepare($sql);
-        $datas->bindValue(':idGroupe', $idGroupe, PDO::PARAM_STR);
-        $datas->execute(); 
+        $data = $this->getPDO()->prepare($sql);
+        $data->bindValue(':idGroupe', $idGroupe, PDO::PARAM_STR);
+        $data->execute(); 
         
-        return $datas;
+        return $data;
     }
 
     /*---  UPDATE -------------------------------------------------------- */
@@ -42,14 +52,14 @@ class GroupeManager extends Manager
             SET groupe_name = :name, groupe_mail=:mail, groupe_notification=:notification
             WHERE  groupe_id = :idGroupe';
 
-        $datas = $this->getPDO()->prepare($sql);
-        $datas->bindValue(':name',       htmlspecialchars($_POST['name']), PDO::PARAM_INT); 
-        $datas->bindValue(':mail',     htmlspecialchars($_POST['mail']), PDO::PARAM_STR);
-        $datas->bindValue(':notification',   $_POST['notification'], PDO::PARAM_STR);
-        $datas->bindValue(':idGroupe', $idGroupe, PDO::PARAM_STR); 
-        $datas->execute();
+        $data = $this->getPDO()->prepare($sql);
+        $data->bindValue(':name',       htmlspecialchars($_POST['name']), PDO::PARAM_INT); 
+        $data->bindValue(':mail',     htmlspecialchars($_POST['mail']), PDO::PARAM_STR);
+        $data->bindValue(':notification',   $_POST['notification'], PDO::PARAM_STR);
+        $data->bindValue(':idGroupe', $idGroupe, PDO::PARAM_STR); 
+        $data->execute();
 
-        return $datas;
+        return $data;
     }
 
     /*---  DELETE -------------------------------------------------------- */
