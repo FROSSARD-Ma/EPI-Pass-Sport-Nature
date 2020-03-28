@@ -20,6 +20,8 @@ class View
 		$twig = new \Twig\Environment($loader, [
 		    'cache' => false, // __DIR__ .'/compilation_cache',
 		]);
+		// Ajout variable de SESSION
+		$twig->addGlobal('session', $_SESSION);
 
 		
 
