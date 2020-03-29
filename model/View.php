@@ -26,11 +26,5 @@ class View
 		echo $twig->render($this->_page . '.twig');
 		
 	}
-
-	public function redirect($route)
-	{
-		header('Location:'.HOST.'index.php?url='.$route);
-		exit;
-	}
 }
 ?>
