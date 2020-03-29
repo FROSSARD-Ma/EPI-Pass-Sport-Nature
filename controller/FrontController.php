@@ -46,6 +46,12 @@ class FrontController
         $nxView->getView();
     }
 
+    public function account($params)
+    {
+        $nxView = new \Epi_Model\View('account');
+        $nxView->getView();
+    }
+
 
     /* Erreur 404  ----------------------------*/
     public function page404($params)
