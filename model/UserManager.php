@@ -56,25 +56,25 @@ class UserManager extends Manager
     }
 
     /*---  UPDATE -------------------------------------------------------- */
-    public function updateUser($id)
+    public function updateUser($id, $nxPass)
     {
         $idUser = (int)$id;
 
         $sql ='UPDATE EPI_users 
-            SET user_mail=:mail, user_pass = :pass, user_notification=:notification, user_statut=:statut
+            SET user_mail=:mail, user_pass = :pass, user_notification=:notification
             WHERE  user_id = :id';
 
         $data = $this->getPDO()->prepare($sql);
         $data->bindValue(':mail', htmlspecialchars($_POST['mail']), PDO::PARAM_STR);
-        $data->bindValue(':pass', htmlspecialchars($_POST['pass']), PDO::PARAM_STR);
+        $data->bindValue(':pass', htmlspecialchars($nxPass), PDO::PARAM_STR);
         $data->bindValue(':notification', $_POST['notification'], PDO::PARAM_STR);
-        $data->bindValue(':statut', htmlspecialchars($_POST['statut']), PDO::PARAM_STR);
         $data->bindValue(':id', $idUser, PDO::PARAM_STR); 
         $data->execute();
 
         return $data;
     }
-     public function updatePass($id, $nxPass)
+
+    public function updatePass($id, $nxPass)
     {
         $idUser = (int)$id;
 

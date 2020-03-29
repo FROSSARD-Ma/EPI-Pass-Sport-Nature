@@ -18,7 +18,12 @@ class FrontController
         $nxView = new \Epi_Model\View('inscription');
         $nxView->getView();
     }
-
+    public function dashboard($params)
+    {
+        $nxView = new \Epi_Model\View('dashboard');
+        $nxView->getView();
+    }
+    
     public function nxPass($params)
     {
         $nxView = new \Epi_Model\View('nxPass');

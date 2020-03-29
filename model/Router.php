@@ -15,7 +15,7 @@ class Router {
         "nxPass"        => ['FrontController','nxPass'],
         "changePass"    => ['FrontController','changePass'],
         "deconnexion"   => ['FrontController','deconnexion'],
-        "account"        => ['FrontController','account'],
+        "account"       => ['FrontController','account'],
 
         
     // ---- BACK Controller -----------------------------------------------------
@@ -23,6 +23,7 @@ class Router {
     // ---- USER Controller -----------------------------------------------------
         "creatGroupe"   => ['UserController','creatGroupe'],
         "loginUser"     => ['UserController','loginUser'],
+        "upUser"        => ['UserController','upUser'],
         "askPassMail"   => ['UserController','askPassMail'],
         "addPass"       => ['UserController','addPass']
     ];

@@ -4,6 +4,11 @@
 	<title>Mon compte - Gestion EPI</title>
 {% endblock %}
 
+{% block sidebar %}
+    {% include('sidebarNav.twig') %}
+{% endblock %}
+
+
 {% block headerpage %}
 
 	<h1 class="mt-4">Mon compte</h1>
@@ -11,18 +16,51 @@
         <li class="breadcrumb-item active">Gestion du compte {{ session.userFirstname }}</li>
     </ol>
 
-	<p>Ergo ego senator inimicus, si ita vultis, homini, amicus esse, sicut semper fui, rei publicae debeo. Quid? si ipsas inimicitias, depono rei publicae causa, quis me tandem iure reprehendet, praesertim cum ego omnium meorum consiliorum atque factorum exempla semper ex summorum hominum consiliis atque factis mihi censuerim petenda.</p>
+	<p>Ergo ego senator inimicus, si ita vultis, homini, amicus esse, sicut semper fui, rei publicae debeo. Quid? si ipsas inimicitias, depono rei publicae causa, quis me tandem iure reprehendet.</p>
 {% endblock %}
 
 
-{% block sidebar %}
-    {% include('sidebarNav.twig') %}
-{% endblock %}
-
-
-{% block content %}
-
+{% block content %} 
     
-   
+    <section class="row justify-content-center">
+        <div class="col-8 alert-primary">
+            <p>Nom du groupe : </p>
+            <p>Nom : </p>
+            <p>Prénom : </p>
+            <p>Statut : </p>
+            <p>Date inscritpion</p>
+        </div>
+    </section>
+    <section class="row">
+        <div class="col-10">
+            <h3>Modification du compte</h3>
+            <form method="post" action="upUser">
+                <div class="form-group">
+                  <label for="userMail" class="sr-only">Email</label>
+                  <input type="email" id="userMail" name="userMail" class="form-control" placeholder="Votre adresse mail" required>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="userNotification" name="userNotification">
+                    <label for="userNotification">Activer les notification par Email</label>
+                </div>
+
+                <div class="form-group">
+                    <label for="userPass1" class="sr-only">Nouveau Mot de passe</label>
+                    <input type="password" id="userPass1" name="userPass1" class="form-control" placeholder="Choisir un mot de passe" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="userPass2" class="sr-only">Confirmer le nouveau le mot de passe</label>
+                    <input type="password" id="userPass2" name="userPass2" class="form-control" placeholder="Confirmer le mot de passe" required>
+                     <small id="passwordHelpBlock" class="form-text text-muted">
+                      Votre mot de passe doit comporter de 8 à 20 caractères, contenir des lettres et des chiffres, et ne doit pas contenir d'espaces, de caractères spéciaux ou d'emoji.
+                    </small>
+                </div>
+
+                <button class="btn btn-primary btn-block" type="submit">Modifier</button>
+            </form>    
+        </div>
+    </section>
 
 {% endblock %}

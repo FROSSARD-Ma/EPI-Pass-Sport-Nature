@@ -86,6 +86,51 @@ class UserController
 		}
 	}
 
+	public function upUser($userId)
+	{
+		try
+		{
+			// Changement EMAIL
+			if(isset($_POST['userMail']) AND !empty($_POST['userMail']))
+			{
+				// Changement MOT DE PASSE 
+				if (isset($_POST['userPass1']) AND isset($_POST['userPass2']) AND ($_POST['userPass1'] == $_POST['userPass2']))
+				{
+					$nxPassCrypt = $this->cryptPass($_POST['userPass1']);
+
+					$passManager = new \Epi_Model\UserManager; 
+				    if ($passManager->updateUser($_SESSION['userId'], $nxPassCrypt))
+				    {
+				    	// Message		    	
+						$_SESSION['message'] = 'Votre compte a été mis à jour !';
+				    	// Redirection page
+				    	$nxView = new \Epi_Model\View('account');
+					    $nxView->getView();
+					}
+					else
+					{
+						// Message erreur
+						throw new \Epi_Model\AppException('les deux mots de passe ne sont pas identique', 'account');
+					}
+				}
+				else
+				{
+					// Message erreur
+					throw new \Epi_Model\AppException('les deux mots de passe ne sont pas identique', 'account');
+				}
+			}
+			else
+			{
+				// Message erreur
+				throw new \Epi_Model\AppException('une adresse Email valide est obligatoire', 'account');
+			}
+		}
+		catch (\Epi_Model\AppException $e)
+		{
+			$e->getRedirection();
+		}
+	}
+
 	// ---- COOKIE -------------------------------------------
 	public function addCookieUser()
 	{
@@ -158,7 +203,7 @@ class UserController
 		    if ($mailExist)
 		    {
 		    	// Envoyer un email
-	// penser à rajouter l'id user
+		// penser à rajouter l'id user
 
 		    	// Message
 				$_SESSION['message'] = 'Une demande de changement vous a été envoyé par Email !';
