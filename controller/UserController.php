@@ -6,80 +6,84 @@ class UserController
 	// ---- GROUPE  -----------------------------------------------------
 	public function creatGroupe($params)
 	{
-    	/* Particulier */
-		if ($_POST['groupeStatut'] == 'Particulier')
+		try
 		{
-			$groupeName		= $_POST['userName'];
-			$groupeMail		= $_POST['userMail'];
-		} 
-		/* Groupe */
-		else
-		{
-			$groupeName		= $_POST['groupeName'];
-			$groupeMail		= $_POST['groupeMail'];
+			/* Particulier */
+			if ($_POST['groupeStatut'] == 'Particulier')
+			{
+				$groupeName		= $_POST['userName'];
+				$groupeMail		= $_POST['userMail'];
+			} 
+			/* Groupe */
+			else
+			{
+				$groupeName		= $_POST['groupeName'];
+				$groupeMail		= $_POST['groupeMail'];
+			}
+
+			// Vérifier si Mail existe déjà
+			$mailManager = new \Epi_Model\GroupeManager; 
+		    $mailExist = $mailManager->existGroupe($groupeMail);
+		    if ($mailExist) 
+		    {
+		    	// Message erreur
+				throw new \Epi_Model\AppException('Un compte existe déjà avec cet mail.', 'home');
+		    }
+		    else
+		    {
+		    	// Ajout utilisateur
+					$groupeStatut 	= $_POST['groupeStatut'];
+
+					$groupeManager = new \Epi_Model\GroupeManager; 
+					$creatGroupe = $groupeManager->addGroupe($groupeName, $groupeMail, $groupeStatut);
+					if ($creatGroupe) 
+		    		{
+						$this->creatUser($creatGroupe);
+					}
+					else
+					{
+						// Message erreur
+						throw new \Epi_Model\AppException('il y a eu un problème, le groupe n\'a pas été créé', 'inscription');
+					}
+		    }
 		}
-
-		// Vérifier si Mail existe déjà
-		$mailManager = new \Epi_Model\GroupeManager; 
-	    $mailExist = $mailManager->existGroupe($groupeMail);
-	    if ($mailExist) 
-	    {
-	    	// Message erreur
-echo 'ERREUR : le mail existe !!!!!';
-
-	    }
-	    else
-	    {
-	    	// Ajout utilisateur
-				$groupeStatut 	= $_POST['groupeStatut'];
-
-				$groupeManager = new \Epi_Model\GroupeManager; 
-				$creatGroupe = $groupeManager->addGroupe($groupeName, $groupeMail, $groupeStatut);
-				if ($creatGroupe) 
-	    		{
-					$this->creatUser($creatGroupe);
-				}
-				else
-				{
-					// Message erreur
-echo 'ERREUR : le groupe n\'a pas été créé';
-				}
-	    }
-
-		// Nouvelle page 
-		$nxView = new \Epi_Model\View();
-
+		catch (\Epi_Model\AppException $e)
+		{
+			$e->getRedirection();
+		}
 	}
 
 	// ---- USER  -----------------------------------------------------
 	public function creatUser($groupeId)
 	{
-		
-		$nxPassCrypt = $this->cryptPass($_POST['userPass']);
-
- 		$UserManager = new \Epi_Model\UserManager; 
-		$creatUser = $UserManager->addUser($groupeId, $nxPassCrypt);
-		if ($creatUser)
+		try
 		{
-			// Envoyer Email de confirmation
+			$nxPassCrypt = $this->cryptPass($_POST['userPass']);
+
+	 		$UserManager = new \Epi_Model\UserManager; 
+			$creatUser = $UserManager->addUser($groupeId, $nxPassCrypt);
+			if ($creatUser)
+			{
+				// Envoyer Email de confirmation
 
 
-			// Message
-			$_SESSION['message'] = 'Votre inscription est validée ! Vous allez recevoir un email de confirmation.';
-			// Nouvelle page 
-			$nxView = new \Epi_Model\View('dashboard');
-			$nxView->getView();
+				// Message
+				$_SESSION['message'] = 'Votre inscription est validée ! Vous allez recevoir un email de confirmation.';
+				// Nouvelle page 
+				$nxView = new \Epi_Model\View('dashboard');
+				$nxView->getView();
+			}
+			else
+			{
+				// Message erreur
+				throw new \Epi_Model\AppException('votre compte n\a pas été créé.', 'inscription');
+			}
+
 		}
-
-		else
+		catch (\Epi_Model\AppException $e)
 		{
-			// erreur
-echo 'ERREUR : votre compte n\a pas été créé.';
-
-			$nxView = new \Epi_Model\View('inscription');
-			$nxView->getView();
+			$e->getRedirection();
 		}
-
 	}
 
 	// ---- COOKIE -------------------------------------------
@@ -95,42 +99,43 @@ echo 'ERREUR : votre compte n\a pas été créé.';
 	// ---- LOGIN -----------------------------------------------------
 	public function loginUser($params)
 	{
-		// Vérifier si Utilisateur existe / mail
-		$mailManager = new \Epi_Model\UserManager; 
-	    $mailExist = $mailManager->existUser($_POST['userMail']);
-	    if ($mailExist)
-	    {
-	    	$nxUser = new \Epi_Model\User($mailExist);
-			if (password_verify($_POST['userPass'], $nxUser->getPass()))
-			{
-				// enregistrement pour la session
-				$_SESSION['userId']			= $nxUser->getId();
-				$_SESSION['userFirstname']	= $nxUser->getFirstname();
-		        $_SESSION['userStatut']		= $nxUser->getStatut();
+		try
+		{
+			// Vérifier si Utilisateur existe / mail
+			$mailManager = new \Epi_Model\UserManager; 
+		    $mailExist = $mailManager->existUser($_POST['userMail']);
+		    if ($mailExist)
+		    {
+		    	$nxUser = new \Epi_Model\User($mailExist);
+				if (password_verify($_POST['userPass'], $nxUser->getPass()))
+				{
+					// enregistrement pour la session
+					$_SESSION['userId']			= $nxUser->getId();
+					$_SESSION['userFirstname']	= $nxUser->getFirstname();
+			        $_SESSION['userStatut']		= $nxUser->getStatut();
 
-		        //-- Se SOUVENIR du MDP
-		        if (isset($_POST['userRemember']))
-		        { 
-		            $this->addCookieUser();
-		        }
-		        $nxView = new \Epi_Model\View('dashboard');
-		        $nxView->getView();
+			        //-- Se SOUVENIR du MDP
+			        if (isset($_POST['userRemember']))
+			        { 
+			            $this->addCookieUser();
+			        }
+			        $nxView = new \Epi_Model\View('dashboard');
+			        $nxView->getView();
+			    }
+			    else
+			    {
+					throw new \Epi_Model\AppException('Votre mot de passe n\'est pas valide !', 'home');
+			    }
 		    }
 		    else
 		    {
-		       	// erreur
-echo 'ERREUR : votre mot de passe n\'est pas valide !';
-				$nxView = new \Epi_Model\View('home');
-		        $nxView->getView();
+				throw new \Epi_Model\AppException('Aucun compte n\'est enregistré avec cet email !','home');
 		    }
-	    }
-	    else
-	    {
-	    	// erreur
-echo 'ERREUR : aucun compte n\'est enregistré avec cet email !';
-	    	$nxView = new \Epi_Model\View('home');
-		    $nxView->getView();
-	    }
+		}
+		catch (\Epi_Model\AppException $e)
+		{
+			$e->getRedirection();
+		}
 	}
 
 	// ---- PASS -----------------------------------------------------
@@ -145,77 +150,74 @@ echo 'ERREUR : aucun compte n\'est enregistré avec cet email !';
 
 	public function askPassMail()
 	{
-		// Vérifier si le mail existe
-		$mailManager = new \Epi_Model\UserManager; 
-	    $mailExist = $mailManager->existUser($_POST['userMail']);
-	    if ($mailExist)
-	    {
-	    	// Envoyer un email
-// penser à rajouter l'id user
+		try
+		{
+			// Vérifier si le mail existe
+			$mailManager = new \Epi_Model\UserManager; 
+		    $mailExist = $mailManager->existUser($_POST['userMail']);
+		    if ($mailExist)
+		    {
+		    	// Envoyer un email
+	// penser à rajouter l'id user
 
-	    	// Message
-			$_SESSION['message'] = 'Une demande de changement vous a été envoyé par Email !';
-			// Redirection page
-	    	$nxView = new \Epi_Model\View('home');
-		    $nxView->getView();
-	    }
-	    else
-	    {
-	    	// Erreur : vous n'êtes pas enregistré avec cet email
-echo 'ERREUR : aucun compte n\'est enregistré avec cet Email !';
-
-	    	$nxView = new \Epi_Model\View('nxPass');
-		    $nxView->getView();
-	    }
+		    	// Message
+				$_SESSION['message'] = 'Une demande de changement vous a été envoyé par Email !';
+				// Redirection page
+		    	$nxView = new \Epi_Model\View('home');
+			    $nxView->getView();
+		    }
+		    else
+		    {
+		    	// Message erreur
+				throw new \Epi_Model\AppException('aucun compte n\'est enregistré avec cet Email !', 'nxPass');
+		    }
+		}
+		catch (\Epi_Model\AppException $e)
+		{
+			$e->getRedirection();
+		}
 	}
 
 	public function addPass()
 	{
-		if(isset($_POST['userPass1']) AND !empty($_POST['userPass1'])
-			AND isset($_POST['userPass2'])
-			AND !empty($_POST['userPass2']))
+		try 
 		{
-			if ($_POST['userPass1'] == $_POST['userPass2'])
+			if(isset($_POST['userPass1']) AND !empty($_POST['userPass1']) AND isset($_POST['userPass2'])AND !empty($_POST['userPass2']))
 			{
-				$nxPassCrypt = $this->cryptPass($_POST['userPass1']);
+				if ($_POST['userPass1'] == $_POST['userPass2'])
+				{
+					$nxPassCrypt = $this->cryptPass($_POST['userPass1']);
 
-				$passManager = new \Epi_Model\UserManager; 
-			    if ($passManager->updatePass($_SESSION['userId'], $nxPassCrypt))
-			    {
-			    	// Message		    	
-					$_SESSION['message'] = 'Votre mot de passe a été mis à jour !';
-			    	// Redirection page
-			    	$nxView = new \Epi_Model\View('home');
-				    $nxView->getView();
-			    }
-			    else
-			    {
-			    	// Erreur : vous n'êtes pas enregistré avec cet email
-echo 'ERREUR : aucun compte n\'est enregistré avec cet Email !';
-			    	$nxView = new \Epi_Model\View('nxPass');
-				    $nxView->getView();
-			    }
-
+					$passManager = new \Epi_Model\UserManager; 
+				    if ($passManager->updatePass($_SESSION['userId'], $nxPassCrypt))
+				    {
+				    	// Message		    	
+						$_SESSION['message'] = 'Votre mot de passe a été mis à jour !';
+				    	// Redirection page
+				    	$nxView = new \Epi_Model\View('home');
+					    $nxView->getView();
+				    }
+				    else
+				    {
+				    	// Message erreur
+						throw new \Epi_Model\AppException('aucun compte n\'est enregistré avec cet Email !', 'nxPass');
+				    }
+				}
+				else
+				{
+					// Message erreur
+					throw new \Epi_Model\AppException('les deux mots de passe ne correspondent pas !', 'changePass');
+				}
 			}
 			else
 			{
-echo 'ERREUR : les deux mot de passe ne correspondent pas';
-				$nxView = new \Epi_Model\View('changePass');
-				$nxView->getView();
+				// Message erreur
+				throw new \Epi_Model\AppException('les deux mots de passes n\'ont pas été renseignés', 'changePass');	
 			}
-		}
-		else
+		}	
+		catch (\Epi_Model\AppException $e)
 		{
-echo 'ERREUR : il y a un problème';	
-			$nxView = new \Epi_Model\View('changePass');
-			$nxView->getView();		
+			$e->getRedirection();
 		}
-
-
-
 	}
-
-
-
-
 }
