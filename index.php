@@ -20,4 +20,8 @@ $url = $_GET['url'];
 $router = new Epi_Model\Router($url);
 $router->run();
 
+//== GESTION SESSION =================
+unset($_SESSION['message']);
+unset($_SESSION['erreur']);
+
 ?>
