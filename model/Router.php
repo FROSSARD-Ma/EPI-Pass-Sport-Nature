@@ -23,7 +23,8 @@ class Router {
     // ---- USER Controller -----------------------------------------------------
         "creatGroupe"   => ['UserController','creatGroupe'],
         "loginUser"     => ['UserController','loginUser'],
-        "upUser"        => ['UserController','upUser'],
+        "upMail"        => ['UserController','upMail'],
+        "upPass"        => ['UserController','upPass'],
         "askPassMail"   => ['UserController','askPassMail'],
         "addPass"       => ['UserController','addPass']
     ];
