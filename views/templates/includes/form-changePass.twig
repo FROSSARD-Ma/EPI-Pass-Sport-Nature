@@ -1,0 +1,16 @@
+<form method="post" action="addPass">
+    <div class="form-group">
+        <label for="userPass1">Nouveau Mot de passe</label>
+        <input type="password" id="userPass1" name="userPass1" class="form-control" placeholder="Choisir un mot de passe" required>
+    </div>
+
+    <div class="form-group">
+        <label for="userPass2">Confirmer le nouveau le mot de passe</label>
+        <input type="password" id="userPass2" name="userPass2" class="form-control" placeholder="Confirmer le mot de passe" required>
+        <small id="passwordHelpBlock" class="form-text text-muted">
+          Votre mot de passe doit comporter de 8 à 20 caractères, contenir des lettres et des chiffres, et ne doit pas contenir d'espaces, de caractères spéciaux ou d'emoji.
+        </small>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Changer Mot de passe</button>
+</form>
