@@ -53,8 +53,15 @@ class FrontController
 
     public function account($params)
     {
+ 
+        $UserManager = new \Epi_Model\UserManager; 
+        $dataUser = $UserManager->getUser($_SESSION['userId']);
+
+        $user = new \Epi_Model\User($dataUser); // hydratation
+
         $nxView = new \Epi_Model\View('account');
-        $nxView->getView();
+        $nxView->getView(array (
+            'user'=> $user));
     }
 
 

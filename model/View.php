@@ -13,7 +13,7 @@ class View
 	public function getView($datas = array()) /* Crée tableau pour pouvoir récupérer plusieurs variable GET */
 	{
 		// crée dynamiquement la variable après avoir parcouru $datas
-		extract($datas);  // resultat : $entite
+		//extract($datas);  // resultat : $entite
 
 		//== TEMPLATING - TWIG =========================
 		$loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../views/templates');
@@ -23,7 +23,7 @@ class View
 		// Ajout variable de SESSION
 		$twig->addGlobal('session', $_SESSION);
 
-		echo $twig->render($this->_page . '.twig');
+		echo $twig->render($this->_page . '.twig', $datas);
 		
 	}
 }

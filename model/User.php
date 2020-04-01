@@ -157,7 +157,7 @@ class User extends Manager
         $date = new DateTime($dateCreated);
         $this->_user_inscription = $date->format('d-m-Y');
     }
-    public function setGroupe($groupe)
+    public function setE_name ($groupe) // Groupe name Pb hydratation
     {
         if (is_string($groupe))
         {

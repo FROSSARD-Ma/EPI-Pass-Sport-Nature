@@ -35,23 +35,28 @@ class UserManager extends Manager
     }
 
     /*---  READ ---------------------------------------------------------- */
+    
+    public function getGroupe($id)
+    {
+        $idGroupe = (int)$id;
+        $sql =' SELECT *
+                FROM EPI_groupes 
+                WHERE groupe_id =?';
+        $data = $this->reqSQL($sql, array ($idGroupe), $one = true);
+        return $data;
+    }
+
+
     public function getUser($id)
     {
         $idUser = (int)$id;
 
-        $sql = 'SELECT EPI_users.*, EPI_groupes.groupe_name
-
-            FROM EPI_users 
-
+        $sql =' SELECT EPI_users.*, EPI_groupes.groupe_name
+                FROM EPI_users 
                 JOIN EPI_groupes
                      ON EPI_users.user_groupeId=EPI_groupes.groupe_id
-
-            WHERE user_id =:id';
-
-        $data = $this->getPDO()->prepare($sql);
-        $data->bindValue(':id', $idUser, PDO::PARAM_STR);
-        $data->execute(); 
-        
+                WHERE user_id =?';
+        $data = $this->reqSQL($sql, array ($idUser), $one = true);
         return $data;
     }
 
