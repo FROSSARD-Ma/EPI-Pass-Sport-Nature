@@ -24,3 +24,17 @@
 }
 
 
+/* FORMULAIRE ===================== */
+
+/* Message ERREUR - PARLSEY */
+.parsley-errors-list {
+	color: #dc3545;
+	font-size: small;
+	list-style: none;
+	margin-left: -40px;
+}
+
+.parsley-error {
+	border-color: #dc3545;
+}
+
