@@ -157,8 +157,24 @@ class UserController
 		    $mailExist = $mailManager->existUser($_POST['userMail']);
 		    if ($mailExist)
 		    {
+		    	// Récuperation idUser
+				$nxUser = new \Epi_Model\User($mailExist);
+				$userId = $nxUser->getId();
+
 		    	// Envoyer un email
-	// penser à rajouter l'id user
+		    	$object = 'Changement de mot de passe';
+		    	$to = $_POST['userMail'];
+		    	$message = "
+	                <h2>Demande de modification de mot de passe</h2>
+	                <br>
+	                <p>Bonjour,</p>
+	                <p>Vous pouvez modifier votre mot de passe a cette adresse :
+	                <a href='https://epi.pass-sport-nature.fr/changePass/id/$userId'>Initialiser un nouveau mon mot de passe</a>
+	                </p>
+		    	";
+
+		    	$nxEmail = new \Epi_Model\Email($object, $to, $message);
+			    $nxEmail->sendEmail();
 
 		    	// Message
 				$_SESSION['message'] = 'Une demande de changement vous a été envoyé par Email !';
