@@ -27,8 +27,21 @@ class FrontController
 
     public function changePass($params)
     {
-        $nxView = new \Epi_Model\View('changePass');
-        $nxView->getView();
+
+        echo $_POST['userMail'];exit;
+        // Vérifier si le mail existe
+            $mailManager = new \Epi_Model\UserManager; 
+            $mailExist = $mailManager->existUser($_POST['userMail']);
+            if ($mailExist)
+            {
+            // Récuperation idUser
+            $nxUser = new \Epi_Model\User($mailExist);
+            $userMail= $nxUser->getMail();
+
+            $nxView = new \Epi_Model\View('changePass');
+            $nxView->getView(array ('userId' => $userMail));
+            }
+
     }
 
     public function deconnexion($params)

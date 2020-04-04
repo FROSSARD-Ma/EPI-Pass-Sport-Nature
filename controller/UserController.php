@@ -160,17 +160,23 @@ class UserController
 		    	// Récuperation idUser
 				$nxUser = new \Epi_Model\User($mailExist);
 				$userId = $nxUser->getId();
+				$userMail= $nxUser->getMail();
 
 		    	// Envoyer un email
 		    	$object = 'Changement de mot de passe';
 		    	$to = $_POST['userMail'];
 		    	$message = "
 	                <h2>Demande de modification de mot de passe</h2>
-	                <br>
-	                <p>Bonjour,</p>
-	                <p>Vous pouvez modifier votre mot de passe a cette adresse :
-	                <a href='https://epi.pass-sport-nature.fr/changePass/id/$userId'>Initialiser un nouveau mon mot de passe</a>
-	                </p>
+	                <div>
+		                <p>Bonjour,</p>
+		                <p>Vous souhaitez modifier votre mot de passe :</p>
+		               	<br>
+		                <form method='post' action='https://epi.pass-sport-nature.fr/changePass'>
+							<input type='hidden' id='userMail' name='userMail' value='$userMail'>
+							<button type='submit'>Changer de Mot de passe</button>
+		                </form>
+		                <br>
+		            </div>
 		    	";
 
 		    	$nxEmail = new \Epi_Model\Email($object, $to, $message);
@@ -196,39 +202,57 @@ class UserController
 
 	public function addPass()
 	{
-		try 
+		try
 		{
-			if(isset($_POST['userPass1']) AND !empty($_POST['userPass1']) AND isset($_POST['userPass2'])AND !empty($_POST['userPass2']))
+			if(isset($_POST['userId']) AND !empty($_POST['userId']))
 			{
-				if ($_POST['userPass1'] == $_POST['userPass2'])
-				{
-					$nxPassCrypt = $this->cryptPass($_POST['userPass1']);
-
-					$passManager = new \Epi_Model\UserManager; 
-				    if ($passManager->updatePass($_SESSION['userId'], $nxPassCrypt))
-				    {
-				    	// Message		    	
-						$_SESSION['message'] = 'Votre mot de passe a été mis à jour !';
-				    	// Redirection page
-				    	$nxView = new \Epi_Model\View('home');
-					    $nxView->getView();
-				    }
-				    else
-				    {
-				    	// Message erreur
-						throw new \Epi_Model\AppException('aucun compte n\'est enregistré avec cet Email !', 'nxPass');
-				    }
-				}
-				else
-				{
-					// Message erreur
-					throw new \Epi_Model\AppException('les deux mots de passe ne correspondent pas !', 'changePass');
-				}
+				$userId = $_POST['userId'];
 			}
 			else
 			{
+				$userId = $_SESSION['userId'];
+			}
+
+			if ($userId)
+			{
+				echo 'coucou'; 
+			// 	if(isset($_POST['userPass1']) AND !empty($_POST['userPass1']) AND isset($_POST['userPass2'])AND !empty($_POST['userPass2']))
+			// 	{
+			// 		if ($_POST['userPass1'] == $_POST['userPass2'])
+			// 		{
+			// 			$nxPassCrypt = $this->cryptPass($_POST['userPass1']);
+			// 			$passManager = new \Epi_Model\UserManager; 
+						
+			// 			if ($passManager->updatePass($userId), $nxPassCrypt)
+			// 		    {
+			// 		    	// Message		    	
+			// 				$_SESSION['message'] = 'Votre mot de passe a été mis à jour !';
+			// 		    	// Redirection page
+			// 		    	$nxView = new \Epi_Model\View('home');
+			// 			    $nxView->getView();
+			// 		    }
+			// 		    else
+			// 		    {
+			// 		    	// Message erreur
+			// 				throw new \Epi_Model\AppException('aucun compte n\'est enregistré avec cet Email !', 'nxPass');
+			// 		    }
+			// 		}
+			// 		else
+			// 		{
+			// 			// Message erreur
+			// 			throw new \Epi_Model\AppException('les deux mots de passe ne correspondent pas !', 'changePass');
+			// 		}
+			// 	}
+			// 	else
+			// 	{
+			// 		// Message erreur
+			// 		throw new \Epi_Model\AppException('les deux mots de passes n\'ont pas été renseignés', 'changePass');	
+			// 	}
+			}
+			else 
+			{
 				// Message erreur
-				throw new \Epi_Model\AppException('les deux mots de passes n\'ont pas été renseignés', 'changePass');	
+				throw new \Epi_Model\AppException('Aucun compte na été identifié', 'home');	
 			}
 		}	
 		catch (\Epi_Model\AppException $e)
