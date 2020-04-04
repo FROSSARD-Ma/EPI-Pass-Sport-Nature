@@ -34,15 +34,13 @@ class FrontController
             $mailExist = $mailManager->existUser($_POST['userMail']);
             if ($mailExist)
             {
-
             // Récuperation idUser
             $nxUser = new \Epi_Model\User($mailExist);
             $userMail= $nxUser->getMail();
 
             $nxView = new \Epi_Model\View('changePass');
-            $nxView->getView(array ('userId' => $userMail));
+              $nxView->getView(array ('userId' => $userMail));
         }
-
     }
 
     public function deconnexion($params)

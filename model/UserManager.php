@@ -4,25 +4,34 @@ use \PDO;
 
 class UserManager extends Manager
 {
+
+    public function existUser($email)
+    {
+        $sql ='SELECT *
+            FROM EPI_users 
+            WHERE user_mail = ?';
+        $data = $this->reqSQL($sql, array (htmlspecialchars($email)), $one = true);
+        return $data;
+    }
+
     /*---  CREAT -------------------------------------------------------- */
-    public function addUser($groupeId)
+    public function addUser($groupeId, $nxPassCrypt)
     {
         $idGroupe = (int)$groupeId;
 
-        $sql ='INSERT INTO EPI_users(user_groupeId, user_name, user_firstname, user_mail, user_pass, user_notification, user_statut)
-            VALUES(:idGroupe,:name,:firstname:mail,:pass,:notification,:statut)';
+        $sql ='INSERT INTO EPI_users(user_groupeId, user_name, user_firstname, user_mail, user_pass, user_statut)
+            VALUES(:idGroupe,:name,:firstname,:mail,:pass,:statut)';
 
-        $datas = $this->getPDO()->prepare($sql);
-        $datas->bindValue(':idGroupe', $idGroupe, PDO::PARAM_STR); 
-        $datas->bindValue(':name', htmlspecialchars($_POST['name']), PDO::PARAM_STR);
-        $datas->bindValue(':firstname', htmlspecialchars($_POST['firstname']), PDO::PARAM_STR);
-        $datas->bindValue(':mail', htmlspecialchars($_POST['mail']), PDO::PARAM_STR);
-        $datas->bindValue(':pass', htmlspecialchars($_POST['pass']), PDO::PARAM_STR);
-        $datas->bindValue(':notification', htmlspecialchars($_POST['notification']), PDO::PARAM_STR); 
-        $datas->bindValue(':statut',htmlspecialchars($_POST['statut']), PDO::PARAM_STR);
-        $datas->execute();  
+        $data = $this->getPDO()->prepare($sql);
+        $data->bindValue(':idGroupe', $idGroupe, PDO::PARAM_STR); 
+        $data->bindValue(':name', htmlspecialchars($_POST['userName']), PDO::PARAM_STR);
+        $data->bindValue(':firstname', htmlspecialchars($_POST['userFirstname']), PDO::PARAM_STR);
+        $data->bindValue(':mail', htmlspecialchars($_POST['userMail']), PDO::PARAM_STR);
+        $data->bindValue(':pass', htmlspecialchars($nxPassCrypt), PDO::PARAM_STR);
+        $data->bindValue(':statut',htmlspecialchars($_POST['userStatut']), PDO::PARAM_STR);
+        $data->execute();  
 
-        return $datas;
+        return $data;
     }
 
     /*---  READ ---------------------------------------------------------- */
@@ -39,11 +48,11 @@ class UserManager extends Manager
 
             WHERE user_id =:id';
 
-        $datas = $this->getPDO()->prepare($sql);
-        $datas->bindValue(':id', $idUser, PDO::PARAM_STR);
-        $datas->execute(); 
+        $data = $this->getPDO()->prepare($sql);
+        $data->bindValue(':id', $idUser, PDO::PARAM_STR);
+        $data->execute(); 
         
-        return $datas;
+        return $data;
     }
 
     /*---  UPDATE -------------------------------------------------------- */
@@ -55,15 +64,30 @@ class UserManager extends Manager
             SET user_mail=:mail, user_pass = :pass, user_notification=:notification, user_statut=:statut
             WHERE  user_id = :id';
 
-        $datas = $this->getPDO()->prepare($sql);
-        $datas->bindValue(':mail', htmlspecialchars($_POST['mail']), PDO::PARAM_STR);
-        $datas->bindValue(':pass', htmlspecialchars($_POST['pass']), PDO::PARAM_STR);
-        $datas->bindValue(':notification', $_POST['notification'], PDO::PARAM_STR);
-        $datas->bindValue(':statut', htmlspecialchars($_POST['statut']), PDO::PARAM_STR);
-        $datas->bindValue(':id', $idUser, PDO::PARAM_STR); 
-        $datas->execute();
+        $data = $this->getPDO()->prepare($sql);
+        $data->bindValue(':mail', htmlspecialchars($_POST['mail']), PDO::PARAM_STR);
+        $data->bindValue(':pass', htmlspecialchars($_POST['pass']), PDO::PARAM_STR);
+        $data->bindValue(':notification', $_POST['notification'], PDO::PARAM_STR);
+        $data->bindValue(':statut', htmlspecialchars($_POST['statut']), PDO::PARAM_STR);
+        $data->bindValue(':id', $idUser, PDO::PARAM_STR); 
+        $data->execute();
 
-        return $datas;
+        return $data;
+    }
+     public function updatePass($id, $nxPass)
+    {
+        $idUser = (int)$id;
+
+        $sql ='UPDATE EPI_users 
+            SET user_pass = :pass
+            WHERE  user_id = :id';
+
+        $data = $this->getPDO()->prepare($sql); 
+        $data->bindValue(':pass', $nxPass, PDO::PARAM_STR);
+        $data->bindValue(':id', $idUser, PDO::PARAM_STR); 
+        $data->execute();
+
+        return $data;
     }
 
     /*---  DELETE -------------------------------------------------------- */

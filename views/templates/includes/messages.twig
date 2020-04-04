@@ -1,0 +1,14 @@
+<!-- Message ERREUR -->
+
+
+{% if session.message %}
+ 	<section class="alert alert-success" role="alert">
+        {{ session.message }}
+    </section>
+{% endif %}
+
+{% if session.erreur %}
+	<section class="alert alert-danger" role="alert">
+        {{ session.erreur }}
+    </section>
+{% endif %}

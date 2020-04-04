@@ -172,7 +172,6 @@ class UserController
 		                <p>Vous souhaitez modifier votre mot de passe :</p>
 		               	<br>
 		                <form method='post' action='https://epi.pass-sport-nature.fr/changePass'>
-		                	<p>$userMail</p>
 							<input type='hidden' id='userMail' name='userMail' value='$userMail'>
 							<button type='submit'>Changer de Mot de passe</button>
 		                </form>

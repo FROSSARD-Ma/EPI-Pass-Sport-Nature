@@ -16,7 +16,6 @@ class Router {
         "changePass"    => ['FrontController','changePass'],
         "deconnexion"   => ['FrontController','deconnexion'],
         "account"       => ['FrontController','account'],
-
         
     // ---- BACK Controller -----------------------------------------------------
 
@@ -24,7 +23,7 @@ class Router {
         "creatGroupe"   => ['UserController','creatGroupe'],
         "loginUser"     => ['UserController','loginUser'],
         "upMail"        => ['UserController','upMail'],
-        "upPass"        => ['UserController','upPass'],
+        "upPass"        > ['UserController','upPass'],
         "askPassMail"   => ['UserController','askPassMail'],
         "addPass"       => ['UserController','addPass']
     ];
