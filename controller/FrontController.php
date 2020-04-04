@@ -39,9 +39,8 @@ class FrontController
             $userMail= $nxUser->getMail();
 
             $nxView = new \Epi_Model\View('changePass');
-            $nxView->getView(array ('userId' => $userMail));
-            }
-
+              $nxView->getView(array ('userId' => $userMail));
+        }
     }
 
     public function deconnexion($params)
