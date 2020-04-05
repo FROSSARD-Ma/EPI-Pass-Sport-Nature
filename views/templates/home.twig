@@ -1,7 +1,12 @@
-{% extends 'layout.twig' %}
+{% extends 'content-sidebar-L.twig' %}
 
 {% block title %}
 	<title>Gestion EPI Pass'Sport Nature</title>
+{% endblock %}
+
+
+{% block sidebar %}
+    {% include('sidebarImg.twig') %}
 {% endblock %}
 
 
@@ -18,12 +23,7 @@
 {% endblock %}
 
 
-{% block sidebar %}
-    {% include('sidebarImg.twig') %}
-{% endblock %}
-
-
-{% block content %}
+{% block main %}
 
     <div class="row justify-content-center">
         <div class="col-6">
