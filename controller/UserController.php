@@ -264,7 +264,66 @@ class UserController
 	// ---- CONTACT -----------------------------------------------------
 	public function sendEmailContact()
 	{
-		
+		try
+		{
+		    // Message
+			if (isset($_POST['contactMessage']) AND !empty($_POST['contactMessage']))
+		    {
+		    	// Utilisateur enregistré
+				
+
+			    // Nouvel utilisateur
+			    else
+			    {
+			    	if(isset($_POST['contactName']) AND !empty($_POST['contactName']) AND isset($_POST['contactMail'])AND !empty($_POST['contactMail']))
+			    	{
+			    		$userName = $_POST['contactName'];
+						$userMail = $_POST['contactMail'];
+			    	}
+			    	else
+			    	{
+						throw new \Epi_Model\AppException('votre Nom ou Email n\'a pas été récupéré, veuillez recommencer !', 'contact');
+			    	}
+			    }
+
+			    // Envoie MESSAGE / Email
+				$userMessage = $_POST['contactMessage'];
+
+		    	$object = 'Message - Gestion EPI Pass\'Sport Nature';
+		    	$to = "epi@pass-sport-nature.fr";
+		    	$message = "
+	                <h2>Nouveau Message</h2>
+	                <div>
+		                <p>Bonjour,</p>
+		                <p>Vous venez de recevoir un nouveau message sur la gestion des EPI :</p>
+		               	<br>
+						<p>Auteur : $userName</p>
+		                <p>Mail : $userMail</p>
+		                <p>Message : </p>
+		                <p>$userMessage</p>
+		                <br>
+		            </div>
+		    	";
+
+		    	$nxEmail = new \Epi_Model\Email($object, $to, $message);
+			    $nxEmail->sendEmail();
+
+		    	// Message
+				$_SESSION['message'] = 'Votre message a bien été envoyé ! Je vous recontacteria dans les plus bref délais ! ';
+				// Redirection page
+		    	$nxView = new \Epi_Model\View('home');
+			    $nxView->getView();
+		    }
+		    else
+	    	{
+				throw new \Epi_Model\AppException('votre message n\'a pas été pris en compte , veuillez recommencer !', 'contact');
+	    	}
+		}
+		catch (\Epi_Model\AppException $e)
+		{
+			$e->getRedirection();
+		}
+
 	}
 
 }
