@@ -8,19 +8,25 @@
 
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="">Accueil</a>
+      <a class="nav-item nav-link active" href="home">Accueil</a>
+      <a class="nav-item nav-link active" href="contact">Contact</a>
     </div>
   </div>
 
-  <ul class="nav nav-pills">
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i>Mon compte</a>
-      <div class="dropdown-menu dropdown-menu-right">
-        <a class="dropdown-item" href="dashboard">Tableau de bord</a>
-        <a class="dropdown-item" href="account">Mon compte</a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="deconnexion">Se déconnecter</a>
-      </div>
-    </li>
-  </ul>
+  {% if session.userId %}
+
+    <ul class="nav nav-pills">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i>Mon compte</a>
+        <div class="dropdown-menu dropdown-menu-right">
+          <a class="dropdown-item" href="dashboard">Tableau de bord</a>
+          <a class="dropdown-item" href="account">Mon compte</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="deconnexion">Se déconnecter</a>
+        </div>
+      </li>
+    </ul>
+
+  {% endif %}
+
 </nav>

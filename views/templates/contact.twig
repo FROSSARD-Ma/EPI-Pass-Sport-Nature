@@ -1,0 +1,36 @@
+{% extends 'content-sidebar-L.twig' %}
+
+{% block title %}
+	<title>Contact - Gestion EPI</title>
+{% endblock %}
+
+
+{% block headerpage %}
+	<h1 class="mt-4">Contact</h1>
+	<ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Une question, un problème... contactez-moi</li>
+    </ol>
+
+	<p>Ergo ego senator inimicus, si ita vultis, homini, amicus esse, sicut semper fui, rei publicae debeo. Quid? si ipsas inimicitias, depono rei publicae causa, quis me tandem iure reprehendet, praesertim cum ego omnium meorum consiliorum atque factorum exempla semper ex summorum hominum consiliis atque factis mihi censuerim petenda.</p>
+
+{% endblock %}
+
+
+{% block main %}
+
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <h2>Laissez un message</h2>
+            <form method="post" action="" data-parsley-validate>
+               
+                <input type="hidden" id="userId" name="userId" value="{{ userId.getId }} ">
+
+                <button class="btn btn-primary" type="submit">Envoyer le message</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
