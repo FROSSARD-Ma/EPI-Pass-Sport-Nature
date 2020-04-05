@@ -9,6 +9,11 @@ class FrontController
 		$nxView = new \Epi_Model\View('home');
         $nxView->getView();
     }
+    public function contact($params)
+    {
+        $nxView = new \Epi_Model\View('contact');
+        $nxView->getView();
+    }
 
     public function dashboard($params)
     {
