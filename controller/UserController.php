@@ -260,4 +260,11 @@ class UserController
 			$e->getRedirection();
 		}
 	}
+
+	// ---- CONTACT -----------------------------------------------------
+	public function sendEmailContact()
+	{
+		
+	}
+
 }
