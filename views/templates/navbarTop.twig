@@ -12,6 +12,7 @@
     </div>
   </div>
 
+  {% if session.userId %}
   <ul class="nav nav-pills">
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i>Mon compte</a>
@@ -23,4 +24,7 @@
       </div>
     </li>
   </ul>
+
+  {% endif %}
+  
 </nav>
