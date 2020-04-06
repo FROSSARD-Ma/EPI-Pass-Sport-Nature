@@ -22,16 +22,22 @@
         <div class="col-6">
             <h2>Changer mot de passe</h2>
             <form method="post" action="addPass" data-parsley-validate>
+
+                <div class="form-group">
+                    <label for="userMail">Email</label>
+                    <input type="email" id="userMail" name="userMail" class="form-control" placeholder="Adresse Email du compte Gestion EPI" maxlength="50" required>
+                </div>
+
                 <div class="form-group">
                     <label for="userPass1">Nouveau Mot de passe</label>
-                    <input type="password" id="userPass1" name="userPass1" class="form-control" placeholder="Choisir un mot de passe" minlength="8" maxlength="50" required>
+                    <input type="password" id="userPass1" name="userPass1" class="form-control" placeholder="Choisir un mot de passe" pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{6,20})" required>
                 </div>
 
                 <div class="form-group">
                     <label for="userPass2">Confirmer le nouveau le mot de passe</label>
-                    <input type="password" id="userPass2" name="userPass2" class="form-control" placeholder="Confirmer le mot de passe" minlength="8" maxlength="50" required>
-                    <small id="passwordHelpBlock" class="form-text text-muted">
-                      Votre mot de passe doit comporter de 8 à 20 caractères, contenir des lettres et des chiffres, et ne doit pas contenir d'espaces, de caractères spéciaux ou d'emoji.
+                    <input type="password" id="userPass2" name="userPass2" class="form-control" placeholder="Confirmer le mot de passe" pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{6,20})" required>
+                   <small class="form-text text-muted">
+                        Votre mot de passe doit comporter de 6 à 20 caractères, au moins une lettre minuscule, au moins une lettre majuscule, au moins un chiffre, au moins un de ces caractères spéciaux: $ @ % * + - _ ! , aucun autre caractère possible, pas d'espace.
                     </small>
                 </div>
                 <input type="hidden" id="userId" name="userId" value="{{ userId.getId }} ">

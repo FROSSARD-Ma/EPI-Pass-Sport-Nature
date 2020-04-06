@@ -36,7 +36,10 @@
 
                 <div class="form-group">
                     <label for="userPass">Mot de passe</label>
-                    <input type="password" id="userPass" name="userPass" class="form-control" placeholder="Mot de passe" minlength="8" maxlength="50" required>
+                    <input type="password" id="userPass" name="userPass" class="form-control" placeholder="Mot de passe" pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{6,20})" required>
+                    <small class="form-text text-muted">
+                        Votre mot de passe doit comporter de 6 à 20 caractères, au moins une lettre minuscule, au moins une lettre majuscule, au moins un chiffre, au moins un de ces caractères spéciaux: $ @ % * + - _ ! , aucun autre caractère possible, pas d'espace.
+                    </small>
                 </div>
 
                 <div class="form-group">
