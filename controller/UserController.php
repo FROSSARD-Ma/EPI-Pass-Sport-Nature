@@ -124,7 +124,7 @@ class UserController
 			    }
 			    else
 			    {
-					throw new \Epi_Model\AppException('Votre mot de passe n\'est pas valide !', 'home');
+					throw new \Epi_Model\AppException('il ne s\'agit pas du bon mot de passe !', 'home');
 			    }
 		    }
 		    else
@@ -216,22 +216,31 @@ class UserController
 					{
 						if ($_POST['userPass1'] == $_POST['userPass2'])
 						{
-							$nxPassCrypt = $this->cryptPass($_POST['userPass1']);
-							$passManager = new \Epi_Model\UserManager; 
-							
-							if ($passManager->updatePass($userId, $nxPassCrypt))
-						    {
-						    	// Message		    	
-								$_SESSION['message'] = 'Votre mot de passe a été mis à jour !';
-						    	// Redirection page
-						    	$nxView = new \Epi_Model\View('home');
-							    $nxView->getView();
-						    }
+							// Vérification conformité mot de passe
+							if (preg_match('#^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{6,20})#', $_POST['userPass1']))
+							{
+								$nxPassCrypt = $this->cryptPass($_POST['userPass1']);
+								$passManager = new \Epi_Model\UserManager; 
+								
+								if ($passManager->updatePass($userId, $nxPassCrypt))
+							    {
+							    	// Message		    	
+									$_SESSION['message'] = 'Votre mot de passe a été mis à jour !';
+							    	// Redirection page
+							    	$nxView = new \Epi_Model\View('home');
+								    $nxView->getView();
+							    }
+							    else
+							    {
+							    	// Message erreur
+									throw new \Epi_Model\AppException('aucun compte n\'est enregistré avec cet Email !', 'nxPass');
+							    }
+							}
 						    else
 						    {
-						    	// Message erreur
-								throw new \Epi_Model\AppException('aucun compte n\'est enregistré avec cet Email !', 'nxPass');
-						    }
+						        // Message erreur
+								throw new \Epi_Model\AppException('votre mot de passe n\'est pas conforme.', 'changePass');
+							}    
 						}
 						else
 						{
@@ -242,7 +251,7 @@ class UserController
 					else
 					{
 						// Message erreur
-						throw new \Epi_Model\AppException('les deux mots de passes n\'ont pas été renseignés', 'changePass');	
+						throw new \Epi_Model\AppException('les deux mots de passes n\'ont pas été renseignés.', 'changePass');	
 					}
 				}
 				else
@@ -273,22 +282,31 @@ class UserController
 			{
 				if ($_POST['userPass1'] == $_POST['userPass2'])
 				{
-					$nxPassCrypt = $this->cryptPass($_POST['userPass1']);
-					$passManager = new \Epi_Model\UserManager; 
-					
-					if ($passManager->updatePass($userId, $nxPassCrypt))
-				    {
-				    	// Message		    	
-						$_SESSION['message'] = 'Votre mot de passe a été mis à jour !';
-				    	// Redirection page
-				    	$nxView = new \Epi_Model\View('account');
-					    $nxView->getView();
-				    }
+					// Vérification conformité mot de passe
+					if (preg_match('#^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{6,20})#', $_POST['userPass1']))
+					{
+				        $nxPassCrypt = $this->cryptPass($_POST['userPass1']);
+						$passManager = new \Epi_Model\UserManager; 
+						
+						if ($passManager->updatePass($userId, $nxPassCrypt))
+					    {
+					    	// Message		    	
+							$_SESSION['message'] = 'Votre mot de passe a été mis à jour !';
+					    	// Redirection page
+					    	$nxView = new \Epi_Model\View('account');
+						    $nxView->getView();
+					    }
+					    else
+					    {
+					    	// Message erreur
+							throw new \Epi_Model\AppException('une erreur est survenue, veuillez recommencer !', 'account');
+					    }
+					}
 				    else
 				    {
-				    	// Message erreur
-						throw new \Epi_Model\AppException('une erreur est survenue, veuillez recommencer !', 'account');
-				    }
+				        // Message erreur
+						throw new \Epi_Model\AppException('votre mot de passe n\'est pas conforme.', 'account');
+					}
 				}
 				else
 				{
@@ -299,7 +317,7 @@ class UserController
 			else
 			{
 				// Message erreur
-				throw new \Epi_Model\AppException('les deux mots de passes n\'ont pas été renseignés', 'account');	
+				throw new \Epi_Model\AppException('les deux mots de passes n\'ont pas été renseignés.', 'account');	
 			}
 
 		}	
