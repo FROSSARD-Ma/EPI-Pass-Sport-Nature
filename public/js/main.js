@@ -1,4 +1,8 @@
 
+const formulaire = document.querySelector('form');
+$('form').parsley();
+
+
 // FORM -------------------------------------------------------
 let form = document.querySelector('#form_mail');
 let button = form.querySelector('button[type=submit]');

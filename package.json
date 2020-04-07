@@ -1,0 +1,19 @@
+{
+  "name": "epi-pass-sport-nature",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FROSSARD-Ma/EPI-Pass-Sport-Nature.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FROSSARD-Ma/EPI-Pass-Sport-Nature/issues"
+  },
+  "homepage": "https://github.com/FROSSARD-Ma/EPI-Pass-Sport-Nature#readme"
+}
