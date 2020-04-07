@@ -1,36 +1,36 @@
-
-const formulaire = document.querySelector('form');
+const form = document.querySelector('form');
 $('form').parsley();
-
-
-// FORM -------------------------------------------------------
-let form = document.querySelector('#form_mail');
 let button = form.querySelector('button[type=submit]');
 let buttonText = button.textContent;
 
 
+
+// CHANGE MAIL -------------------------------------------------------
+let mailForm = document.getElementById('form_mail');
+
+
 /* == GESTIONS EVENEMENTS ================================ */
 
-form.addEventListener('submit', async function (e) {
+mailForm.addEventListener('submit', async function (e) {
 
-  button.disabled = true;
-  button.textContent = 'Chargement...';
+  	button.disabled = true;
+  	button.textContent = 'Chargement...';
 
-  e.preventDefault()
+ 	e.preventDefault()
 
-  let data = new FormData(form);
-  let response = await fetch(form.action,
-  {
-    method: 'POST',
-    body: data
-  })
+	let data = new FormData(mailForm);
+console.log(data);
 
-console.log(response);
-  
-    if (response.ok === true)
+  	let response = await fetch(mailForm.action,
+  	{
+    	method: 'POST',
+    	body: data
+  	})
+
+	if (response.ok === true)
     {
       let responseData = await response;
-      console.log(responseData);
+
       // Message ok
       alert('Mail a été changé OK');
     
@@ -39,9 +39,8 @@ console.log(response);
     {
       // La réponse n'est pas bonne (pas 200), on affiche les erreurs
     alert('Une erreur est survenue');
-
     }
- 
+
   // Dans tous les cas on permet la soumission du formulaire à nouveau
   button.disabled = false;
   button.textContent = buttonText;
