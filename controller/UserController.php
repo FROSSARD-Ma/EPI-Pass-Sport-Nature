@@ -7,45 +7,55 @@ class UserController
 	public function creatGroupe($params)
 	{
 		try
-		{
-			/* Particulier */
-			if ($_POST['groupeStatut'] == 'Particulier')
+		{	
+			//Ajout d'un TOKEN faille CSRF 
+			$csrf = new \Epi_Model\SecuriteCsrf('inscription');
+			$inscriptionToken = $csrf->verifToken(HOST.'inscription');
+			if ($inscriptionToken)
 			{
-				$groupeName		= $_POST['userName'];
-				$groupeMail		= $_POST['userMail'];
-			} 
-			/* Groupe */
+				/* Particulier */
+				if ($_POST['groupeStatut'] == 'Particulier')
+				{
+					$groupeName		= $_POST['userName'];
+					$groupeMail		= $_POST['userMail'];
+				} 
+				/* Groupe */
+				else
+				{
+					$groupeName		= $_POST['groupeName'];
+					$groupeMail		= $_POST['groupeMail'];
+				}
+
+				// Vérifier si Mail existe déjà
+				$mailManager = new \Epi_Model\GroupeManager; 
+			    $mailExist = $mailManager->existGroupe($groupeMail);
+			    if ($mailExist) 
+			    {
+			    	// Message erreur
+					throw new \Epi_Model\AppException('Un compte existe déjà avec cet mail.', 'home');
+			    }
+			    else
+			    {
+			    	// Ajout utilisateur
+						$groupeStatut 	= $_POST['groupeStatut'];
+
+						$groupeManager = new \Epi_Model\GroupeManager; 
+						$creatGroupe = $groupeManager->addGroupe($groupeName, $groupeMail, $groupeStatut);
+						if ($creatGroupe) 
+			    		{
+							$this->creatUser($creatGroupe);
+						}
+						else
+						{
+							// Message erreur
+							throw new \Epi_Model\AppException('il y a eu un problème, le groupe n\'a pas été créé', 'inscription');
+						}
+			    }
+			}
 			else
 			{
-				$groupeName		= $_POST['groupeName'];
-				$groupeMail		= $_POST['groupeMail'];
+				throw new \Epi_Model\AppException('vous avez dépassé le temps d\'envoie du formulaire. Rechargez la page et validez !', 'account');
 			}
-
-			// Vérifier si Mail existe déjà
-			$mailManager = new \Epi_Model\GroupeManager; 
-		    $mailExist = $mailManager->existGroupe($groupeMail);
-		    if ($mailExist) 
-		    {
-		    	// Message erreur
-				throw new \Epi_Model\AppException('Un compte existe déjà avec cet mail.', 'home');
-		    }
-		    else
-		    {
-		    	// Ajout utilisateur
-					$groupeStatut 	= $_POST['groupeStatut'];
-
-					$groupeManager = new \Epi_Model\GroupeManager; 
-					$creatGroupe = $groupeManager->addGroupe($groupeName, $groupeMail, $groupeStatut);
-					if ($creatGroupe) 
-		    		{
-						$this->creatUser($creatGroupe);
-					}
-					else
-					{
-						// Message erreur
-						throw new \Epi_Model\AppException('il y a eu un problème, le groupe n\'a pas été créé', 'inscription');
-					}
-		    }
 		}
 		catch (\Epi_Model\AppException $e)
 		{

@@ -55,6 +55,9 @@ class FrontController
     /* Link Button ----------------------------*/
     public function inscription($params)
     {
+        $csrf = new \Epi_Model\SecuriteCsrf('inscription');
+        $token = $csrf->getToken();
+
         $nxView = new \Epi_Model\View('inscription');
         $nxView->getView();
     }
