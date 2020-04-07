@@ -13,48 +13,53 @@
 {% block headerpage %}
 	<h1 class="mt-4">Bienvenue</h1>
 	<ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item active">Page d'accueil</li>
+        <li class="breadcrumb-item active">Page accueil</li>
     </ol>
 
-	<p>Ergo ego senator inimicus, si ita vultis, homini, amicus esse, sicut semper fui, rei publicae debeo. Quid? si ipsas inimicitias, depono rei publicae causa, quis me tandem iure reprehendet, praesertim cum ego omnium meorum consiliorum atque factorum exempla semper ex summorum hominum consiliis atque factis mihi censuerim petenda.</p>
+	<p>Bonjour  {{ session.userFirstname }},</p>
+    <p>Ergo ego senator inimicus, si ita vultis, homini, amicus esse, sicut semper fui, rei publicae debeo. Quid? si ipsas inimicitias, depono rei publicae causa, quis me tandem iure reprehendet, praesertim cum ego omnium meorum consiliorum atque factorum exempla semper ex summorum hominum consiliis atque factis mihi censuerim petenda.</p>
 
-    <a class="btn btn-primary" href="inscription" role="button">Créer un compte</a>
+    {% if not session.userId %}
+        <a class="btn btn-primary" href="inscription" role="button">Créer un compte</a>
+    {% endif %}
 
 {% endblock %}
 
 
 {% block main %}
 
-    <div class="row justify-content-center">
-        <div class="col-6">
-            <h2>Se connecter !</h2>
-            <form method="post" action="loginUser" data-parsley-validate>
-                <div class="form-group">
-                    <label for="userMail">Email</label>
-                    <input type="email" id="userMail" name="userMail" class="form-control" placeholder="Adresse Email" maxlength="50" required>
-                </div>
+    {% if not session.userId %}
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <h2>Se connecter !</h2>
+                <form method="post" action="loginUser" data-parsley-validate>
+                    <div class="form-group">
+                        <label for="userMail">Email</label>
+                        <input type="email" id="userMail" name="userMail" class="form-control" placeholder="Adresse Email" maxlength="50" required>
+                    </div>
 
-                <div class="form-group">
-                    <label for="userPass">Mot de passe</label>
-                    <input type="password" id="userPass" name="userPass" class="form-control" placeholder="Mot de passe" pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{6,20})" required>
-                    <small class="form-text text-muted">
-                        Votre mot de passe doit comporter de 6 à 20 caractères, au moins une lettre minuscule, au moins une lettre majuscule, au moins un chiffre, au moins un de ces caractères spéciaux: $ @ % * + - _ ! , aucun autre caractère possible, pas d'espace.
-                    </small>
-                </div>
+                    <div class="form-group">
+                        <label for="userPass">Mot de passe</label>
+                        <input type="password" id="userPass" name="userPass" class="form-control" placeholder="Mot de passe" pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{6,20})" required>
+                        <small class="form-text text-muted">
+                            Votre mot de passe doit comporter de 6 à 20 caractères, au moins une lettre minuscule, au moins une lettre majuscule, au moins un chiffre, au moins un de ces caractères spéciaux: $ @ % * + - _ ! , aucun autre caractère possible, pas d'espace.
+                        </small>
+                    </div>
 
-                <div class="form-group">
-                    <label for="userRemember">Se souvenir de moi</label>
-                    <input type="checkbox" id="userRemember" name="userRemember">
-                </div>
+                    <div class="form-group">
+                        <label for="userRemember">Se souvenir de moi</label>
+                        <input type="checkbox" id="userRemember" name="userRemember">
+                    </div>
 
-                <button class="btn btn-primary" type="submit">Se connecter</button>
+                    <button class="btn btn-primary" type="submit">Se connecter</button>
 
-                <div class="text-center">
-                  <a class="small" href="nxPass">Mot de passe oublié ?</a>
-                </div>
-            </form>
+                    <div class="text-center">
+                      <a class="small" href="nxPass">Mot de passe oublié ?</a>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
+    {% endif %}
 
 {% endblock %}
 
