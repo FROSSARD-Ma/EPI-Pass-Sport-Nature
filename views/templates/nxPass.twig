@@ -27,6 +27,8 @@
                     <input type="email" id="userMail" name="userMail" class="form-control" placeholder="Adresse Email" maxlength="50"required>
                 </div>
 
+                <input type="hidden" name="token" id="token" value="{{ session.nxPass_token }}"/>
+
                 <button class="btn btn-primary" type="submit">Demander un nouveau mot de passe</button>
             </form>
         </div>

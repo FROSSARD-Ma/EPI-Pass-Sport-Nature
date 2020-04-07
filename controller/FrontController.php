@@ -6,11 +6,17 @@ class FrontController
     /* TOP Menu ----------------------------------- */
     public function home($params)
     {
-		$nxView = new \Epi_Model\View('home');
+		$csrf = new \Epi_Model\SecuriteCsrf('login');
+        $token = $csrf->getToken();
+
+        $nxView = new \Epi_Model\View('home');
         $nxView->getView();
     }
     public function contact($params)
     {
+        $csrf = new \Epi_Model\SecuriteCsrf('contact');
+        $token = $csrf->getToken();
+
         $nxView = new \Epi_Model\View('contact');
         $nxView->getView();
     }
@@ -23,6 +29,9 @@ class FrontController
 
     public function account($params)
     {
+        $csrf = new \Epi_Model\SecuriteCsrf('account');
+        $token = $csrf->getToken();
+
         $nxView = new \Epi_Model\View('account');
         $nxView->getView();
     }
@@ -46,18 +55,27 @@ class FrontController
     /* Link Button ----------------------------*/
     public function inscription($params)
     {
+        $csrf = new \Epi_Model\SecuriteCsrf('inscription');
+        $token = $csrf->getToken();
+
         $nxView = new \Epi_Model\View('inscription');
         $nxView->getView();
     }
 
     public function nxPass($params)
     {
+        $csrf = new \Epi_Model\SecuriteCsrf('nxPass');
+        $token = $csrf->getToken();
+
         $nxView = new \Epi_Model\View('nxPass');
         $nxView->getView();
     }
 
     public function changePass($params)
     {
+        $csrf = new \Epi_Model\SecuriteCsrf('changePass');
+        $token = $csrf->getToken();
+        
         $nxView = new \Epi_Model\View('changePass');
         $nxView->getView();
     }

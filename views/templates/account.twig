@@ -52,6 +52,8 @@
                         </small>
                     </div>
 
+                    <input type="hidden" name="token" id="token" value="{{ session.account_token }}"/>
+
                     <button class="btn btn-primary btn-block" type="submit">Modifier Email</button>
                 </form>    
             </div>
@@ -71,7 +73,9 @@
                           Votre mot de passe doit comporter de 6 à 20 caractères, au moins une lettre minuscule, au moins une lettre majuscule, au moins un chiffre, au moins un de ces caractères spéciaux: $ @ % * + - _ ! , aucun autre caractère possible, pas d'espace.
                         </small>
                     </div>
-
+                    
+                    <input type="hidden" name="token" id="token" value="{{ session.account_token }}"/>
+                    
                     <button class="btn btn-primary btn-block" type="submit">Modifier mot de passe</button>
                 </form>    
             </div>

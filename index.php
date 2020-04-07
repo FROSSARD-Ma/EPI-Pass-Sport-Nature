@@ -10,9 +10,10 @@ $root = $_SERVER['DOCUMENT_ROOT'];
 $host = $_SERVER['HTTP_HOST'];
 
 
+
 define('HOST', 'https://'.$host.'/'); // model/View.php
 define('ROOT', $root . '/');
-define('VIEW', ROOT.'views/'); // model/View.php
+define('VIEW', ROOT.'views/'); // View / SecuriteCsrf
 
 //== ROOTER =========================
 $url = $_GET['url'];
