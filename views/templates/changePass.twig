@@ -1,4 +1,4 @@
-{% extends 'layout.twig' %}
+{% extends 'content-sidebar-L.twig' %}
 
 {% block title %}
 	<title>Mot de passe - Gestion EPI</title>
@@ -16,27 +16,34 @@
 {% endblock %}
 
 
-{% block sidebar %}
-    {% include('sidebarImg.twig') %}
-{% endblock %}
-
-
-{% block content %}
+{% block main %}
 
     <div class="row justify-content-center">
         <div class="col-6">
-            <form method="post" action="addPass">
+            <h2>Changer mot de passe</h2>
+            <form method="post" action="addPass" data-parsley-validate>
+
+                <div class="form-group">
+                    <label for="userMail">Email</label>
+                    <input type="email" id="userMail" name="userMail" class="form-control" placeholder="Adresse Email du compte Gestion EPI" maxlength="50" required>
+                </div>
+
                 <div class="form-group">
                     <label for="userPass1">Nouveau Mot de passe</label>
-                    <input type="password" id="userPass1" name="userPass1" class="form-control" placeholder="Choisir un mot de passe" required>
+                    <input type="password" id="userPass1" name="userPass1" class="form-control" placeholder="Choisir un mot de passe" pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{6,20})" required>
                 </div>
 
                 <div class="form-group">
                     <label for="userPass2">Confirmer le nouveau le mot de passe</label>
-                    <input type="password" id="userPass2" name="userPass2" class="form-control" placeholder="Confirmer le mot de passe" required>
+                    <input type="password" id="userPass2" name="userPass2" class="form-control" placeholder="Confirmer le mot de passe" pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{6,20})" required>
+                   <small class="form-text text-muted">
+                        Votre mot de passe doit comporter de 6 à 20 caractères, au moins une lettre minuscule, au moins une lettre majuscule, au moins un chiffre, au moins un de ces caractères spéciaux: $ @ % * + - _ ! , aucun autre caractère possible, pas d'espace.
+                    </small>
                 </div>
+                <input type="hidden" id="userId" name="userId" value="{{ userId.getId }} ">
+                 <input type="hidden" name="token" id="token" value="{{ session.changePass_token }}"/>
 
-                <button class="btn btn-primary" type="submit">Valider</button>
+                <button class="btn btn-primary" type="submit">Changer Mot de passe</button>
             </form>
         </div>
     </div>

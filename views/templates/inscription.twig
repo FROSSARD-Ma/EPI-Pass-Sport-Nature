@@ -1,4 +1,4 @@
-{% extends 'layout.twig' %}
+{% extends 'content-sidebar-L.twig' %}
 
 {% block title %}
     <title>Inscritpion</title>
@@ -15,24 +15,20 @@
 {% endblock %}
 
 
-{% block sidebar %}
-    <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
-{% endblock %}
-
-
-{% block content %}
+{% block main %}
 
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-6">
 
                 <h2>S'inscrire !</h2>
-                <form method="post" action="creatGroupe">
 
-                    <!-- Groupe -->
+                <form id="form-inscription" method="post" action="creatGroupe" data-parsley-validate>
+
                     <div class="form-group">
                         <label for="groupeStatut">Statut</label>
-                        <select class="form-control" id="groupeStatut" name="groupeStatut" autofocus>
+                        <select class="form-control" id="groupeStatut" name="groupeStatut" required>
+                            <option value="">Sélectionnez votre statut</option>
                             <option value="Particulier">Particulier</option>
                             <option value="Association">Association</option>
                             <option value="Entreprise">Entreprise</option>
@@ -42,31 +38,35 @@
                         </select>
                     </div>
 
+
+                <!-- Groupe -->
+                <div id='groupe'>
                     <div class="form-group">
                         <label for="groupeName">Nom du groupe</label>
-                        <input type="text" id="groupeName" name="groupeName" class="form-control" placeholder="Nom de l'organisme" required>
+                        <input type="text" id="groupeName" name="groupeName" class="form-control" placeholder="Nom de l'organisme" minlength="2" maxlength="50" required>
                     </div>
 
                     <div class="form-group">
                         <label for="groupeMail">Email</label>
                         <input type="email" id="groupeMail" name="groupeMail" class="form-control" placeholder="Adresse mail de l'organisme" required>
                     </div>
+                </div>
 
-
-                    <!-- User -->
+                <!-- User -->
+                <div id='user'>
                     <div class="form-group">
-                        <label for="userName">Nom du responsable</label>
-                        <input type="text" id="userName" name="userName" class="form-control" placeholder="Votre nom" required autofocus>
+                        <label for="userName">Nom</label>
+                        <input type="text" id="userName" name="userName" class="form-control" placeholder="Votre nom"  minlength="2" maxlength="50" required>
                     </div>
 
                     <div class="form-group">
                         <label for="userFirstname">Prénom</label>
-                        <input type="text" id="userFirstname" name="userFirstname" class="form-control" placeholder="Votre prénom" required>
+                        <input type="text" id="userFirstname" name="userFirstname" class="form-control" placeholder="Votre prénom"  minlength="2" maxlength="50" required>
                     </div>
 
                     <div class="form-group">
                         <label for="userStatut">Statut</label>
-                        <select class="form-control" id="userStatut" name="userStatut" autofocus>
+                        <select class="form-control" id="userStatut" name="userStatut">
                             <option value="Responsable">Responsable</option>
                             <option value="Controleur">Controleur</option>
                         </select>
@@ -78,12 +78,17 @@
                     </div>
 
                     <div class="form-group">
-                      <label for="userPass">Mot de passe</label>
-                      <input type="password" id="userPass" name="userPass" class="form-control" placeholder="Choisir un mot de passe" required>
+                        <label for="userPass">Mot de passe</label>
+                        <input type="password" id="userPass" name="userPass" class="form-control" placeholder="Choisir un mot de passe"pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{6,20})" required>
+                        <small class="form-text text-muted">
+                        Votre mot de passe doit comporter de 6 à 20 caractères, au moins une lettre minuscule, au moins une lettre majuscule, au moins un chiffre, au moins un de ces caractères spéciaux: $ @ % * + - _ ! , aucun autre caractère possible, pas d'espace.
+                    </small>
                     </div>
 
-                    <button class="btn btn-primary btn-block" type="submit">S'inscrire</button>
+                    <input type="hidden" name="token" id="token" value="{{ session.inscription_token }}"/>
 
+                    <button class="btn btn-primary btn-block" type="submit">S'inscrire</button>
+                </div>
                 </form>
             </div>
         </div>

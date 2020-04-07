@@ -1,4 +1,4 @@
-{% extends 'layout.twig' %}
+{% extends 'content-sidebar-L.twig' %}
 
 {% block title %}
 	<title>Mot de passe - Gestion EPI</title>
@@ -16,21 +16,18 @@
 {% endblock %}
 
 
-{% block sidebar %}
-    {% include('sidebarImg.twig') %}
-{% endblock %}
-
-
-{% block content %}
+{% block main %}
 
     <div class="row justify-content-center">
         <div class="col-6">
   
-            <form method="post" action="askPassMail">
+            <form method="post" action="askPassMail" data-parsley-validate>
                 <div class="form-group">
                     <label for="userMail">Email</label>
-                    <input type="email" id="userMail" name="userMail" class="form-control" placeholder="Adresse Email" required autofocus>
+                    <input type="email" id="userMail" name="userMail" class="form-control" placeholder="Adresse Email" maxlength="50"required>
                 </div>
+
+                <input type="hidden" name="token" id="token" value="{{ session.nxPass_token }}"/>
 
                 <button class="btn btn-primary" type="submit">Demander un nouveau mot de passe</button>
             </form>

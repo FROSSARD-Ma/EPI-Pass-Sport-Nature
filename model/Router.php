@@ -16,17 +16,18 @@ class Router {
         "changePass"    => ['FrontController','changePass'],
         "deconnexion"   => ['FrontController','deconnexion'],
         "account"       => ['FrontController','account'],
-
+        "contact"       => ['FrontController','contact'],
         
     // ---- BACK Controller -----------------------------------------------------
 
     // ---- USER Controller -----------------------------------------------------
-        "creatGroupe"   => ['UserController','creatGroupe'],
-        "loginUser"     => ['UserController','loginUser'],
-        "upMail"        => ['UserController','upMail'],
-        "upPass"        => ['UserController','upPass'],
-        "askPassMail"   => ['UserController','askPassMail'],
-        "addPass"       => ['UserController','addPass']
+        "creatGroupe"       => ['UserController'    ,'creatGroupe'],
+        "loginUser"         => ['UserController'    ,'loginUser'],
+        "upMail"            => ['UserController'    ,'upMail'],
+        "upPass"            => ['UserController'    ,'upPass'],
+        "askPassMail"       => ['UserController'    ,'askPassMail'],
+        "addPass"           => ['UserController'    ,'addPass'],
+        "sendEmailContact"  => ['UserController'    ,'sendEmailContact']
     ];
 
     public function __construct($url)

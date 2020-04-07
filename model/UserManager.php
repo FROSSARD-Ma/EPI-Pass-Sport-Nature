@@ -14,6 +14,17 @@ class UserManager extends Manager
         return $data;
     }
 
+    public function existIdUser($id)
+    {
+        $idUser = (int)$id;
+
+        $sql ='SELECT *
+            FROM EPI_users 
+            WHERE user_id = ?';
+        $data = $this->reqSQL($sql, array (htmlspecialchars($idUser)), $one = true);
+        return $data;
+    }
+
     /*---  CREAT -------------------------------------------------------- */
     public function addUser($groupeId, $nxPassCrypt)
     {
