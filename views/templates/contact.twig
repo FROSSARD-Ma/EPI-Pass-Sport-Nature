@@ -46,6 +46,8 @@
                     <textarea rows="10" id="contactMessage" name="contactMessage" class="form-control" placeholder="Écrivez votre message" minlength="2" required></textarea>
                 </div>
 
+                <input type="hidden" name="token" id="token" value="{{ session.contact_token }}"/>
+
                 <button class="btn btn-primary btn-block" type="submit">Envoyer le message</button>
             </form>
         </div>

@@ -14,6 +14,9 @@ class FrontController
     }
     public function contact($params)
     {
+        $csrf = new \Epi_Model\SecuriteCsrf('contact');
+        $token = $csrf->getToken();
+
         $nxView = new \Epi_Model\View('contact');
         $nxView->getView();
     }
