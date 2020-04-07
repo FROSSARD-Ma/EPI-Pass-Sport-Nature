@@ -54,7 +54,7 @@ class UserController
 			}
 			else
 			{
-				throw new \Epi_Model\AppException('vous avez dépassé le temps d\'envoie du formulaire. Rechargez la page et validez !', 'account');
+				throw new \Epi_Model\AppException('vous avez dépassé le temps d\'envoie du formulaire. Rechargez la page et validez !', 'inscription');
 			}
 		}
 		catch (\Epi_Model\AppException $e)
@@ -242,7 +242,7 @@ class UserController
 			}
 			else
 			{
-				throw new \Epi_Model\AppException('vous avez dépassé le temps d\'envoie du formulaire. Rechargez la page et validez !', 'account');
+				throw new \Epi_Model\AppException('vous avez dépassé le temps d\'envoie du formulaire. Rechargez la page et validez !', 'nxPass');
 			}
 		}
 		catch (\Epi_Model\AppException $e)
