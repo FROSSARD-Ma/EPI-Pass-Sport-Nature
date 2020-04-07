@@ -255,70 +255,81 @@ class UserController
 	{
 		try
 		{
-			if(isset($_POST['userMail']) AND !empty($_POST['userMail']))
+			//Ajout d'un TOKEN faille CSRF 
+			$csrf = new \Epi_Model\SecuriteCsrf('changePass');
+			$upPassToken = $csrf->verifToken(HOST.'changePass');
+			if ($upPassToken)
 			{
-				// Vérifier si le mail existe
-				$mailManager = new \Epi_Model\UserManager; 
-			    $mailExist = $mailManager->existUser($_POST['userMail']);
-			    if ($mailExist)
-			    {
-			    	// Récuperation idUser
-					$nxUser = new \Epi_Model\User($mailExist);
-					$userId = $nxUser->getId();
+				if(isset($_POST['userMail']) AND !empty($_POST['userMail']))
+				{
+					// Vérifier si le mail existe
+					$mailManager = new \Epi_Model\UserManager; 
+				    $mailExist = $mailManager->existUser($_POST['userMail']);
+				    if ($mailExist)
+				    {
+				    	// Récuperation idUser
+						$nxUser = new \Epi_Model\User($mailExist);
+						$userId = $nxUser->getId();
 
-					if(isset($_POST['userPass1']) AND !empty($_POST['userPass1']) AND isset($_POST['userPass2'])AND !empty($_POST['userPass2']))
-					{
-						if ($_POST['userPass1'] == $_POST['userPass2'])
+						if(isset($_POST['userPass1']) AND !empty($_POST['userPass1']) AND isset($_POST['userPass2'])AND !empty($_POST['userPass2']))
 						{
-							// Vérification conformité mot de passe
-							if (preg_match('#^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{6,20})#', $_POST['userPass1']))
+							if ($_POST['userPass1'] == $_POST['userPass2'])
 							{
-								$nxPassCrypt = $this->cryptPass($_POST['userPass1']);
-								$passManager = new \Epi_Model\UserManager; 
-								
-								if ($passManager->updatePass($userId, $nxPassCrypt))
-							    {
-							    	// Message		    	
-									$_SESSION['message'] = 'Votre mot de passe a été mis à jour !';
-							    	// Redirection page
-							    	$nxView = new \Epi_Model\View('home');
-								    $nxView->getView();
-							    }
+								// Vérification conformité mot de passe
+								if (preg_match('#^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{6,20})#', $_POST['userPass1']))
+								{
+									$nxPassCrypt = $this->cryptPass($_POST['userPass1']);
+									$passManager = new \Epi_Model\UserManager; 
+									
+									if ($passManager->updatePass($userId, $nxPassCrypt))
+								    {
+								    	// Message		    	
+										$_SESSION['message'] = 'Votre mot de passe a été mis à jour !';
+								    	// Redirection page
+								    	$nxView = new \Epi_Model\View('home');
+									    $nxView->getView();
+								    }
+								    else
+								    {
+								    	// Message erreur
+										throw new \Epi_Model\AppException('aucun compte n\'est enregistré avec cet Email !', 'nxPass');
+								    }
+								}
 							    else
 							    {
-							    	// Message erreur
-									throw new \Epi_Model\AppException('aucun compte n\'est enregistré avec cet Email !', 'nxPass');
-							    }
+							        // Message erreur
+									throw new \Epi_Model\AppException('votre mot de passe n\'est pas conforme.', 'changePass');
+								}    
 							}
-						    else
-						    {
-						        // Message erreur
-								throw new \Epi_Model\AppException('votre mot de passe n\'est pas conforme.', 'changePass');
-							}    
+							else
+							{
+								// Message erreur
+								throw new \Epi_Model\AppException('les deux mots de passe ne correspondent pas !', 'changePass');
+							}
 						}
 						else
 						{
 							// Message erreur
-							throw new \Epi_Model\AppException('les deux mots de passe ne correspondent pas !', 'changePass');
+							throw new \Epi_Model\AppException('les deux mots de passes n\'ont pas été renseignés.', 'changePass');	
 						}
 					}
 					else
 					{
 						// Message erreur
-						throw new \Epi_Model\AppException('les deux mots de passes n\'ont pas été renseignés.', 'changePass');	
+						throw new \Epi_Model\AppException('aucun compte n\'est enregistré avec cet Email !', 'changePass');
 					}
 				}
 				else
 				{
 					// Message erreur
-					throw new \Epi_Model\AppException('aucun compte n\'est enregistré avec cet Email !', 'changePass');
+					throw new \Epi_Model\AppException('une adresse email valide est nécessaire.', 'changePass');
 				}
 			}
 			else
 			{
-				// Message erreur
-				throw new \Epi_Model\AppException('une adresse email valide est nécessaire.', 'changePass');
+				throw new \Epi_Model\AppException('vous avez dépassé le temps d\'envoie du formulaire. Rechargez la page et validez !', 'changePass');
 			}
+
 		}	
 		catch (\Epi_Model\AppException $e)
 		{
