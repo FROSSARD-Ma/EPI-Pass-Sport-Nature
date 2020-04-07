@@ -151,18 +151,25 @@ class UserController
 	// ---- MAIL -----------------------------------------------------
 	public function upMail($params)
 	{
-		//Ajout d'un TOKEN faille CSRF 
-		$csrf = new \Epi_Model\SecuriteCsrf('upMail');
-		$upMailToken = $csrf->verifToken(HOST.'account');
-		if ($upMailToken)
+		try
 		{
+			//Ajout d'un TOKEN faille CSRF 
+			$csrf = new \Epi_Model\SecuriteCsrf('account');
+			$upMailToken = $csrf->verifToken(HOST.'account');
+			if ($upMailToken)
+			{
 
 
-		}
-		else
+			}
+			else
+			{
+				throw new \Epi_Model\AppException('vous avez dépassé le temps d\'envoie du formulaire. Rechargez la page et validez !', 'account');
+			}
+		}	
+		catch (\Epi_Model\AppException $e)
 		{
-			throw new \Epi_Model\AppException('vous avez dépassé le temps d\'envoie du formulaire. Rechargez la page et validez !', 'account');
-		}
+			$e->getRedirection();
+		}	
 	}
 
 	// ---- PASS -----------------------------------------------------
@@ -302,51 +309,60 @@ class UserController
 	public function upPass()
 	{
 		try
-		{
-			$userId = $_SESSION['userId'];
-			
-			if(isset($_POST['userPass1']) AND !empty($_POST['userPass1']) AND isset($_POST['userPass2'])AND !empty($_POST['userPass2']))
+		{	
+			//Ajout d'un TOKEN faille CSRF 
+			$csrf = new \Epi_Model\SecuriteCsrf('account');
+			$upPassToken = $csrf->verifToken(HOST.'account');
+			if ($upPassToken)
 			{
-				if ($_POST['userPass1'] == $_POST['userPass2'])
+				$userId = $_SESSION['userId'];
+				
+				if(isset($_POST['userPass1']) AND !empty($_POST['userPass1']) AND isset($_POST['userPass2'])AND !empty($_POST['userPass2']))
 				{
-					// Vérification conformité mot de passe
-					if (preg_match('#^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{6,20})#', $_POST['userPass1']))
+					if ($_POST['userPass1'] == $_POST['userPass2'])
 					{
-				        $nxPassCrypt = $this->cryptPass($_POST['userPass1']);
-						$passManager = new \Epi_Model\UserManager; 
-						
-						if ($passManager->updatePass($userId, $nxPassCrypt))
-					    {
-					    	// Message		    	
-							$_SESSION['message'] = 'Votre mot de passe a été mis à jour !';
-					    	// Redirection page
-					    	$nxView = new \Epi_Model\View('account');
-						    $nxView->getView();
-					    }
+						// Vérification conformité mot de passe
+						if (preg_match('#^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{6,20})#', $_POST['userPass1']))
+						{
+					        $nxPassCrypt = $this->cryptPass($_POST['userPass1']);
+							$passManager = new \Epi_Model\UserManager; 
+							
+							if ($passManager->updatePass($userId, $nxPassCrypt))
+						    {
+						    	// Message		    	
+								$_SESSION['message'] = 'Votre mot de passe a été mis à jour !';
+						    	// Redirection page
+						    	$nxView = new \Epi_Model\View('account');
+							    $nxView->getView();
+						    }
+						    else
+						    {
+						    	// Message erreur
+								throw new \Epi_Model\AppException('une erreur est survenue, veuillez recommencer !', 'account');
+						    }
+						}
 					    else
 					    {
-					    	// Message erreur
-							throw new \Epi_Model\AppException('une erreur est survenue, veuillez recommencer !', 'account');
-					    }
+					        // Message erreur
+							throw new \Epi_Model\AppException('votre mot de passe n\'est pas conforme.', 'account');
+						}
 					}
-				    else
-				    {
-				        // Message erreur
-						throw new \Epi_Model\AppException('votre mot de passe n\'est pas conforme.', 'account');
+					else
+					{
+						// Message erreur
+						throw new \Epi_Model\AppException('les deux mots de passe ne correspondent pas !', 'account');
 					}
 				}
 				else
 				{
 					// Message erreur
-					throw new \Epi_Model\AppException('les deux mots de passe ne correspondent pas !', 'account');
+					throw new \Epi_Model\AppException('les deux mots de passes n\'ont pas été renseignés.', 'account');	
 				}
 			}
 			else
 			{
-				// Message erreur
-				throw new \Epi_Model\AppException('les deux mots de passes n\'ont pas été renseignés.', 'account');	
+				throw new \Epi_Model\AppException('vous avez dépassé le temps d\'envoie du formulaire. Rechargez la page et validez !', 'account');
 			}
-
 		}	
 		catch (\Epi_Model\AppException $e)
 		{
