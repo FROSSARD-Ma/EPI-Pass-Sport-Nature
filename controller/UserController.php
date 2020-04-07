@@ -148,6 +148,23 @@ class UserController
 		}
 	}
 
+	// ---- MAIL -----------------------------------------------------
+	public function upMail($params)
+	{
+		//Ajout d'un TOKEN faille CSRF 
+		$csrf = new \Epi_Model\SecuriteCsrf('upMail');
+		$upMailToken = $csrf->verifToken(HOST.'account');
+		if ($upMailToken)
+		{
+
+
+		}
+		else
+		{
+			throw new \Epi_Model\AppException('vous avez dépassé le temps d\'envoie du formulaire. Rechargez la page et validez !', 'account');
+		}
+	}
+
 	// ---- PASS -----------------------------------------------------
 	public function cryptPass($password)
 	{

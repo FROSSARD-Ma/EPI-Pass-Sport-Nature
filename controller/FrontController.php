@@ -29,6 +29,9 @@ class FrontController
 
     public function account($params)
     {
+        $csrf = new \Epi_Model\SecuriteCsrf('account');
+        $token = $csrf->getToken();
+
         $nxView = new \Epi_Model\View('account');
         $nxView->getView();
     }
