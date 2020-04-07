@@ -64,6 +64,9 @@ class FrontController
 
     public function nxPass($params)
     {
+        $csrf = new \Epi_Model\SecuriteCsrf('nxPass');
+        $token = $csrf->getToken();
+        
         $nxView = new \Epi_Model\View('nxPass');
         $nxView->getView();
     }

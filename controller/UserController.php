@@ -195,45 +195,55 @@ class UserController
 	public function askPassMail()
 	{
 		try
-		{
-			// Vérifier si le mail existe
-			$mailManager = new \Epi_Model\UserManager; 
-		    $mailExist = $mailManager->existUser($_POST['userMail']);
-		    if ($mailExist)
-		    {
-		    	// Récuperation idUser
-				$nxUser = new \Epi_Model\User($mailExist);
-				$userId = $nxUser->getId();
-				$userMail= $nxUser->getMail();
+		{	
+			//Ajout d'un TOKEN faille CSRF 
+			$csrf = new \Epi_Model\SecuriteCsrf('nxPass');
+			$nxPassToken = $csrf->verifToken(HOST.'nxPass');
+			if ($nxPassToken)
+			{
+				// Vérifier si le mail existe
+				$mailManager = new \Epi_Model\UserManager; 
+			    $mailExist = $mailManager->existUser($_POST['userMail']);
+			    if ($mailExist)
+			    {
+			    	// Récuperation idUser
+					$nxUser = new \Epi_Model\User($mailExist);
+					$userId = $nxUser->getId();
+					$userMail= $nxUser->getMail();
 
-		    	// Envoyer un email
-		    	$object = 'Changement de mot de passe';
-		    	$to = $_POST['userMail'];
-		    	$message = "
-	                <h2>Demande de modification de mot de passe</h2>
-	                <div>
-		                <p>Bonjour,</p>
-		                <p>Vous souhaitez modifier votre mot de passe !</p>
+			    	// Envoyer un email
+			    	$object = 'Changement de mot de passe';
+			    	$to = $_POST['userMail'];
+			    	$message = "
+		                <h2>Demande de modification de mot de passe</h2>
+		                <div>
+			                <p>Bonjour,</p>
+			                <p>Vous souhaitez modifier votre mot de passe !</p>
 
-		                Rendez-vous à cette adresse : <a href='https://epi.pass-sport-nature.fr/changePass'>Changer mon mot de passe</a> </p>
-		               	<br>
-		            </div>
-		    	";
+			                Rendez-vous à cette adresse : <a href='https://epi.pass-sport-nature.fr/changePass'>Changer mon mot de passe</a> </p>
+			               	<br>
+			            </div>
+			    	";
 
-		    	$nxEmail = new \Epi_Model\Email($object, $to, $message);
-			    $nxEmail->sendEmail();
+			    	$nxEmail = new \Epi_Model\Email($object, $to, $message);
+				    $nxEmail->sendEmail();
 
-		    	// Message
-				$_SESSION['message'] = 'Une demande de changement vous a été envoyé par Email !';
-				// Redirection page
-		    	$nxView = new \Epi_Model\View('home');
-			    $nxView->getView();
-		    }
-		    else
-		    {
-		    	// Message erreur
-				throw new \Epi_Model\AppException('aucun compte n\'est enregistré avec cet Email !', 'nxPass');
-		    }
+			    	// Message
+					$_SESSION['message'] = 'Une demande de changement vous a été envoyé par Email !';
+					// Redirection page
+			    	$nxView = new \Epi_Model\View('home');
+				    $nxView->getView();
+			    }
+			    else
+			    {
+			    	// Message erreur
+					throw new \Epi_Model\AppException('aucun compte n\'est enregistré avec cet Email !', 'nxPass');
+			    }
+			}
+			else
+			{
+				throw new \Epi_Model\AppException('vous avez dépassé le temps d\'envoie du formulaire. Rechargez la page et validez !', 'account');
+			}
 		}
 		catch (\Epi_Model\AppException $e)
 		{
