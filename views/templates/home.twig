@@ -50,6 +50,7 @@
                         <label for="userRemember">Se souvenir de moi</label>
                         <input type="checkbox" id="userRemember" name="userRemember">
                     </div>
+                    <input type="hidden" name="token" id="token" value="{{ session.login_token }}"/>
 
                     <button class="btn btn-primary" type="submit">Se connecter</button>
 

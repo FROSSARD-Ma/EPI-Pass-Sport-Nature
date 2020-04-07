@@ -6,7 +6,10 @@ class FrontController
     /* TOP Menu ----------------------------------- */
     public function home($params)
     {
-		$nxView = new \Epi_Model\View('home');
+		$csrf = new \Epi_Model\SecuriteCsrf('login');
+        $token = $csrf->getToken();
+
+        $nxView = new \Epi_Model\View('home');
         $nxView->getView();
     }
     public function contact($params)

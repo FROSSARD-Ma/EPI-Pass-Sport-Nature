@@ -101,36 +101,46 @@ class UserController
 	{
 		try
 		{
-			// Vérifier si Utilisateur existe / mail
-			$mailManager = new \Epi_Model\UserManager; 
-		    $mailExist = $mailManager->existUser($_POST['userMail']);
-		    if ($mailExist)
-		    {
-		    	$nxUser = new \Epi_Model\User($mailExist);
-				if (password_verify($_POST['userPass'], $nxUser->getPass()))
-				{
-					// enregistrement pour la session
-					$_SESSION['userId']			= $nxUser->getId();
-					$_SESSION['userFirstname']	= $nxUser->getFirstname();
-			        $_SESSION['userStatut']		= $nxUser->getStatut();
+			//Ajout d'un TOKEN faille CSRF 
+			$csrf = new \Epi_Model\SecuriteCsrf('login');
+			$inscriptionToken = $csrf->verifToken(HOST.'home');
+			if ($inscriptionToken)
+			{	
+				// Vérifier si Utilisateur existe / mail
+				$mailManager = new \Epi_Model\UserManager; 
+			    $mailExist = $mailManager->existUser($_POST['userMail']);
+			    if ($mailExist)
+			    {
+			    	$nxUser = new \Epi_Model\User($mailExist);
+					if (password_verify($_POST['userPass'], $nxUser->getPass()))
+					{
+						// enregistrement pour la session
+						$_SESSION['userId']			= $nxUser->getId();
+						$_SESSION['userFirstname']	= $nxUser->getFirstname();
+				        $_SESSION['userStatut']		= $nxUser->getStatut();
 
-			        //-- Se SOUVENIR du MDP
-			        if (isset($_POST['userRemember']))
-			        { 
-			            $this->addCookieUser();
-			        }
-			        $nxView = new \Epi_Model\View('dashboard');
-			        $nxView->getView();
+				        //-- Se SOUVENIR du MDP
+				        if (isset($_POST['userRemember']))
+				        { 
+				            $this->addCookieUser();
+				        }
+				        $nxView = new \Epi_Model\View('dashboard');
+				        $nxView->getView();
+				    }
+				    else
+				    {
+						throw new \Epi_Model\AppException('il ne s\'agit pas du bon mot de passe !', 'home');
+				    }
 			    }
 			    else
 			    {
-					throw new \Epi_Model\AppException('il ne s\'agit pas du bon mot de passe !', 'home');
+					throw new \Epi_Model\AppException('Aucun compte n\'est enregistré avec cet email !','home');
 			    }
-		    }
-		    else
-		    {
-				throw new \Epi_Model\AppException('Aucun compte n\'est enregistré avec cet email !','home');
-		    }
+			}
+			else
+			{
+				throw new \Epi_Model\AppException('vous avez dépassé le temps d\'envoie du formulaire d\'identification. Rechargez la page et validez votre connexion !', 'home');
+			}
 		}
 		catch (\Epi_Model\AppException $e)
 		{
