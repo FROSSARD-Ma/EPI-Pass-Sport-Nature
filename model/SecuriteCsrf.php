@@ -4,7 +4,7 @@ namespace Epi_Model;
 class SecuriteCsrf
 {
 	private $_nameForm; // Nom du formulaire
-	private $_tempsValidForm = 5; // Temps validation Formulaire (10 min * 60s)en timestamp
+	private $_tempsValidForm = 600; // Temps validation Formulaire (10 min * 60s)en timestamp
 
 	public function __construct($form = null)
 	{
