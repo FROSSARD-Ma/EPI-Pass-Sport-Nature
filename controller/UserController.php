@@ -96,6 +96,85 @@ class UserController
 		}
 	}
 
+	public function upMail($userId)
+	{
+		try
+		{
+			// Changement EMAIL
+			if(isset($_POST['userMail']) AND !empty($_POST['userMail']))
+			{
+				$passManager = new \Epi_Model\UserManager; 
+			    if ($passManager->updateMail($userId))
+			    {
+			    	// Message		    	
+					$_SESSION['message'] = 'Votre adresse Email a été mis à jour !';
+			    	// Redirection page
+			    	$nxView = new \Epi_Model\View('account');
+				    $nxView->getView();
+				}
+				else
+				{
+					// Message erreur
+					throw new \Epi_Model\AppException('une erreur est survenue lors de l\'enregistrement', 'account');
+				}
+			}
+			else
+			{
+				// Message erreur
+				throw new \Epi_Model\AppException('une adresse Email valide est obligatoire', 'account');
+			}
+		}
+		catch (\Epi_Model\AppException $e)
+		{
+			$e->getRedirection();
+		}
+	}
+
+	public function upPass($userId)
+	{
+		try
+		{
+			if(isset($_POST['userPass1']) AND !empty($_POST['userPass1']) AND isset($_POST['userPass2'])AND !empty($_POST['userPass2']))
+			{
+				if ($_POST['userPass1'] == $_POST['userPass2'])
+				{
+					$nxPassCrypt = $this->cryptPass($_POST['userPass1']);
+
+					$passManager = new \Epi_Model\UserManager; 
+				    if ($passManager->updatePass($userId, $nxPassCrypt))
+				    {
+				    	// Message		    	
+						$_SESSION['message'] = 'Votre mot de passe a été mis à jour !';
+				    	// Redirection page
+				    	$nxView = new \Epi_Model\View('account');
+					    $nxView->getView();
+				    }
+				    else
+				    {
+				    	// Message erreur
+						throw new \Epi_Model\AppException('une erreur est survenue lors de l\'enregistrement', 'account');
+				    }
+				}
+				else
+				{
+					// Message erreur
+					throw new \Epi_Model\AppException('les deux mots de passe ne correspondent pas !', 'account');
+				}
+			}
+			else
+			{
+				// Message erreur
+				throw new \Epi_Model\AppException('les deux mots de passes n\'ont pas été renseignés', 'account');	
+			}
+		}
+		catch (\Epi_Model\AppException $e)
+		{
+			$e->getRedirection();
+		}
+	}
+
+
+
 	// ---- COOKIE -------------------------------------------
 	public function addCookieUser()
 	{
@@ -493,5 +572,4 @@ class UserController
 		}
 
 	}
-
 }

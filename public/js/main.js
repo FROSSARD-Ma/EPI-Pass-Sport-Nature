@@ -1,3 +1,4 @@
+
 const formulaire = document.querySelector('form');
 $('form').parsley();
 

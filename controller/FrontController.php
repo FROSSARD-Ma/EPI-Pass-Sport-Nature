@@ -32,8 +32,14 @@ class FrontController
         $csrf = new \Epi_Model\SecuriteCsrf('account');
         $token = $csrf->getToken();
 
+        $UserManager = new \Epi_Model\UserManager; 
+        $dataUser = $UserManager->getUser($_SESSION['userId']);
+
+        $user = new \Epi_Model\User($dataUser); // hydratation
+
         $nxView = new \Epi_Model\View('account');
-        $nxView->getView();
+        $nxView->getView(array (
+            'user'=> $user));
     }
 
     public function deconnexion($params)
@@ -66,16 +72,13 @@ class FrontController
     {
         $csrf = new \Epi_Model\SecuriteCsrf('nxPass');
         $token = $csrf->getToken();
-
+        
         $nxView = new \Epi_Model\View('nxPass');
         $nxView->getView();
     }
 
     public function changePass($params)
     {
-        $csrf = new \Epi_Model\SecuriteCsrf('changePass');
-        $token = $csrf->getToken();
-        
         $nxView = new \Epi_Model\View('changePass');
         $nxView->getView();
     }
