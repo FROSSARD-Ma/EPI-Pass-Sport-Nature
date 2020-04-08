@@ -36,7 +36,7 @@
         <section class="row">
             <div class="col-5">
                 <h3>Email</h3>
-                <form method="post" action="upMail" id="form_mail" enctype="multipart/form-data" data-parsley-validate>
+                <form method="post" action="upMail" id="mailForm" data-parsley-validate>
                     <div class="form-group">
                       <label for="userMail" class="sr-only">Email</label>
                       <input type="email" id="userMail" name="userMail" class="form-control" placeholder="{{ user.getMail }}" value="{{ user.getMail }}" required>
@@ -59,7 +59,7 @@
 
             <div class="col-5">
                 <h3>Changer Mot de passe</h3>
-                <form method="post" action="upPass" id="form_pass" enctype="multipart/form-data" data-parsley-validate>
+                <form method="post" action="upPass" id="passForm" enctype="multipart/form-data" data-parsley-validate>
                     <div class="form-group">
                         <label for="userPass1" class="sr-only">Nouveau Mot de passe</label>
                         <input type="password" id="userPass1" name="userPass1" class="form-control" placeholder="Choisir un mot de passe" pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{6,20})" required>

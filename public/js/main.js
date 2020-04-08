@@ -6,7 +6,7 @@ let buttonText = button.textContent;
 
 
 // CHANGE MAIL -------------------------------------------------------
-let mailForm = document.getElementById('form_mail');
+let mailForm = document.getElementById('mailForm')
 
 
 /* == GESTIONS EVENEMENTS ================================ */
@@ -18,31 +18,34 @@ mailForm.addEventListener('submit', async function (e) {
 
  	e.preventDefault()
 
-	let data = new FormData(mailForm);
-console.log(data);
+ 	const formData = new FormData(this);
+ 	try {
+ 		let response = await fetch(form.action,
+		{
+	      	method: 'post',
+	      	body: formData
+	    })
 
-  	let response = await fetch(mailForm.action,
-  	{
-    	method: 'POST',
-    	body: data
-  	})
+		if (response.ok === true)
+	    {
+	      let responseData = await response;
+	      // Message ok
+	      
+	    
+	    } 
+	    else
+	    {
+	      	// Message erreur : réponse n'est pas bonne (pas 200), on affiche les erreurs
+			throw new ('une erreur est survenue.');
+	    }
+ 	}
+ 	catch (e) {
+ 		alert(e);
+ 	}
+	
 
-	if (response.ok === true)
-    {
-      let responseData = await response;
-
-      // Message ok
-      alert('Mail a été changé OK');
-    
-    } 
-    else
-    {
-      // La réponse n'est pas bonne (pas 200), on affiche les erreurs
-    alert('Une erreur est survenue');
-    }
-
-  // Dans tous les cas on permet la soumission du formulaire à nouveau
-  button.disabled = false;
-  button.textContent = buttonText;
+	// Dans tous les cas on permet la soumission du formulaire à nouveau
+	button.disabled = false;
+	button.textContent = buttonText;
 
 })
