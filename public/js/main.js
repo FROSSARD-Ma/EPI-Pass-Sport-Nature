@@ -4,14 +4,14 @@ let button = form.querySelector('button[type=submit]');
 let buttonText = button.textContent;
 
 
-
 // CHANGE MAIL -------------------------------------------------------
-let mailForm = document.getElementById('mailForm')
+let mailForm = document.getElementById('mailForm');
 
+let message = document.getElementById('message');
 
 /* == GESTIONS EVENEMENTS ================================ */
 
-mailForm.addEventListener('submit', async function (e) {
+mailForm.addEventListener('submit', function (e) {
 
   	button.disabled = true;
   	button.textContent = 'Chargement...';
@@ -19,30 +19,9 @@ mailForm.addEventListener('submit', async function (e) {
  	e.preventDefault()
 
  	const formData = new FormData(this);
- 	try {
- 		let response = await fetch(form.action,
-		{
-	      	method: 'post',
-	      	body: formData
-	    })
 
-		if (response.ok === true)
-	    {
-	      let responseData = await response;
-	      // Message ok
-	      
-	    
-	    } 
-	    else
-	    {
-	      	// Message erreur : réponse n'est pas bonne (pas 200), on affiche les erreurs
-			throw new ('une erreur est survenue.');
-	    }
- 	}
- 	catch (e) {
- 		alert(e);
- 	}
-	
+ 	nxForm = new Formulaire (mailForm, formData);
+	nxForm.verifForm();
 
 	// Dans tous les cas on permet la soumission du formulaire à nouveau
 	button.disabled = false;
