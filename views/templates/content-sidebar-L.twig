@@ -1,0 +1,32 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+	<div class="row">
+
+		<!-- Sidebar LARGE -->
+		 <aside class="col-md-4 d-none d-md-block sidebar">
+		    <img src="public/img/ski-rando.jpg" alt="Groupe en ski de randonnée" width="100%">
+		</aside>
+
+		<!-- Main Content -->
+		<main class="col-md-8 ml-sm-auto px-4">
+
+			<!-- Header Page -->
+			<header>
+			  {% block headerpage %}
+			  {% endblock %}
+
+			  <!-- MESSAGE bar-->
+			  {% include('includes/messages.twig') %}
+
+			</header>
+
+			<section class="container-fluid">
+			  {% block main %}
+			  {% endblock %}
+			</section>
+
+		</main>
+
+	</div>
+{% endblock content %}

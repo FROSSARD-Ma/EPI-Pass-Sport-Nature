@@ -3,32 +3,43 @@ namespace Epi_Controller;
 
 class FrontController
 {
-    /* Menu ----------------------------------- */
+    /* TOP Menu ----------------------------------- */
     public function home($params)
     {
-		$nxView = new \Epi_Model\View('home');
+		$csrf = new \Epi_Model\SecuriteCsrf('login');
+        $token = $csrf->getToken();
+
+        $nxView = new \Epi_Model\View('home');
+        $nxView->getView();
+    }
+    public function contact($params)
+    {
+        $csrf = new \Epi_Model\SecuriteCsrf('contact');
+        $token = $csrf->getToken();
+
+        $nxView = new \Epi_Model\View('contact');
         $nxView->getView();
     }
 
-
-
-    /* Link Button ----------------------------*/
-    public function inscription($params)
+    public function dashboard($params)
     {
-        $nxView = new \Epi_Model\View('inscription');
+        $nxView = new \Epi_Model\View('dashboard');
         $nxView->getView();
     }
 
-    public function nxPass($params)
+    public function account($params)
     {
-        $nxView = new \Epi_Model\View('nxPass');
-        $nxView->getView();
-    }
+        $csrf = new \Epi_Model\SecuriteCsrf('account');
+        $token = $csrf->getToken();
 
-    public function changePass($params)
-    {
-        $nxView = new \Epi_Model\View('changePass');
-        $nxView->getView();
+        $UserManager = new \Epi_Model\UserManager; 
+        $dataUser = $UserManager->getUser($_SESSION['userId']);
+
+        $user = new \Epi_Model\User($dataUser); // hydratation
+
+        $nxView = new \Epi_Model\View('account');
+        $nxView->getView(array (
+            'user'=> $user));
     }
 
     public function deconnexion($params)
@@ -45,6 +56,34 @@ class FrontController
         $nxView = new \Epi_Model\View('home');
         $nxView->getView();
     }
+
+
+    /* Link Button ----------------------------*/
+    public function inscription($params)
+    {
+        $csrf = new \Epi_Model\SecuriteCsrf('inscription');
+        $token = $csrf->getToken();
+
+        $nxView = new \Epi_Model\View('inscription');
+        $nxView->getView();
+    }
+
+    public function nxPass($params)
+    {
+        $csrf = new \Epi_Model\SecuriteCsrf('nxPass');
+        $token = $csrf->getToken();
+        
+        $nxView = new \Epi_Model\View('nxPass');
+        $nxView->getView();
+    }
+
+    public function changePass($params)
+    {
+        $nxView = new \Epi_Model\View('changePass');
+        $nxView->getView();
+    }
+
+
 
 
     /* Erreur 404  ----------------------------*/
