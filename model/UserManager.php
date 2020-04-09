@@ -46,46 +46,50 @@ class UserManager extends Manager
     }
 
     /*---  READ ---------------------------------------------------------- */
+    
+    public function getGroupe($id)
+    {
+        $idGroupe = (int)$id;
+        $sql =' SELECT *
+                FROM EPI_groupes 
+                WHERE groupe_id =?';
+        $data = $this->reqSQL($sql, array ($idGroupe), $one = true);
+        return $data;
+    }
+
+
     public function getUser($id)
     {
         $idUser = (int)$id;
 
-        $sql = 'SELECT EPI_users.*, EPI_groupes.groupe_name
-
-            FROM EPI_users 
-
+        $sql =' SELECT EPI_users.*, EPI_groupes.groupe_name
+                FROM EPI_users 
                 JOIN EPI_groupes
                      ON EPI_users.user_groupeId=EPI_groupes.groupe_id
-
-            WHERE user_id =:id';
-
-        $data = $this->getPDO()->prepare($sql);
-        $data->bindValue(':id', $idUser, PDO::PARAM_STR);
-        $data->execute(); 
-        
+                WHERE user_id =?';
+        $data = $this->reqSQL($sql, array ($idUser), $one = true);
         return $data;
     }
 
     /*---  UPDATE -------------------------------------------------------- */
-    public function updateUser($id)
+    public function updateMail($id)
     {
         $idUser = (int)$id;
 
         $sql ='UPDATE EPI_users 
-            SET user_mail=:mail, user_pass = :pass, user_notification=:notification, user_statut=:statut
+            SET user_mail=:mail, user_notification=:notification
             WHERE  user_id = :id';
 
         $data = $this->getPDO()->prepare($sql);
-        $data->bindValue(':mail', htmlspecialchars($_POST['mail']), PDO::PARAM_STR);
-        $data->bindValue(':pass', htmlspecialchars($_POST['pass']), PDO::PARAM_STR);
-        $data->bindValue(':notification', $_POST['notification'], PDO::PARAM_STR);
-        $data->bindValue(':statut', htmlspecialchars($_POST['statut']), PDO::PARAM_STR);
+        $data->bindValue(':mail', htmlspecialchars($_POST['userMail']), PDO::PARAM_STR);
+        $data->bindValue(':notification', $_POST['userNotification'], PDO::PARAM_STR);
         $data->bindValue(':id', $idUser, PDO::PARAM_STR); 
         $data->execute();
 
         return $data;
     }
-     public function updatePass($id, $nxPass)
+
+    public function updatePass($id, $nxPass)
     {
         $idUser = (int)$id;
 

@@ -168,8 +168,29 @@ class UserController
 			$upMailToken = $csrf->verifToken(HOST.'account');
 			if ($upMailToken)
 			{
-
-
+				// Changement EMAIL
+				if(isset($_POST['userMail']) AND !empty($_POST['userMail']))
+				{
+					$passManager = new \Epi_Model\UserManager; 
+				    if ($passManager->updateMail($_SESSION['userId']))
+				    {
+				    	// Message		    	
+						$_SESSION['message'] = 'Votre adresse Email a été mis à jour !';
+				    	// Redirection page
+				    	$nxView = new \Epi_Model\View('account');
+					    $nxView->getView();
+					}
+					else
+					{
+						// Message erreur
+						throw new \Epi_Model\AppException('une erreur est survenue lors de l\'enregistrement', 'account');
+					}
+				}
+				else
+				{
+					// Message erreur
+					throw new \Epi_Model\AppException('une adresse Email valide est obligatoire', 'account');
+				}
 			}
 			else
 			{
