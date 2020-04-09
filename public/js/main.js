@@ -1,49 +1,30 @@
-
-const formulaire = document.querySelector('form');
+const form = document.querySelector('form');
 $('form').parsley();
-
-
-// FORM -------------------------------------------------------
-let form = document.querySelector('#form_mail');
 let button = form.querySelector('button[type=submit]');
 let buttonText = button.textContent;
 
 
+// CHANGE MAIL -------------------------------------------------------
+let mailForm = document.getElementById('mailForm');
+
+let message = document.getElementById('message');
+
 /* == GESTIONS EVENEMENTS ================================ */
 
-form.addEventListener('submit', async function (e) {
+mailForm.addEventListener('submit', function (e) {
 
-  button.disabled = true;
-  button.textContent = 'Chargement...';
+  	button.disabled = true;
+  	button.textContent = 'Chargement...';
 
-  e.preventDefault()
+ 	e.preventDefault()
 
-  let data = new FormData(form);
-  let response = await fetch(form.action,
-  {
-    method: 'POST',
-    body: data
-  })
+ 	const formData = new FormData(this);
 
-console.log(response);
-  
-    if (response.ok === true)
-    {
-      let responseData = await response;
-      console.log(responseData);
-      // Message ok
-      alert('Mail a été changé OK');
-    
-    } 
-    else
-    {
-      // La réponse n'est pas bonne (pas 200), on affiche les erreurs
-    alert('Une erreur est survenue');
+ 	nxForm = new Formulaire (mailForm, formData);
+	nxForm.verifForm();
 
-    }
- 
-  // Dans tous les cas on permet la soumission du formulaire à nouveau
-  button.disabled = false;
-  button.textContent = buttonText;
+	// Dans tous les cas on permet la soumission du formulaire à nouveau
+	button.disabled = false;
+	button.textContent = buttonText;
 
 })
