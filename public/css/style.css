@@ -66,12 +66,13 @@
 }
 
 /* FORMULAIRE ===================== */
-#groupe {
-  /*display:none;*/
-}
 
+#groupe {
+	display:none;
+}
 #user {
-  /*display:none;*/
+	display:none;
 }
 
 /*# sourceMappingURL=style.css.map */
+
