@@ -1,7 +1,7 @@
 
 // INSCRIPTION -------------------------------------------------------
 
-let formInsc = document.getElementById('form-inscription');
+let inscForm = document.getElementById('inscForm');
 let gpStatut = document.getElementById('groupeStatut');
 
 /* == GESTIONS EVENEMENTS ================================ */
@@ -9,11 +9,11 @@ let gpStatut = document.getElementById('groupeStatut');
 gpStatut.addEventListener('change', () =>
 {	
 	let statut = gpStatut.value;
-	let groupeElt = formInsc.elements.groupe;
-	let userElt = formInsc.elements.user;
-	let nameLabel = formInsc.elements.labelUserName;
-	let btnInsc = formInsc.elements.button;
+	let groupeElt = inscForm.elements.groupe;
+	let userElt = inscForm.elements.user;
+	let nameLabel = inscForm.elements.labelUserName;
+	let btnInsc = inscForm.elements.button;
 
-	nxInscription = new Inscription (formInsc, statut, groupeElt, userElt, nameLabel, btnInsc);
+	nxInscription = new Inscription (inscForm, statut, groupeElt, userElt, nameLabel, btnInsc);
 	nxInscription.editForm();
 });
