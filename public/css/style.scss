@@ -88,9 +88,20 @@ $texte-clair: #BFBDC6;
 /* FORMULAIRE ===================== */
 
 #groupe {
-	/*display:none;*/
+	display:none;
+	padding: 1rem;
+	background-color: $fond-clair;
+	margin: 20px 0;
 }
 #user {
-	/*display:none;*/
+	display:none;
 }
+
+#next-btn {
+	display:none;
+}
+#previous-btn {
+	display:none;
+}
+
 
