@@ -19,8 +19,7 @@
 
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-6">
-
+            <div class="col-8">
                 <h2>S'inscrire !</h2>
                 <form id="form-inscription" method="post" action="creatGroupe" data-parsley-validate>
 
@@ -37,56 +36,56 @@
                         </select>
                     </div>
 
-                <!-- Groupe -->
-                <div id='groupe'>
-                    <div class="form-group">
-                        <label for="groupeName">Nom du groupe</label>
-                        <input type="text" id="groupeName" name="groupeName" class="form-control" placeholder="Nom de l'organisme" minlength="2" maxlength="50" required>
+                    <!-- Groupe -->
+                    <div id='groupe' class="section">
+                        <h3></h3>
+                        <div class="form-group">
+                            <label for="groupeName"></label>
+                            <input type="text" id="groupeName" name="groupeName" class="form-control" placeholder="Nom de l'organisme" minlength="2" maxlength="50" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="groupeMail"></label>
+                            <input type="email" id="groupeMail" name="groupeMail" class="form-control" placeholder="Adresse mail de l'organisme" required>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="groupeMail">Email</label>
-                        <input type="email" id="groupeMail" name="groupeMail" class="form-control" placeholder="Adresse mail de l'organisme" required>
-                    </div>
-                </div>
+                    <!-- User -->
+                    <div id='user' class="section">
+                        <div class="form-group">
+                            <label for="userName" id="labelUserName"></label>
+                            <input type="text" id="userName" name="userName" class="form-control" placeholder="Votre nom"  minlength="2" maxlength="50" required>
+                        </div>
 
-                <!-- User -->
-                <div id='user'>
-                    <div class="form-group">
-                        <label for="userName">Nom</label>
-                        <input type="text" id="userName" name="userName" class="form-control" placeholder="Votre nom"  minlength="2" maxlength="50" required>
-                    </div>
+                        <div class="form-group">
+                            <label for="userFirstname">Prénom</label>
+                            <input type="text" id="userFirstname" name="userFirstname" class="form-control" placeholder="Votre prénom"  minlength="2" maxlength="50" required>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="userFirstname">Prénom</label>
-                        <input type="text" id="userFirstname" name="userFirstname" class="form-control" placeholder="Votre prénom"  minlength="2" maxlength="50" required>
-                    </div>
+                        <div class="form-group">
+                          <label for="userMail">Email</label>
+                          <input type="email" id="userMail" name="userMail" class="form-control" placeholder="Votre adresse mail" required>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="userStatut">Statut</label>
-                        <select class="form-control" id="userStatut" name="userStatut">
-                            <option value="Responsable">Responsable</option>
-                            <option value="Controleur">Controleur</option>
-                        </select>
-                    </div>
+                        <div class="form-group">
+                            <label for="userPass">Mot de passe</label>
+                            <input type="password" id="userPass" name="userPass" class="form-control" placeholder="Choisir un mot de passe"pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{6,20})" required>
+                            <small class="form-text text-muted">
+                            Votre mot de passe doit comporter de 6 à 20 caractères, au moins une lettre minuscule, au moins une lettre majuscule, au moins un chiffre, au moins un de ces caractères spéciaux: $ @ % * + - _ ! , aucun autre caractère possible, pas d'espace.
+                        </small>
+                        </div>
 
-                    <div class="form-group">
-                      <label for="userMail">Email</label>
-                      <input type="email" id="userMail" name="userMail" class="form-control" placeholder="Votre adresse mail" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="userPass">Mot de passe</label>
-                        <input type="password" id="userPass" name="userPass" class="form-control" placeholder="Choisir un mot de passe"pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{6,20})" required>
-                        <small class="form-text text-muted">
-                        Votre mot de passe doit comporter de 6 à 20 caractères, au moins une lettre minuscule, au moins une lettre majuscule, au moins un chiffre, au moins un de ces caractères spéciaux: $ @ % * + - _ ! , aucun autre caractère possible, pas d'espace.
-                    </small>
+                        <input type="hidden" name="userStatut" id="userStatut" value="Responsable"/>
+                        
                     </div>
 
                     <input type="hidden" name="token" id="token" value="{{ session.inscription_token }}"/>
 
-                    <button class="btn btn-primary btn-block" type="submit">S'inscrire</button>
-                </div>
+                    <span type="button" id="previous-btn" class="btn btn-info">&lt; Précédent</span>
+
+                    <span type="button" id="next-btn" class="btn btn-info">Suivant</span>
+
+                    <button type="submit" class="btn btn-primary btn-block" >Valider inscription</button>
                 </form>
             </div>
         </div>

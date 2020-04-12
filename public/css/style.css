@@ -66,13 +66,23 @@
 }
 
 /* FORMULAIRE ===================== */
-
 #groupe {
-	display:none;
+  display: none;
+  padding: 1rem;
+  background-color: #BFBDC6;
+  margin: 20px 0;
 }
+
 #user {
-	display:none;
+  display: none;
+}
+
+#next-btn {
+  display: none;
+}
+
+#previous-btn {
+  display: none;
 }
 
 /*# sourceMappingURL=style.css.map */
-
