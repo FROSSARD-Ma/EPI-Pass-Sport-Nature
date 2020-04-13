@@ -9,49 +9,29 @@ class Formulaire {
 
     // Ajoput message
     verifForm() {
-        try {
 
-            let response = fetch(this.formulaire.action,
+        fetch(this.formulaire.action,
+        {
+            method: 'post',
+            body: this.formData
+        })
+        .then(function(response)
+        {
+            if (response.ok)
             {
-                method: 'post',
-                body: this.formData
-            })
-
-            if (response.ok === true)
-            {
-                console.log('réponse OK');
-                let responseData = response;
-                this.validMessage();
+                let nxMsg = new Message ('Enregistrement validé !');
+                nxMsg.validMessage();
             } 
-            else // réponse n'est pas 200
+            else
             {
-                console.log('réponse HS');
-                this.errorMessage();
-            }
+                let nxMsg = new Message ('ERREUR : un problème est survenue !');
+                nxMsg.errorMessage();
+            }    
 
-        }
-        catch (e) {
-            alert(e);
-        }
-    }
-
-    validMessage() {
-        message.style.display = 'block';
-        message.classList.add('valid');
-        message.innerHTML = 'Validé !';
-        setTimeout(()=> this.clearMessage(), 3000); // 3s
-    }
-
-    errorMessage() {
-        message.style.display = 'block';
-        message.classList.add('error');
-        message.innerHTML = 'ERREUR : un problème est survenue !';
-        setTimeout(()=> this.clearMessage(), 3000); // 3s
-    }
-
-    clearMessage () {
-        message.classList.remove('valid');
-        message.classList.remove('error');
-        message.style.display = 'none';
+        }, function(error)
+        {
+            let nxMsg = new Message (error);
+            nxMsg.errorMessage();
+        })
     }
 }
