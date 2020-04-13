@@ -8,6 +8,12 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
+    <!-- Custom FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap" rel="stylesheet">
+
+    <!-- FONTAWESOME -->
+    <link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
     <!-- Feuille de style CSS -->
     <link href="public/css/style.css" rel="stylesheet"/>
 
@@ -17,8 +23,26 @@
   </head>
   <body>
     
-    <!-- NAV bar-->
-    {% include('navbarTop.twig') %}
+    <header class="entete">
+        <div id="pass-nature">
+            <img id="logo" src="public/img/logo.jpg">
+            <div class="pass-titre">
+                <p class="pass-orange">PASS'</p>
+                <p class="pass-nom">Sport EPI</p>
+                <p class="pass-accroche">Sécurisez votre pratique sportive</p>
+            </div>
+        </div>
+
+        <div id="pass-epi">
+            <p class="titre">Gestion de Matériel EPI</p>
+            <p class="sous-titre">Equipements de Protection Individuel</p>
+            <p class="pass-bleu">NEIGE - TERRE - EAU - AIR</p>
+        </div>
+        <!-- NAV bar-->
+        {% include('navbarTop.twig') %}
+
+    </header>
+    
  
     <div class="container-fluid">
       
@@ -48,8 +72,12 @@
     <script src="public/js/parsley/parsley.min.js"></script>
     <script src="public/js/parsley/fr.extra.js"></script>
     <script src="public/js/parsley/fr.js"></script>
+
+    {% block javascript %}
+    {% endblock %}
+    <script src="public/js/message.js"></script>
     <script src="public/js/formulaire.js"></script>
     <script src="public/js/main.js"></script>
-    
+
   </body>
 </html>

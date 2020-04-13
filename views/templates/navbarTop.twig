@@ -1,32 +1,31 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-
-  <a class="navbar-brand" href="">Gestion EPI - Pass'Sport Nature</a>
-
+<nav id="topNav" class="navbar navbar-expand-lg">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="home">Accueil</a>
-      <a class="nav-item nav-link active" href="contact">Contact</a>
-    </div>
-  </div>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
 
-  {% if session.userId %}
-
-    <ul class="nav nav-pills">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i>Mon compte</a>
-        <div class="dropdown-menu dropdown-menu-right">
-          <a class="dropdown-item" href="dashboard">Tableau de bord</a>
-          <a class="dropdown-item" href="account">Mon compte</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="deconnexion">Se déconnecter</a>
-        </div>
+      <li class="nav-item active">
+        <a class="nav-link" href="home">Accueil</a>
       </li>
-    </ul>
 
-  {% endif %}
-  
+      <li class="nav-item">
+        <a class="nav-link" href="contact">Contact</a>
+      </li>
+
+      {% if session.userId %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle"  href="#" id="navbarDropdownMenuLink" role="button" class="btn btn-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i>Mon compte</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="dashboard">Tableau de bord</a>
+            <a class="dropdown-item" href="account">Mon compte</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="deconnexion">Se déconnecter</a>
+          </div>
+        </li>
+      {% endif %}
+
+    </ul>
+  </div>
 </nav>

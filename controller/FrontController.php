@@ -79,6 +79,10 @@ class FrontController
 
     public function changePass($params)
     {
+
+        $csrf = new \Epi_Model\SecuriteCsrf('changePass');
+        $token = $csrf->getToken();
+        
         $nxView = new \Epi_Model\View('changePass');
         $nxView->getView();
     }

@@ -1,10 +1,18 @@
 
-<section>
-    <p>{{ session.userFirstname }}</p>
-    <p>{{ session.userStatut }}</p>
+<section class="sidebar-header">
+	<i class="fas fa-user-check"></i>
+	<div class="user">
+	    <p>{{ session.userFirstname }}</p>
+	    <p>{{ session.userStatut }}</p>
+	</div>
 </section>
 
-<section>
+<nav class="sidebar-nav">
 
-</section>
+  <a class="btn btn-primary" href="dashboard" role="button">Tableau de bord</a>
+  <a class="btn btn-primary" href="#" role="button">Équipements</a>
+  <a class="btn btn-primary" href="#" role="button">Calendrier</a>
+  <a class="btn btn-primary" href="#" role="button">Historique</a>
+
+</nav>
 
