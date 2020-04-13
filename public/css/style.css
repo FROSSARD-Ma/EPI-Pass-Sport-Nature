@@ -8,6 +8,14 @@
   background-color: #28a745;
 }
 
+.section {
+  margin: 50px 0;
+}
+
+.col {
+  padding: 25px;
+}
+
 /* HEADER ====================== */
 header.entete {
   font-family: "Roboto Condensed", sans-serif;
