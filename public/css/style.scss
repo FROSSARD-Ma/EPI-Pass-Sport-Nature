@@ -25,93 +25,6 @@ $primary:#007bff;
 .valid {
 	background-color: $success;
 }
-/* HEADER ====================== */
-header.entete {
-	
-	font-family: 'Roboto Condensed', sans-serif;
-	display: flex;
-	justify-content: space-between;
-
-	#pass-nature {
-		display: flex;
-		text-align: left;
-		position: relative;
-
-		#logo {
-			height: 100px;
-			margin: 15px; 
-		}
-		.pass-titre {
-			margin: 15px; 
-		}
-		.pass-orange {
-			line-height: 110%;
-			color: white;
-			font-size: 2.4em;
-			font-weight: bold;
-			background-color: $orang;
-			transform: rotate(-10deg);
-			margin:0;
-			padding: 0 10px;
-		}
-		.pass-nom {
-			position: absolute;
-			width: 100%;
-			font-weight: bold;
-			font-size: 2.5em;
-			margin:0;
-			top:40px;
-		}
-		.pass-accroche {
-			position: absolute;
-			bottom: 0;
-			width: 110%;
-			font-size: 1em;
-		}
-	}
-
-	#pass-epi {
-
-		flex: 3;
-		text-align: center;
-		margin: 15px;
-		margin-left: 115px;
-
-		.titre {
-			font-size: 2.5em;
-			margin:0;
-			line-height: 110%;
-		}
-		.sous-titre {
-			font-size: 1.3em;
-			margin:0;
-		}
-		.pass-bleu {
-			width: 250px;
-			color: white;
-			font-size: 1.3em;
-			background-color: $primary;
-			margin:0;
-			margin-right:auto;
-			margin-left: auto;
-		}
-	}
-
-	#topNav {
-		margin: 15px; 
-		flex: 1;
-
-		a, a:hover {
-			color: $texte-fonce;
-			text-decoration: none;
-		}
-	}
-
-} 
-
-
-
-
 
 .section {
 	margin: 50px 0;
@@ -205,11 +118,6 @@ header.entete {
 
 } 
 
-
-
-
-
-
 /* SIDEBAR ===================== */
 .sidebar {
 
@@ -285,21 +193,21 @@ header.entete {
 
 /* FORMULAIRE ===================== */
 
-#groupe {
-	display:none;
-	padding: 1rem;
-	background-color: $fond-clair;
-	margin: 20px 0;
-}
-#user {
-	display:none;
-
-#next-btn {
-	display:none;
-}
-#previous-btn {
-	display:none;
-}
+	#groupe {
+		display:none;
+		padding: 1rem;
+		background-color: $fond-clair;
+		margin: 20px 0;
+	}
+	#user {
+		display:none;
+	}
+	#next-btn {
+		display:none;
+	}
+	#previous-btn {
+		display:none;
+	}
 
 /* FOOTER ===================== */
 footer {
