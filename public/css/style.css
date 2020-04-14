@@ -16,6 +16,15 @@
   padding: 25px;
 }
 
+.vignette {
+  padding: 0.5rem 1rem;
+  font-size: 1em;
+  margin: 15px;
+}
+.vignette span {
+  font-size: 2em;
+}
+
 /* HEADER ====================== */
 header.entete {
   font-family: "Roboto Condensed", sans-serif;
@@ -89,6 +98,16 @@ header.entete #topNav {
 header.entete #topNav a, header.entete #topNav a:hover {
   color: #3A3A3A;
   text-decoration: none;
+}
+header.entete #topNav .account {
+  padding: 0;
+  background-color: #80C743;
+}
+header.entete #topNav .account a, header.entete #topNav .account a:hover {
+  color: white;
+}
+header.entete #topNav .dropdown-menu a, header.entete #topNav a:hover {
+  color: #3A3A3A;
 }
 
 /* SIDEBAR ===================== */

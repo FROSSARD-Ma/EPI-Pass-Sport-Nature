@@ -34,6 +34,15 @@ $primary:#007bff;
 	padding: 25px;
 }
 
+.vignette {
+	padding: .5rem 1rem;
+  	font-size: 1em;
+  	margin: 15px;
+  	span {
+  		font-size: 2em;
+  	}
+} 
+
 /* HEADER ====================== */
 header.entete {
 	
@@ -113,6 +122,17 @@ header.entete {
 		a, a:hover {
 			color: $texte-fonce;
 			text-decoration: none;
+		}
+
+		.account {
+			padding: 0;
+			background-color: $vert;
+			a, a:hover {
+			color:  white;
+			}
+		}
+		.dropdown-menu a, a:hover {
+			color:  $texte-fonce;
 		}
 	}
 
