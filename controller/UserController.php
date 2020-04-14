@@ -103,7 +103,7 @@ class UserController
 	 		$UserManager = new \Epi_Model\UserManager;
 	 		$userPass = $UserManager->creatPass();
 			$nxPassCrypt = $this->cryptPass($userPass);
-			$addUser = $UserManager->addUser($_POST['groupeId'], $nxPassCrypt);
+			$addUser = $UserManager->addUser($_SESSION['groupeId'], $nxPassCrypt);
 			if ($addUser)
 			{
 				// Message
@@ -124,7 +124,6 @@ class UserController
 			$e->getRedirection();
 		}
 	}
-
 
 	// ---- COOKIE -------------------------------------------
 	public function addCookieUser()
@@ -154,11 +153,25 @@ class UserController
 			    	$nxUser = new \Epi_Model\User($mailExist);
 					if (password_verify($_POST['userPass'], $nxUser->getPass()))
 					{
-						// enregistrement pour la session
+						$groupeId = $nxUser->getGroupeId();
+
+						/* User */
 						$_SESSION['userId']			= $nxUser->getId();
+						$_SESSION['userName']		= $nxUser->getName();
 						$_SESSION['userFirstname']	= $nxUser->getFirstname();
 				        $_SESSION['userStatut']		= $nxUser->getStatut();
+						
+						/* Groupe */
+						$groupeManager = new \Epi_Model\GroupeManager;
+						$groupe = $groupeManager->getGroupe($groupeId);
+					    if ($groupe)
+					    {
+					    	$nxGroupe = new \Epi_Model\Groupe($groupe);
+							$_SESSION['groupeId']		= $nxGroupe->getId();
+							$_SESSION['groupeStatut']	= $nxGroupe->getStatut();
+							$_SESSION['groupeName']		= $nxGroupe->getName();
 
+						}
 				        //-- Se SOUVENIR du MDP
 				        if (isset($_POST['userRemember']))
 				        { 

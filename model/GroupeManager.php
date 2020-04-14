@@ -34,12 +34,8 @@ class GroupeManager extends Manager
     {
         $idGroupe = (int)$id;
 
-        $sql = 'SELECT * FROM EPI_groupes WHERE groupe_id =:id';
-
-        $data = $this->getPDO()->prepare($sql);
-        $data->bindValue(':idGroupe', $idGroupe, PDO::PARAM_STR);
-        $data->execute(); 
-        
+        $sql = 'SELECT * FROM EPI_groupes WHERE groupe_id = ?';
+        $data = $this->reqSQL($sql, array ($idGroupe), $one = true);
         return $data;
     }
 

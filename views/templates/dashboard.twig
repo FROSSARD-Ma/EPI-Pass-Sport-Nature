@@ -10,15 +10,12 @@
 
 {% block headerpage %}
 
-	<h1 class="mt-4">{{ userResp.getGroupe }}</h1>
+	<h1 class="mt-4">{{ session.groupeStatut }} : {{ session.groupeName }}</h1>
     <div class="alert alert-secondary" role="alert">
-     <h2>TABLEAU DE BORD - {{ userResp.getStatut }}</h2>
+     <h2>TABLEAU DE BORD - {{ session.userStatut }}</h2>
     </div>
 
 {% endblock %}
-
-
-
 
 
 {% block main %}
@@ -34,22 +31,43 @@
         <a href="#" class="btn btn-warning vignette" role="button" aria-pressed="true"><span>10</span><br>CONTRÔLES</a>
         <a href="#" class="btn btn-danger vignette" role="button" aria-pressed="true"><span>10</span><br>RETARDS</a>
         </div>
-
-
-
     </section>
 
-    {% if userResp.getStatut == 'Responsable' %}
+
+    {% if session.userStatut == 'Responsable' %}
     <!-- Gestion utilisateur RESPONSABLE -->    
         <section class="row justify-content-center section">
 
             <div class="col-xl-7 col-md-10">
-               <h3>Liste des utilisateurs</h3>
-                <ul>
-                  {#   {% for user in users %}
-                        <li>{{ user.|e }}</li>
-                    {% endfor %} #}
-                </ul>
+                <h3>Liste des utilisateurs</h3>
+
+                <table class="users">
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <form method="post" action="" id="upUserForm" data-parsley-validate>
+                                <td><a href="mailto:{{ user.getMail }}">{{ user.getName }} {{ user.getFirstname }}</a></td>
+                               
+                                <td>
+                                    <select class="form-control" id="groupeStatut" name="groupeStatut" value ="{{ user.getStatut }}" required>
+                                        <option value="{{ user.getStatut }}">{{ user.getStatut }}</option>
+                                         <option value="">--------</option>
+                                        <option value="Responsable">Responsable</option>
+                                        <option value="Controleur">Controleur</option>
+                                        <option value="Visiteur">Visiteur</option>
+                                    </select>
+                                </td>
+                                <td><button class="btn btn-success btn-block" type="submit"><i class="fas fa-pencil-alt"></i></button></td>
+                            </form>
+                            <form method="post" action="delUser" id="delUserForm" data-parsley-validate>
+                                <td>
+                                    <button class="btn btn-danger btn-block" type="submit"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </form>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
 
             <div class="col-xl-5 col-md-10">
@@ -58,22 +76,22 @@
 
                     <!-- User -->
                     <div class="form-group">
-                        <label for="userName" id="labelUserName">Nom</label>
+                        <label for="userName" id="labelUserName" class="sr-only">Nom</label>
                         <input type="text" id="userName" name="userName" class="form-control" placeholder="Nom"  minlength="2" maxlength="50" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="userFirstname">Prénom</label>
+                        <label for="userFirstname" class="sr-only">Prénom</label>
                         <input type="text" id="userFirstname" name="userFirstname" class="form-control" placeholder="Prénom"  minlength="2" maxlength="50" required>
                     </div>
 
                     <div class="form-group">
-                      <label for="userMail">Email</label>
+                      <label for="userMail" class="sr-only">Email</label>
                       <input type="email" id="userMail" name="userMail" class="form-control" placeholder="Adresse mail" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="userStatut">Statut</label>
+                        <label for="userStatut" class="sr-only">Statut</label>
                         <select class="form-control" id="userStatut" name="userStatut" required>
                             <option value="">Statut utilisateur</option>
                             <option value="Responsable">Responsable</option>
@@ -81,8 +99,6 @@
                             <option value="Visiteur">Visiteur</option>
                         </select>
                     </div>
-
-                    <input type="hidden" name="groupeId" id="groupeId" value="{{ userResp.getGroupeId }}"/>
 
                     <input type="hidden" name="token" id="token" value="{{ session.account_token }}"/>
                     <button class="btn btn-primary btn-block" type="submit">Ajouter Utilisateur</button>
