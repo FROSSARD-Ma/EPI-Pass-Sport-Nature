@@ -27,7 +27,8 @@ class Router {
         "upPass"            => ['UserController'    ,'upPass'],
         "askPassMail"       => ['UserController'    ,'askPassMail'],
         "addPass"           => ['UserController'    ,'addPass'],
-        "sendEmailContact"  => ['UserController'    ,'sendEmailContact']
+        "sendEmailContact"  => ['UserController'    ,'sendEmailContact'],
+        "addUser"           => ['UserController'    ,'addUser']
     ];
 
     public function __construct($url)

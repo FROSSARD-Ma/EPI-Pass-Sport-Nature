@@ -1,67 +1,98 @@
 {% extends 'content-sidebar-S.twig' %}
 
-{% block title %}
-	<title>Gestion EPI- Tableau de bord</title>
-{% endblock %}
-
-{% block headerpage %}
-
-	<h1 class="mt-4">Tableau de bord</h1>
-	<ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item active">Tableau de bord de {{ session.userFirstname }}</li>
-    </ol>
-
-	<p>Ergo ego senator inimicus, si ita vultis, homini, amicus esse, sicut semper fui, rei publicae debeo. Quid? si ipsas inimicitias, depono rei publicae causa, quis me tandem iure reprehendet, praesertim cum ego omnium meorum consiliorum atque factorum exempla semper ex summorum hominum consiliis atque factis mihi censuerim petenda.</p>
-{% endblock %}
-
-
 {% block sidebar %}
     {% include('sidebarNav.twig') %}
 {% endblock %}
 
+{% block title %}
+	<title>Tableau de bord - Gestion EPI</title>
+{% endblock %}
+
+{% block headerpage %}
+
+	<h1 class="mt-4">{{ userResp.getGroupe }}</h1>
+    <div class="alert alert-secondary" role="alert">
+     <h2>TABLEAU DE BORD - {{ userResp.getStatut }}</h2>
+    </div>
+
+{% endblock %}
+
+
+
+
 
 {% block main %}
 
-    <div class="row">
-        <div class="col-xl-3 col-md-6">
-            <div class="card bg-primary text-white mb-4">
-                <div class="card-body">Primary Card</div>
-                <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">View Details</a>
-                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                </div>
-            </div>
+    <section class="row justify-content-center sectionw">
+        
+        <div class="col-xl-7 col-md-10">
+            <p>Ergo ego senator inimicus, si ita vultis, homini, amicus esse, sicut semper fui, rei publicae debeo. Quid? si ipsas inimicitias, depono rei publicae causa, quis me tandem iure reprehendet, praesertim cum ego omnium meorum consiliorum atque factorum exempla semper ex summorum hominum consiliis atque factis mihi censuerim petenda.</p>
         </div>
-        <div class="col-xl-3 col-md-6">
-            <div class="card bg-warning text-white mb-4">
-                <div class="card-body">Warning Card</div>
-                <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">View Details</a>
-                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                </div>
-            </div>
+
+        <div class="col-xl-5 col-md-10">
+        <a href="#" class="btn btn-primary vignette" role="button" aria-pressed="true"><span>10</span><br>RÉPARATIONS</a>
+        <a href="#" class="btn btn-warning vignette" role="button" aria-pressed="true"><span>10</span><br>CONTRÔLES</a>
+        <a href="#" class="btn btn-danger vignette" role="button" aria-pressed="true"><span>10</span><br>RETARDS</a>
         </div>
-        <div class="col-xl-3 col-md-6">
-            <div class="card bg-success text-white mb-4">
-                <div class="card-body">Success Card</div>
-                <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">View Details</a>
-                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                </div>
+
+
+
+    </section>
+
+    {% if userResp.getStatut == 'Responsable' %}
+    <!-- Gestion utilisateur RESPONSABLE -->    
+        <section class="row justify-content-center section">
+
+            <div class="col-xl-7 col-md-10">
+               <h3>Liste des utilisateurs</h3>
+                <ul>
+                  {#   {% for user in users %}
+                        <li>{{ user.|e }}</li>
+                    {% endfor %} #}
+                </ul>
             </div>
-        </div>
-        <div class="col-xl-3 col-md-6">
-            <div class="card bg-danger text-white mb-4">
-                <div class="card-body">Danger Card</div>
-                <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">View Details</a>
-                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                </div>
+
+            <div class="col-xl-5 col-md-10">
+                <h3>Ajouter un utilisateur</h3>
+                <form method="post" action="addUser" id="addUserForm" data-parsley-validate>
+
+                    <!-- User -->
+                    <div class="form-group">
+                        <label for="userName" id="labelUserName">Nom</label>
+                        <input type="text" id="userName" name="userName" class="form-control" placeholder="Nom"  minlength="2" maxlength="50" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userFirstname">Prénom</label>
+                        <input type="text" id="userFirstname" name="userFirstname" class="form-control" placeholder="Prénom"  minlength="2" maxlength="50" required>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="userMail">Email</label>
+                      <input type="email" id="userMail" name="userMail" class="form-control" placeholder="Adresse mail" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userStatut">Statut</label>
+                        <select class="form-control" id="userStatut" name="userStatut" required>
+                            <option value="">Statut utilisateur</option>
+                            <option value="Responsable">Responsable</option>
+                            <option value="Controleur">Controleur</option>
+                            <option value="Visiteur">Visiteur</option>
+                        </select>
+                    </div>
+
+                    <input type="hidden" name="groupeId" id="groupeId" value="{{ userResp.getGroupeId }}"/>
+
+                    <input type="hidden" name="token" id="token" value="{{ session.account_token }}"/>
+                    <button class="btn btn-primary btn-block" type="submit">Ajouter Utilisateur</button>
+                </form>    
             </div>
-        </div>
-    </div>
-   
-    <div class="card mb-4">
+        </section>
+    {% endif %}
+
+    <!-- Visuel des dernières DONNEES -->    
+    <section class="card mb-4">
         <div class="card-header"><i class="fas fa-table mr-1"></i>DataTable Example</div>
         <div class="card-body">
             <div class="table-responsive">
@@ -69,7 +100,7 @@
                 </table>
             </div>
         </div>
-    </div>
+    </section>
 
 {% endblock %}
 

@@ -96,6 +96,36 @@ class UserController
 		}
 	}
 
+	public function addUser()
+	{
+		try
+		{
+	 		$UserManager = new \Epi_Model\UserManager;
+	 		$userPass = $UserManager->creatPass();
+			$nxPassCrypt = $this->cryptPass($userPass);
+			$addUser = $UserManager->addUser($_POST['groupeId'], $nxPassCrypt);
+			if ($addUser)
+			{
+				// Message
+				$_SESSION['message'] = 'L\'inscription est validée !';
+				// Nouvelle page 
+				$nxView = new \Epi_Model\View('dashboard');
+				$nxView->getView();
+			}
+			else
+			{
+				// Message erreur
+				throw new \Epi_Model\AppException('l\'utilisateur n\'a pas été créé.', 'dashboard');
+			}
+
+		}
+		catch (\Epi_Model\AppException $e)
+		{
+			$e->getRedirection();
+		}
+	}
+
+
 	// ---- COOKIE -------------------------------------------
 	public function addCookieUser()
 	{
