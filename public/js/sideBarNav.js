@@ -12,5 +12,3 @@ equipBtnElt.style.display = 'none';
 
 let calendarBtn = document.getElementById('calendar-btn');
 let historyBtn = document.getElementById('history-btn');
-
-
