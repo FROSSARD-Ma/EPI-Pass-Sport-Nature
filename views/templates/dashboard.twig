@@ -45,11 +45,11 @@
                     <tbody>
                         {% for user in users %}
                         <tr>
-                            <form method="post" action="" id="upUserForm" data-parsley-validate>
+                            <form method="post" action="upUser" id="upUserForm" data-parsley-validate>
                                 <td><a href="mailto:{{ user.getMail }}">{{ user.getName }} {{ user.getFirstname }}</a></td>
                                
                                 <td>
-                                    <select class="form-control" id="groupeStatut" name="groupeStatut" value ="{{ user.getStatut }}" required>
+                                    <select class="form-control" id="userStatut" name="userStatut" value ="{{ user.getStatut }}" required>
                                         <option value="{{ user.getStatut }}">{{ user.getStatut }}</option>
                                          <option value="">--------</option>
                                         <option value="Responsable">Responsable</option>
@@ -57,7 +57,10 @@
                                         <option value="Visiteur">Visiteur</option>
                                     </select>
                                 </td>
-                                <td><button class="btn btn-success btn-block" type="submit"><i class="fas fa-pencil-alt"></i></button></td>
+                                <td>
+                                    <input type="hidden" name="userId" id="userId" value="{{ user.getId }}"/>
+                                    <input type="hidden" name="token" id="token" value="{{ session.dashboard_token }}"/>
+                                    <button class="btn btn-success btn-block" type="submit"><i class="fas fa-pencil-alt"></i></button></td>
                             </form>
                             <form method="post" action="delUser" id="delUserForm" data-parsley-validate>
                                 <td>

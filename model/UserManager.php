@@ -131,6 +131,22 @@ class UserManager extends Manager
         return $data;
     }
 
+    public function updateUser($id, $statut)
+    {
+        $idUser = (int)$id;
+
+        $sql ='UPDATE EPI_users 
+            SET user_statut = :statut
+            WHERE  user_id = :id';
+
+        $data = $this->getPDO()->prepare($sql); 
+        $data->bindValue(':statut', htmlspecialchars($statut), PDO::PARAM_STR);
+        $data->bindValue(':id', $idUser, PDO::PARAM_STR); 
+        $data->execute();
+
+        return $data;
+    }
+
     /*---  DELETE -------------------------------------------------------- */
     public function deleteUser($id)
     {

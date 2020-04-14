@@ -125,6 +125,40 @@ class UserController
 		}
 	}
 
+	public function upUser()
+	{
+		try
+		{
+			$csrf = new \Epi_Model\SecuriteCsrf('dashboard');
+			$dashboardToken = $csrf->verifToken(HOST.'dashboard');
+			if ($dashboardToken)
+			{
+		 		$UserManager = new \Epi_Model\UserManager;
+		 		$upUser = $UserManager->updateUser($_POST['userId'], $_POST['userStatut']);
+		 		if ($upUser)
+			    {
+			    	$_SESSION['message'] = 'le statut utilisateur a été mis à jour !';
+					$nxView = new \Epi_Model\View();
+					$nxView->redirectView('dashboard');
+			    }
+			    else
+			    {
+			    	// Message erreur
+					throw new \Epi_Model\AppException('le statut utilisateur n\'a pas été mis à jour.', 'dashboard');
+			    }
+		 	}
+			else
+			{
+				throw new \Epi_Model\AppException('vous avez dépassé le temps d\'envoie du formulaire. Rechargez la page et validez !', 'dashboard');
+			}
+
+		}
+		catch (\Epi_Model\AppException $e)
+		{
+			$e->getRedirection();
+		}
+	}
+
 	public function delUser()
 	{
 		try

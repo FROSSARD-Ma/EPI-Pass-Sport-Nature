@@ -29,7 +29,8 @@ class Router {
         "addPass"           => ['UserController'    ,'addPass'],
         "sendEmailContact"  => ['UserController'    ,'sendEmailContact'],
         "addUser"           => ['UserController'    ,'addUser'],
-        "delUser"           => ['UserController'    ,'delUser']
+        "delUser"           => ['UserController'    ,'delUser'],
+        "upUser"            => ['UserController'    ,'upUser']
     ];
 
     public function __construct($url)
