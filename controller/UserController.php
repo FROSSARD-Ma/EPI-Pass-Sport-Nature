@@ -125,6 +125,43 @@ class UserController
 		}
 	}
 
+	public function delUser()
+	{
+		try
+		{
+			$csrf = new \Epi_Model\SecuriteCsrf('dashboard');
+			$dashboardToken = $csrf->verifToken(HOST.'dashboard');
+			if ($dashboardToken)
+			{
+		 		$UserManager = new \Epi_Model\UserManager;
+		 		$delUser = $UserManager->deleteUser($_POST['userId']);
+		 		if ($delUser)
+			    {
+			    	$_SESSION['message'] = 'L\'utilisateur a été supprimé !';
+					$nxView = new \Epi_Model\View();
+					$nxView->redirectView('dashboard');
+			    }
+			    else
+			    {
+			    	// Message erreur
+					throw new \Epi_Model\AppException('l\'utilisateur n\'a pas été supprimé.', 'dashboard');
+			    }
+		 	}
+			else
+			{
+				throw new \Epi_Model\AppException('vous avez dépassé le temps d\'envoie du formulaire. Rechargez la page et validez !', 'dashboard');
+			}
+
+		}
+		catch (\Epi_Model\AppException $e)
+		{
+			$e->getRedirection();
+		}
+
+	}
+
+
+
 	// ---- COOKIE -------------------------------------------
 	public function addCookieUser()
 	{
