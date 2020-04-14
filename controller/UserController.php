@@ -109,8 +109,8 @@ class UserController
 				// Message
 				$_SESSION['message'] = 'L\'inscription est validée !';
 				// Nouvelle page 
-				$nxView = new \Epi_Model\View('dashboard');
-				$nxView->getView();
+				$nxView = new \Epi_Model\View();
+				$nxView->redirectView('dashboard');
 			}
 			else
 			{
@@ -164,8 +164,8 @@ class UserController
 				        { 
 				            $this->addCookieUser();
 				        }
-				        $nxView = new \Epi_Model\View('dashboard');
-				        $nxView->getView();
+				        $nxView = new \Epi_Model\View();
+				        $nxView->redirectView('dashboard');
 				    }
 				    else
 				    {
@@ -207,8 +207,8 @@ class UserController
 				    	// Message		    	
 						$_SESSION['message'] = 'Votre adresse Email a été mis à jour !';
 				    	// Redirection page
-				    	$nxView = new \Epi_Model\View('account');
-					    $nxView->getView();
+				    	$nxView = new \Epi_Model\View();
+					    $nxView->redirectView('account');
 					}
 					else
 					{
@@ -282,8 +282,8 @@ class UserController
 			    	// Message
 					$_SESSION['message'] = 'Une demande de changement vous a été envoyé par Email !';
 					// Redirection page
-			    	$nxView = new \Epi_Model\View('home');
-				    $nxView->getView();
+			    	$nxView = new \Epi_Model\View();
+				    $nxView->redirectView('home');
 			    }
 			    else
 			    {
@@ -337,8 +337,8 @@ class UserController
 								    	// Message		    	
 										$_SESSION['message'] = 'Votre mot de passe a été mis à jour !';
 								    	// Redirection page
-								    	$nxView = new \Epi_Model\View('home');
-									    $nxView->getView();
+								    	$nxView = new \Epi_Model\View();
+									    $nxView->redirectView('home');
 								    }
 								    else
 								    {
@@ -414,8 +414,8 @@ class UserController
 						    	// Message		    	
 								$_SESSION['message'] = 'Votre mot de passe a été mis à jour !';
 						    	// Redirection page
-						    	$nxView = new \Epi_Model\View('account');
-							    $nxView->getView();
+						    	$nxView = new \Epi_Model\View();
+							    $nxView->redirectView('account');
 						    }
 						    else
 						    {
@@ -525,8 +525,8 @@ class UserController
 			    	// Message
 					$_SESSION['message'] = 'Votre message a bien été envoyé ! Je vous recontacteria dans les plus bref délais ! ';
 					// Redirection page
-			    	$nxView = new \Epi_Model\View('home');
-				    $nxView->getView();
+			    	$nxView = new \Epi_Model\View();
+				    $nxView->redirectView('home');
 			    }
 			    else
 		    	{

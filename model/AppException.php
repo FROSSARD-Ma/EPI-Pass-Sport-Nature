@@ -16,20 +16,20 @@ class AppException extends Exception
 
     public function getRedirection()
     {
-
       	if(empty($message))
       	{
-			$_SESSION['erreur'] = 'ERREUR : ' . $this->_message;
+          $_SESSION['erreur'] = 'ERREUR : ' . $this->_message;
       	}
 
       	if(empty($redirectionPage))
   		{
-	      	$nxView = new \Epi_Model\View($this->_redirectionPage);
-		}
-		else
-		{
-			$nxView = new \Epi_Model\View('home');
-		}
-		$nxView->getView();
+	      	$nxView = new \Epi_Model\View();
+          $nxView->redirectView($this->_redirectionPage);
+  		}
+  		else
+  		{
+  			$nxView = new \Epi_Model\View('home');
+        $nxView->redirectView('home');
+  		}
     }
 }
