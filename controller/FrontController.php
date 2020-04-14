@@ -23,8 +23,23 @@ class FrontController
 
     public function dashboard($params)
     {
+        $csrf = new \Epi_Model\SecuriteCsrf('dashboard');
+        $token = $csrf->getToken();
+
+        /* Liste USERS */
+        $UserManager = new \Epi_Model\UserManager;
+        $dataUsers = $UserManager->getUsers($_SESSION['groupeId']);
+        foreach ($dataUsers as $data)
+        {
+            $user = new \Epi_Model\User($data);
+            $users[] = $user; // Tableau d'objet
+        }
+
         $nxView = new \Epi_Model\View('dashboard');
-        $nxView->getView();
+        $nxView->getView(array (
+            'userResp'=> $userResp,
+            'users'=> $users
+        ));
     }
 
     public function account($params)
@@ -53,8 +68,8 @@ class FrontController
 
         $_SESSION['message'] = 'Vous êtes déconnecté de votre espace !';
 
-        $nxView = new \Epi_Model\View('home');
-        $nxView->getView();
+        $nxView = new \Epi_Model\View();
+        $nxView->redirectView('home');
     }
 
 
@@ -86,8 +101,6 @@ class FrontController
         $nxView = new \Epi_Model\View('changePass');
         $nxView->getView();
     }
-
-
 
 
     /* Erreur 404  ----------------------------*/
