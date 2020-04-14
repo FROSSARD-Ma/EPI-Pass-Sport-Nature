@@ -43,6 +43,7 @@ $primary:#007bff;
   	}
 } 
 
+
 /* HEADER ====================== */
 header.entete {
 	
@@ -210,9 +211,16 @@ header.entete {
 	}
 
 
+/* TABLEAU ====================== */
+table.users {
+    border-collapse: initial;
+    width: 80%;
+}
+
 
 /* FORMULAIRE ===================== */
 
+	// Inscription
 	#groupe {
 		display:none;
 		padding: 1rem;
@@ -227,6 +235,11 @@ header.entete {
 	}
 	#previous-btn {
 		display:none;
+	}
+
+	/* Ajout USER */
+	#addUserForm {
+		padding: 15px 30px;
 	}
 
 /* FOOTER ===================== */

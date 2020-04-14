@@ -177,6 +177,12 @@ header.entete #topNav .dropdown-menu a, header.entete #topNav a:hover {
   display: none;
 }
 
+/* TABLEAU ====================== */
+table.users {
+  border-collapse: initial;
+  width: 80%;
+}
+
 /* FORMULAIRE ===================== */
 #groupe {
   display: none;
@@ -195,6 +201,11 @@ header.entete #topNav .dropdown-menu a, header.entete #topNav a:hover {
 
 #previous-btn {
   display: none;
+}
+
+/* Ajout USER */
+#addUserForm {
+  padding: 15px 30px;
 }
 
 /* FOOTER ===================== */
