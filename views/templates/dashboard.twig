@@ -45,7 +45,8 @@
                     <tbody>
                         {% for user in users %}
                         <tr>
-                            <form method="post" action="upUser" id="upUserForm" data-parsley-validate>
+                            <!-- Form STATUT User  --> 
+                            <form method="post" action="upUser" id="upUserForm" enctype="multipart/form-data"  data-parsley-validate>
                                 <td><a href="mailto:{{ user.getMail }}">{{ user.getName }} {{ user.getFirstname }}</a></td>
                                
                                 <td>
@@ -62,7 +63,8 @@
                                     <input type="hidden" name="token" id="token" value="{{ session.dashboard_token }}"/>
                                     <button class="btn btn-success btn-block" type="submit"><i class="fas fa-pencil-alt"></i></button></td>
                             </form>
-                            <form method="post" action="delUser" id="delUserForm" data-parsley-validate>
+                            <!-- Form SUPPRESSION User --> 
+                            <form method="post" action="delUser" id="delUserForm" enctype="multipart/form-data" data-parsley-validate>
                                 <td>
                                     <input type="hidden" name="userId" id="userId" value="{{ user.getId }}"/>
                                     <input type="hidden" name="token" id="token" value="{{ session.dashboard_token }}"/>
@@ -74,7 +76,7 @@
                     </tbody>
                 </table>
             </div>
-
+            <!-- Form AJOUT User --> 
             <div class="col-xl-5 col-md-10">
                 <h3>Ajouter un utilisateur</h3>
                 <form method="post" action="addUser" id="addUserForm" data-parsley-validate>
@@ -127,5 +129,6 @@
 
 {% block javascript %}
     <script src="public/js/sideBarNav.js"></script>
+    <script src="public/js/formDashboard.js"></script>
 {% endblock %}
 
