@@ -42,6 +42,15 @@ class FrontController
         ));
     }
 
+    public function equipement($params)
+    {
+        $csrf = new \Epi_Model\SecuriteCsrf('equipement');
+        $token = $csrf->getToken();
+
+        $nxView = new \Epi_Model\View('equipement');
+        $nxView->getView();
+    }
+
     public function account($params)
     {
         $csrf = new \Epi_Model\SecuriteCsrf('account');

@@ -17,6 +17,7 @@ class Router {
         "deconnexion"   => ['FrontController','deconnexion'],
         "account"       => ['FrontController','account'],
         "contact"       => ['FrontController','contact'],
+        "equipement"    => ['FrontController','equipement'],
         
     // ---- BACK Controller -----------------------------------------------------
 
