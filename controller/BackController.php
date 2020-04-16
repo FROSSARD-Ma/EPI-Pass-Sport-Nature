@@ -4,7 +4,6 @@ namespace Epi_Controller;
 class BackController
 {
 	// ---- EQUIPEMENT  -------------------------------
-
 	public function creatActivite($nxActivite)
 	{
 		try
@@ -68,49 +67,72 @@ class BackController
 		}
 	}
 
+	public function creatLot($groupeId, $nxLot)
+	{
+		try
+		{
+			$lotManager = new \Epi_Model\LotManager; 
+			$creatLot = $lotManager->addLot($groupeId, $nxLot);
+			if ($creatLot)
+			{
+				return $creatLot; // Id
+	        }
+	        else
+	        {
+	        	throw new \Epi_Model\AppException('votre lot n\'a pas été créé', 'nxEquipt');
+	        }
+		}
+		catch (\Epi_Model\AppException $e)
+		{
+			$e->getRedirection();
+		}
+	}
 
 	public function creatEquipt($params)
 	{
 		try
 		{
-			//Ajout d'un TOKEN faille CSRF 
 			$csrf = new \Epi_Model\SecuriteCsrf('nxEquipt');
 			$inscriptionToken = $csrf->verifToken(HOST.'nxEquipt');
 			if ($inscriptionToken)
 			{
-
 				// ACTIVITE --------------
-				if (($_POST['activiteId']=='nxActivite') AND (isset($_POST['nxActivite'])) AND !empty($_POST['nxActivite']))
-				{
-					$activiteId = $this->creatActivite($_POST['nxActivite']);
-				}	    
-			    else
-		        {
-		            $activiteId = $_POST['activiteId'];
-		        }			
-
+					if (($_POST['activiteId']=='nxActivite') AND (isset($_POST['nxActivite'])) AND !empty($_POST['nxActivite']))
+					{
+						$activiteId = $this->creatActivite($_POST['nxActivite']);
+					}	    
+				    else
+			        {
+			            $activiteId = $_POST['activiteId'];
+			        }			
 		        // CATEGORIE --------------
-				if (($_POST['categorieId']=='nxCategorie') AND (isset($_POST['nxCategorie'])) AND !empty($_POST['nxCategorie']))
-				{
+					if (($_POST['categorieId']=='nxCategorie') AND (isset($_POST['nxCategorie'])) AND !empty($_POST['nxCategorie']))
+					{
 
-					$categorieId = $this->creatCategorie($activiteId, $_POST['nxCategorie']);
-				}	    
-			    else
-		        {
-		            $categorieId = $_POST['categorieId'];
-		        }
-
+						$categorieId = $this->creatCategorie($activiteId, $_POST['nxCategorie']);
+					}	    
+				    else
+			        {
+			            $categorieId = $_POST['categorieId'];
+			        }
 		        // KIT --------------------
-				if (($_POST['kitId']=='nxKit') AND (isset($_POST['nxKit'])) AND !empty($_POST['nxKit']))
-				{
-					$kitId = $this->creatKit($_SESSION['groupeId'], $_POST['nxKit']);
-				}	    
-			    else
-		        {
-		            $kitId = $_POST['kitId'];
-		        }
-
-				//$lotId =
+					if (($_POST['kitId']=='nxKit') AND (isset($_POST['nxKit'])) AND !empty($_POST['nxKit']))
+					{
+						$kitId = $this->creatKit($_SESSION['groupeId'], $_POST['nxKit']);
+					}	    
+				    else
+			        {
+			            $kitId = $_POST['kitId'];
+			        }
+				// LOT --------------------
+					if (($_POST['lotId']=='nxLot') AND (isset($_POST['nxLot'])) AND !empty($_POST['nxLot']))
+					{
+						$lotId = $this->creatLot($_SESSION['groupeId'], $_POST['nxLot']);
+					}	    
+				    else
+			        {
+			            $lotId = $_POST['lotId'];
+			        }
 
 				$EquipementManager = new \Epi_Model\EquipementManager; 
 				$creatEquipt = $EquipementManager->addEquipement($_SESSION['groupeId'], $activiteId, $categorieId, $kitId, $lotId);
@@ -135,9 +157,5 @@ class BackController
 		{
 			$e->getRedirection();
 		}
-
-
-
 	}
-
 }

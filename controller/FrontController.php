@@ -67,14 +67,18 @@ class FrontController
 
         // Liste des kits
         $kitManager = new \Epi_Model\KitManager;
-        $kits = $kitManager->getkits();
+        $kits = $kitManager->getKits();
+        
+        // Liste des lots
+        $lotManager = new \Epi_Model\LotManager;
+        $lots = $lotManager->getLots();
 
         $nxView = new \Epi_Model\View('nxEquipt');
         $nxView->getView(array (
             'activites'=> $activites,
             'categories' => $categories,
-            'kits' => $kits
-        ));
+            'kits' => $kits,
+            'lots' => $lots));
     }
 
     public function account($params)

@@ -35,6 +35,7 @@
                         <div class="col-sm-8">
                             <select class="form-control" id="activiteId" name="activiteId" >
                                 <option value="">Sélectionnez l'activité</option>
+                                <option value="">-------------</option>
                                 {% for activite in activites %}
                                     <option value="{{ activite.getId }}">{{ activite.getName }}</option>
                                 {% endfor %}
@@ -56,6 +57,7 @@
                         <div class="col-sm-8">
                             <select class="form-control" id="categorieId" name="categorieId"  >
                                 <option value="">Sélectionnez la catégorie</option>
+                                <option value="">-------------</option>
                                 {% for categorie in categories %}
                                     <option value="{{ categorie.getId }}">{{ categorie.getName }}</option>
                                 {% endfor %}
@@ -151,25 +153,11 @@
                             <input type="date" id="fabrication" name="fabrication"  >
                         </div>
                     </div>
-                </div>
-
-                <!-- ACHAT -->
-                <div id='achat'>
+   
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label" for="achat">Date d'achat</label>
                         <div class="col-sm-8">
                             <input type="date" id="achat" name="achat"  >
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-form-label" for="statut">État</label>
-                        <div class="col-sm-8">
-                            <select name="statut" id="statut" >
-                                <option value="">Quel est son statut</option>
-                                <option value="neuf">Neuf</option>
-                                <option value="occasion">Occasion</option>
-                            </select>
                         </div>
                     </div>
                 </div>
@@ -185,10 +173,11 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-4 col-form-label" for="frequenceControle">Fréquence du controle</label>
+                        <label class="col-sm-4 col-form-label" for="frequenceControle">Fréquence Contrôle</label>
                         <div class="col-sm-8">
                             <select class="form-control" id="frequenceControle" name="frequenceControle" >
-                            <option value="">Sélectionnez fréquence</option>
+                            <option value="">Quelle est la fréquence du controle ?</option>
+                            <option value="">-------------</option>
                             <option value="15">15 jours</option>
                             <option value="60">1 mois</option>
                             <option value="120">3 mois</option>
@@ -202,22 +191,12 @@
 
                 <!-- KIT -->
                 <div id='kit'>
-                    
-                    <div class="form-group row kit1">
-                        <label class="col-sm-4 col-form-label" for="kit1">Appartenance à un kit</label>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="kitId">Kit d'appartenance</label>
                         <div class="col-sm-8">
-                            <select class="form-control" id="kit1" name="kit1"  >
-                                <option value="non">non</option>
-                                <option value="oui">oui</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group row kit2">
-                        <label class="col-sm-4 col-form-label" for="kit2">Kit d'appartenance</label>
-                        <div class="col-sm-8">
-                            <select class="form-control" id="kit2" name="kitId">
-                                <option value="">Sélectionnez le kit</option>
+                            <select class="form-control" id="kitId" name="kitId">
+                                <option value="">Si l'équipement fait parti d'un kit : Sélectionnez le kit</option>
+                                <option value="">-------------</option>
                                 {% for kit in kits %}
                                     <option value="{{ kit.getId }}">{{ kit.getName }}</option>
                                 {% endfor %}
@@ -238,34 +217,25 @@
                 <!-- LOT -->
                 <div id='lot'>
                     
-                    <div class="form-group row lot1">
-                        <label class="col-sm-4 col-form-label" for="lot1">Appartenance à un lot</label>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="lotId">Lot d'appartenance</label>
                         <div class="col-sm-8">
-                            <select class="form-control" id="lot1" name="lot1" >
-                                <option value="non">non</option>
-                                <option value="oui">oui</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group row lot2">
-                        <label class="col-sm-4 col-form-label" for="lot2">Lot d'appartenance</label>
-                        <div class="col-sm-8">
-                            <select class="form-control" id="lot2" name="lotId">
-                                <option value="">Sélectionnez le lot</option>
+                            <select class="form-control" id="lotId" name="lotId">
+                                <option value="">Si l'équipement fait parti d'un lot : Sélectionnez le lot</option>
+                                <option value="">-------------</option>
                                 {% for lot in lots %}
                                     <option value="{{ lot.getId }}">{{ lot.getName }}</option>
                                 {% endfor %}
                                 <option value="">-------------</option>
-                                <option value="nxlot">Nouveau lot</option>
+                                <option value="nxLot">Nouveau lot</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="form-group row lot3">
-                        <label class="col-sm-4 col-form-label" for="nxlot">Nom du nouveau lot</label>
+                        <label class="col-sm-4 col-form-label" for="nxLot">Nom du nouveau lot</label>
                         <div class="col-sm-8">
-                            <input type="text" id="nxlot" name="nxlot" class="form-control" placeholder="Nom du lot"  >
+                            <input type="text" id="nxLot" name="nxLot" class="form-control" placeholder="Nom du lot"  >
                         </div>
                     </div>
                 </div>

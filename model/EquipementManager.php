@@ -7,9 +7,9 @@ class EquipementManager extends Manager
     /*---  CREAT -------------------------------------------------------- */
     public function addEquipement($groupeId, $activiteId, $categorieId, $kitId, $lotId)
     {
-        $sql ='INSERT INTO EPI_equipement(eq_fabriquant,eq_modele,eq_reference,eq_serie,eq_taille,eq_matiere,eq_couleur,eq_marquage,eq_marquageLieu,eq_statut,eq_fabrication,eq_achat,eq_rebutTheorique,eq_frequenceControle,eq_groupeId,eq_activiteId,eq_categorieId,eq_kitId,eq_lotId)
+        $sql ='INSERT INTO EPI_equipement(eq_fabriquant,eq_modele,eq_reference,eq_serie,eq_taille,eq_matiere,eq_couleur,eq_marquage,eq_marquageLieu,eq_fabrication,eq_achat,eq_rebutTheorique,eq_frequenceControle,eq_groupeId,eq_activiteId,eq_categorieId,eq_kitId,eq_lotId)
 
-        VALUES(:fabriquant,:modele,:reference,:serie,:taille,:matiere,:couleur,:marquage,:marquageLieu,:statut,:fabrication,:achat,:rebutTheorique,:frequenceControle,:groupeId,:activiteId,:categorieId,:kitId,:lotId)';
+        VALUES(:fabriquant,:modele,:reference,:serie,:taille,:matiere,:couleur,:marquage,:marquageLieu,:fabrication,:achat,:rebutTheorique,:frequenceControle,:groupeId,:activiteId,:categorieId,:kitId,:lotId)';
         
         $datas = $this->getPDO()->prepare($sql);
         
@@ -22,14 +22,12 @@ class EquipementManager extends Manager
         $datas->bindValue(':couleur',       htmlspecialchars($_POST['couleur']), PDO::PARAM_STR);
         $datas->bindValue(':marquage',      htmlspecialchars($_POST['marquage']), PDO::PARAM_STR);
         $datas->bindValue(':marquageLieu',  htmlspecialchars($_POST['marquageLieu']), PDO::PARAM_STR);
-        $datas->bindValue(':statut',        htmlspecialchars($_POST['statut']), PDO::PARAM_STR);
         // Dates
         $datas->bindValue(':fabrication',   htmlspecialchars($_POST['fabrication']), PDO::PARAM_STR);
         $datas->bindValue(':achat',         htmlspecialchars($_POST['achat']), PDO::PARAM_STR);
-
         $datas->bindValue(':rebutTheorique',htmlspecialchars($_POST['rebutTheorique']), PDO::PARAM_STR);
         $datas->bindValue(':frequenceControle',htmlspecialchars($_POST['frequenceControle']), PDO::PARAM_STR);
-        
+        // Id
         $datas->bindValue(':groupeId',     htmlspecialchars($groupeId), PDO::PARAM_STR);
         $datas->bindValue(':activiteId',   htmlspecialchars($activiteId), PDO::PARAM_STR);
         $datas->bindValue(':categorieId',  htmlspecialchars($categorieId), PDO::PARAM_STR);
