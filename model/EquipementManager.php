@@ -5,11 +5,11 @@ use \PDO;
 class EquipementManager extends Manager
 {
     /*---  CREAT -------------------------------------------------------- */
-    public function addEquipement()
+    public function addEquipement($groupeId, $activiteId, $categorieId, $kitId, $lotId)
     {
-        $sql ='INSERT INTO EPI_equipement(eq_fabriquant,eq_modele,eq_reference,eq_serie,eq_taille,eq_matiere,eq_couleur,eq_marquage,eq_marquageLieu,eq_notice,eq_image,eq_statut,eq_fabrication,eq_achat,eq_utilisation,eq_rebutTheorique,eq_prochainControle,eq_frequenceControle,eq_groupeId,eq_categorieId,eq_kitId,eq_lotId)
+        $sql ='INSERT INTO EPI_equipement(eq_fabriquant,eq_modele,eq_reference,eq_serie,eq_taille,eq_matiere,eq_couleur,eq_marquage,eq_marquageLieu,eq_statut,eq_fabrication,eq_achat,eq_rebutTheorique,eq_frequenceControle,eq_groupeId,eq_activiteId,eq_categorieId,eq_kitId,eq_lotId)
 
-        VALUES(:fabriquant,:modele,:reference,:serie,:taille,:matiere,:couleur,:marquage,:marquageLieu,:notice,:image,:statut,:fabrication,:achat,:utilisation,:rebutTheorique,:prochainControle,:frequenceControle,:groupeId,:categorieId,:kitId,:lotId)';
+        VALUES(:fabriquant,:modele,:reference,:serie,:taille,:matiere,:couleur,:marquage,:marquageLieu,:statut,:fabrication,:achat,:rebutTheorique,:frequenceControle,:groupeId,:activiteId,:categorieId,:kitId,:lotId)';
         
         $datas = $this->getPDO()->prepare($sql);
         
@@ -22,20 +22,19 @@ class EquipementManager extends Manager
         $datas->bindValue(':couleur',       htmlspecialchars($_POST['couleur']), PDO::PARAM_STR);
         $datas->bindValue(':marquage',      htmlspecialchars($_POST['marquage']), PDO::PARAM_STR);
         $datas->bindValue(':marquageLieu',  htmlspecialchars($_POST['marquageLieu']), PDO::PARAM_STR);
-        $datas->bindValue(':notice',        htmlspecialchars($_POST['notice']), PDO::PARAM_STR);
-        $datas->bindValue(':image',         htmlspecialchars($_POST['image']), PDO::PARAM_STR);
         $datas->bindValue(':statut',        htmlspecialchars($_POST['statut']), PDO::PARAM_STR);
         // Dates
         $datas->bindValue(':fabrication',   htmlspecialchars($_POST['fabrication']), PDO::PARAM_STR);
         $datas->bindValue(':achat',         htmlspecialchars($_POST['achat']), PDO::PARAM_STR);
-        $datas->bindValue(':utilisation',   htmlspecialchars($_POST['utilisation']), PDO::PARAM_STR);
+
         $datas->bindValue(':rebutTheorique',htmlspecialchars($_POST['rebutTheorique']), PDO::PARAM_STR);
-        $datas->bindValue(':prochainControle',htmlspecialchars($_POST['prochainControle']), PDO::PARAM_STR);
         $datas->bindValue(':frequenceControle',htmlspecialchars($_POST['frequenceControle']), PDO::PARAM_STR);
-        $datas->bindValue(':groupeId',      htmlspecialchars($_POST['groupeId']), PDO::PARAM_STR);
-        $datas->bindValue(':categorieId',   htmlspecialchars($_POST['categorieId']), PDO::PARAM_STR);
-        $datas->bindValue(':kitId',         htmlspecialchars($_POST['kitId']), PDO::PARAM_STR);
-        $datas->bindValue(':lotId',         htmlspecialchars($_POST['lotId']), PDO::PARAM_STR);
+        
+        $datas->bindValue(':groupeId',     htmlspecialchars($groupeId), PDO::PARAM_STR);
+        $datas->bindValue(':activiteId',   htmlspecialchars($activiteId), PDO::PARAM_STR);
+        $datas->bindValue(':categorieId',  htmlspecialchars($categorieId), PDO::PARAM_STR);
+        $datas->bindValue(':kitId',        htmlspecialchars($kitId), PDO::PARAM_STR);
+        $datas->bindValue(':lotId',        htmlspecialchars($lotId), PDO::PARAM_STR);
 
         $datas->execute();  
 
