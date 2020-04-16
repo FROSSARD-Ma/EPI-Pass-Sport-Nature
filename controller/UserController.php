@@ -80,8 +80,8 @@ class UserController
 				// Message
 				$_SESSION['message'] = 'Votre inscription est validée ! Vous allez recevoir un email de confirmation.';
 				// Nouvelle page 
-				$nxView = new \Epi_Model\View('home');
-				$nxView->getView();
+				$nxView = new \Epi_Model\View();
+				$nxView->redirectView('home');
 			}
 			else
 			{
