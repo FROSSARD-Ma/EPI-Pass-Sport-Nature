@@ -42,6 +42,45 @@ class FrontController
         ));
     }
 
+    public function equipement($params)
+    {
+        $csrf = new \Epi_Model\SecuriteCsrf('equipement');
+        $token = $csrf->getToken();
+
+        $nxView = new \Epi_Model\View('equipement');
+        $nxView->getView();
+    }
+
+
+    public function nxEquipt($params)
+    {
+        $csrf = new \Epi_Model\SecuriteCsrf('nxEquipt');
+        $token = $csrf->getToken();
+
+        // Liste des activites
+        $activiteManager = new \Epi_Model\ActiviteManager;
+        $activites = $activiteManager->getActivites();
+
+        // Liste des categories
+        $categorieManager = new \Epi_Model\CategorieManager;
+        $categories = $categorieManager->getCategories();
+
+        // Liste des kits
+        $kitManager = new \Epi_Model\KitManager;
+        $kits = $kitManager->getKits();
+        
+        // Liste des lots
+        $lotManager = new \Epi_Model\LotManager;
+        $lots = $lotManager->getLots();
+
+        $nxView = new \Epi_Model\View('nxEquipt');
+        $nxView->getView(array (
+            'activites'=> $activites,
+            'categories' => $categories,
+            'kits' => $kits,
+            'lots' => $lots));
+    }
+
     public function account($params)
     {
         $csrf = new \Epi_Model\SecuriteCsrf('account');
