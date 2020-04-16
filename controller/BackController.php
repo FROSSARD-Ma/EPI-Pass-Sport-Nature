@@ -17,7 +17,7 @@ class BackController
 	        }
 	        else
 	        {
-	        	throw new \Epi_Model\AppException('votre activité n\'a pas été identifié', 'nxEquipt');
+	        	throw new \Epi_Model\AppException('votre activité n\'a pas été créé', 'nxEquipt');
 	        }
 		}
 		catch (\Epi_Model\AppException $e)
@@ -38,7 +38,7 @@ class BackController
 	        }
 	        else
 	        {
-	        	throw new \Epi_Model\AppException('votre activité n\'a pas été identifié', 'nxEquipt');
+	        	throw new \Epi_Model\AppException('votre catégorie n\'a pas été créé', 'nxEquipt');
 	        }
 		}
 		catch (\Epi_Model\AppException $e)
@@ -46,6 +46,28 @@ class BackController
 			$e->getRedirection();
 		}
 	}
+
+	public function creatKit($groupeId, $nxKit)
+	{
+		try
+		{
+			$kitManager = new \Epi_Model\KitManager; 
+			$creatKit = $kitManager->addKit($groupeId, $nxKit);
+			if ($creatKit)
+			{
+				return $creatKit; // Id
+	        }
+	        else
+	        {
+	        	throw new \Epi_Model\AppException('votre kit n\'a pas été créé', 'nxEquipt');
+	        }
+		}
+		catch (\Epi_Model\AppException $e)
+		{
+			$e->getRedirection();
+		}
+	}
+
 
 	public function creatEquipt($params)
 	{
@@ -57,7 +79,7 @@ class BackController
 			if ($inscriptionToken)
 			{
 
-				// ACTIVITE
+				// ACTIVITE --------------
 				if (($_POST['activiteId']=='nxActivite') AND (isset($_POST['nxActivite'])) AND !empty($_POST['nxActivite']))
 				{
 					$activiteId = $this->creatActivite($_POST['nxActivite']);
@@ -67,7 +89,7 @@ class BackController
 		            $activiteId = $_POST['activiteId'];
 		        }			
 
-		        // CATEGORIE
+		        // CATEGORIE --------------
 				if (($_POST['categorieId']=='nxCategorie') AND (isset($_POST['nxCategorie'])) AND !empty($_POST['nxCategorie']))
 				{
 
@@ -78,8 +100,16 @@ class BackController
 		            $categorieId = $_POST['categorieId'];
 		        }
 
+		        // KIT --------------------
+				if (($_POST['kitId']=='nxKit') AND (isset($_POST['nxKit'])) AND !empty($_POST['nxKit']))
+				{
+					$kitId = $this->creatKit($_SESSION['groupeId'], $_POST['nxKit']);
+				}	    
+			    else
+		        {
+		            $kitId = $_POST['kitId'];
+		        }
 
-				//$kitId =
 				//$lotId =
 
 				$EquipementManager = new \Epi_Model\EquipementManager; 

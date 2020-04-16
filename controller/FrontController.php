@@ -61,14 +61,20 @@ class FrontController
         $activiteManager = new \Epi_Model\ActiviteManager;
         $activites = $activiteManager->getActivites();
 
-        // Liste des categorie
+        // Liste des categories
         $categorieManager = new \Epi_Model\CategorieManager;
         $categories = $categorieManager->getCategories();
+
+        // Liste des kits
+        $kitManager = new \Epi_Model\KitManager;
+        $kits = $kitManager->getkits();
 
         $nxView = new \Epi_Model\View('nxEquipt');
         $nxView->getView(array (
             'activites'=> $activites,
-            'categories' => $categories));
+            'categories' => $categories,
+            'kits' => $kits
+        ));
     }
 
     public function account($params)
