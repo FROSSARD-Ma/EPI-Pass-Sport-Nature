@@ -28,9 +28,9 @@
         <div class="col col-8">
             <form id="form-addEquipt" method="post" action="creatEquipt"  data-parsley-validate>
 
-                <div id="activite">
+                <div>
                     <!-- Activite -->
-                    <div id="activite1" class="form-group row">
+                    <div class="form-group row">
                         <label class="col-sm-4 col-form-label" for="activiteId">Activité</label>
                         <div class="col-sm-8">
                             <select class="form-control" id="activiteId" name="activiteId" >
@@ -44,15 +44,15 @@
                             </select>
                         </div>
                     </div>
-                    <div id="activite2" class="form-group row">
-                        <label class="col-sm-4 col-form-label" for="nxActivite">Nouvelle activité</label>
+                    <div id="activite-name" class="form-group row">
+                        <label class="col-sm-4 col-form-label sr-only" for="nxActivite">Nouvelle activité</label>
                         <div class="col-sm-8">
                             <input type="text" id="nxActivite" name="nxActivite" class="form-control" placeholder="Nom nouvelle activité" >
                         </div>
                     </div>
 
                     <!-- Catégorie -->
-                    <div id="categorie1" class="form-group row">
+                    <div class="form-group row">
                         <label class="col-sm-4 col-form-label" for="categorieId">Catégorie</label>
                         <div class="col-sm-8">
                             <select class="form-control" id="categorieId" name="categorieId"  >
@@ -67,8 +67,8 @@
                         </div>
                     </div>
 
-                    <div id="categorie2" class="form-group row">
-                        <label class="col-sm-4 col-form-label" for="nxCategorie">Nouvelle catégorie</label>
+                    <div id="categorie-name" class="form-group row">
+                        <label class="col-sm-4 col-form-label sr-only" for="nxCategorie">Nouvelle catégorie</label>
                         <div class="col-sm-8">
                             <input type="text" id="nxCategorie" name="nxCategorie" class="form-control" placeholder="Nom nouvelle activité" >
                         </div>
@@ -207,7 +207,7 @@
                     </div>
 
                     <div class="form-group row kit3">
-                        <label class="col-sm-4 col-form-label" for="nxKit">Nom du nouveau kit</label>
+                        <label class="col-sm-4 col-form-label sr-only" for="nxKit">Nom du nouveau kit</label>
                         <div class="col-sm-8">
                             <input type="text" id="nxKit" name="nxKit" class="form-control" placeholder="Nom du kit">
                         </div>
@@ -233,7 +233,7 @@
                     </div>
 
                     <div class="form-group row lot3">
-                        <label class="col-sm-4 col-form-label" for="nxLot">Nom du nouveau lot</label>
+                        <label class="col-sm-4 col-form-label sr-only" for="nxLot">Nom du nouveau lot</label>
                         <div class="col-sm-8">
                             <input type="text" id="nxLot" name="nxLot" class="form-control" placeholder="Nom du lot"  >
                         </div>
@@ -256,6 +256,6 @@
 {% endblock %}
 
 {% block javascript %}
-        {# <script src="public/js/formEquipement.js"></script> #}
+        <script src="public/js/formEquipement.js"></script>
 {% endblock %}
 
