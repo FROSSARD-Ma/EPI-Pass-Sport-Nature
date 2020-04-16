@@ -1,0 +1,291 @@
+
+{% extends 'content-sidebar-S.twig' %}
+
+
+{% block sidebar %}
+    {% include('sidebarNav.twig') %}
+{% endblock %}
+
+
+{% block title %}
+    <title>Equipements - Gestion EPI</title>
+{% endblock %}
+
+
+{% block headerpage %}
+
+    <h1 class="mt-4">{{ session.groupeStatut }} : {{ session.groupeName }}</h1>
+    <div class="alert alert-secondary" role="alert">
+     <h2>AJOUT ÉQUIPEMENT</h2>
+    </div>
+
+{% endblock %}
+
+
+{% block main %} 
+
+    <section class="row justify-content-center section">
+        <div class="col col-8">
+            <form id="form-addEquipt" method="post" action="creatEquipt"  data-parsley-validate>
+
+                <div id="activite">
+                    <!-- Activite -->
+                    <div id="activite1" class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="activiteId">Activité</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="activiteId" name="activiteId" >
+                                <option value="">Sélectionnez l'activité</option>
+                                {% for activite in activites %}
+                                    <option value="{{ activite.getId }}">{{ activite.getName }}</option>
+                                {% endfor %}
+                                <option value="">-------------</option>
+                                <option value="nxActivite">Ajouter une activité</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="activite2" class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="nxActivite">Nouvelle activité</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="nxActivite" name="nxActivite" class="form-control" placeholder="Nom nouvelle activité" >
+                        </div>
+                    </div>
+
+                    <!-- Catégorie -->
+                    <div id="categorie1" class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="categorieId">Catégorie</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="categorieId" name="categorieId"  >
+                                <option value="">Sélectionnez la catégorie</option>
+                                {% for categorie in categories %}
+                                    <option value="{{ categorie.getId }}">{{ categorie.getName }}</option>
+                                {% endfor %}
+                                <option value="">-------------</option>
+                                <option value="nxCategorie">Ajouter une catégorie</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="categorie2" class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="nxCategorie">Nouvelle catégorie</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="nxCategorie" name="nxCategorie" class="form-control" placeholder="Nom nouvelle activité" >
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Produit -->
+                <div id='produit'>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="fabriquant">Nom du fabriquant</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="fabriquant" name="fabriquant" class="form-control" placeholder="Nom du fabriquant" minlength="2" maxlength="50"  >
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="modele">Modèle de l'équipement</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="modele" name="modele" class="form-control" placeholder="Modèle de l'équipement"  >
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="reference">Référence du fabriquant</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="reference" name="reference" class="form-control" placeholder="Référence du fabriquant"  >
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="serie">Numéro de série</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="serie" name="serie" class="form-control" placeholder="Numéro de série"  >
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="taille">Taille de l'équipement</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="taille" name="taille" class="form-control" placeholder="Taille de l'équipement" >
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="matiere">Matière</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="matiere" name="matiere"  >
+                                <option value="">Sélectionnez la matière</option>
+                                <option value="métalique">Métalique</option>
+                                <option value="textile">Textile</option>    
+                                <option value="plastique">Plastique</option>
+                                <option value="mélange">Mélange</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="couleur">Couleur principale</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="couleur" name="couleur" class="form-control" placeholder="Couleur principale" >
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="marquage">Marquage</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="marquage" name="marquage" class="form-control" placeholder="Code du marquage" >
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="marquageLieu">Emplacement marquage</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="marquageLieu" name="marquageLieu" class="form-control" placeholder="Emplacement marquage" >
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="fabrication">Date de Fabrication</label>
+                        <div class="col-sm-8">
+                            <input type="date" id="fabrication" name="fabrication"  >
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ACHAT -->
+                <div id='achat'>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="achat">Date d'achat</label>
+                        <div class="col-sm-8">
+                            <input type="date" id="achat" name="achat"  >
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="statut">État</label>
+                        <div class="col-sm-8">
+                            <select name="statut" id="statut" >
+                                <option value="">Quel est son statut</option>
+                                <option value="neuf">Neuf</option>
+                                <option value="occasion">Occasion</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONTROLE ETAT -->
+                <div id='controle'>
+                    
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="rebutTheorique">Date mise au rebut théorique</label>
+                        <div class="col-sm-8">
+                            <input type="date" id="rebutTheorique" name="rebutTheorique" >
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="frequenceControle">Fréquence du controle</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="frequenceControle" name="frequenceControle" >
+                            <option value="">Sélectionnez fréquence</option>
+                            <option value="15">15 jours</option>
+                            <option value="60">1 mois</option>
+                            <option value="120">3 mois</option>
+                            <option value="180">6 mois</option>
+                            <option value="365">1 an</option>
+                            <option value="730">2 ans</option>
+                        </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KIT -->
+                <div id='kit'>
+                    
+                    <div class="form-group row kit1">
+                        <label class="col-sm-4 col-form-label" for="kit1">Appartenance à un kit</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="kit1" name="kit1"  >
+                                <option value="non">non</option>
+                                <option value="oui">oui</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row kit2">
+                        <label class="col-sm-4 col-form-label" for="kit2">Kit d'appartenance</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="kit2" name="kitId">
+                                <option value="">Sélectionnez le kit</option>
+                                {% for kit in kits %}
+                                    <option value="{{ kit.getId }}">{{ kit.getName }}</option>
+                                {% endfor %}
+                                <option value="">-------------</option>
+                                <option value="nxKit">Nouveau kit</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row kit3">
+                        <label class="col-sm-4 col-form-label" for="name-kit">Nom du nouveau kit</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="name-kit" name="name-kit" class="form-control" placeholder="Nom du kit">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LOT -->
+                <div id='lot'>
+                    
+                    <div class="form-group row lot1">
+                        <label class="col-sm-4 col-form-label" for="lot1">Appartenance à un lot</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="lot1" name="lot1" >
+                                <option value="non">non</option>
+                                <option value="oui">oui</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row lot2">
+                        <label class="col-sm-4 col-form-label" for="lot2">Lot d'appartenance</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="lot2" name="lotId">
+                                <option value="">Sélectionnez le lot</option>
+                                {% for lot in lots %}
+                                    <option value="{{ lot.getId }}">{{ lot.getName }}</option>
+                                {% endfor %}
+                                <option value="">-------------</option>
+                                <option value="nxlot">Nouveau lot</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row lot3">
+                        <label class="col-sm-4 col-form-label" for="name-lot">Nom du nouveau lot</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="name-lot" name="name-lot" class="form-control" placeholder="Nom du lot"  >
+                        </div>
+                    </div>
+                </div>
+
+                <input type="hidden" name="groupeId" id="groupeId" value="{{ session.groupeId }}"/>
+                <input type="hidden" name="token" id="token" value="{{ session.nxEquipt_token }}"/>
+
+               
+                <button id="previous-btn" type="button" class="btn btn-info pull-right">&lt; Précédent</button>
+                <button id="next-btn" type="button" class="btn btn-info pull-right">Suivant &gt;</button>
+                <button id="addEquipt-btn" class="btn btn-primary pull-right" type="submit">Ajouter équipement</button>
+                    
+                
+            </form>    
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block javascript %}
+        {# <script src="public/js/formEquipement.js"></script> #}
+{% endblock %}
+

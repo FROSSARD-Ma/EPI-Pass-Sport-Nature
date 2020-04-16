@@ -18,8 +18,14 @@ class Router {
         "account"       => ['FrontController','account'],
         "contact"       => ['FrontController','contact'],
         "equipement"    => ['FrontController','equipement'],
+        "nxEquipt"      => ['FrontController','nxEquipt'],
         
     // ---- BACK Controller -----------------------------------------------------
+        "creatEquipt"     => ['BackController','creatEquipt'],
+
+
+
+
 
     // ---- USER Controller -----------------------------------------------------
         "creatGroupe"       => ['UserController'    ,'creatGroupe'],

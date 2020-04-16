@@ -51,6 +51,26 @@ class FrontController
         $nxView->getView();
     }
 
+
+    public function nxEquipt($params)
+    {
+        $csrf = new \Epi_Model\SecuriteCsrf('nxEquipt');
+        $token = $csrf->getToken();
+
+        // Liste des activites
+        $activiteManager = new \Epi_Model\ActiviteManager;
+        $activites = $activiteManager->getActivites();
+
+        // Liste des categorie
+        $categorieManager = new \Epi_Model\CategorieManager;
+        $categories = $categorieManager->getCategories();
+
+        $nxView = new \Epi_Model\View('nxEquipt');
+        $nxView->getView(array (
+            'activites'=> $activites,
+            'categories' => $categories));
+    }
+
     public function account($params)
     {
         $csrf = new \Epi_Model\SecuriteCsrf('account');
