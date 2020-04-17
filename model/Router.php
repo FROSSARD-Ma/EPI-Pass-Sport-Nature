@@ -18,6 +18,7 @@ class Router {
         "account"       => ['FrontController','account'],
         "contact"       => ['FrontController','contact'],
         "equipements"   => ['FrontController','equipements'],
+        "equipement"   => ['FrontController','equipement'],
         "nxEquipt"      => ['FrontController','nxEquipt'],
         
     // ---- BACK Controller -----------------------------------------------------

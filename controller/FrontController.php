@@ -59,6 +59,20 @@ class FrontController
             'equipts'=> $equipts));
     }
 
+    public function equipement($params)
+    {
+        $csrf = new \Epi_Model\SecuriteCsrf('equipement');
+        $token = $csrf->getToken();
+
+        $equipementManager = new \Epi_Model\EquipementManager;
+        $equipt = $equipementManager->getEquipement($_SESSION['groupeId']);
+
+        $nxView = new \Epi_Model\View('equipement');
+        $nxView->getView(array (
+            'equipt'=> $equipt));
+    }
+
+
 
     public function nxEquipt($params)
     {
