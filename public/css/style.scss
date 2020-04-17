@@ -19,6 +19,17 @@ $texte-clair: #BFBDC6;
 
 $primary:#007bff;
 
+.h1, h1 {
+    font-size: 1.2rem;
+}
+.h2, h2 {
+    font-size: 1.5rem;
+}
+
+.alert {
+    padding: .2rem 1.25rem;
+}
+
 .error {
 	background-color: $error;
 }
@@ -37,7 +48,7 @@ $primary:#007bff;
 .vignette {
 	padding: .5rem 1rem;
   	font-size: 1em;
-  	margin: 15px;
+  	margin: 5px;
   	span {
   		font-size: 2em;
   	}
@@ -237,6 +248,7 @@ table.users {
 	#user {
 		display:none;
 	}
+	
 	#next-btn {
 		display:none;
 	}
@@ -244,10 +256,11 @@ table.users {
 		display:none;
 	}
 
-	/* Ajout USER */
+	/* Ajout USER ------------------ */
 	#addUserForm {
 		padding: 15px 30px;
 	}
+
 
 /* FOOTER ===================== */
 footer {
