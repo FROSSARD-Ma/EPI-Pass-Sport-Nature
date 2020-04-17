@@ -31,7 +31,7 @@
                 <div>
                     <!-- Activite -->
                     <div class="form-group row">
-                        <label class="col-sm-4 col-form-label" for="activiteId">Activité</label>
+                        <label class="col-sm-4 col-form-label" for="activiteId">Activité <span class="required">*</span></label>
                         <div class="col-sm-8">
                             <select class="form-control" id="activiteId" name="activiteId" >
                                 <option value="">Sélectionnez l'activité</option>
@@ -53,7 +53,7 @@
 
                     <!-- Catégorie -->
                     <div class="form-group row">
-                        <label class="col-sm-4 col-form-label" for="categorieId">Catégorie</label>
+                        <label class="col-sm-4 col-form-label" for="categorieId">Catégorie <span class="required">*</span></label>
                         <div class="col-sm-8">
                             <select class="form-control" id="categorieId" name="categorieId"  >
                                 <option value="">Sélectionnez la catégorie</option>
@@ -79,28 +79,28 @@
                 <div id='produit'>
 
                     <div class="form-group row">
-                        <label class="col-sm-4 col-form-label" for="fabriquant">Nom du fabriquant</label>
+                        <label class="col-sm-4 col-form-label" for="fabriquant">Nom du fabriquant <span class="required">*</span></label>
                         <div class="col-sm-8">
                             <input type="text" id="fabriquant" name="fabriquant" class="form-control" placeholder="Nom du fabriquant" minlength="2" maxlength="50"  >
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-4 col-form-label" for="modele">Modèle de l'équipement</label>
+                        <label class="col-sm-4 col-form-label" for="modele">Modèle de l'équipement <span class="required">*</span></label>
                         <div class="col-sm-8">
                             <input type="text" id="modele" name="modele" class="form-control" placeholder="Modèle de l'équipement"  >
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-4 col-form-label" for="reference">Référence du fabriquant</label>
+                        <label class="col-sm-4 col-form-label" for="reference">Référence du fabriquant <span class="required">*</span></label>
                         <div class="col-sm-8">
                             <input type="text" id="reference" name="reference" class="form-control" placeholder="Référence du fabriquant"  >
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-4 col-form-label" for="serie">Numéro de série</label>
+                        <label class="col-sm-4 col-form-label" for="serie">Numéro de série <span class="required">*</span></label>
                         <div class="col-sm-8">
                             <input type="text" id="serie" name="serie" class="form-control" placeholder="Numéro de série"  >
                         </div>
@@ -114,7 +114,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-4 col-form-label" for="matiere">Matière</label>
+                        <label class="col-sm-4 col-form-label" for="matiere">Matière <span class="required">*</span></label>
                         <div class="col-sm-8">
                             <select class="form-control" id="matiere" name="matiere"  >
                                 <option value="">Sélectionnez la matière</option>
@@ -133,22 +133,21 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
+                    <div class="form-row">
                         <label class="col-sm-4 col-form-label" for="marquage">Marquage</label>
-                        <div class="col-sm-8">
+                        <div class="form-group col-md-4">
                             <input type="text" id="marquage" name="marquage" class="form-control" placeholder="Code du marquage" >
+                            
                         </div>
-                    </div>
 
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-form-label" for="marquageLieu">Emplacement marquage</label>
-                        <div class="col-sm-8">
+                        <div class="form-group col-md-4">
+                            <label class="sr-only" for="marquageLieu">Emplacement marquage</label>
                             <input type="text" id="marquageLieu" name="marquageLieu" class="form-control" placeholder="Emplacement marquage" >
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-4 col-form-label" for="fabrication">Date de Fabrication</label>
+                        <label class="col-sm-4 col-form-label" for="fabrication">Date de Fabrication <span class="required">*</span></label>
                         <div class="col-sm-8">
                             <input type="date" id="fabrication" name="fabrication"  >
                         </div>
@@ -173,7 +172,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-4 col-form-label" for="frequenceControle">Fréquence Contrôle</label>
+                        <label class="col-sm-4 col-form-label" for="frequenceControle">Fréquence Contrôle <span class="required">*</span></label>
                         <div class="col-sm-8">
                             <select class="form-control" id="frequenceControle" name="frequenceControle" >
                             <option value="">Quelle est la fréquence du controle ?</option>
@@ -247,6 +246,7 @@
                 <button id="previous-btn" type="button" class="btn btn-info pull-right">&lt; Précédent</button>
                 <button id="next-btn" type="button" class="btn btn-info pull-right">Suivant &gt;</button>
                 <button id="addEquipt-btn" class="btn btn-primary pull-right" type="submit">Ajouter équipement</button>
+                <p><span class="required">*</span> Champs obligatoires</p>
                     
                 
             </form>    
@@ -256,6 +256,6 @@
 {% endblock %}
 
 {% block javascript %}
-        <script src="public/js/formEquipement.js"></script>
+        {# // <script src="public/js/formEquipement.js"></script> #}
 {% endblock %}
 

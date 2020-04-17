@@ -22,6 +22,7 @@ class Router {
         
     // ---- BACK Controller -----------------------------------------------------
         "creatEquipt"     => ['BackController','creatEquipt'],
+        "delEquipt"       => ['BackController','delEquipt'],
 
 
 
@@ -47,14 +48,22 @@ class Router {
 
     public function getRoute()
     {
-        $page = explode('/', $this->_url); // crée un chemin sous format tableau
-        return $page[0]; // route = premier élément de la route
+        $elements = explode('/', $this->_url); // crée un chemin sous format tableau
+        return $elements[0]; // route = premier élément de la route
     }
 
     public function getParams()
     {   
-        $params = explode('/', $this->_url); // tableau
-        unset($params[0]); // Suppression Element page
+        $elements = explode('/', $this->_url); // tableau
+        unset($elements[0]); // Suppression Element page
+
+// récupère les PARAMS
+for ($i=1; $i<count($elements); $i++)
+{
+    $params[$elements[$i]] = $elements[$i+1];
+    $i++;
+}
+
         if (!isset($params)) $params = null;
         return $params;
     }

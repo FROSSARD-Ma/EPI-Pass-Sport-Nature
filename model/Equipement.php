@@ -50,9 +50,9 @@ class Equipement extends Manager
     {
         foreach ($dataSQL as $key => $value)
         {
-            // Forcer Majuscule, supp 'eq_' = 3 caractères
+            // Forcer Majuscule, supp '' = 0 caractères
             // On récupère le nom du setter correspondant à l'attribut
-            $method = 'set' . ucfirst(substr($key,3));
+            $method = 'set' . ucfirst(substr($key,0));
             if (method_exists($this, $method))
             {
                 if ($method == 'setContent')
@@ -190,7 +190,7 @@ class Equipement extends Manager
         
     // Liste des SETTERS ---------------------------------------
 
-        public function setId($id)
+        public function setEq_id($id)
         {
             // convertit l'argument en nombre entier.
             $id = (int) $id;
@@ -200,84 +200,84 @@ class Equipement extends Manager
                 $this->_eq_id = $id;
             }
         }
-        public function setFabriquant($fabriquant)
+        public function setEq_fabriquant($fabriquant)
         {
             if (is_string($fabriquant))
             {
               $this->_eq_fabriquant = $fabriquant;
             }
         }
-        public function setModele($modele)
+        public function setEq_modele($modele)
         {
             if (is_string($modele))
             {
               $this->_eq_modele = $modele;
             }
         }
-        public function setReference($reference)
+        public function setEq_reference($reference)
         {
             if (is_string($reference))
             {
               $this->_eq_reference = $reference;
             }
         }
-        public function setSerie($serie)
+        public function setEq_serie($serie)
         {
             if (is_string($serie))
             {
               $this->_eq_serie = $serie;
             }
         }
-        public function setTaille($taille)
+        public function setEq_taille($taille)
         {
             if (is_string($taille))
             {
               $this->_eq_taille = $taille;
             }
         }
-        public function setMatiere($matiere)
+        public function setEq_matiere($matiere)
         {
             if (is_string($matiere))
             {
               $this->_eq_matiere = $matiere;
             }
         }
-        public function setcouleur($couleur)
+        public function setEq_couleur($couleur)
         {
             if (is_string($couleur))
             {
               $this->_eq_couleur = $couleur;
             }
         }
-        public function setMarquage($marquage)
+        public function setEq_marquage($marquage)
         {
             if (is_string($marquage))
             {
               $this->_eq_marquage = $marquage;
             }
         }
-        public function setMarquageLieu($marquageLieu)
+        public function setEq_marquageLieu($marquageLieu)
         {
             if (is_string($marquageLieu))
             {
               $this->_eq_marquageLieu = $marquageLieu;
             }
         }
-        public function setNotice($notice)
+        public function setEq_notice($notice)
         {
             if (is_string($notice))
             {
               $this->_eq_notice = $notice;
             }
         }
-        public function setImage($image)
+        public function setEq_image($image)
         {
             if (is_string($image))
             {
               $this->_eq_image = $image;
             }
         }
-        public function setStatut($statut)
+        public function setEq_statut($statut)
         {
             if (is_string($statut))
             {
@@ -286,40 +286,44 @@ class Equipement extends Manager
         }
 
         // Dates
-        public function SetFabrication($dateCreated)
+        public function setEq_fabrication($dateCreated)
         { 
             $date = new DateTime($dateCreated);
             $this->_eq_fabrication = $date->format('d-m-Y');
         }
-        public function SetAchat($dateCreated)
+        public function setEq_achat($dateCreated)
         { 
             $date = new DateTime($dateCreated);
             $this->_eq_achat = $date->format('d-m-Y');
         }
-        public function SetUtilisation($dateCreated)
+        public function setEq_utilisation($dateCreated)
         { 
              $date = new DateTime($dateCreated);
             $this->_eq_utilisation = $date->format('d-m-Y');
         }
-        public function SetRebutTheorique($dateCreated)
+        public function setEq_rebutTheorique($dateCreated)
         { 
             $date = new DateTime($dateCreated);
             $this->_eq_rebutTheorique = $date->format('d-m-Y');
         }
-        public function SetProchainControle($dateCreated)
+        public function setEq_prochainControle($dateCreated)
         { 
             $date = new DateTime($dateCreated);
             $this->_eq_prochainControle = $date->format('d-m-Y');
         }
-        public function SetFrequenceControle($dateCreated)
+        public function setEq_frequenceControle($nbJour)
         { 
-            $date = new DateTime($dateCreated);
-            $this->_eq_frequenceControle = $date->format('d-m-Y');
+             $nb = (int) $nbJour;
+            
+            if ($nb > 0)
+            {
+                $this->_eq_frequenceControle = $nb;
+            }
         }
 
 
         // ID jonction
-        public function setgroupeId($id)
+        public function setEq_groupeId($id)
         {
             // convertit l'argument en nombre entier.
             $groupeId = (int) $id;
@@ -329,7 +333,17 @@ class Equipement extends Manager
                 $this->_eq_groupeId = $groupeId;
             }
         }
-        public function setCategorieId($id)
+        public function setEq_activiteId($id)
+        {
+            // convertit l'argument en nombre entier.
+            $activiteId = (int) $id;
+            
+            if ($activiteId > 0)
+            {
+                $this->_eq_activiteId = $activiteId;
+            }
+        }
+        public function setEq_categorieId($id)
         {
             // convertit l'argument en nombre entier.
             $categorieId = (int) $id;
@@ -339,7 +353,7 @@ class Equipement extends Manager
                 $this->_eq_categorieId = $categorieId;
             }
         }
-        public function setKitId($id)
+        public function setEq_kitId($id)
         {
             // convertit l'argument en nombre entier.
             $kitId = (int) $id;
@@ -349,7 +363,7 @@ class Equipement extends Manager
                 $this->_eq_kitId = $kitId;
             }
         }
-        public function setLotId($id)
+        public function setEq_lotId($id)
         {
             // convertit l'argument en nombre entier.
             $lotId = (int) $id;
@@ -361,35 +375,35 @@ class Equipement extends Manager
         }
 
         //  Jonctions 
-        public function SetGroupe($groupe)
+        public function setGroupe_name($groupe)
         {
             if (is_string($groupe))
             {
                 $this->_eq_groupe = $groupe; 
             }
         }
-        public function SetActivite($activite)
+        public function setActivite_name($activite)
         { 
             if (is_string($activite))
             {
                 $this->_eq_activite = $activite; 
             }
         }
-        public function SetCategorie($categorie)
+        public function setCat_name($categorie)
         {
             if (is_string($categorie))
             { 
                 $this->_eq_categorie = $categorie; 
             }
         }
-        public function SetKit($kit)
+        public function setKit_name($kit)
         {
             if (is_string($kit))
             { 
                 $this->_eq_kit = $kit; 
             }
         }
-        public function SetLot($lot)
+        public function setLot_name($lot)
         {
             if (is_string($lot))
             { 

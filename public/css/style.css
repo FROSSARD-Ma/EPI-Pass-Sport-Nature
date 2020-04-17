@@ -196,6 +196,13 @@ table.users {
 }
 
 /* FORMULAIRE ===================== */
+
+.required {
+  font-size: 12px;
+  color: red;
+  vertical-align: top;
+}
+
 /* Inscription----------------- */
 #groupe {
   display: none;

@@ -3,7 +3,7 @@ namespace Epi_Controller;
 
 class BackController
 {
-	// ---- EQUIPEMENT  -------------------------------
+	// ---- CREAT  -------------------------------
 	public function creatActivite($nxActivite)
 	{
 		try
@@ -158,4 +158,45 @@ class BackController
 			$e->getRedirection();
 		}
 	}
+
+
+	//---- DELETE -----------------------------------
+	public function delEquipt($params)
+	{
+		try
+		{
+			extract($params); // recup $id de l'équipement dans url
+
+			// $csrf = new \Epi_Model\SecuriteCsrf('equipement');
+			// $equipementToken = $csrf->verifToken(HOST.'equipement');
+			// if ($equipementToken)
+			// {
+		 		$equipementManager = new \Epi_Model\EquipementManager;
+
+		 		$delEquipt = $equipementManager->deleteEquipement($id);
+		 		if ($delEquipt)
+			    {
+			    	$_SESSION['message'] = 'L\'équipement a été supprimé !';
+					$nxView = new \Epi_Model\View();
+					$nxView->redirectView('equipement');
+			    }
+			    else
+			    {
+			    	// Message erreur
+					throw new \Epi_Model\AppException('l\'équipement n\'a pas été supprimé.', 'equipement');
+			    }
+		 // 	}
+			// else
+			// {
+			// 	throw new \Epi_Model\AppException('vous avez dépassé le temps d\'envoie du formulaire. Rechargez la page et validez !', 'equipement');
+			// }
+
+		}
+		catch (\Epi_Model\AppException $e)
+		{
+			$e->getRedirection();
+		}
+
+	}
+
 }
