@@ -220,7 +220,14 @@ table.users {
 
 /* FORMULAIRE ===================== */
 
-	// Inscription
+  .required {
+    font-size: 12px;
+    color: red;
+    vertical-align: top;
+  }
+
+	/* Inscription----------------- */
+
 	#groupe {
 		display:none;
 		padding: 1rem;
