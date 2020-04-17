@@ -47,8 +47,18 @@ class FrontController
         $csrf = new \Epi_Model\SecuriteCsrf('equipement');
         $token = $csrf->getToken();
 
+        $equipementManager = new \Epi_Model\EquipementManager;
+        $dataEquipts = $equipementManager->getEquipements($_SESSION['groupeId']);
+//?????
+        foreach ($dataEquipts as $data)
+        {
+            $equipt = new \Epi_Model\Equipement($data);
+            $equipts[] = $equipt; // Tableau d'objet
+        }
+
         $nxView = new \Epi_Model\View('equipement');
-        $nxView->getView();
+        $nxView->getView(array (
+            'equipts'=> $equipts));
     }
 
 
