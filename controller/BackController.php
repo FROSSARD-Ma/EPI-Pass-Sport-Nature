@@ -159,6 +159,11 @@ class BackController
 		}
 	}
 
+	//---- READ -----------------------------------
+	public function Equipt($params)
+	{
+
+	}
 
 	//---- DELETE -----------------------------------
 	public function delEquipt($params)
