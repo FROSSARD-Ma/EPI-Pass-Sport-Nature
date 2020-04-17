@@ -17,13 +17,12 @@ class Router {
         "deconnexion"   => ['FrontController','deconnexion'],
         "account"       => ['FrontController','account'],
         "contact"       => ['FrontController','contact'],
-        "equipement"    => ['FrontController','equipement'],
+        "equipements"   => ['FrontController','equipements'],
         "nxEquipt"      => ['FrontController','nxEquipt'],
         
     // ---- BACK Controller -----------------------------------------------------
         "creatEquipt"    => ['BackController','creatEquipt'],
         "delEquipt"      => ['BackController','delEquipt'],
-        "Equipt"         => ['BackController','Equipt'],
 
 
 
