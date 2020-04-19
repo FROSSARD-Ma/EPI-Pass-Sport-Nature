@@ -311,13 +311,11 @@ class Equipement extends Manager
             $date = new DateTime($dateCreated);
             $this->_eq_prochainControle = $date->format('d-m-Y');
         }
-        public function setEq_frequenceControle($nbJour)
+        public function setEq_frequenceControle($frequence)
         { 
-             $nb = (int) $nbJour;
-            
-            if ($nb > 0)
+            if (is_string($frequence))
             {
-                $this->_eq_frequenceControle = $nb;
+              $this->_eq_frequenceControle = $frequence;
             }
         }
 

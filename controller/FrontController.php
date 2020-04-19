@@ -61,17 +61,27 @@ class FrontController
 
     public function equipement($params)
     {
-        $csrf = new \Epi_Model\SecuriteCsrf('equipement');
-        $token = $csrf->getToken();
+        extract($params); // id equipement
 
         $equipementManager = new \Epi_Model\EquipementManager;
-        $equipt = $equipementManager->getEquipement($_SESSION['groupeId']);
+        $dataEquipt = $equipementManager->getEquipement($id);
+
+        $equipt = new \Epi_Model\Equipement($dataEquipt);
+
+
+        // // Kit
+        // $kitManager = new \Epi_Model\KitManager;
+        // $kit = $kitManager->getKit($idKit);
+
+        // // Lot
+        // $lotManager = new \Epi_Model\LotManager;
+        // $lot = $lotManager->getLot($idLot);
 
         $nxView = new \Epi_Model\View('equipement');
-        $nxView->getView(array (
+        $nxView->getView(
+        array (
             'equipt'=> $equipt));
     }
-
 
 
     public function nxEquipt($params)

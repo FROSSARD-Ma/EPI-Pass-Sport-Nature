@@ -18,7 +18,7 @@ class Router {
         "account"       => ['FrontController','account'],
         "contact"       => ['FrontController','contact'],
         "equipements"   => ['FrontController','equipements'],
-        "equipement"   => ['FrontController','equipement'],
+        "equipement"    => ['FrontController','equipement'],
         "nxEquipt"      => ['FrontController','nxEquipt'],
         
     // ---- BACK Controller -----------------------------------------------------
@@ -57,12 +57,12 @@ class Router {
         $elements = explode('/', $this->_url); // tableau
         unset($elements[0]); // Suppression Element page
 
-// récupère les PARAMS
-for ($i=1; $i<count($elements); $i++)
-{
-    $params[$elements[$i]] = $elements[$i+1];
-    $i++;
-}
+        // récupère les PARAMS
+        for ($i=1; $i<count($elements); $i++)
+        {
+            $params[$elements[$i]] = $elements[$i+1];
+            $i++;
+        }
 
         if (!isset($params)) $params = null;
         return $params;

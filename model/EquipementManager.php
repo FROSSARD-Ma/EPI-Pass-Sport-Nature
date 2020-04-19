@@ -62,16 +62,13 @@ class EquipementManager extends Manager
         return $data;
     }
 
-    public function getEquipement($id)
+    public function getEquipement($equiptId)
     {
-        $idEq = (int)$id;
+        $idEquipt = (int)$equiptId;
 
-        $sql = 'SELECT EPI_equipement.*, EPI_groupes.groupe_name, EPI_kits.kit_name, EPI_lots.lot_name, EPI_categories.cat_name, EPI_activites.activite_name
+        $sql = 'SELECT EPI_equipement.*, EPI_categories.cat_name, EPI_activites.activite_name
 
             FROM EPI_equipement 
-
-                JOIN EPI_groupes
-                ON EPI_equipement.eq_groupeId=EPI_groupes.groupe_id
 
                 JOIN EPI_categories
                 ON EPI_equipement.eq_categorieId=EPI_categories.cat_id
@@ -79,18 +76,9 @@ class EquipementManager extends Manager
                 JOIN EPI_activites
                 ON EPI_equipement.eq_activiteId=EPI_activites.activite_id
 
-                JOIN EPI_kits
-                ON EPI_equipement.eq_kitId=EPI_kits.kit_id
+            WHERE eq_id = ?';
 
-                JOIN EPI_lots
-                ON EPI_equipement.eq_lotId=EPI_lots.lot_id
-
-            WHERE eq_id =:idEq';
-
-        $datas = $this->getPDO()->prepare($sql);
-        $datas->bindValue(':idEq', $idEq, PDO::PARAM_STR);
-        $datas->execute(); 
-        
+        $datas = $this->reqSQL($sql, array ($idEquipt), $one = true);
         return $datas;
     }
 

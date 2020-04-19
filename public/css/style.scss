@@ -12,7 +12,7 @@ $vert :#80C743;
 $fond-clair : #BFBDC6;
 $fond-fonce : #344255;
 
-$arriere-plan : #f5F5F5;
+$arriere-plan : #f4f6f9;
 
 $texte-fonce : #3A3A3A;
 $texte-clair: #BFBDC6;
@@ -23,7 +23,13 @@ $primary:#007bff;
     font-size: 1.2rem;
 }
 .h2, h2 {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+}
+.h3, h3 {
+    font-size: 1.1rem;
+}
+.h4, h4 {
+    font-size: 1rem;
 }
 
 .alert {
@@ -41,10 +47,6 @@ $primary:#007bff;
 	margin: 50px 0;
 }
 
-.col {
-	padding: 25px;
-}
-
 .vignette {
 	padding: .5rem 1rem;
   	font-size: 1em;
@@ -53,6 +55,8 @@ $primary:#007bff;
   		font-size: 2em;
   	}
 } 
+
+
 
 
 /* HEADER ====================== */
@@ -149,6 +153,63 @@ header.entete {
 	}
 
 } 
+
+main {
+	background: $arriere-plan;
+}
+
+/* CARD ======================== */
+
+.card-title {
+    margin-bottom: 0;
+}
+
+.card-image {
+	position: relative;
+	background: $arriere-plan;
+	border: 0;
+}
+
+.card-img-ribbon {
+    position: absolute;
+    left: 0px;
+    top: 0;
+    height: 200px;
+    width: 200px;
+    overflow: hidden;
+    z-index: 10;
+
+    .ribbon {
+    position: relative;
+    width: 250px;
+    font-size: 1.5rem;
+    padding: .2rem 0;
+    color: white;
+    left:-50px;
+    text-align: center;
+    text-transform: uppercase;
+    top: 50px;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(-45deg);
+	}
+
+    p {
+    margin-top: 0;
+    margin-bottom: 0;
+	}
+}
+
+
+.card-footer {
+    padding: 1rem 3rem;
+    background-color: $arriere-plan;
+    border-top: 0;
+}
+
+
+
+
+
 
 /* SIDEBAR ===================== */
 .sidebar {
