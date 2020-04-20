@@ -16,6 +16,14 @@
   font-size: 1rem;
 }
 
+.left {
+  float: left !important;
+}
+
+.right {
+  float: right !important;
+}
+
 .alert {
   padding: 0.2rem 1.25rem;
 }
@@ -131,6 +139,10 @@ main {
 }
 
 /* CARD ======================== */
+.card {
+  margin-bottom: 1.3rem;
+}
+
 .card-title {
   margin-bottom: 0;
 }
@@ -277,6 +289,15 @@ table.users {
 /* Ajout USER ------------------ */
 #addUserForm {
   padding: 15px 30px;
+}
+
+/* upEquipt----------------- */
+#kitName {
+  display: none;
+}
+
+#lotName {
+  display: none;
 }
 
 /* FOOTER ===================== */
