@@ -62,25 +62,35 @@ class FrontController
     public function equipement($params)
     {
         extract($params); // id equipement
+        
+        // Vérifier si Equipement existe 
+        $equiptManager = new \Epi_Model\EquipementManager; 
+        $equiptExist = $equiptManager->existEquipt($id);
+        if ($equiptExist) 
+        {
+            $equipementManager = new \Epi_Model\EquipementManager;
+            $dataEquipt = $equipementManager->getEquipement($id);
+            $equipt = new \Epi_Model\Equipement($dataEquipt);
 
-        $equipementManager = new \Epi_Model\EquipementManager;
-        $dataEquipt = $equipementManager->getEquipement($id);
+            // // Kit
+            // $kitManager = new \Epi_Model\KitManager;
+            // $kit = $kitManager->getKit($idKit);
 
-        $equipt = new \Epi_Model\Equipement($dataEquipt);
+            // // Lot
+            // $lotManager = new \Epi_Model\LotManager;
+            // $lot = $lotManager->getLot($idLot);
 
-
-        // // Kit
-        // $kitManager = new \Epi_Model\KitManager;
-        // $kit = $kitManager->getKit($idKit);
-
-        // // Lot
-        // $lotManager = new \Epi_Model\LotManager;
-        // $lot = $lotManager->getLot($idLot);
-
-        $nxView = new \Epi_Model\View('equipement');
-        $nxView->getView(
-        array (
-            'equipt'=> $equipt));
+            $nxView = new \Epi_Model\View('equipement');
+            $nxView->getView(
+            array (
+                'equipt'=> $equipt));
+        }
+        else
+        {
+           // Nouvelle page 
+            $nxView = new \Epi_Model\View();
+            $nxView->redirectView('page404');
+        }
     }
 
 
@@ -143,6 +153,44 @@ class FrontController
         $nxView->redirectView('home');
     }
 
+    public function upEquipt($params)
+    {
+        $csrf = new \Epi_Model\SecuriteCsrf('upEquipt');
+        $upEquiptToken = $csrf->getToken();
+
+        extract($params); // id equipement
+
+        // Vérifier si Equipement existe 
+        $equiptManager = new \Epi_Model\EquipementManager; 
+        $equiptExist = $equiptManager->existEquipt($id);
+        if ($equiptExist) 
+        {
+            $equipementManager = new \Epi_Model\EquipementManager;
+            $dataEquipt = $equipementManager->getEquipement($id);
+            $equipt = new \Epi_Model\Equipement($dataEquipt);
+
+            // Liste des kits
+            $kitManager = new \Epi_Model\KitManager;
+            $kits = $kitManager->getKits();
+            
+            // Liste des lots
+            $lotManager = new \Epi_Model\LotManager;
+            $lots = $lotManager->getLots();
+
+            $nxView = new \Epi_Model\View('upEquipt');
+            $nxView->getView(
+            array (
+                'equipt'=> $equipt,
+                'kits' => $kits,
+                'lots' => $lots));
+        }
+        else
+        {
+           // Nouvelle page 
+            $nxView = new \Epi_Model\View();
+            $nxView->redirectView('page404');
+        }
+    }
 
     /* Link Button ----------------------------*/
     public function inscription($params)
