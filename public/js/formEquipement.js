@@ -11,26 +11,15 @@ let categorie  = document.getElementById('categorieId');
 let nxCategorie  = document.getElementById('categorie-name');
 nxCategorie.style.display = 'none';
 
-let produit  = document.getElementById('produit');
-produit.style.display = 'block';
-
-let controle = document.getElementById('controle');
-controle.style.display = 'block';
-
-let kit  = document.getElementById('kit');
+let kit  = document.getElementById('kitId');	
+let nxKit  = document.getElementById('kit');
 nxKit.style.display = 'none';
 
-let lot 	 = document.getElementById('lot');
+let lot  = document.getElementById('lotId');
+let nxLot 	 = document.getElementById('lot');
 nxLot.style.display = 'none';
 
 let addEquiptBtn = document.getElementById('addEquipt-btn');
-addEquiptBtn.style.display = 'none';
-
-let previousBtn = document.getElementById('previous-btn');
-previousBtn.style.display = 'none';
-
-let nextBtn = document.getElementById('next-btn');
-nextBtn.style.display = 'block';
 
 
 
