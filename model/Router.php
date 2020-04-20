@@ -17,14 +17,15 @@ class Router {
         "deconnexion"   => ['FrontController','deconnexion'],
         "account"       => ['FrontController','account'],
         "contact"       => ['FrontController','contact'],
+        "equipements"   => ['FrontController','equipements'],
         "equipement"    => ['FrontController','equipement'],
         "nxEquipt"      => ['FrontController','nxEquipt'],
+        "upEquipt"      => ['FrontController','upEquipt'],
         
     // ---- BACK Controller -----------------------------------------------------
-        "creatEquipt"     => ['BackController','creatEquipt'],
-        "delEquipt"       => ['BackController','delEquipt'],
-
-
+        "creatEquipt"    => ['BackController','creatEquipt'],
+        "delEquipt"      => ['BackController','delEquipt'],
+        "updateEquipt"   => ['BackController','updateEquipt'],
 
 
 
@@ -57,12 +58,12 @@ class Router {
         $elements = explode('/', $this->_url); // tableau
         unset($elements[0]); // Suppression Element page
 
-// récupère les PARAMS
-for ($i=1; $i<count($elements); $i++)
-{
-    $params[$elements[$i]] = $elements[$i+1];
-    $i++;
-}
+        // récupère les PARAMS
+        for ($i=1; $i<count($elements); $i++)
+        {
+            $params[$elements[$i]] = $elements[$i+1];
+            $i++;
+        }
 
         if (!isset($params)) $params = null;
         return $params;

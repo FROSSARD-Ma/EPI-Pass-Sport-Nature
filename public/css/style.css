@@ -5,7 +5,23 @@
 }
 
 .h2, h2 {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+}
+
+.h3, h3 {
+  font-size: 1.1rem;
+}
+
+.h4, h4 {
+  font-size: 1rem;
+}
+
+.left {
+  float: left !important;
+}
+
+.right {
+  float: right !important;
 }
 
 .alert {
@@ -22,10 +38,6 @@
 
 .section {
   margin: 50px 0;
-}
-
-.col {
-  padding: 25px;
 }
 
 .vignette {
@@ -122,6 +134,58 @@ header.entete #topNav .dropdown-menu a, header.entete #topNav a:hover {
   color: #3A3A3A;
 }
 
+main {
+  background: #f4f6f9;
+}
+
+/* CARD ======================== */
+.card {
+  margin-bottom: 1.3rem;
+}
+
+.card-title {
+  margin-bottom: 0;
+}
+
+.card-image {
+  position: relative;
+  background: #f4f6f9;
+  border: 0;
+}
+
+.card-img-ribbon {
+  position: absolute;
+  left: 0px;
+  top: 0;
+  height: 200px;
+  width: 200px;
+  overflow: hidden;
+  z-index: 10;
+}
+.card-img-ribbon .ribbon {
+  position: relative;
+  width: 250px;
+  font-size: 1.5rem;
+  padding: 0.2rem 0;
+  color: white;
+  left: -50px;
+  text-align: center;
+  text-transform: uppercase;
+  top: 50px;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(-45deg);
+}
+.card-img-ribbon p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.card-footer {
+  padding: 1rem 3rem;
+  background-color: #f4f6f9;
+  border-top: 0;
+}
+
 /* SIDEBAR ===================== */
 .sidebar {
   padding-right: 0px;
@@ -196,7 +260,6 @@ table.users {
 }
 
 /* FORMULAIRE ===================== */
-
 .required {
   font-size: 12px;
   color: red;
@@ -226,6 +289,15 @@ table.users {
 /* Ajout USER ------------------ */
 #addUserForm {
   padding: 15px 30px;
+}
+
+/* upEquipt----------------- */
+#kitName {
+  display: none;
+}
+
+#lotName {
+  display: none;
 }
 
 /* FOOTER ===================== */

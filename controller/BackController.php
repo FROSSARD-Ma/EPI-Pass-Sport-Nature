@@ -141,7 +141,7 @@ class BackController
 					$_SESSION['message'] = 'Votre équipement est ajoutée !';
 					// Nouvelle page 
 					$nxView = new \Epi_Model\View();
-					$nxView->redirectView('equipement');
+					$nxView->redirectView('equipement/id/'.$creatEquipt);
 				}
 				else
 				{
@@ -159,6 +159,43 @@ class BackController
 		}
 	}
 
+	//---- UPDATE -----------------------------------
+	public function updateEquipt($params)
+	{
+		try
+		{
+			extract($params); // recup $id de l'équipement dans url
+
+			// Vérifier si Equipement existe 
+			$equiptManager = new \Epi_Model\EquipementManager; 
+		    $equiptExist = $equiptManager->existEquipt($id);
+		    if ($equiptExist) 
+		    {
+				$equipementManager = new \Epi_Model\EquipementManager;
+		 		$upEquipt = $equipementManager->updateEquipement($id);
+		 		if ($upEquipt)
+			    {
+			    	$_SESSION['message'] = 'L\'équipement a été mis à jour !';
+					$nxView = new \Epi_Model\View();
+					$nxView->redirectView('equipement/id/'.$upEquipt);
+			    }
+			    else
+			    {
+			    	// Message erreur
+					throw new \Epi_Model\AppException('l\'équipement n\'a pas été mis à jour.', 'equipement');
+			    }
+		 	}
+			else
+			{
+				throw new \Epi_Model\AppException('l\'équipement n\'éxiste pas.', 'equipements');
+			}
+
+		}
+		catch (\Epi_Model\AppException $e)
+		{
+			$e->getRedirection();
+		}
+	}
 
 	//---- DELETE -----------------------------------
 	public function delEquipt($params)
@@ -167,29 +204,31 @@ class BackController
 		{
 			extract($params); // recup $id de l'équipement dans url
 
-			// $csrf = new \Epi_Model\SecuriteCsrf('equipement');
-			// $equipementToken = $csrf->verifToken(HOST.'equipement');
-			// if ($equipementToken)
-			// {
+			// Vérifier si Equipement existe 
+			$equiptManager = new \Epi_Model\EquipementManager; 
+		    $equiptExist = $equiptManager->existEquipt($id);
+		    if ($equiptExist) 
+		    {
 		 		$equipementManager = new \Epi_Model\EquipementManager;
 
-		 		$delEquipt = $equipementManager->deleteEquipement($id);
+		 		$delEquipt = $equipementManager->deleteEquipement($id);	 		
 		 		if ($delEquipt)
 			    {
 			    	$_SESSION['message'] = 'L\'équipement a été supprimé !';
 					$nxView = new \Epi_Model\View();
-					$nxView->redirectView('equipement');
+					$nxView->redirectView('equipements');
 			    }
 			    else
 			    {
 			    	// Message erreur
-					throw new \Epi_Model\AppException('l\'équipement n\'a pas été supprimé.', 'equipement');
+					throw new \Epi_Model\AppException('l\'équipement n\'a pas été supprimé.', 'equipements');
 			    }
-		 // 	}
-			// else
-			// {
-			// 	throw new \Epi_Model\AppException('vous avez dépassé le temps d\'envoie du formulaire. Rechargez la page et validez !', 'equipement');
-			// }
+			}
+			else
+		    {
+		    	// Message erreur
+				throw new \Epi_Model\AppException('l\'équipement n\'éxiste pas.', 'equipements');
+		    }
 
 		}
 		catch (\Epi_Model\AppException $e)

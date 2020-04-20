@@ -1,0 +1,95 @@
+{% extends 'content-sidebar-S.twig' %}
+
+{% block sidebar %}
+    {% include('sidebarNav.twig') %}
+{% endblock %}
+
+{% block title %}
+	<title>Equipements - Gestion EPI</title>
+{% endblock %}
+
+{% block headerpage %}
+
+	<h1 class="mt-4">{{ session.groupeStatut }} : {{ session.groupeName }}</h1>
+    <div class="alert alert-secondary" role="alert">
+     <h2>GESTION DES ÉQUIPEMENTS</h2>
+    </div>
+
+{% endblock %}
+
+
+{% block main %}
+
+    <section class="row justify-content-center sectionw">
+        
+        <div class="col-xl-7 col-md-10">
+            <p>Ergo ego senator inimicus, si ita vultis, homini, amicus esse, sicut semper fui, rei publicae debeo. Quid? si ipsas inimicitias, depono rei publicae causa, quis me tandem iure reprehendet, praesertim cum ego omnium meorum consiliorum atque factorum exempla semper ex summorum hominum consiliis atque factis mihi censuerim petenda.</p>
+        </div>
+
+        <div class="col-xl-5 col-md-10">
+        <a href="#" class="btn btn-primary vignette" role="button" aria-pressed="true"><span>10</span><br>RÉPARATIONS</a>
+        <a href="#" class="btn btn-warning vignette" role="button" aria-pressed="true"><span>10</span><br>CONTRÔLES</a>
+        <a href="#" class="btn btn-danger vignette" role="button" aria-pressed="true"><span>10</span><br>RETARDS</a>
+        </div>
+    </section>
+
+    <!-- Visuel des dernières DONNEES -->    
+
+    <section class="table-responsive">
+        <table id="table_equipmt" class="display table table-bordered" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Statut</th>
+                    <th>Activité</th>
+                    <th>Catégorie</th>
+                    <th>Durée de vie</th>
+                    <th>Prochain contrôle</th>
+                    <th>Gestion</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for equipt in equipts %}
+                    <tr>
+                        <td>
+                            {% if equipt.getStatut == 'invalid' %}
+                                <span class="badge badge-danger"><i class="fas fa-thumbs-down"></i></span>
+                            {%  elseif equipt.getStatut == 'reparation' %}
+                                <span class="badge badge-danger"><i class="far fa-thumbs-down"></i></span>
+                            {% else %}
+                                <span class="badge badge-success"><i class="fas fa-thumbs-up"></i></span>
+
+                            {% endif %}
+                        </td>
+                        <td>{{ equipt.getActivite }}</td>
+                        <td>{{ equipt.getCategorie }}</td>
+                        <td>
+                            <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </td>
+                        <td>{{ equipt.getProchainControle }}</td>
+                        <td>
+                            <a role="button" class="btn btn-primary" href="equipement/id/{{ equipt.getId }}" title="Voir l'équipement">
+                              <i class="fas fa-eye"></i>
+                            </a>
+                            <a role="button" class="btn btn-warning" href="upEquipt/id/{{ equipt.getId }}" title="Controler l'équipement">
+                              <i class="fas fa-pencil-alt"></i>
+                            </a>
+                            <!-- Form SUPPRESSION User -->
+                            <a role="button" class="btn btn-danger" href="delEquipt/id/{{ equipt.getId }}" title="supprimer DÉFINITIVEMENT l'équipement'" onclick="javascript: return confirm('Supprimer DÉFINITIVEMENT équipement ?');">
+                            <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+{% endblock %}
+
+{% block javascript %}
+    <script src="public/js/sideBarNav.js"></script>
+{% endblock %}
+
