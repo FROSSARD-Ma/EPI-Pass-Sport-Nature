@@ -32,20 +32,6 @@ class KitManager extends Manager
         return $kits;
     }
 
-    public function getKit($kitId)
-    {
-        $idKit = (int)$kitId;
-
-        $sql = 'SELECT *
-                FROM EPI_kits 
-                WHERE kit_id = :idKit';
-
-        $data = $this->getPDO()->prepare($sql);
-        $data->bindValue(':idKit', $idKit, PDO::PARAM_STR);
-        $data->execute(); 
-        return $data;
-    }
-
     /*---  UPDATE ------------------------------------------- */
 
 
