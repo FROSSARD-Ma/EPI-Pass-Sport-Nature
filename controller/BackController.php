@@ -177,12 +177,12 @@ class BackController
 			    {
 			    	$_SESSION['message'] = 'L\'équipement a été mis à jour !';
 					$nxView = new \Epi_Model\View();
-					$nxView->redirectView('equipement/id/'.$upEquipt);
+					$nxView->redirectView('upEquipt/id/'.$id);
 			    }
 			    else
 			    {
 			    	// Message erreur
-					throw new \Epi_Model\AppException('l\'équipement n\'a pas été mis à jour.', 'equipement');
+					throw new \Epi_Model\AppException('l\'équipement n\'a pas été mis à jour.', 'upEquipt/id/'.$id);
 			    }
 		 	}
 			else

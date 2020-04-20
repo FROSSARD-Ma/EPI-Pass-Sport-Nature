@@ -106,7 +106,7 @@ class EquipementManager extends Manager
         $idEquipt = (int)$equiptId;
 
         $sql ='UPDATE EPI_equipement 
-        SET eq_taille=:taille, eq_matiereMetal=:matiereMetal, eq_matiereTextile=:matiereTextile, eq_matierePlastique=:matierePlastique,eq_couleur=:couleur,eq_marquage=:marquage,eq_marquageLieu=:marquageLieu,eq_notice=:notice,eq_image=:image,eq_statut=:statut,eq_fabrication=:fabrication,eq_achat=:achat,eq_utilisation=:utilisation,eq_rebutTheorique=:rebutTheorique,eq_frequenceControle=:frequenceControle,eq_kitId=:kitId,eq_lotId=:lotId
+        SET eq_taille=:taille, eq_matiereMetal=:matiereMetal, eq_matiereTextile=:matiereTextile, eq_matierePlastique=:matierePlastique,eq_couleur=:couleur,eq_marquage=:marquage,eq_marquageLieu=:marquageLieu,eq_notice=:notice,eq_image=:image,eq_statut=:statut,eq_achat=:achat,eq_utilisation=:utilisation,eq_rebutTheorique=:rebutTheorique,eq_frequenceControle=:frequenceControle,eq_kitId=:kitId,eq_lotId=:lotId
         WHERE  eq_id = :idEquipt AND eq_groupeId = :idGroupe';
 
         $datas = $this->getPDO()->prepare($sql);
@@ -122,21 +122,18 @@ class EquipementManager extends Manager
         $datas->bindValue(':image', $nomImage, PDO::PARAM_STR);
         $datas->bindValue(':statut', htmlspecialchars($_POST['statut']), PDO::PARAM_STR);
         // Dates
-        $datas->bindValue(':fabrication', htmlspecialchars($_POST['fabrication']), PDO::PARAM_STR);
         $datas->bindValue(':achat', htmlspecialchars($_POST['achat']), PDO::PARAM_STR);
         $datas->bindValue(':utilisation', htmlspecialchars($_POST['utilisation']), PDO::PARAM_STR);
         $datas->bindValue(':rebutTheorique', htmlspecialchars($_POST['rebutTheorique']), PDO::PARAM_STR);
         $datas->bindValue(':frequenceControle', htmlspecialchars($_POST['frequenceControle']), PDO::PARAM_STR);
         //Id
-        $datas->bindValue(':kitId', htmlspecialchars($_POST['kitId']), PDO::PARAM_STR);
+        $datas->bindValue(':kitId', htmlspecialchars($_POST['kitId']), PDO::PARAM_STR);  
         $datas->bindValue(':lotId', htmlspecialchars($_POST['lotId']), PDO::PARAM_STR);
         $datas->bindValue(':idEquipt', $idEquipt, PDO::PARAM_STR);
         $datas->bindValue(':idGroupe', $SESSION['groupeId'], PDO::PARAM_STR);
 
         $datas->execute();
-
-        $lastInsertId = $this->getPDO()->lastInsertId();
-        return $lastInsertId; 
+        return $datas;
     }
 
     /*---  DELETE ----------------------------------------- */

@@ -217,7 +217,7 @@
                             {% if equipt.getNotice %}
                                 <input type="url" id="notice" name="notice" class="form-control" placeholder="{{ equipt.getNotice }}" value="{{ equipt.getNotice }}" readonly>
                             {% else %}
-                               <input type="url" id="achat" name="achat" class="form-control">
+                               <input type="url" id="notice" name="notice" class="form-control">
                             {% endif %}
                         </div>
                     </div>
@@ -225,11 +225,7 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label" for="achat">Date d'achat</label>
                         <div class="col-sm-9">
-                            {% if equipt.getAchat %}
-                                <input type="text" id="achat" name="achat" class="form-control" placeholder="{{ equipt.getAchat }}" value="{{ equipt.getAchat }}" readonly>
-                            {% else %}
-                               <input type="date" id="achat" name="achat" class="form-control">
-                            {% endif %}
+                               <input type="date" id="achat" name="achat" class="form-control" value="{{ equipt.getAchat }}">
                         </div>
                     </div>
 
@@ -278,7 +274,6 @@
                 </div>
             </div>
 
-            <input type="hidden" name="groupeId" id="groupeId" value="{{ session.groupeId }}"/>
             <input type="hidden" name="token" id="token" value="{{ session.upEquipt_token }}"/>
 
             <div class="right">
