@@ -27,9 +27,8 @@
         </div>
 
         <div class="col-xl-5 col-md-10">
-        <a href="#" class="btn btn-primary vignette" role="button" aria-pressed="true"><span>10</span><br>RÉPARATIONS</a>
-        <a href="#" class="btn btn-warning vignette" role="button" aria-pressed="true"><span>10</span><br>CONTRÔLES</a>
-        <a href="#" class="btn btn-danger vignette" role="button" aria-pressed="true"><span>10</span><br>RETARDS</a>
+            <a href="#" class="btn btn-primary vignette" role="button" aria-pressed="true"><span>{{ session.countEquiptReparer }}</span><br>{{ session.countEquiptReparer > 1  ? 'RÉPARATIONS' : 'RÉPARATION' }}</a>
+            <a href="#" class="btn btn-warning vignette" role="button" aria-pressed="true"><span>{{ session.countEquiptControler }}</span><br>{{ session.countEquiptControler > 1  ? 'CONTRÔLES' : 'CONTRÔLE' }}</a>
         </div>
     </section>
 

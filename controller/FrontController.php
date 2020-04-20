@@ -26,6 +26,13 @@ class FrontController
         $csrf = new \Epi_Model\SecuriteCsrf('dashboard');
         $token = $csrf->getToken();
 
+        /* Count STATUT */
+        $equipementManager = new \Epi_Model\EquipementManager;
+        $equiptControle = $equipementManager->countEquiptsStatut('controler');
+        $_SESSION['countEquiptControler'] = $equiptControle;
+        $equiptReparation = $equipementManager->countEquiptsStatut('reparation');
+        $_SESSION['countEquiptReparer'] = $equiptReparation;
+
         /* Liste USERS */
         $UserManager = new \Epi_Model\UserManager;
         $dataUsers = $UserManager->getUsers($_SESSION['groupeId']);
@@ -140,9 +147,14 @@ class FrontController
 
     public function deconnexion($params)
     {
+        /* User */
         unset($_SESSION['userId']); 
         unset($_SESSION['userFirstname']);
         unset($_SESSION['userStatut']);
+
+        /* Groupe */
+        unset($_SESSION['countEquiptControler']); 
+        unset($_SESSION['countEquiptReparer']); 
 
         setcookie('userMail');
         setcookie('userPass');

@@ -70,6 +70,17 @@ class EquipementManager extends Manager
         return $data;
     }
 
+    public function countEquiptsStatut($statut)
+    {
+        $sql ='SELECT count(*)
+            FROM EPI_equipement 
+            WHERE eq_statut = ? AND eq_groupeId = ?';
+        $count = $this->reqSQL($sql, array ($statut, $_SESSION['groupeId']), $one = true);
+        $countChapters = implode($count);
+        return $countChapters;
+    }
+    //
+
     public function getEquipement($equiptId)
     {
         $idEquipt = (int)$equiptId;
