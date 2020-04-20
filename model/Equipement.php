@@ -10,7 +10,11 @@ class Equipement extends Manager
     private $_eq_reference;
     private $_eq_serie;
     private $_eq_taille;
-    private $_eq_matiere;
+
+    private $_eq_matiereMetal;
+    private $_eq_matiereTextile;
+    private $_eq_matierePlastique;
+
     private $_eq_couleur;
     private $_eq_marquage;
     private $_eq_marquageLieu;
@@ -92,9 +96,17 @@ class Equipement extends Manager
         { 
             return $this->_eq_taille; 
         }
-        public function getMatiere()
+        public function getMatiereMetal()
         {
-            return $this->_eq_matiere;
+            return $this->_eq_matiereMetal;
+        }
+        public function getMatiereTextile()
+        {
+            return $this->_eq_matiereTextile;
+        }
+        public function getMatierePlastique()
+        {
+            return $this->_eq_matierePlastique;
         }
         public function getCouleur()
         { 
@@ -235,11 +247,25 @@ class Equipement extends Manager
               $this->_eq_taille = $taille;
             }
         }
-        public function setEq_matiere($matiere)
+        public function setEq_matiereMetal($matiere)
         {
             if (is_string($matiere))
             {
-              $this->_eq_matiere = $matiere;
+              $this->_eq_matiereMetal = $matiere;
+            }
+        }
+        public function setEq_matiereTextile($matiere)
+        {
+            if (is_string($matiere))
+            {
+              $this->_eq_matiereTextile = $matiere;
+            }
+        }
+        public function setEq_matierePlastique($matiere)
+        {
+            if (is_string($matiere))
+            {
+              $this->_eq_matierePlastique = $matiere;
             }
         }
         public function setEq_couleur($couleur)
@@ -288,28 +314,43 @@ class Equipement extends Manager
         // Dates
         public function setEq_fabrication($dateCreated)
         { 
-            $date = new DateTime($dateCreated);
-            $this->_eq_fabrication = $date->format('d-m-Y');
+            if ($dateCreated)
+            {
+                $date = new DateTime($dateCreated);
+                $this->_eq_fabrication = $date->format('d-m-Y');
+            }
         }
         public function setEq_achat($dateCreated)
         { 
-            $date = new DateTime($dateCreated);
-            $this->_eq_achat = $date->format('d-m-Y');
+            if ($dateCreated)
+            {
+                $date = new DateTime($dateCreated);
+                $this->_eq_achat = $date->format('d-m-Y');
+            }
         }
         public function setEq_utilisation($dateCreated)
         { 
-             $date = new DateTime($dateCreated);
-            $this->_eq_utilisation = $date->format('d-m-Y');
+            if ($dateCreated)
+            {
+                $date = new DateTime($dateCreated);
+                $this->_eq_utilisation = $date->format('d-m-Y');
+            }
         }
         public function setEq_rebutTheorique($dateCreated)
         { 
-            $date = new DateTime($dateCreated);
-            $this->_eq_rebutTheorique = $date->format('d-m-Y');
+            if ($dateCreated)
+            {
+                $date = new DateTime($dateCreated);
+                $this->_eq_rebutTheorique = $date->format('d-m-Y');
+            }
         }
         public function setEq_prochainControle($dateCreated)
         { 
-            $date = new DateTime($dateCreated);
-            $this->_eq_prochainControle = $date->format('d-m-Y');
+            if ($dateCreated)
+            {
+                $date = new DateTime($dateCreated);
+                $this->_eq_prochainControle = $date->format('d-m-Y');
+            }
         }
         public function setEq_frequenceControle($frequence)
         { 
