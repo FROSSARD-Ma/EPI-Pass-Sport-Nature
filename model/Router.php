@@ -20,11 +20,12 @@ class Router {
         "equipements"   => ['FrontController','equipements'],
         "equipement"    => ['FrontController','equipement'],
         "nxEquipt"      => ['FrontController','nxEquipt'],
+        "upEquipt"      => ['FrontController','upEquipt'],
         
     // ---- BACK Controller -----------------------------------------------------
         "creatEquipt"    => ['BackController','creatEquipt'],
         "delEquipt"      => ['BackController','delEquipt'],
-
+        "updateEquipt"   => ['BackController','updateEquipt'],
 
 
 
