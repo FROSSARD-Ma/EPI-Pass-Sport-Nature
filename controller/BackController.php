@@ -159,6 +159,64 @@ class BackController
 		}
 	}
 
+	public function creatControl($params)
+	{
+		try
+		{
+			// Controle TOKEN Formulaire
+			$csrf = new \Epi_Model\SecuriteCsrf('nxControl');
+			$controleToken = $csrf->verifToken('nxControl');
+			if ($controleToken)
+			{
+				extract($params); // recup $id de l'équipement dans url
+				// Vérifier si Equipement existe 
+				$equiptManager = new \Epi_Model\EquipementManager; 
+			    $equiptExist = $equiptManager->existEquipt($id);
+			    if ($equiptExist) 
+			    {
+					$controleManager = new \Epi_Model\ControleManager; 
+					$creatControl = $controleManager->addControle($id, $_SESSION['userId']);
+					if ($creatControl)
+					{
+						// Mettre à jour le statut de l'équipement
+						$equipementManager = new \Epi_Model\EquipementManager;
+				 		$upEquipt = $equipementManager->updateStatutEquipt($id, $_SESSION['groupeId']);
+				 		if ($upEquipt)
+					    {
+							$_SESSION['message'] = 'Votre contrôle EPI est ajouté !';
+							// Nouvelle page 
+							$nxView = new \Epi_Model\View();
+							$nxView->redirectView('equipement/id/'.$id);
+						}
+					    else
+					    {
+					    	// Message erreur
+							throw new \Epi_Model\AppException('le statut de l\'équipement n\'a pas été mis à jour.', 'upEquipt/id/'.$id);
+					    }	
+			        }
+			        else
+			        {
+			        	throw new \Epi_Model\AppException('votre controle EPI n\'a pas été créé', 'nxControl');
+			        }
+				}
+				else
+				{
+					throw new \Epi_Model\AppException('l\'équipement n\'éxiste pas.', 'nxControl');
+				}        
+			}
+			else
+			{
+				throw new \Epi_Model\AppException('vous avez dépassé le temps d\'envoie du formulaire. Rechargez la page et validez !', 'nxControl');
+			}
+			
+		}
+		catch (\Epi_Model\AppException $e)
+		{
+			$e->getRedirection();
+		}
+	}
+
+
 	//---- UPDATE -----------------------------------
 	public function updateEquipt($params)
 	{
@@ -172,7 +230,7 @@ class BackController
 		    if ($equiptExist) 
 		    {
 				$equipementManager = new \Epi_Model\EquipementManager;
-		 		$upEquipt = $equipementManager->updateEquipement($id);
+		 		$upEquipt = $equipementManager->updateEquipement($id, $_SESSION['groupeId']);
 		 		if ($upEquipt)
 			    {
 			    	$_SESSION['message'] = 'L\'équipement a été mis à jour !';

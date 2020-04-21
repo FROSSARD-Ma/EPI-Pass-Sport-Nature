@@ -103,7 +103,7 @@ class EquipementManager extends Manager
     }
 
     /*---  UPDATE ----------------------------------------- */
-    public function updateEquipement($equiptId)
+    public function updateEquipement($equiptId, $groupeId)
     {
         if (!empty($_FILES['image']['name']))
         {
@@ -116,6 +116,7 @@ class EquipementManager extends Manager
         }
 
         $idEquipt = (int)$equiptId;
+        $idGroupe = (int)$groupeId;
 
         $sql ='UPDATE EPI_equipement 
         SET eq_taille=:taille, eq_matiereMetal=:matiereMetal, eq_matiereTextile=:matiereTextile, eq_matierePlastique=:matierePlastique,eq_couleur=:couleur,eq_marquage=:marquage,eq_marquageLieu=:marquageLieu,eq_notice=:notice,eq_image=:image,eq_statut=:statut,eq_achat=:achat,eq_utilisation=:utilisation,eq_rebutTheorique=:rebutTheorique,eq_frequenceControle=:frequenceControle,eq_kitId=:kitId,eq_lotId=:lotId
@@ -142,11 +143,29 @@ class EquipementManager extends Manager
         $datas->bindValue(':kitId', htmlspecialchars($_POST['kitId']), PDO::PARAM_STR);  
         $datas->bindValue(':lotId', htmlspecialchars($_POST['lotId']), PDO::PARAM_STR);
         $datas->bindValue(':idEquipt', $idEquipt, PDO::PARAM_STR);
-        $datas->bindValue(':idGroupe', $SESSION['groupeId'], PDO::PARAM_STR);
+        $datas->bindValue(':idGroupe', $idGroupe, PDO::PARAM_STR);
 
         $datas->execute();
         return $datas;
     }
+
+    public function updateStatutEquipt($equiptId, $groupeId)
+    {
+        $idEquipt = (int)$equiptId;
+        $idGroupe = (int)$groupeId;
+        
+        $sql ='UPDATE EPI_equipement 
+        SET eq_statut=:statut
+        WHERE  eq_id = :idEquipt AND eq_groupeId = :idGroupe';
+        $data = $this->getPDO()->prepare($sql);
+        $data->bindValue(':statut', htmlspecialchars($_POST['statut']), PDO::PARAM_STR);
+        $data->bindValue(':idEquipt', $idEquipt, PDO::PARAM_STR);
+        $data->bindValue(':idGroupe', $idGroupe, PDO::PARAM_STR);
+        $data->execute();
+        return $data;
+    }
+
+
 
     /*---  DELETE ----------------------------------------- */
     public function deleteEquipement($equiptId)
