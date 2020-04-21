@@ -148,6 +148,24 @@ class EquipementManager extends Manager
         return $datas;
     }
 
+    public function updateStatutEquipt($equiptId, $groupeId)
+    {
+        $idEquipt = (int)$equiptId;
+        $idGroupe = (int)$groupeId;
+        
+        $sql ='UPDATE EPI_equipement 
+        SET eq_statut=:statut
+        WHERE  eq_id = :idEquipt AND eq_groupeId = :idGroupe';
+        $data = $this->getPDO()->prepare($sql);
+        $data->bindValue(':statut', htmlspecialchars($_POST['statut']), PDO::PARAM_STR);
+        $data->bindValue(':idEquipt', $idEquipt, PDO::PARAM_STR);
+        $data->bindValue(':idGroupe', $idGroupe, PDO::PARAM_STR);
+        $data->execute();
+        return $data;
+    }
+
+
+
     /*---  DELETE ----------------------------------------- */
     public function deleteEquipement($equiptId)
     {

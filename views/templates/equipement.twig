@@ -28,21 +28,19 @@
             <div class="card card-image">
                 <div class="card-img-ribbon">
 
-                    {% if equipt.getStatut == 'invalid' %}
-                       <div class="ribbon bg-danger">
-                            <p>À contrôler</p>
-                        </div>
-                    {%  elseif equipt.getStatut == 'reparation' %}
-                        <div class="ribbon bg-warning">
-                        <font style="vertical-align: inherit;">
-                            À réparer
-                            </font>
-                        </div>
+                    {% if equipt.getStatut == 'Valide' %}
+                       <div class="ribbon bg-success">
+                    {%  elseif equipt.getStatut == 'À contrôler' %}  
+                    <div class="ribbon bg-warning"> 
+                    {%  elseif equipt.getStatut == 'À réparer' %}
+                    <div class="ribbon bg-warning">
                     {% else %}
-                        <div class="ribbon bg-success">
-                            <p>Valide</p>
-                        </div>
+                    <div class="ribbon bg-danger">
                     {% endif %}
+                        <font style="vertical-align: inherit;">
+                        {{ equipt.getStatut }}
+                        </font>
+                    </div>
                 </div>
                 <img src="https://epi.pass-sport-nature.fr/public/img/equipement/{{ equipt.getImage }}" class="card-img-top" alt="Photo de l'équipement">
                 <div class="card-body">

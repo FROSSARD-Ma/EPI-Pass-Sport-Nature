@@ -138,6 +138,35 @@ class FrontController
             'lots' => $lots));
     }
 
+    public function nxControl($params)
+    {
+        $csrf = new \Epi_Model\SecuriteCsrf('nxControl');
+        $token = $csrf->getToken();
+
+        extract($params); // id equipement
+        
+        // Vérifier si Equipement existe 
+        $equiptManager = new \Epi_Model\EquipementManager; 
+        $equiptExist = $equiptManager->existEquipt($id);
+        if ($equiptExist) 
+        {
+            $equipementManager = new \Epi_Model\EquipementManager;
+            $dataEquipt = $equipementManager->getEquipement($id);
+            $equipt = new \Epi_Model\Equipement($dataEquipt);
+            
+            $nxView = new \Epi_Model\View('nxControl');
+            $nxView->getView(
+            array (
+                'equipt'=> $equipt));
+        }
+        else
+        {
+           // Nouvelle page 
+            $nxView = new \Epi_Model\View();
+            $nxView->redirectView('page404');
+        }
+    }
+
     public function account($params)
     {
         $csrf = new \Epi_Model\SecuriteCsrf('account');
