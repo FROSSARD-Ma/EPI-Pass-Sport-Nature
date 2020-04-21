@@ -6,7 +6,7 @@ class FrontController
     /* TOP Menu ----------------------------------- */
     public function home($params)
     {
-		$csrf = new \Epi_Model\SecuriteCsrf('login');
+        $csrf = new \Epi_Model\SecuriteCsrf('login');
         $token = $csrf->getToken();
 
         $nxView = new \Epi_Model\View('home');
@@ -86,19 +86,25 @@ class FrontController
             $equipementManager = new \Epi_Model\EquipementManager;
             $dataEquipt = $equipementManager->getEquipement($id);
             $equipt = new \Epi_Model\Equipement($dataEquipt);
+           
+            // Kit
+            $idKit = $equipt->getKitId($id);
+            $kitManager = new \Epi_Model\KitManager;
+            $dataKit = $kitManager->getKit($idKit);
+            $kit = new \Epi_Model\Kit($dataKit);
 
-            // // Kit
-            // $kitManager = new \Epi_Model\KitManager;
-            // $kit = $kitManager->getKit($idKit);
-
-            // // Lot
-            // $lotManager = new \Epi_Model\LotManager;
-            // $lot = $lotManager->getLot($idLot);
+            // Lot
+            $idLot = $equipt->getLotId($id);
+            $lotManager = new \Epi_Model\LotManager;
+            $dataLot = $lotManager->getLot($idLot);
+            $lot = new \Epi_Model\Kit($dataLot);
 
             $nxView = new \Epi_Model\View('equipement');
             $nxView->getView(
             array (
-                'equipt'=> $equipt));
+                'equipt'=> $equipt,
+                'kit'=> $kit,
+                'lot'=> $lot));
         }
         else
         {
