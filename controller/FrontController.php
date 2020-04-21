@@ -79,8 +79,10 @@ class FrontController
             $kit = new \Epi_Model\Kit($dataKit);
 
             // Lot
+            $idLot = $equipt->getLotId($id);
             $lotManager = new \Epi_Model\LotManager;
-            $lot = $lotManager->getLot($idLot);
+            $dataLot = $lotManager->getLot($idLot);
+            $lot = new \Epi_Model\Kit($dataLot);
 
             $nxView = new \Epi_Model\View('equipement');
             $nxView->getView(

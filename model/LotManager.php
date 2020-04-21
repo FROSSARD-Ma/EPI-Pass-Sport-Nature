@@ -35,14 +35,10 @@ class LotManager extends Manager
     public function getLot($lotId)
     {
         $idLot = (int)$lotId;
-
         $sql = 'SELECT *
                 FROM EPI_lots 
-                WHERE lot_id = :idLot';
-
-        $data = $this->getPDO()->prepare($sql);
-        $data->bindValue(':idLot', $idLot, PDO::PARAM_STR);
-        $data->execute(); 
+                WHERE lot_id=?';
+        $data = $this->reqSQL($sql, array ($idLot), $one = true);
         return $data;
     }
 
