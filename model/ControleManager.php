@@ -28,30 +28,20 @@ class ControleManager extends Manager
     }
 
     /*---  READ ---------------------------------------------------------- */
-    public function getControle($id)
+    public function getControles($equipementId)
     {
-        $idControle = (int)$id;
+        $idEquipement = (int)$equipementId;
 
-        $sql = 'SELECT EPI_controles.*, EPI_categories.cat_name, EPI_users.user_name, EPI_users.user_firstname
-
-            FROM EPI_controles 
-
+        $sql = 'SELECT EPI_controles.*, EPI_users.user_name, EPI_users.user_firstname
+            FROM EPI_controles
                 JOIN EPI_equipement
                 ON EPI_equipement.eq_id=EPI_controles.controle_equipementId
 
-                JOIN EPI_categories
-                ON EPI_equipement.eq_id=EPI_categories.cat_id
-
                 JOIN EPI_users
-                ON EPI_controles.controle_userId=EPI_users.user_id
+                ON EPI_users.user_id=EPI_controles.controle_userId
 
-
-            WHERE controle_id =:id';
-
-        $datas = $this->getPDO()->prepare($sql);
-        $datas->bindValue(':id', $idControle, PDO::PARAM_STR);
-        $datas->execute(); 
-        
+            WHERE controle_equipementId=? ';
+        $datas = $this->reqSQL($sql, array ($idEquipement));
         return $datas;
     }
 

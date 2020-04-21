@@ -134,20 +134,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
+                            {% for controle in controles %}
                                 <tr>
-                                    <td>{{ control.getDate }}</td>
-                                    <td>{{ control.getVisuel }}</td>
-                                    <td>{{ control.getFonctionnel }}</td>
-                                    <td>{{ control.getControlUser }}</td>
-                                    <td>{{ control.getObservations }}</td>
+                                    <td>{{ controle.getDate }}</td>
+                                    <td>{{ controle.getVisuel }}</td>
+                                    <td>{{ controle.getFonctionnel }}</td>
+                                    <td>{{ controle.getUserName }} {{ controle.getUserFirstname }}</td>
+                                    <td>{{ controle.getObservations }}</td>
                                     <td>
-                                        <a role="button" class="btn btn-primary" href="{{ control.getImage }}" title="Voir la photo">
+                                        {% if controle.getImage %}
+                                        <a role="button" class="btn btn-primary" href="{{ controle.getImage }}" target="_blank" title="Voir la photo">
                                           <i class="fas fa-camera"></i></i>
                                         </a>
+                                        {% endif %}
                                     </td>
                                 </tr>
-                            {% for control in controls %}
                             {% endfor %}
                         </tbody>
                     </table>
