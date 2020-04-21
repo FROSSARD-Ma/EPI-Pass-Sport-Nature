@@ -136,6 +136,19 @@
                             <input type="date" id="fabrication" name="fabrication" class="form-control" required>
                         </div>
                     </div>
+
+                     <div class="form-group row">
+                        <label class="col-sm-4 col-form-label" for="statut">Statut <span class="required">*</span></label>
+                        <div class="col-sm-8">
+                           <select class="form-control" id="statut" name="statut" required>
+                                <option value="">Quel est son état ?</option>
+                                <option value="">-------------</option>
+                                <option value="Valide">Neuf</option>
+                                <option value="À contrôler">Occasion</option>
+                                <option value="À réparer">À réparer</option>
+                            </select>
+                        </div>
+                    </div>
    
                 </div>
 
@@ -144,12 +157,12 @@
                     <label class="col-sm-4 col-form-label" for="kitId">Kit d'appartenance</label>
                     <div class="col-sm-8">
                         <select class="form-control" id="kitId" name="kitId">
-                            <option value="non">Sélectionnez le kit, si l'équipement en fait parti</option>
-                            <option value="non">-------------</option>
+                            <option value="">Aucun</option>
+                            <option value="">-------------</option>
                             {% for kit in kits %}
                                 <option value="{{ kit.getId }}">{{ kit.getName }}</option>
                             {% endfor %}
-                            <option value="non">-------------</option>
+                            <option value="">-------------</option>
                             <option value="nxKit">Nouveau kit</option>
                         </select>
                     </div>
@@ -167,12 +180,12 @@
                     <label class="col-sm-4 col-form-label" for="lotId">Lot d'appartenance</label>
                     <div class="col-sm-8">
                         <select class="form-control" id="lotId" name="lotId">
-                            <option value="non">Sélectionnez le lot, si l'équipement en fait parti</option>
-                            <option value="non">-------------</option>
+                            <option value="">Aucun</option>
+                            <option value="">-------------</option>
                             {% for lot in lots %}
                                 <option value="{{ lot.getId }}">{{ lot.getName }}</option>
                             {% endfor %}
-                            <option value="non">-------------</option>
+                            <option value="">-------------</option>
                             <option value="nxLot">Nouveau lot</option>
                         </select>
                     </div>
