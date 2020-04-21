@@ -32,6 +32,18 @@ class KitManager extends Manager
         return $kits;
     }
 
+    public function getKit($kitId)
+    {
+        $idKit = (int)$kitId;
+        $sql = 'SELECT *
+                FROM EPI_kits 
+                WHERE kit_id=?';
+        $data = $this->reqSQL($sql, array ($idKit), $one = true);
+        return $data;
+    }
+
+
+
     /*---  UPDATE ------------------------------------------- */
 
 
