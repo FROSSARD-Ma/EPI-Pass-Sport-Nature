@@ -46,46 +46,54 @@
                 <div class="card-body">
                 </div>
                 <div class="card-footer">
-                    <a class="btn btn-primary" href="{{ equipt.getNotice }}" role="button">Notice fournisseur</a>
+                    <a class="btn btn-primary" href="{{ equipt.getNotice }}" role="button"><i class="fas fa-atlas"></i> Notice fournisseur</a>
                 </div>
             </div>
 
             <div class="card">
                 <div class="card-header">
-                  <h4 class="card-title">Informations</h4>
+                  <h4 class="card-title"><i class="fas fa-info-circle"></i> Informations</h4>
                 </div>
                 <div class="card-body">
                     <p><strong>Fabriquant :</strong> {{ equipt.getFabriquant }}</p>
                     <p><strong>Modèle :</strong> {{ equipt.getModele }}</p>
                     <p><strong>Référence :</strong> {{ equipt.getReference}}</p>
                     <p><strong>Série :</strong> {{ equipt.getSerie}}</p>
-                    <p><strong>Matière :</strong><br> {{ equipt.getMatiere}}</p>
+                    <hr>
+                    <p><strong>Matière :</strong>
+                        <br>
+                        {% if equipt.getMatiereMetal %}<i class="fas fa-check"></i> Métalique<br> {% endif %}
+                        {% if equipt.getMatiereTextile %}<i class="fas fa-check"></i> Textile<br> {% endif %}
+                        {% if equipt.getMatierePlastique %}<i class="fas fa-check"></i> Plastique {% endif %}
+                    </p>
                 </div>
             </div>
     
             <div class="card">
                 <div class="card-header">
-                  <h4 class="card-title">Particularités</h4>
+                  <h4 class="card-title"><i class="fas fa-clipboard"></i> Particularités</h4>
                 </div>
                 <div class="card-body">
                     <p><strong>Taille :</strong> {{ equipt.getTaille }}</p>
                     <p><strong>Couleur :</strong> {{ equipt.getCouleur }}</p>
                     <p><strong>Marquage :</strong> {{ equipt.getMarquage }} - {{ equipt.getMarquageLieu }}</p>
                     <hr>
-                    <p><strong>Kit :</strong> {{ kit.getName }}</p>
-                    <p><strong>Lot :</strong> {{ lot.getName }}</p>
+                    <p><i class="fas fa-link"></i> <strong>Kit :</strong> {{ kit.getName }}</p>
+                    <p><i class="fas fa-boxes"></i> <strong>Lot :</strong> {{ lot.getName }}</p>
                 </div>
             </div>
           
             <div class="card">
                 <div class="card-header">
-                  <h4 class="card-title">Chronologie</h4>
+                  <h4 class="card-title"><i class="fas fa-history"></i> Chronologie</h4>
                 </div>
                 <div class="card-body">
                     <p><strong>Fabrication :</strong> {{ equipt.getFabrication }}</p>
                     <p><strong>Achat :</strong> {{ equipt.getAchat }}</p>
                     <p><strong>Première utilisation :</strong> {{ equipt.getUtilisation}}</p>
-                    <p><strong>Mise au rebut Théorique :</strong> {{ equipt.getRebutTheorique }}</p>
+                    <p><strong>Rebut Théorique :</strong> {{ equipt.getRebutTheorique }}</p>
+                    <hr>
+                    <p><i class="fas fa-hourglass-half"></i> <strong>Durée de vie</strong>
                     <div class="progress">
                         <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
@@ -99,15 +107,15 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                  <h4 class="card-title">Contrôle Sécurité</h4>
+                  <h4 class="card-title"><i class="fas fa-tools"></i> Contrôle Sécurité</h4>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-6">
-                            <p><strong>Prochain contrôle :</strong> {{ equipt.getProchainControle}}</p>
+                            <p><i class="far fa-calendar-alt"></i> <strong>Prochain contrôle :</strong> {{ equipt.getProchainControle}}</p>
                         </div>
                         <div class="col-6">
-                            <p><strong>Fréquence des contrôles :</strong> {{ equipt.getFrequenceControle }}</p>
+                            <p><i class="fas fa-sync-alt"></i> <strong>Fréquence des contrôles :</strong> {{ equipt.getFrequenceControle }}</p>
                         </div>
                     </div>
 
@@ -124,20 +132,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
+                            {% for controle in controles %}
                                 <tr>
-                                    <td>{{ control.getDate }}</td>
-                                    <td>{{ control.getVisuel }}</td>
-                                    <td>{{ control.getFonctionnel }}</td>
-                                    <td>{{ control.getControlUser }}</td>
-                                    <td>{{ control.getObservations }}</td>
+                                    <td>{{ controle.getDate }}</td>
+                                    <td>{{ controle.getVisuel }}</td>
+                                    <td>{{ controle.getFonctionnel }}</td>
+                                    <td>{{ controle.getUserName }} {{ controle.getUserFirstname }}</td>
+                                    <td>{{ controle.getObservations }}</td>
                                     <td>
-                                        <a role="button" class="btn btn-primary" href="{{ control.getImage }}" title="Voir la photo">
+                                        {% if controle.getImage %}
+                                        <a role="button" class="btn btn-primary" href="{{ controle.getImage }}" target="_blank" title="Voir la photo">
                                           <i class="fas fa-camera"></i></i>
                                         </a>
+                                        {% endif %}
                                     </td>
                                 </tr>
-                            {% for control in controls %}
                             {% endfor %}
                         </tbody>
                     </table>

@@ -88,23 +88,32 @@ class FrontController
             $equipt = new \Epi_Model\Equipement($dataEquipt);
            
             // Kit
-            $idKit = $equipt->getKitId($id);
-            $kitManager = new \Epi_Model\KitManager;
-            $dataKit = $kitManager->getKit($idKit);
-            $kit = new \Epi_Model\Kit($dataKit);
+            // $idKit = $equipt->getKitId($id);
+            // $kitManager = new \Epi_Model\KitManager;
+            // $dataKit = $kitManager->getKit($idKit);
+            // $kit = new \Epi_Model\Kit($dataKit);
 
             // Lot
             $idLot = $equipt->getLotId($id);
             $lotManager = new \Epi_Model\LotManager;
             $dataLot = $lotManager->getLot($idLot);
             $lot = new \Epi_Model\Kit($dataLot);
-
+            
+            // Controles
+            $controleManager = new \Epi_Model\ControleManager;
+            $dataControles = $controleManager->getControles($id);
+            foreach ($dataControles as $data)
+            {
+                $controle = new \Epi_Model\Controle($data);
+                $controles[] = $controle; // Tableau d'objet
+            }
             $nxView = new \Epi_Model\View('equipement');
             $nxView->getView(
             array (
                 'equipt'=> $equipt,
-                'kit'=> $kit,
-                'lot'=> $lot));
+                //'kit'=> $kit,
+                'lot'=> $lot,
+                'controles'=>$controles));
         }
         else
         {
