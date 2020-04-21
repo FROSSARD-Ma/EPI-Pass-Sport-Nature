@@ -21,12 +21,13 @@ class Router {
         "equipement"    => ['FrontController','equipement'],
         "nxEquipt"      => ['FrontController','nxEquipt'],
         "upEquipt"      => ['FrontController','upEquipt'],
+        "nxControl"     => ['FrontController','nxControl'],
         
     // ---- BACK Controller -----------------------------------------------------
         "creatEquipt"    => ['BackController','creatEquipt'],
         "delEquipt"      => ['BackController','delEquipt'],
         "updateEquipt"   => ['BackController','updateEquipt'],
-
+        "creatControl"   => ['BackController','creatControl'],
 
 
     // ---- USER Controller -----------------------------------------------------
