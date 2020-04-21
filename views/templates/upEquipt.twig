@@ -31,11 +31,11 @@
             <div class="card card-image">
                 <div class="card-img-ribbon">
 
-                    {% if equipt.getStatut == 'invalide' %}
+                    {% if equipt.getStatut == 'À contrôler' %}
                        <div class="ribbon bg-danger">
                             <p>À contrôler</p>
                         </div>
-                    {%  elseif equipt.getStatut == 'reparation' %}
+                    {%  elseif equipt.getStatut == 'À réparer' %}
                         <div class="ribbon bg-warning">
                         <font style="vertical-align: inherit;">
                             À réparer
@@ -73,9 +73,9 @@
                            <select class="form-control" id="statut" name="statut">
                                 <option value="{{ equipt.getStatut }}">{{ equipt.getStatut }}</option>
                                 <option value="">-------------</option>
-                                <option value="valide">Valide</option>
-                                <option value="reparation">À réparer</option>
-                                <option value="controler">À contrôler</option>
+                                <option value="Valide">Valide</option>
+                                <option value="À contrôler">À contrôler</option>
+                                <option value="À réparer">À réparer</option>
                             </select>
                         </div>
                     </div>
@@ -153,7 +153,7 @@
                                 {% if equipt.getKitId %}
                                     <option value="{{ equipt.getKitId }}">{{ equipt.getKit }}</option>
                                 {% else %}
-                                    <option value="non">Ne fait pas parti d'un kit</option>
+                                    <option value="">Aucun</option>
                                 {% endif %}
                                 <option value="">-------------</option>
                                 {% for kit in kits %}
@@ -179,7 +179,7 @@
                                 {% if equipt.getLotId %}
                                     <option value="{{ equipt.getLotId }}">{{ equipt.getLot }}</option>
                                 {% else %}
-                                    <option value="non">Ne fait pas parti d'un lot</option>
+                                    <option value="">Aucun</option>
                                 {% endif %}
                                 <option value="">-------------</option>
                                 {% for lot in lots %}

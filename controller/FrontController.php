@@ -54,6 +54,14 @@ class FrontController
         $csrf = new \Epi_Model\SecuriteCsrf('equipements');
         $token = $csrf->getToken();
 
+        /* Count STATUT */
+        $equipementManager = new \Epi_Model\EquipementManager;
+        $equiptControle = $equipementManager->countEquiptsStatut('controler');
+        $_SESSION['countEquiptControler'] = $equiptControle;
+        $equiptReparation = $equipementManager->countEquiptsStatut('reparation');
+        $_SESSION['countEquiptReparer'] = $equiptReparation;
+
+        /* Liste Equipements */
         $equipementManager = new \Epi_Model\EquipementManager;
         $dataEquipts = $equipementManager->getEquipements($_SESSION['groupeId']);
         foreach ($dataEquipts as $data)

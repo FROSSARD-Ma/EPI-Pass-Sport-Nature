@@ -20,16 +20,19 @@
 
 {% block main %}
 
-    <section class="row justify-content-center sectionw">
+    <section class="row justify-content-center section">
         
         <div class="col-xl-7 col-md-10">
             <p>Ergo ego senator inimicus, si ita vultis, homini, amicus esse, sicut semper fui, rei publicae debeo. Quid? si ipsas inimicitias, depono rei publicae causa, quis me tandem iure reprehendet, praesertim cum ego omnium meorum consiliorum atque factorum exempla semper ex summorum hominum consiliis atque factis mihi censuerim petenda.</p>
         </div>
 
-        <div class="col-xl-5 col-md-10">
-            <a href="#" class="btn btn-primary vignette" role="button" aria-pressed="true"><span>{{ session.countEquiptReparer }}</span><br>{{ session.countEquiptReparer > 1  ? 'RÉPARATIONS' : 'RÉPARATION' }}</a>
-            <a href="#" class="btn btn-warning vignette" role="button" aria-pressed="true"><span>{{ session.countEquiptControler }}</span><br>{{ session.countEquiptControler > 1  ? 'CONTRÔLES' : 'CONTRÔLE' }}</a>
-        </div>
+        <div class="col-xl-5 col-md-10 justify-content-center">
+           
+            <p class="btn btn-primary vignette"><span>{{ session.countEquiptReparer }}</span><br>{{ session.countEquiptReparer > 1  ? 'RÉPARATIONS' : 'RÉPARATION' }}</a>
+
+            <p class="btn btn-warning vignette"><span>{{ session.countEquiptControler }}</span><br>{{ session.countEquiptControler > 1  ? 'CONTRÔLES' : 'CONTRÔLE' }}</a>
+            </p>
+        
     </section>
 
 
