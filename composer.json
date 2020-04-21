@@ -1,10 +1,11 @@
 {
 	
-	"name": "EPI-Pass-Sport-Nature",
+	"name": "psn/epi",
 
 	"require": {
         "twig/twig": "v3.0.3",
-        "swiftmailer/swiftmailer": "v6.2.3"
+        "swiftmailer/swiftmailer": "v6.2.3",
+        "datatables/datatables": "1.10.20"
     },
 
 	"authors": [ 
