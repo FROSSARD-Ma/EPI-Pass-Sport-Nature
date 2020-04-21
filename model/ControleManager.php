@@ -5,53 +5,41 @@ use \PDO;
 class ControleManager extends Manager
 {
     /*---  CREAT -------------------------------------------------------- */
-    public function addControle($equipementId, $userId)
+    public function addControle($equipId, $userId)
     {
-        $idEquipement = (int)$equipementId;
+        $idEquipt = (int)$equipId;
         $idUser = (int)$userId;
 
         $sql ='INSERT INTO EPI_controles(controle_visuel, controle_fonctionnel, controle_observations, controle_image, controle_equipementId, controle_userId)
-            VALUES(:visuel,:fonctionnel:observations,:image,:idEquipement,:idUser)';
+            VALUES(:visuel,:fonctionnel,:observations,:image,:idEquipt,:idUser)';
 
         $datas = $this->getPDO()->prepare($sql);
-        
-        $datas->bindValue(':visuel',htmlspecialchars($_POST['visuel']), PDO::PARAM_STR);
-        $datas->bindValue(':fonctionnel',htmlspecialchars($_POST['fonctionnel']), PDO::PARAM_STR);
-        $datas->bindValue(':observations',htmlspecialchars($_POST['observations']), PDO::PARAM_STR); 
-        $datas->bindValue(':image',htmlspecialchars($_POST['image']), PDO::PARAM_STR);
-        $datas->bindValue(':idEquipement', $idEquipement, PDO::PARAM_STR);
+        $datas->bindValue(':visuel',htmlspecialchars($_POST['visuelControle']), PDO::PARAM_STR);
+        $datas->bindValue(':fonctionnel',htmlspecialchars($_POST['fonctionnelControle']), PDO::PARAM_STR);
+        $datas->bindValue(':observations',htmlspecialchars($_POST['observationControle']), PDO::PARAM_STR); 
+        $datas->bindValue(':image',htmlspecialchars($_POST['imageControle']), PDO::PARAM_STR);
+        $datas->bindValue(':idEquipt', $idEquipt, PDO::PARAM_STR);
         $datas->bindValue(':idUser', $idUser, PDO::PARAM_STR); 
 
-        $datas->execute();  
-
+        $datas->execute();
         return $datas;
     }
 
     /*---  READ ---------------------------------------------------------- */
-    public function getControle($id)
+    public function getControles($equipementId)
     {
-        $idControle = (int)$id;
+        $idEquipement = (int)$equipementId;
 
-        $sql = 'SELECT EPI_controles.*, EPI_categories.cat_name, EPI_users.user_name, EPI_users.user_firstname
-
-            FROM EPI_controles 
-
+        $sql = 'SELECT EPI_controles.*, EPI_users.user_name, EPI_users.user_firstname
+            FROM EPI_controles
                 JOIN EPI_equipement
                 ON EPI_equipement.eq_id=EPI_controles.controle_equipementId
 
-                JOIN EPI_categories
-                ON EPI_equipement.eq_id=EPI_categories.cat_id
-
                 JOIN EPI_users
-                ON EPI_controles.controle_userId=EPI_users.user_id
+                ON EPI_users.user_id=EPI_controles.controle_userId
 
-
-            WHERE controle_id =:id';
-
-        $datas = $this->getPDO()->prepare($sql);
-        $datas->bindValue(':id', $idControle, PDO::PARAM_STR);
-        $datas->execute(); 
-        
+            WHERE controle_equipementId=? ';
+        $datas = $this->reqSQL($sql, array ($idEquipement));
         return $datas;
     }
 

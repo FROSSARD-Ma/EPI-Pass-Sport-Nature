@@ -6,7 +6,7 @@ class FrontController
     /* TOP Menu ----------------------------------- */
     public function home($params)
     {
-		$csrf = new \Epi_Model\SecuriteCsrf('login');
+        $csrf = new \Epi_Model\SecuriteCsrf('login');
         $token = $csrf->getToken();
 
         $nxView = new \Epi_Model\View('home');
@@ -86,19 +86,34 @@ class FrontController
             $equipementManager = new \Epi_Model\EquipementManager;
             $dataEquipt = $equipementManager->getEquipement($id);
             $equipt = new \Epi_Model\Equipement($dataEquipt);
-
-            // // Kit
+           
+            // Kit
+            // $idKit = $equipt->getKitId($id);
             // $kitManager = new \Epi_Model\KitManager;
-            // $kit = $kitManager->getKit($idKit);
+            // $dataKit = $kitManager->getKit($idKit);
+            // $kit = new \Epi_Model\Kit($dataKit);
 
-            // // Lot
-            // $lotManager = new \Epi_Model\LotManager;
-            // $lot = $lotManager->getLot($idLot);
-
+            // Lot
+            $idLot = $equipt->getLotId($id);
+            $lotManager = new \Epi_Model\LotManager;
+            $dataLot = $lotManager->getLot($idLot);
+            $lot = new \Epi_Model\Kit($dataLot);
+            
+            // Controles
+            $controleManager = new \Epi_Model\ControleManager;
+            $dataControles = $controleManager->getControles($id);
+            foreach ($dataControles as $data)
+            {
+                $controle = new \Epi_Model\Controle($data);
+                $controles[] = $controle; // Tableau d'objet
+            }
             $nxView = new \Epi_Model\View('equipement');
             $nxView->getView(
             array (
-                'equipt'=> $equipt));
+                'equipt'=> $equipt,
+                //'kit'=> $kit,
+                'lot'=> $lot,
+                'controles'=>$controles));
         }
         else
         {
@@ -136,6 +151,35 @@ class FrontController
             'categories' => $categories,
             'kits' => $kits,
             'lots' => $lots));
+    }
+
+    public function nxControl($params)
+    {
+        $csrf = new \Epi_Model\SecuriteCsrf('nxControl');
+        $token = $csrf->getToken();
+
+        extract($params); // id equipement
+        
+        // Vérifier si Equipement existe 
+        $equiptManager = new \Epi_Model\EquipementManager; 
+        $equiptExist = $equiptManager->existEquipt($id);
+        if ($equiptExist) 
+        {
+            $equipementManager = new \Epi_Model\EquipementManager;
+            $dataEquipt = $equipementManager->getEquipement($id);
+            $equipt = new \Epi_Model\Equipement($dataEquipt);
+            
+            $nxView = new \Epi_Model\View('nxControl');
+            $nxView->getView(
+            array (
+                'equipt'=> $equipt));
+        }
+        else
+        {
+           // Nouvelle page 
+            $nxView = new \Epi_Model\View();
+            $nxView->redirectView('page404');
+        }
     }
 
     public function account($params)
