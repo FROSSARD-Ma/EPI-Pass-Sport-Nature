@@ -20,7 +20,6 @@ class ControleManager extends Manager
         $datas->bindValue(':image',htmlspecialchars($_POST['imageControle']), PDO::PARAM_STR);
         $datas->bindValue(':idEquipt', $idEquipt, PDO::PARAM_STR);
         $datas->bindValue(':idUser', $idUser, PDO::PARAM_STR); 
-
         $datas->execute();
         return $datas;
     }
@@ -38,7 +37,9 @@ class ControleManager extends Manager
                 JOIN EPI_users
                 ON EPI_users.user_id=EPI_controles.controle_userId
 
-            WHERE controle_equipementId=? ';
+            WHERE controle_equipementId=? 
+            ORDER BY EPI_controles.controle_date DESC';
+            
         $datas = $this->reqSQL($sql, array ($idEquipement));
         return $datas;
     }

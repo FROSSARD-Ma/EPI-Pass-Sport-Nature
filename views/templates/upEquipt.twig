@@ -214,40 +214,28 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label" for="notice">URL Notice</label>
                         <div class="col-sm-9">
-                            {% if equipt.getNotice %}
-                                <input type="url" id="notice" name="notice" class="form-control" placeholder="{{ equipt.getNotice }}" value="{{ equipt.getNotice }}" readonly>
-                            {% else %}
-                               <input type="url" id="notice" name="notice" class="form-control">
-                            {% endif %}
+                            <input type="url" id="notice" name="notice" class="form-control" placeholder="{{ equipt.getNotice }}" value="{{ equipt.getNotice }}">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label" for="achat">Date d'achat</label>
                         <div class="col-sm-9">
-                               <input type="date" id="achat" name="achat" class="form-control" value="{{ equipt.getAchat }}">
+                            <input type="date" id="achat" name="achat" class="form-control" value="{{ equipt.getAchat }}">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label" for="utilisation">Première utilisation</label>
                         <div class="col-sm-9">
-                            {% if equipt.getUtilisation %}
-                                <input type="text" id="utilisation" name="utilisation" class="form-control" placeholder="{{ equipt.getUtilisation }}" value="{{ equipt.getUtilisation }}" readonly>
-                            {% else %}
-                            <input type="date" id="utilisation" name="utilisation" class="form-control" >
-                            {% endif %}
+                            <input type="text" id="utilisation" name="utilisation" class="form-control" placeholder="{{ equipt.getUtilisation }}" value="{{ equipt.getUtilisation }}">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label" for="rebutTheorique">Rebut théorique</label>
                         <div class="col-sm-9">
-                            {% if equipt.getRebutTheorique %}
-                                <input type="text" id="rebutTheorique" name="rebutTheorique" class="form-control" placeholder="{{ equipt.getRebutTheorique }}" value="{{ equipt.getRebutTheorique }}" readonly>
-                            {% else %}
-                            <input type="date" id="rebutTheorique" name="rebutTheorique" class="form-control" >
-                            {% endif %}
+                            <input type="text" id="rebutTheorique" name="rebutTheorique" class="form-control" placeholder="{{ equipt.getRebutTheorique }}" value="{{ equipt.getRebutTheorique }}" >
                         </div>
                     </div>
 

@@ -1,7 +1,12 @@
 
 let message = document.getElementById('message');
 
-// FORMULAIRE --------------------------------------------
+// INFO BULLE---------------------------------------------
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
+// FORMULAIRE -----------------------------------------
 const form = document.querySelector('form');
 $('form').parsley();
 

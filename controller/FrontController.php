@@ -57,11 +57,14 @@ class FrontController
         $token = $csrf->getToken();
 
         /* Count STATUT */
+        /* Count STATUT */
         $equipementManager = new \Epi_Model\EquipementManager;
-        $equiptControle = $equipementManager->countEquiptsStatut('controler');
+        $equiptControle = $equipementManager->countEquiptsStatut('À contrôler');
         $_SESSION['countEquiptControler'] = $equiptControle;
-        $equiptReparation = $equipementManager->countEquiptsStatut('reparation');
+        $equiptReparation = $equipementManager->countEquiptsStatut('À réparer');
         $_SESSION['countEquiptReparer'] = $equiptReparation;
+        $equiptValide = $equipementManager->countEquiptsStatut('Valide');
+        $_SESSION['countEquiptValide'] = $equiptValide;
 
         /* Liste Equipements */
         $equipementManager = new \Epi_Model\EquipementManager;
