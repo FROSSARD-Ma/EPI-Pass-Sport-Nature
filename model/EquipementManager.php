@@ -103,18 +103,8 @@ class EquipementManager extends Manager
     }
 
     /*---  UPDATE ----------------------------------------- */
-    public function updateEquipement($equiptId, $groupeId)
+    public function updateEquipement($equiptId, $groupeId, $nomImage)
     {
-        if (!empty($_FILES['image']['name']))
-        {
-            // Controle du chargement de l'imag
-            include 'views/uploadImage.php';
-        } 
-        else 
-        {
-            $nomImage = 'equipement.png';
-        }
-
         $idEquipt = (int)$equiptId;
         $idGroupe = (int)$groupeId;
 
@@ -131,7 +121,7 @@ class EquipementManager extends Manager
         $datas->bindValue(':couleur', htmlspecialchars($_POST['couleur']), PDO::PARAM_STR);
         $datas->bindValue(':marquage', htmlspecialchars($_POST['marquage']), PDO::PARAM_STR);
         $datas->bindValue(':marquageLieu', htmlspecialchars($_POST['marquageLieu']), PDO::PARAM_STR);
-        $datas->bindValue(':notice', htmlspecialchars($_POST['notice']), PDO::PARAM_STR);
+        $datas->bindValue(':notice', htmlspecialchars($_POST['noti  ce']), PDO::PARAM_STR);
         $datas->bindValue(':image', $nomImage, PDO::PARAM_STR);
         $datas->bindValue(':statut', htmlspecialchars($_POST['statut']), PDO::PARAM_STR);
         // Dates
