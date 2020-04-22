@@ -33,14 +33,7 @@ class User extends Manager
             $method = 'set' . ucfirst(substr($key,5));
             if (method_exists($this, $method))
             {
-                if ($method == 'setContent')
-                {
-                    $this->$method($value);
-                }
-                else
-                {
-                    $this->$method(htmlspecialchars($value));
-                }
+                $this->$method(htmlspecialchars($value));
             }
         }
     }
