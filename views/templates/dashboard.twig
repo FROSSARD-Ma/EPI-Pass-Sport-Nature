@@ -20,19 +20,17 @@
 
 {% block main %}
 
-    <section class="row justify-content-center section">
-        
-        <div class="col-xl-7 col-md-10">
-            <p>Ergo ego senator inimicus, si ita vultis, homini, amicus esse, sicut semper fui, rei publicae debeo. Quid? si ipsas inimicitias, depono rei publicae causa, quis me tandem iure reprehendet, praesertim cum ego omnium meorum consiliorum atque factorum exempla semper ex summorum hominum consiliis atque factis mihi censuerim petenda.</p>
-        </div>
+    <p>Retrouvez sur le tableau de bord l'ensemble des informations sur l'état de vos équipements sportifs.
+    <br>En un coup d'oeil vous pouvez voir les tâches qui sont à réaliser, ajouter de nouveau utilisateur et leur attribuer un rôle au sein de la gestion des équipements de votre groupe.</p>
 
-        <div class="col-xl-5 col-md-10 justify-content-center">
-           
-            <p class="btn btn-primary vignette"><span>{{ session.countEquiptReparer }}</span><br>{{ session.countEquiptReparer > 1  ? 'RÉPARATIONS' : 'RÉPARATION' }}</a>
+    <section class="row justify-content-center section">   
+        <p class="btn btn-primary vignette">{{ session.countEquiptReparer > 1  ? 'RÉPARATIONS' : 'RÉPARATION' }}<br><span>{{ session.countEquiptReparer }}</span></a>
 
-            <p class="btn btn-warning vignette"><span>{{ session.countEquiptControler }}</span><br>{{ session.countEquiptControler > 1  ? 'CONTRÔLES' : 'CONTRÔLE' }}</a>
-            </p>
-        
+        <p class="btn btn-warning vignette">{{ session.countEquiptControler > 1  ? 'CONTRÔLES' : 'CONTRÔLE' }}<br><span>{{ session.countEquiptControler }}</span></a>
+        </p>
+
+        <p class="btn btn-success vignette">{{ session.countEquiptValide > 1  ? 'VALIDES' : 'VALIDE' }}<br><span>{{ session.countEquiptValide }}</span></a>
+        </p>
     </section>
 
 
@@ -40,92 +38,92 @@
     <!-- Gestion utilisateur RESPONSABLE -->    
         <section class="row justify-content-center section">
 
-            <div class="col-xl-7 col-md-10">
-                <h3>Liste des utilisateurs</h3>
-
-                <table class="users">
-                    <tbody>
-                        {% for user in users %}
-                        <tr>
-                            <!-- Form STATUT User  --> 
-                            <form method="post" action="upUser" id="upUserForm" enctype="multipart/form-data"  data-parsley-validate>
-                                <td><a href="mailto:{{ user.getMail }}">{{ user.getName }} {{ user.getFirstname }}</a></td>
-                               
-                                <td>
-                                    <select class="form-control" id="userStatut" name="userStatut" value ="{{ user.getStatut }}" required>
-                                        <option value="{{ user.getStatut }}">{{ user.getStatut }}</option>
-                                         <option value="">--------</option>
-                                        <option value="Responsable">Responsable</option>
-                                        <option value="Controleur">Controleur</option>
-                                        <option value="Visiteur">Visiteur</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <input type="hidden" name="userId" id="userId" value="{{ user.getId }}"/>
-                                    <input type="hidden" name="token" id="token" value="{{ session.dashboard_token }}"/>
-                                    <button class="btn btn-success btn-block" type="submit"><i class="fas fa-pencil-alt"></i></button></td>
-                            </form>
-                            <!-- Form SUPPRESSION User --> 
-                            <form method="post" action="delUser" id="delUserForm" enctype="multipart/form-data" data-parsley-validate>
-                                <td>
-                                    <input type="hidden" name="userId" id="userId" value="{{ user.getId }}"/>
-                                    <input type="hidden" name="token" id="token" value="{{ session.dashboard_token }}"/>
-                                    <button class="btn btn-danger btn-block" type="submit"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </form>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                      <h4 class="card-title">Liste des utilisateurs</h4>
+                    </div>
+                    <div class="card-body">
+                        <table class="users">
+                            <tbody>
+                                {% for user in users %}
+                                <tr>
+                                    <!-- Form STATUT User  --> 
+                                    <form method="post" action="upUser" id="upUserForm" enctype="multipart/form-data"  data-parsley-validate>
+                                        <td><a href="mailto:{{ user.getMail }}">{{ user.getName }} {{ user.getFirstname }}</a></td>
+                                       
+                                        <td>
+                                            <select class="form-control" id="userStatut" name="userStatut" value ="{{ user.getStatut }}" required>
+                                                <option value="{{ user.getStatut }}">{{ user.getStatut }}</option>
+                                                 <option value="">--------</option>
+                                                <option value="Responsable">Responsable</option>
+                                                <option value="Controleur">Controleur</option>
+                                                <option value="Visiteur">Visiteur</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="hidden" name="userId" id="userId" value="{{ user.getId }}"/>
+                                            <input type="hidden" name="token" id="token" value="{{ session.dashboard_token }}"/>
+                                            <button class="btn btn-success btn-block" type="submit"><i class="fas fa-pencil-alt"></i></button></td>
+                                    </form>
+                                    <!-- Form SUPPRESSION User --> 
+                                    <form method="post" action="delUser" id="delUserForm" enctype="multipart/form-data" data-parsley-validate>
+                                        <td>
+                                            <input type="hidden" name="userId" id="userId" value="{{ user.getId }}"/>
+                                            <input type="hidden" name="token" id="token" value="{{ session.dashboard_token }}"/>
+                                            <button class="btn btn-danger btn-block" type="submit"><i class="fas fa-trash"></i></button>
+                                        </td>
+                                    </form>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
             <!-- Form AJOUT User --> 
-            <div class="col-xl-5 col-md-10">
-                <h3>Ajouter un utilisateur</h3>
-                <form method="post" action="addUser" id="addUserForm" data-parsley-validate>
-
-                    <!-- User -->
-                    <div class="form-group">
-                        <label for="userName" id="labelUserName" class="sr-only">Nom</label>
-                        <input type="text" id="userName" name="userName" class="form-control" placeholder="Nom"  minlength="2" maxlength="50" required>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                      <h4 class="card-title">Ajouter un utilisateur</h4>
                     </div>
+                    <div class="card-body">
+                        <form method="post" action="addUser" id="addUserForm" data-parsley-validate>
 
-                    <div class="form-group">
-                        <label for="userFirstname" class="sr-only">Prénom</label>
-                        <input type="text" id="userFirstname" name="userFirstname" class="form-control" placeholder="Prénom"  minlength="2" maxlength="50" required>
+                            <!-- User -->
+                            <div class="form-group">
+                                <label for="userName" id="labelUserName" class="sr-only">Nom</label>
+                                <input type="text" id="userName" name="userName" class="form-control" placeholder="Nom"  minlength="2" maxlength="50" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userFirstname" class="sr-only">Prénom</label>
+                                <input type="text" id="userFirstname" name="userFirstname" class="form-control" placeholder="Prénom"  minlength="2" maxlength="50" required>
+                            </div>
+
+                            <div class="form-group">
+                              <label for="userMail" class="sr-only">Email</label>
+                              <input type="email" id="userMail" name="userMail" class="form-control" placeholder="Adresse mail" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userStatut" class="sr-only">Statut</label>
+                                <select class="form-control" id="userStatut" name="userStatut" required>
+                                    <option value="">Statut utilisateur</option>
+                                    <option value="Responsable">Responsable</option>
+                                    <option value="Controleur">Controleur</option>
+                                    <option value="Visiteur">Visiteur</option>
+                                </select>
+                            </div>
+
+                            <input type="hidden" name="token" id="token" value="{{ session.account_token }}"/>
+                            <button class="btn btn-primary btn-block" type="submit">Ajouter Utilisateur</button>
+                        </form>    
                     </div>
-
-                    <div class="form-group">
-                      <label for="userMail" class="sr-only">Email</label>
-                      <input type="email" id="userMail" name="userMail" class="form-control" placeholder="Adresse mail" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="userStatut" class="sr-only">Statut</label>
-                        <select class="form-control" id="userStatut" name="userStatut" required>
-                            <option value="">Statut utilisateur</option>
-                            <option value="Responsable">Responsable</option>
-                            <option value="Controleur">Controleur</option>
-                            <option value="Visiteur">Visiteur</option>
-                        </select>
-                    </div>
-
-                    <input type="hidden" name="token" id="token" value="{{ session.account_token }}"/>
-                    <button class="btn btn-primary btn-block" type="submit">Ajouter Utilisateur</button>
-                </form>    
+                </div>
             </div>
         </section>
     {% endif %}
-
-    <!-- Visuel des dernières DONNEES -->    
-    <section class="card mb-4">
-        <div class="card-header"><i class="fas fa-table mr-1"></i>DataTable Example</div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                </table>
-            </div>
-        </div>
-    </section>
 
 {% endblock %}
 

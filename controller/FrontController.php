@@ -28,10 +28,12 @@ class FrontController
 
         /* Count STATUT */
         $equipementManager = new \Epi_Model\EquipementManager;
-        $equiptControle = $equipementManager->countEquiptsStatut('controler');
+        $equiptControle = $equipementManager->countEquiptsStatut('À contrôler');
         $_SESSION['countEquiptControler'] = $equiptControle;
-        $equiptReparation = $equipementManager->countEquiptsStatut('reparation');
+        $equiptReparation = $equipementManager->countEquiptsStatut('À réparer');
         $_SESSION['countEquiptReparer'] = $equiptReparation;
+        $equiptValide = $equipementManager->countEquiptsStatut('Valide');
+        $_SESSION['countEquiptValide'] = $equiptValide;
 
         /* Liste USERS */
         $UserManager = new \Epi_Model\UserManager;
@@ -207,6 +209,7 @@ class FrontController
         /* Groupe */
         unset($_SESSION['countEquiptControler']); 
         unset($_SESSION['countEquiptReparer']); 
+        unset($_SESSION['countEquiptValide']);
 
         setcookie('userMail');
         setcookie('userPass');
