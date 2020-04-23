@@ -27,10 +27,31 @@
     <!-- Form AJOUT Control --> 
     <section class="row justify-content-center section">
         <div class="col col-8">
-            <div class="card">
-                <div class="card-header">
-                  <h4 class="card-title">Contrôler l'équipement : {{ equipt.getCategorie }} - {{ equipt.getActivite }}</h4>
+
+            <form id="form-creatControl" method="post" action="creatControl/id/{{ equipt.getId }}" enctype="multipart/form-data"data-parsley-validate >
+
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="visuelControle">Visuel</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" id="visuelControle" name="visuelControle" required>
+                            <option value="RAS">RAS</option>
+                            <option value="Défaut mineur">Défaut mineur</option>
+                            <option value="Défaut majeur">Défaut majeur</option>   
+                        </select>
+                    </div>
                 </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="fonctionnelControle">Fonctionnel</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" id="fonctionnelControle" name="fonctionnelControle"  required>
+                            <option value="RAS">RAS</option>
+                            <option value="Défaut mineur">Défaut mineur</option>
+                            <option value="Défaut majeur">Défaut majeur</option>  
+                        </select>
+                    </div>
+                </div>
+                
                 <div class="card-body">
                     <p>
                     <strong>Equipement :</strong> {{ equipt.getCategorie }} - {{ equipt.getActivite }}
@@ -88,10 +109,10 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-4 col-form-label" for="imageControle" >Image</label>
+                            <label class="col-sm-4 col-form-label" for="image" >Image</label>
                             <div class="col-sm-8">
-                                <input type="file" id="imageControle" name="imageControle" accept=".jpg, .jpeg, .png" class="form-control">
-                                <small>Fichier (jgp, png) - Max 1Mo</small>
+                                <input type="file" name="image" data-parsley-max-file-size="500"/>
+                                <p class="required">Fichier (jgp, png, gif) - 500 Ko Max</p>
                             </div>
                         </div>
 
@@ -101,9 +122,8 @@
                         <div class="right">
                             <button id="addControl-btn" class="btn btn-primary" type="submit">Valider</button>
                             <p><span class="required">*</span> Champs obligatoires</p>
-                        </div>    
-                    </form>
-                </div>
+                        </div>
+                    </form>    
             </div>
         </div>
     </section>
