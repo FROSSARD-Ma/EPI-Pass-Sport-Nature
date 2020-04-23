@@ -5,7 +5,7 @@ use \PDO;
 class ControleManager extends Manager
 {
     /*---  CREAT -------------------------------------------------------- */
-    public function addControle($equipId, $userId)
+    public function addControle($equipId, $userId, $imageControle)
     {
         $idEquipt = (int)$equipId;
         $idUser = (int)$userId;
@@ -17,7 +17,7 @@ class ControleManager extends Manager
         $datas->bindValue(':visuel',htmlspecialchars($_POST['visuelControle']), PDO::PARAM_STR);
         $datas->bindValue(':fonctionnel',htmlspecialchars($_POST['fonctionnelControle']), PDO::PARAM_STR);
         $datas->bindValue(':observations',htmlspecialchars($_POST['observationControle']), PDO::PARAM_STR); 
-        $datas->bindValue(':image',htmlspecialchars($_POST['imageControle']), PDO::PARAM_STR);
+        $datas->bindValue(':image', $imageControle, PDO::PARAM_STR);
         $datas->bindValue(':idEquipt', $idEquipt, PDO::PARAM_STR);
         $datas->bindValue(':idUser', $idUser, PDO::PARAM_STR); 
 

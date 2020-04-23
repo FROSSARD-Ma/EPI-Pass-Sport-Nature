@@ -174,11 +174,20 @@ class BackController
 			    $equiptExist = $equiptManager->existEquipt($id);
 			    if ($equiptExist) 
 			    {
-			    	// Sélection du dossier image du groupe / équipement
-			    	$dossierImg = $this->existDossier('equipement', $_SESSION['groupeId'], $id);
-echo $dossierImg;exit;
+			    	// Gestion image
+			    	if ($_FILES['image']['name'])
+					{
+				    	// Sélection du dossier image du groupe / équipement
+				    	$dossierImg = $this->existDossier('equipement', $_SESSION['groupeId'], $id);
+				    	$imageControle= $this->addImage($dossierImg, $id);
+			    	}
+			    	else
+			    	{
+						$imageControle= 'equipement.png';
+			    	}
+
 					$controleManager = new \Epi_Model\ControleManager; 
-					$creatControl = $controleManager->addControle($id, $_SESSION['userId']);
+					$creatControl = $controleManager->addControle($id, $_SESSION['userId'], $imageControle);
 					if ($creatControl)
 					{
 						// Mettre à jour le statut de l'équipement
@@ -243,48 +252,42 @@ echo $dossierImg;exit;
 		}
 	}
 
-	public function addImage($dossierImgGp)
+	public function addImage($dossierImg, $equiptId)
 	{
-		$img = $_FILES['image'];
-		// Test TAILLE image        
-	    if ($img['size'] <= 1000000) // 1Mo
-	    {
-	        // Gestion Extentions
-	        $extension_upload = strtolower(substr($img['name'], -4)); // récupère l'extention et la place en minuscule.
-	        $extensions_autorise = array('.png', '.gif', '.jpg', '.jpeg');
+		$fichier = $_FILES['image'];
 
-	        if (in_array($extension_upload, $extensions_autorise))
-	        {
-	            //On formate le nom du fichier - suppression des accents
-	            $fichier = strtr($img['name'],
-	                  'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ', 
-	                  'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
+		// Test TAILLE image 
+		if ($fichier['size'] <= 500000) // 500 Ko
+		{
+			$actualName = $fichier['tmp_name'];
+			$dateImage = date('Y-m-d');
+			$newName = $dateImage.'_'.$equiptId;
 
-	            // remplacer par expression rationnelle standard
-	            $nomImage = preg_replace('/([^.a-z0-9]+)/i', '-', $fichier); 
-	            
-	            if (move_uploaded_file($img['tmp_name'], $dossierImgGp.$nomImage))
+			// TEST Extentions + passage en minuscule
+			$extension = strtolower(pathinfo($fichier['name'], PATHINFO_EXTENSION));
+			$extensions_autorise = array('png', 'gif', 'jpg', 'jpeg');
+
+	      	if (in_array($extension, $extensions_autorise))
+	      	{
+
+			    if (move_uploaded_file($actualName, $dossierImg.'/'.$newName.'.'.$extension))
+		        {
+		        	$nomImageDate = $newName.'.'.$extension;
+		        	return $nomImageDate;
+		        }
+		        else
 	            {
-	            	return $nomImage;
-	            }
-	            else
-	            {
-		            $error_types = array(
-		            UPLOAD_ERR_FORM_SIZE=> "La taille de l'image téléchargée est trop importante.",
-		            UPLOAD_ERR_PARTIAL  => "L'image a partiellement été téléchargée",
-		            UPLOAD_ERR_NO_FILE  => "Pas d'image téléchargée"
-		            );
-		            throw new \Epi_Model\AppException($error_types[$_FILES['image']['error']], 'upEquipt');
+		            throw new \Epi_Model\AppException('votre image n\'a pas été téléchargée.', 'nxControl/id/'.$id);
 		        }
 	        }
 	        else
 	        {
-	            throw new \Epi_Model\AppException('votre fichier n\'est pas une image', 'upEquipt');
+	            throw new \Epi_Model\AppException('votre fichier n\'est pas une image au format jpg, png ou gif.', 'nxControl/id/'.$id);
 	        }
 	    }
 	    else
 	    { 
-	        throw new \Epi_Model\AppException('Le fichier de l\'image est trop gros. Maximum 1 Mo', 'upEquipt');
+	        throw new \Epi_Model\AppException('la taille de l\'image téléchargée est trop importante. Maximum 500 Ko', 'nxControl/id/'.$id);
 	    }
 	}
 
