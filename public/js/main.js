@@ -1,10 +1,14 @@
 
 let message = document.getElementById('message');
 
-// FORMULAIRE --------------------------------------------
+// INFO BULLE---------------------------------------------
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
+// FORMULAIRE -----------------------------------------
 const form = document.querySelector('form');
 $('form').parsley();
-
 
 window.Parsley.addValidator('maxFileSize', {
   validateString: function(_value, maxSize, parsleyInstance) {

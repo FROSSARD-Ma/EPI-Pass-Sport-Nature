@@ -233,7 +233,7 @@ class BackController
 		// --- TEST IMAGE -----------------------------------
 		$dossierImg = 'public/img/'.$dossier.'/';
 		$dossierImgGp = $dossierImg.'/'.$groupeId.'/'.$equiptId.'/';
-
+    
 		// Si le dossier du groupe n'existe pas, je le créée
 		if (!file_exists($dossierImgGp))
 		{
@@ -269,14 +269,13 @@ class BackController
 
 	      	if (in_array($extension, $extensions_autorise))
 	      	{
-
-			    if (move_uploaded_file($actualName, $dossierImg.'/'.$newName.'.'.$extension))
+			      if (move_uploaded_file($actualName, $dossierImg.'/'.$newName.'.'.$extension))
 		        {
 		        	$nomImageDate = $newName.'.'.$extension;
 		        	return $nomImageDate;
 		        }
 		        else
-	            {
+	          {
 		            throw new \Epi_Model\AppException('votre image n\'a pas été téléchargée.', 'nxControl/id/'.$id);
 		        }
 	        }
@@ -291,7 +290,6 @@ class BackController
 	    }
 	}
 
-
 	//---- UPDATE -----------------------------------
 	public function updateEquipt($params)
 	{
@@ -304,8 +302,11 @@ class BackController
 		    $equiptExist = $equiptManager->existEquipt($id);
 		    if ($equiptExist) 
 		    {
+		    	$dossierImgGp = $this->existDossier('equipement', $_SESSION['groupeId']);	
+//$nomImage = $this->addImage($dossierImgGp);
+//echo $nomImage;exit;
 				$equipementManager = new \Epi_Model\EquipementManager;
-		 		$upEquipt = $equipementManager->updateEquipement($id);
+		 		$upEquipt = $equipementManager->updateEquipement($id, $_SESSION['groupeId'], $nomImage);
 		 		if ($upEquipt)
 			    {
 			    	$_SESSION['message'] = 'L\'équipement a été mis à jour !';

@@ -6,7 +6,7 @@ class FrontController
     /* TOP Menu ----------------------------------- */
     public function home($params)
     {
-		$csrf = new \Epi_Model\SecuriteCsrf('login');
+        $csrf = new \Epi_Model\SecuriteCsrf('login');
         $token = $csrf->getToken();
 
         $nxView = new \Epi_Model\View('home');
@@ -28,10 +28,12 @@ class FrontController
 
         /* Count STATUT */
         $equipementManager = new \Epi_Model\EquipementManager;
-        $equiptControle = $equipementManager->countEquiptsStatut('controler');
+        $equiptControle = $equipementManager->countEquiptsStatut('À contrôler');
         $_SESSION['countEquiptControler'] = $equiptControle;
-        $equiptReparation = $equipementManager->countEquiptsStatut('reparation');
+        $equiptReparation = $equipementManager->countEquiptsStatut('À réparer');
         $_SESSION['countEquiptReparer'] = $equiptReparation;
+        $equiptValide = $equipementManager->countEquiptsStatut('Valide');
+        $_SESSION['countEquiptValide'] = $equiptValide;
 
         /* Liste USERS */
         $UserManager = new \Epi_Model\UserManager;
@@ -55,11 +57,14 @@ class FrontController
         $token = $csrf->getToken();
 
         /* Count STATUT */
+        /* Count STATUT */
         $equipementManager = new \Epi_Model\EquipementManager;
-        $equiptControle = $equipementManager->countEquiptsStatut('controler');
+        $equiptControle = $equipementManager->countEquiptsStatut('À contrôler');
         $_SESSION['countEquiptControler'] = $equiptControle;
-        $equiptReparation = $equipementManager->countEquiptsStatut('reparation');
+        $equiptReparation = $equipementManager->countEquiptsStatut('À réparer');
         $_SESSION['countEquiptReparer'] = $equiptReparation;
+        $equiptValide = $equipementManager->countEquiptsStatut('Valide');
+        $_SESSION['countEquiptValide'] = $equiptValide;
 
         /* Liste Equipements */
         $equipementManager = new \Epi_Model\EquipementManager;
@@ -86,19 +91,34 @@ class FrontController
             $equipementManager = new \Epi_Model\EquipementManager;
             $dataEquipt = $equipementManager->getEquipement($id);
             $equipt = new \Epi_Model\Equipement($dataEquipt);
-
-            // // Kit
+           
+            // Kit
+            // $idKit = $equipt->getKitId($id);
             // $kitManager = new \Epi_Model\KitManager;
-            // $kit = $kitManager->getKit($idKit);
+            // $dataKit = $kitManager->getKit($idKit);
+            // $kit = new \Epi_Model\Kit($dataKit);
 
-            // // Lot
-            // $lotManager = new \Epi_Model\LotManager;
-            // $lot = $lotManager->getLot($idLot);
-
+            // Lot
+            $idLot = $equipt->getLotId($id);
+            $lotManager = new \Epi_Model\LotManager;
+            $dataLot = $lotManager->getLot($idLot);
+            $lot = new \Epi_Model\Kit($dataLot);
+            
+            // Controles
+            $controleManager = new \Epi_Model\ControleManager;
+            $dataControles = $controleManager->getControles($id);
+            foreach ($dataControles as $data)
+            {
+                $controle = new \Epi_Model\Controle($data);
+                $controles[] = $controle; // Tableau d'objet
+            }
             $nxView = new \Epi_Model\View('equipement');
             $nxView->getView(
             array (
-                'equipt'=> $equipt));
+                'equipt'=> $equipt,
+                //'kit'=> $kit,
+                'lot'=> $lot,
+                'controles'=>$controles));
         }
         else
         {
@@ -192,6 +212,7 @@ class FrontController
         /* Groupe */
         unset($_SESSION['countEquiptControler']); 
         unset($_SESSION['countEquiptReparer']); 
+        unset($_SESSION['countEquiptValide']);
 
         setcookie('userMail');
         setcookie('userPass');

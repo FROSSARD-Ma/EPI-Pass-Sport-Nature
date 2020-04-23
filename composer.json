@@ -5,7 +5,8 @@
 	"require": {
         "twig/twig": "v3.0.3",
         "swiftmailer/swiftmailer": "v6.2.3",
-        "datatables/datatables": "1.10.20"
+        "datatables/datatables": "1.10.20",
+        "components/jquery" : "^3.4"
     },
 
 	"authors": [ 

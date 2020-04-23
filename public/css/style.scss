@@ -172,6 +172,7 @@ main {
 /* CARD ======================== */
 .card {
 	margin-bottom: 1.3rem;
+	width: 100%;
 }
 
 
@@ -277,7 +278,6 @@ main {
 		padding-left: 80px;
 	}
 
-
 	/* Message ERREUR - PARLSEY */
 	.parsley-errors-list {
 		color: $error;
@@ -301,7 +301,7 @@ main {
 /* TABLEAU ====================== */
 table.users {
     border-collapse: initial;
-    width: 80%;
+    width: 100%;
 }
 
 

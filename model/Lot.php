@@ -23,14 +23,7 @@ class Lot extends Manager
             $method = 'set' . ucfirst(substr($key,4));
             if (method_exists($this, $method))
             {
-                if ($method == 'setContent')
-                {
-                    $this->$method($value);
-                }
-                else
-                {
-                    $this->$method(htmlspecialchars($value));
-                }  
+                $this->$method(htmlspecialchars($value));
             }
         }
     }

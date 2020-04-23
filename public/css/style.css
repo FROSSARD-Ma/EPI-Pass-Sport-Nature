@@ -141,6 +141,7 @@ main {
 /* CARD ======================== */
 .card {
   margin-bottom: 1.3rem;
+  width: 100%;
 }
 
 .card-title {
@@ -256,7 +257,7 @@ main {
 /* TABLEAU ====================== */
 table.users {
   border-collapse: initial;
-  width: 80%;
+  width: 100%;
 }
 
 /* FORMULAIRE ===================== */
