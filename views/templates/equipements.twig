@@ -44,7 +44,7 @@
             <div class="card-header">
               <h4 class="card-title">Liste des équipements</h4>
             </div>
-            <table id="tableEquipt" class="display table table-bordered" width="100%" cellspacing="0">
+            <table id="tableau" class="display table table-bordered" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>Statut</th>
@@ -109,6 +109,8 @@
 {% endblock %}
 
 {% block javascript %}
-    {# // <script src="public/js/sideBarNav.js"></script> #}
+    <script src="vendor/datatables/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="public/js/dataTables.js"></script>
+
 {% endblock %}
 
