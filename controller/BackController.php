@@ -174,6 +174,9 @@ class BackController
 			    $equiptExist = $equiptManager->existEquipt($id);
 			    if ($equiptExist) 
 			    {
+			    	// Sélection du dossier image du groupe / équipement
+			    	$dossierImg = $this->existDossier('equipement', $_SESSION['groupeId'], $id);
+echo $dossierImg;exit;
 					$controleManager = new \Epi_Model\ControleManager; 
 					$creatControl = $controleManager->addControle($id, $_SESSION['userId']);
 					if ($creatControl)
@@ -214,6 +217,75 @@ class BackController
 		{
 			$e->getRedirection();
 		}
+	}
+
+	public function existDossier($dossier, $groupeId, $equiptId)
+	{
+		// --- TEST IMAGE -----------------------------------
+		$dossierImg = 'public/img/'.$dossier.'/';
+		$dossierImgGp = $dossierImg.'/'.$groupeId.'/'.$equiptId.'/';
+
+		// Si le dossier du groupe n'existe pas, je le créée
+		if (!file_exists($dossierImgGp))
+		{
+			if (mkdir($dossierImgGp, 0777, true))
+			{
+				return $dossierImgGp;
+			}
+			else
+			{
+				$_SESSION['message'] = 'Échec lors de la création du répertoire des images de votre compte.';
+			}
+		}
+		else
+		{
+			return $dossierImgGp;
+		}
+	}
+
+	public function addImage($dossierImgGp)
+	{
+		$img = $_FILES['image'];
+		// Test TAILLE image        
+	    if ($img['size'] <= 1000000) // 1Mo
+	    {
+	        // Gestion Extentions
+	        $extension_upload = strtolower(substr($img['name'], -4)); // récupère l'extention et la place en minuscule.
+	        $extensions_autorise = array('.png', '.gif', '.jpg', '.jpeg');
+
+	        if (in_array($extension_upload, $extensions_autorise))
+	        {
+	            //On formate le nom du fichier - suppression des accents
+	            $fichier = strtr($img['name'],
+	                  'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ', 
+	                  'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
+
+	            // remplacer par expression rationnelle standard
+	            $nomImage = preg_replace('/([^.a-z0-9]+)/i', '-', $fichier); 
+	            
+	            if (move_uploaded_file($img['tmp_name'], $dossierImgGp.$nomImage))
+	            {
+	            	return $nomImage;
+	            }
+	            else
+	            {
+		            $error_types = array(
+		            UPLOAD_ERR_FORM_SIZE=> "La taille de l'image téléchargée est trop importante.",
+		            UPLOAD_ERR_PARTIAL  => "L'image a partiellement été téléchargée",
+		            UPLOAD_ERR_NO_FILE  => "Pas d'image téléchargée"
+		            );
+		            throw new \Epi_Model\AppException($error_types[$_FILES['image']['error']], 'upEquipt');
+		        }
+	        }
+	        else
+	        {
+	            throw new \Epi_Model\AppException('votre fichier n\'est pas une image', 'upEquipt');
+	        }
+	    }
+	    else
+	    { 
+	        throw new \Epi_Model\AppException('Le fichier de l\'image est trop gros. Maximum 1 Mo', 'upEquipt');
+	    }
 	}
 
 
