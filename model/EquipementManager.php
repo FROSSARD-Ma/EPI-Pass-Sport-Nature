@@ -86,7 +86,8 @@ class EquipementManager extends Manager
     {
         $idEquipt = (int)$equiptId;
 
-        $sql = 'SELECT EPI_equipement.*, EPI_categories.cat_name, EPI_activites.activite_name
+        $sql = 'SELECT EPI_equipement.*, EPI_categories.cat_name, EPI_activites.activite_name 
+        -- , EPI_kits.kit_name, EPI_lots.lot_name
 
             FROM EPI_equipement 
 
@@ -96,11 +97,30 @@ class EquipementManager extends Manager
                 JOIN EPI_activites
                 ON EPI_equipement.eq_activiteId=EPI_activites.activite_id
 
+                -- JOIN EPI_kits
+                -- ON EPI_equipement.eq_kitId=EPI_kits.kit_id
+
+                -- JOIN EPI_lots
+                -- ON EPI_equipement.eq_lotId=EPI_lots.lot_id
+
             WHERE eq_id = ?';
 
         $datas = $this->reqSQL($sql, array ($idEquipt), $one = true);
         return $datas;
     }
+
+    public function getImageEquipt($equiptId)
+    {
+        $idEquipt = (int)$equiptId;
+
+        $sql = 'SELECT EPI_equipement.eq_image
+            FROM EPI_equipement 
+            WHERE eq_id = ?';
+        $datas = $this->reqSQL($sql, array ($idEquipt), $one = true);
+        $image = implode($datas);
+        return $image;
+    }
+    
 
     /*---  UPDATE ----------------------------------------- */
     public function updateEquipement($equiptId, $groupeId, $nomImage)

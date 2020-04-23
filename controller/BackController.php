@@ -302,11 +302,23 @@ class BackController
 		    $equiptExist = $equiptManager->existEquipt($id);
 		    if ($equiptExist) 
 		    {
-		    	$dossierImgGp = $this->existDossier('equipement', $_SESSION['groupeId']);	
-//$nomImage = $this->addImage($dossierImgGp);
-//echo $nomImage;exit;
+		    	// Gestion image
+		    	if ($_FILES['image']['name'])
+				{
+			    	// Sélection du dossier image du groupe / équipement
+			    	$dossierImg = $this->existDossier('equipement', $_SESSION['groupeId'], $id);
+			    	// Ajout de l'image
+			    	$imageControle= $this->addImage($dossierImg, $id);
+		    	}
+		    	else
+		    	{	// Si pas de post, conservation de l'image d'origine
+		    		$equiptManager = new \Epi_Model\EquipementManager; 
+		    		$imageControle = $equiptManager->getImageEquipt($id);
+		    	}
+
+		    	// Mise à jour Equipement
 				$equipementManager = new \Epi_Model\EquipementManager;
-		 		$upEquipt = $equipementManager->updateEquipement($id, $_SESSION['groupeId'], $nomImage);
+		 		$upEquipt = $equipementManager->updateEquipement($id, $_SESSION['groupeId'], $imageControle);
 		 		if ($upEquipt)
 			    {
 			    	$_SESSION['message'] = 'L\'équipement a été mis à jour !';

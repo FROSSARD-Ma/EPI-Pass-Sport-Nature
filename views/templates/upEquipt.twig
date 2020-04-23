@@ -23,11 +23,11 @@
 
 
 {% block main %} 
-        <form id="form-addEquipt" method="post" action="updateEquipt/id/{{ equipt.getId }}"  data-parsley-validate>
+        <form id="form-addEquipt" method="post" action="updateEquipt/id/{{ equipt.getId }}" enctype="multipart/form-data" data-parsley-validate>
 
     <section class="row section">
 
-        <div class="col col-2">
+        <div class="col col-3">
             <div class="card card-image">
                 <div class="card-img-ribbon">
 
@@ -48,12 +48,12 @@
                     {% endif %}
                 </div>
 
-                <img src="https://epi.pass-sport-nature.fr/public/img/equipement/{{ equipt.getImage }}" class="card-img-top" alt="Photo de l'équipement">
+                <img src="public/img/equipement/{{ session.groupeId }}/{{ equipt.getId }}/{{ equipt.getImage }}" class="card-img-top" alt="Photo de l'équipement">
             </div>
         </div>
 
         <!-- FABRICATION -->    
-        <div class="col col-10">
+        <div class="col col-9">
             <div class="card">
                 <div class="card-header">
                   <h4 class="card-title">{{ equipt.getCategorie }} - {{ equipt.getActivite }}</h4>
@@ -80,23 +80,21 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="image" class="col-sm-3 col-form-label"><strong>Image</strong></label>
+                        <label class="col-sm-3 col-form-label" for="image" >Image</label>
                         <div class="col-sm-9">
-                            <input type="file" id="image" name="image" accept=".jpg, .jpeg, .png">
-                            <small>Fichier (jgp, png) - Max 1Mo</small>
+                            <input type="file" name="image" data-parsley-max-file-size="500"/>
+                            <p class="required">Fichier (jgp, png, gif) - 500 Ko Max</p>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
-
     </section>
 
     <section class="row justify-content-center section">       
 
         <!-- CARACTÉRISTIQUES -->
-        <div class="col col5">
+        <div class="col col6">
             <div class="card">
                 <div class="card-header">
                   <h4 class="card-title">Caractéristiques</h4>
@@ -203,7 +201,7 @@
         </div>
 
         <!-- CONTROLE ETAT -->
-        <div class="col col-7">
+        <div class="col col-6">
             
             <div class="card">
                 <div class="card-header">
@@ -228,14 +226,14 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label" for="utilisation">Première utilisation</label>
                         <div class="col-sm-9">
-                            <input type="text" id="utilisation" name="utilisation" class="form-control" placeholder="{{ equipt.getUtilisation }}" value="{{ equipt.getUtilisation }}">
+                            <input type="date" id="utilisation" name="utilisation" class="form-control" value="{{ equipt.getUtilisation }}">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label" for="rebutTheorique">Rebut théorique</label>
                         <div class="col-sm-9">
-                            <input type="text" id="rebutTheorique" name="rebutTheorique" class="form-control" placeholder="{{ equipt.getRebutTheorique }}" value="{{ equipt.getRebutTheorique }}" >
+                            <input type="date" id="rebutTheorique" name="rebutTheorique" class="form-control" value="{{ equipt.getRebutTheorique }}" >
                         </div>
                     </div>
 

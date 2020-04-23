@@ -44,7 +44,9 @@
                         </div>
                     {% endif %}
                 </div>
-                <img src="public/img/equipement/{{ equipt.getImage }}" class="card-img-top" alt="Photo de l'équipement">
+                <a href="public/img/equipement/{{ session.groupeId }}/{{ equipt.getId }}/{{ equipt.getImage }}" target="_blank" title="Voir la photo">
+                    <img src="public/img/equipement/{{ session.groupeId }}/{{ equipt.getId }}/{{ equipt.getImage }}" class="card-img-top" alt="Photo de l'équipement">
+                </a>
                 <div class="card-body">
                 </div>
                 <div class="card-footer">
