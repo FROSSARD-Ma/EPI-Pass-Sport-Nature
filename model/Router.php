@@ -22,6 +22,7 @@ class Router {
         "nxEquipt"      => ['FrontController','nxEquipt'],
         "upEquipt"      => ['FrontController','upEquipt'],
         "nxControl"     => ['FrontController','nxControl'],
+        "calendrier"    => ['FrontController','calendrier'],
         
     // ---- BACK Controller -----------------------------------------------------
         "creatEquipt"    => ['BackController','creatEquipt'],

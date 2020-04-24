@@ -57,7 +57,6 @@ class FrontController
         $token = $csrf->getToken();
 
         /* Count STATUT */
-        /* Count STATUT */
         $equipementManager = new \Epi_Model\EquipementManager;
         $equiptControle = $equipementManager->countEquiptsStatut('À contrôler');
         $_SESSION['countEquiptControler'] = $equiptControle;
@@ -95,13 +94,13 @@ class FrontController
             // Kit
             // $idKit = $equipt->getKitId($id);
             // $kitManager = new \Epi_Model\KitManager;
-            // $dataKit = $kitManager->getKit($idKit);
+            // $dataKit = $kitManager->getKit(array($idKit));
             // $kit = new \Epi_Model\Kit($dataKit);
 
             // Lot
             $idLot = $equipt->getLotId($id);
             $lotManager = new \Epi_Model\LotManager;
-            $dataLot = $lotManager->getLot($idLot);
+            $dataLot = $lotManager->getLot(array($idLot));
             $lot = new \Epi_Model\Kit($dataLot);
             
             // Controles
@@ -187,6 +186,12 @@ class FrontController
         }
     }
 
+    public function calendrier($params)
+    {
+        $nxView = new \Epi_Model\View('calendrier');
+        $nxView->getView();
+    }
+
     public function account($params)
     {
         $csrf = new \Epi_Model\SecuriteCsrf('account');
@@ -237,6 +242,7 @@ class FrontController
         {
             $equipementManager = new \Epi_Model\EquipementManager;
             $dataEquipt = $equipementManager->getEquipement($id);
+
             $equipt = new \Epi_Model\Equipement($dataEquipt);
 
             // Liste des kits
@@ -244,8 +250,8 @@ class FrontController
             $kits = $kitManager->getKits();
             
             // Liste des lots
-            $lotManager = new \Epi_Model\LotManager;
-            $lots = $lotManager->getLots();
+            // $lotManager = new \Epi_Model\LotManager;
+            // $lots = $lotManager->getLots();
 
             $nxView = new \Epi_Model\View('upEquipt');
             $nxView->getView(
