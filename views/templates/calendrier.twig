@@ -48,13 +48,11 @@
             <table id="tableau" class="display table table-bordered" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>Date Contrôle</th>
                             <th>Statut</th>
-                            <th>Activité</th>
-                            <th>Catégorie</th>
-                            <th><span data-toggle="tooltip" data-placement="top" title="La durée de vie est le temps d'utilisation donnée par la notice en fonction de sa matière de composition.">Durée de vie 
-                            <i class="fas fa-info-circle"></i>
-                            </span></th>
-                            <th>Prochain contrôle</th>
+                            <th>Équipement</th>
+                            <th>Référence</th>
+                            <th>Modèle</th>
                             <th>Gestion</th>
                         </tr>
                     </thead>
@@ -62,29 +60,11 @@
 
                         {% for equipt in equipts %}
                             <tr>
-                                <td>
-                                    {% if equipt.getStatut == 'À contrôler' %}
-                                        <a role="button" class="btn btn-danger" href="nxControl/id/{{ equipt.getId }}" data-toggle="tooltip" data-placement="top" title="Votre équipement doit être controlé !">
-                                        <i class="fas fa-exclamation-triangle"></i>
-                                        </a>
-                                    {%  elseif equipt.getStatut == 'À réparer' %}
-                                         <a role="button" class="btn btn-warning" href="equipement/id/{{ equipt.getId }}" data-toggle="tooltip" data-placement="top" title="Votre équipement doit être réparé !">
-                                        <i class="fas fa-wrench"></i>
-                                        </a>
-                                    {% else %}
-                                        <a role="button" class="btn btn-success" href="equipement/id/{{ equipt.getId }}" data-toggle="tooltip" data-placement="top" title="Votre équipement est opérationnel !">
-                                        <i class="fas fa-thumbs-up"></i>
-                                        </a>
-                                    {% endif %}
-                                </td>
-                                <td>{{ equipt.getActivite }}</td>
-                                <td>{{ equipt.getCategorie }}</td>
-                                <td>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </td>
                                 <td>{{ equipt.getProchainControle }}</td>
+                                <td>{{ equipt.getStatut }}</td>
+                                <td>{{ equipt.getCategorie }} {{ equipt.getActivite }}</td>
+                                <td>{{ equipt.getReference }}</td>
+                                <td>{{ equipt.getModele }}</td>
                                 <td>
                                     <!-- VOIR -->
                                     <a role="button" class="btn btn-success" href="equipement/id/{{ equipt.getId }}" data-toggle="tooltip" data-placement="top" title="Cliquez pour voir de détails de l'équipement.">

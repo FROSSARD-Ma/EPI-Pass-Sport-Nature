@@ -60,6 +60,28 @@ class EquipementManager extends Manager
         return $data;
     }
 
+    public function getEquiptsInvalide($groupeId)
+    {
+        $idGroupe = (int)$groupeId;
+
+        $sql = 'SELECT EPI_equipement.*, EPI_categories.cat_name, EPI_activites.activite_name
+
+            FROM EPI_equipement 
+
+                JOIN EPI_categories
+                ON EPI_equipement.eq_categorieId=EPI_categories.cat_id
+
+                JOIN EPI_activites
+                ON EPI_equipement.eq_activiteId=EPI_activites.activite_id
+
+            WHERE eq_groupeId =:idGroupe AND eq_statut !="Valide"';
+
+        $data = $this->getPDO()->prepare($sql);
+        $data->bindValue(':idGroupe', $idGroupe, PDO::PARAM_STR);
+        $data->execute(); 
+        return $data;
+    }
+
     public function existEquipt($equiptId)
     {
         $idEquipt = (int)$equiptId;

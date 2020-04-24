@@ -188,8 +188,26 @@ class FrontController
 
     public function calendrier($params)
     {
+        /* Count STATUT */
+        $equipementManager = new \Epi_Model\EquipementManager;
+        $equiptControle = $equipementManager->countEquiptsStatut('À contrôler');
+        $_SESSION['countEquiptControler'] = $equiptControle;
+        $equiptReparation = $equipementManager->countEquiptsStatut('À réparer');
+        $_SESSION['countEquiptReparer'] = $equiptReparation;
+        $equiptRetard = $equipementManager->countEquiptsStatut('Retard');
+        $_SESSION['countEquiptRetard'] = $equiptRetard;
+
+        /* Liste Equipements */
+        $equipementManager = new \Epi_Model\EquipementManager;
+        $dataEquipts = $equipementManager->getEquiptsInvalide($_SESSION['groupeId']);
+        foreach ($dataEquipts as $data)
+        {
+            $equipt = new \Epi_Model\Equipement($data);
+            $equipts[] = $equipt; // Tableau d'objet
+        }
         $nxView = new \Epi_Model\View('calendrier');
-        $nxView->getView();
+        $nxView->getView(array (
+            'equipts'=> $equipts));
     }
 
     public function account($params)
