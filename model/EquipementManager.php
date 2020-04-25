@@ -1,15 +1,51 @@
 <?php
 namespace Epi_Model;
 use \PDO;
+use \DateTime;
 
 class EquipementManager extends Manager
 {
     /*---  CREAT -------------------------------------------------------- */
     public function addEquipement($groupeId, $activiteId, $categorieId, $kitId, $lotId)
     {
-        $sql ='INSERT INTO EPI_equipement(eq_fabriquant,eq_modele,eq_reference,eq_serie,eq_taille,eq_matiereMetal,eq_matiereTextile,eq_matierePlastique,eq_fabrication,eq_statut,eq_groupeId,eq_activiteId,eq_categorieId,eq_kitId,eq_lotId)
+        // Calcul date de rebut Théorique
+        $dureeAnnee = $_POST['dureeVie'];
+        if (is_numeric($dureeAnnee))
+        {
+            $fabrication = new DateTime($_POST['fabrication']);
+            $fabricationJour = $fabrication->getTimestamp();
 
-        VALUES(:fabriquant,:modele,:reference,:serie,:taille,:matiereMetal,:matiereTextile,:matierePlastique,:fabrication,:statut,:groupeId,:activiteId,:categorieId,:kitId,:lotId)';
+            $dureeJour = $dureeAnnee*365;
+            $dureeExpire = $dureeJour*24*3600;
+
+            $dureeVie = $fabricationJour + $dureeExpire;
+            $rebutTheorique = date("Y-m-d", $dureeVie);
+        }
+        else
+        {
+            $rebutTheorique = '';
+        }
+
+        // Calcul date du prochain controle
+        $frequenceJour = $_POST['frequenceControle'];
+        if (is_numeric($frequenceJour))
+        {
+            $utilisation = new DateTime($_POST['utilisation']);
+            $utilisationJour = $utilisation->getTimestamp();
+
+            $dureeExpire = $frequenceJour*24*3600;
+            $dureeVie = $utilisationJour + $dureeExpire;
+            $prochainControle = date("Y-m-d", $dureeVie);
+        }
+        else
+        {
+            $prochainControle = '';
+        }
+
+        // Insertion nouvel équipement
+        $sql ='INSERT INTO EPI_equipement(eq_fabriquant,eq_modele,eq_reference,eq_serie,eq_taille,eq_matiereMetal,eq_matiereTextile,eq_matierePlastique,eq_fabrication,eq_achat,eq_utilisation,eq_statut,eq_dureeVie,eq_frequenceControle,eq_rebutTheorique,eq_prochainControle,eq_groupeId,eq_activiteId,eq_categorieId,eq_kitId,eq_lotId)
+
+        VALUES(:fabriquant,:modele,:reference,:serie,:taille,:matiereMetal,:matiereTextile,:matierePlastique,:fabrication,:achat,:utilisation,:statut,:dureeVie,:frequenceControle,:rebutTheorique,:prochainControle,:groupeId,:activiteId,:categorieId,:kitId,:lotId)';
         
         $datas = $this->getPDO()->prepare($sql);
         
@@ -23,13 +59,21 @@ class EquipementManager extends Manager
         $datas->bindValue(':matierePlastique',htmlspecialchars($_POST['matierePlastique']), PDO::PARAM_STR);
         // Dates
         $datas->bindValue(':fabrication',   htmlspecialchars($_POST['fabrication']), PDO::PARAM_STR);
+        $datas->bindValue(':achat',         htmlspecialchars($_POST['achat']), PDO::PARAM_STR);
+        $datas->bindValue(':utilisation',   htmlspecialchars($_POST['utilisation']), PDO::PARAM_STR);
+        // Paramètres
         $datas->bindValue(':statut',        htmlspecialchars($_POST['statut']), PDO::PARAM_STR);
+        $datas->bindValue(':dureeVie',      htmlspecialchars($_POST['dureeVie']), PDO::PARAM_STR);
+        $datas->bindValue(':frequenceControle',htmlspecialchars($_POST['frequenceControle']), PDO::PARAM_STR);
+        // Calcul automatique
+        $datas->bindValue(':rebutTheorique', $rebutTheorique, PDO::PARAM_STR);
+        $datas->bindValue(':prochainControle', $prochainControle, PDO::PARAM_STR);
         // Id
-        $datas->bindValue(':groupeId',     htmlspecialchars($groupeId), PDO::PARAM_STR);
-        $datas->bindValue(':activiteId',   htmlspecialchars($activiteId), PDO::PARAM_STR);
-        $datas->bindValue(':categorieId',  htmlspecialchars($categorieId), PDO::PARAM_STR);
-        $datas->bindValue(':kitId',        htmlspecialchars($kitId), PDO::PARAM_STR);
-        $datas->bindValue(':lotId',        htmlspecialchars($lotId), PDO::PARAM_STR);
+        $datas->bindValue(':groupeId',     $groupeId, PDO::PARAM_STR);
+        $datas->bindValue(':activiteId',   $activiteId, PDO::PARAM_STR);
+        $datas->bindValue(':categorieId',  $categorieId, PDO::PARAM_STR);
+        $datas->bindValue(':kitId',        $kitId, PDO::PARAM_STR);
+        $datas->bindValue(':lotId',        $lotId, PDO::PARAM_STR);
 
         $datas->execute();
 
@@ -77,11 +121,10 @@ class EquipementManager extends Manager
             FROM EPI_equipement 
             WHERE eq_statut = ? AND eq_groupeId = ?';
         $count = $this->reqSQL($sql, array ($statut, $_SESSION['groupeId']), $one = true);
-        $countChapters = implode($count);
-        return $countChapters;
+        $countEquiptsStatut = implode($count);
+        return $countEquiptsStatut;
     }
-    //
-
+    
     public function getEquipement($equiptId)
     {
         $idEquipt = (int)$equiptId;

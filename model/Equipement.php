@@ -28,7 +28,11 @@ class Equipement extends Manager
     private $_eq_utilisation;
     private $_eq_rebutTheorique;
     private $_eq_prochainControle;
+
+    //Paramètres
     private $_eq_frequenceControle;
+    private $_eq_dureeVie;
+    private $_eq_barDureeVie;
 
     // Jonctions ID
     private $_eq_groupeId;
@@ -151,6 +155,37 @@ class Equipement extends Manager
         { 
             return $this->_eq_frequenceControle; 
         }
+        public function getDureeVie()
+        { 
+            return $this->_eq_dureeVie; 
+        }
+        public function getBarDureeVie()
+        { 
+            $fabrication = new DateTime($this->getFabrication());
+            $fabricationJour = $fabrication->getTimestamp();
+            
+            $dureeVieRestante = time()-($fabricationJour);
+            $dureeVieTotale = ($this->getDureeVie())*24*3600;
+            $dureeViePourentage = floor (($dureeVieRestante*100)/$dureeVieTotale);
+
+            return $dureeViePourentage;
+        }
+        public function getColorBar()
+        { 
+            if ($this->getBarDureeVie()>=66)
+            {
+                $colorBar='bg-danger';
+            }
+            elseif ($this->getBarDureeVie()>=33)
+            {
+               $colorBar='bg-warning'; 
+            }
+            else {
+                $colorBar='bg-success';
+            }    
+            return $colorBar;
+        }
+
 
         // id Jonctions
         public function getGroupeId()
@@ -352,7 +387,14 @@ class Equipement extends Manager
               $this->_eq_frequenceControle = $frequence;
             }
         }
-
+        public function setEq_dureeVie($nb)
+        { 
+            $duree = (int) $nb;
+            if ($duree > 0)
+            {
+                $this->_eq_dureeVie = $duree;
+            }
+        }
 
         // ID jonction
         public function setEq_groupeId($id)
