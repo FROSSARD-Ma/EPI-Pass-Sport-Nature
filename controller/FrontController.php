@@ -190,12 +190,12 @@ class FrontController
     {
         /* Count STATUT */
         $equipementManager = new \Epi_Model\EquipementManager;
-        $equiptControle = $equipementManager->countEquiptsStatut('À contrôler');
-        $_SESSION['countEquiptControler'] = $equiptControle;
+        // A réparer        
         $equiptReparation = $equipementManager->countEquiptsStatut('À réparer');
         $_SESSION['countEquiptReparer'] = $equiptReparation;
-        $equiptRetard = $equipementManager->countEquiptsStatut('Retard');
-        $_SESSION['countEquiptRetard'] = $equiptRetard;
+        // Retard
+        $controlRetard = $equipementManager->countControleRetard(); // today
+        $_SESSION['countControleRetard'] = $controlRetard; 
 
         /* Liste Equipements */
         $equipementManager = new \Epi_Model\EquipementManager;
