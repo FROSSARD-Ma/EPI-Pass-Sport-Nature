@@ -151,6 +151,17 @@ class Equipement extends Manager
         { 
             return $this->_eq_prochainControle; 
         }
+        public function getColorControle()
+        { 
+            if(strtotime($this->getProchainControle()) < strtotime(date('Y-m-d'))) // timestamp
+            {
+                echo '<span class="badge badge-pill badge-danger">retard</span>';
+            }
+            else
+            { 
+                echo '<span class="badge badge-pill badge-warning">À venir</span>';
+            }
+        }
         public function getFrequenceControle()
         { 
             return $this->_eq_frequenceControle; 

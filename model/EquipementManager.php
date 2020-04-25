@@ -104,6 +104,29 @@ class EquipementManager extends Manager
         return $data;
     }
 
+    public function getEquiptsInvalide($groupeId)
+    {
+        $idGroupe = (int)$groupeId;
+
+        $sql = 'SELECT EPI_equipement.*, EPI_categories.cat_name, EPI_activites.activite_name
+
+            FROM EPI_equipement 
+
+                JOIN EPI_categories
+                ON EPI_equipement.eq_categorieId=EPI_categories.cat_id
+
+                JOIN EPI_activites
+                ON EPI_equipement.eq_activiteId=EPI_activites.activite_id
+
+            WHERE eq_groupeId =:idGroupe AND eq_statut !="Valide"
+            ORDER BY EPI_equipement.eq_prochainControle ASC';
+
+        $data = $this->getPDO()->prepare($sql);
+        $data->bindValue(':idGroupe', $idGroupe, PDO::PARAM_STR);
+        $data->execute(); 
+        return $data;
+    }
+
     public function existEquipt($equiptId)
     {
         $idEquipt = (int)$equiptId;
@@ -124,7 +147,19 @@ class EquipementManager extends Manager
         $countEquiptsStatut = implode($count);
         return $countEquiptsStatut;
     }
-    
+  
+    public function countControleRetard()
+    {
+        $today = date('Y-m-d');
+
+        $sql ='SELECT count(*)
+            FROM EPI_equipement 
+            WHERE eq_prochainControle < ? AND eq_groupeId = ?';
+        $count = $this->reqSQL($sql, array ($today, $_SESSION['groupeId']), $one = true);
+        $countControleRetard = implode($count);
+        return $countControleRetard;
+    }
+
     public function getEquipement($equiptId)
     {
         $idEquipt = (int)$equiptId;
