@@ -147,6 +147,7 @@ class EquipementManager extends Manager
         $countEquiptsStatut = implode($count);
         return $countEquiptsStatut;
     }
+  
     public function countControleRetard()
     {
         $today = date('Y-m-d');

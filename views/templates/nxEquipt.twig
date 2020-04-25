@@ -37,7 +37,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label" for="activiteId">Activité <span class="required">*</span></label>
                                 <div class="col-sm-8">
-                                    <select class="form-control" id="activiteId" name="activiteId" required>
+                                    <select class="form-control" id="activiteId" name="activiteId" >
                                         <option value="">Sélectionnez l'activité</option>
                                         <option value="">-------------</option>
                                         {% for activite in activites %}
@@ -59,7 +59,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label" for="categorieId">Catégorie <span class="required">*</span></label>
                                 <div class="col-sm-8">
-                                    <select class="form-control" id="categorieId" name="categorieId" required>
+                                    <select class="form-control" id="categorieId" name="categorieId" >
                                         <option value="">Sélectionnez la catégorie</option>
                                         <option value="">-------------</option>
                                         {% for categorie in categories %}
@@ -85,35 +85,35 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label" for="fabriquant">Nom du fabriquant <span class="required">*</span></label>
                                 <div class="col-sm-8">
-                                    <input type="text" id="fabriquant" name="fabriquant" class="form-control" placeholder="Nom du fabriquant" minlength="2" maxlength="50" required>
+                                    <input type="text" id="fabriquant" name="fabriquant" class="form-control" placeholder="Nom du fabriquant" minlength="2" maxlength="50" >
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label" for="modele">Modèle de l'équipement <span class="required">*</span></label>
                                 <div class="col-sm-8">
-                                    <input type="text" id="modele" name="modele" class="form-control" placeholder="Modèle de l'équipement" required>
+                                    <input type="text" id="modele" name="modele" class="form-control" placeholder="Modèle de l'équipement" >
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label" for="reference">Référence du fabriquant <span class="required">*</span></label>
                                 <div class="col-sm-8">
-                                    <input type="text" id="reference" name="reference" class="form-control" placeholder="Référence du fabriquant" required>
+                                    <input type="text" id="reference" name="reference" class="form-control" placeholder="Référence du fabriquant" >
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label" for="serie">Numéro de série <span class="required">*</span></label>
                                 <div class="col-sm-8">
-                                    <input type="text" id="serie" name="serie" class="form-control" placeholder="Numéro de série" required>
+                                    <input type="text" id="serie" name="serie" class="form-control" placeholder="Numéro de série" >
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label" for="taille">Taille <span class="required">*</span></label>
                                 <div class="col-sm-8">
-                                    <input type="text" id="taille" name="taille" class="form-control" placeholder="Taille de l'équipement" required>
+                                    <input type="text" id="taille" name="taille" class="form-control" placeholder="Taille de l'équipement" >
                                 </div>
                             </div>
 
@@ -138,20 +138,66 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label" for="fabrication">Date de Fabrication <span class="required">*</span></label>
                                 <div class="col-sm-8">
-                                    <input type="date" id="fabrication" name="fabrication" class="form-control" required>
+                                    <input type="date" id="fabrication" name="fabrication" class="form-control" >
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" for="dureeVie">Durée de vie <span class="required">*</span></label>
+                                <div class="col-sm-8">
+                                   <select class="form-control" id="dureeVie" name="dureeVie" >
+                                        <option value="">Quel est sa durée de vie ?</option>
+                                        <option value="">-------------</option>
+                                        <option value="365">1 an</option>
+                                        <option value="730">2 ans</option>
+                                        <option value="1095">3 ans</option>
+                                        <option value="1826">5 ans</option>
+                                        <option value="3650">10 ans</option>
+                                        <option value="5476">15 ans</option>
+                                        <option value="">Illimité</option>
+                                    </select>
                                 </div>
                             </div>
 
-                             <div class="form-group row">
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" for="achat">Date d'achat</label>
+                                <div class="col-sm-8">
+                                    <input type="date" id="achat" name="achat" class="form-control" value="{{ equipt.getAchat }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
                                 <label class="col-sm-4 col-form-label" for="statut">Statut <span class="required">*</span></label>
                                 <div class="col-sm-8">
-                                   <select class="form-control" id="statut" name="statut" required>
+                                   <select class="form-control" id="statut" name="statut" >
                                         <option value="">Quel est son état ?</option>
                                         <option value="">-------------</option>
                                         <option value="Valide">Neuf</option>
                                         <option value="À contrôler">Occasion</option>
                                         <option value="À réparer">À réparer</option>
                                     </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" for="utilisation">Première utilisation</label>
+                                <div class="col-sm-8">
+                                    <input type="date" id="utilisation" name="utilisation" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" for="frequenceControle">Fréquence Contrôle <span class="required">*</span></label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" id="frequenceControle" name="frequenceControle" >
+                                    <option value="">Quelle est la fréquence du controle sécurité ?</option>
+                                    <option value="">-------------</option>
+                                    <option value="15">15 jours</option>
+                                    <option value="30">1 mois</option>
+                                    <option value="90">3 mois</option>
+                                    <option value="180">6 mois</option>
+                                    <option value="365">1 an</option>
+                                    <option value="730">2 ans</option>
+                                </select>
                                 </div>
                             </div>
            
