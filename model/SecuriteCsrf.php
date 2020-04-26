@@ -31,6 +31,7 @@ class SecuriteCsrf
 				// Temps du token valide ?
 				if($_SESSION[$this->_nameForm.'_token_time'] >= (time() - $this->_tempsValidForm))
 				{
+					return true;
 					// Si la requete vient du formulaire
 					if($_SERVER['HTTP_REFERER'] == $referer)
 					{

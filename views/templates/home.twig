@@ -18,12 +18,13 @@
         <hr>
         {% if not session.userId %}
             <p>Bonjour,</p>
-            <p>Ergo ego senator inimicus, si ita vultis, homini, amicus esse, sicut semper fui, rei publicae debeo. Quid? si ipsas inimicitias, depono rei publicae causa, quis me tandem iure reprehendet, praesertim cum ego omnium meorum consiliorum atque factorum exempla semper ex summorum hominum consiliis atque factis mihi censuerim petenda.</p>
-
         {% else %}
             <p>Bonjour  {{ session.userFirstname }},</p>
-            <p>Ergo ego senator inimicus, si ita vultis, homini, amicus esse, sicut semper fui, rei publicae debeo. Quid? si ipsas inimicitias, depono rei publicae causa, quis me tandem iure reprehendet, praesertim cum ego omnium meorum consiliorum atque factorum exempla semper ex summorum hominum consiliis atque factis mihi censuerim petenda.</p>
         {% endif %}
+
+        <p>Découvrez <strong>Pass'Sport EPI</strong>, un outils <strong>simple</strong> et <strong>gratuit</strong> pour vous faciliter la gestion de tout vos équipements sportifs quelque soit votre activité !
+        <br>Il vous aide à <strong>sécuriser votre pratique sportive</strong> en organisant le suivi de vos équipements de sport nécessitant un contrôle régulier.</p>
+        
     </section>
 
     {% if not session.userId %}
