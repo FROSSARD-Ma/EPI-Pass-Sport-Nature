@@ -27,40 +27,38 @@
 
       {% if session.userId %}
 
-      <li class="nav-item">
-        <a class="nav-link" href="dashboard">Tableau de bord</a>
-      </li>
+        <li class="nav-item">
+          <a class="nav-link" href="dashboard">Tableau de bord</a>
+        </li>
 
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle"  href="equipements" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Équipements</a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="equipements">Liste équipements</a>
-          <a class="dropdown-item" href="nxEquipt">Ajouter équipement</a>
-          <a class="dropdown-item" href="#">Historique</a>
-        </div>
-      </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle"  href="equipements" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Équipements</a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="equipements">Liste équipements</a>
+            <a class="dropdown-item" href="nxEquipt">Ajouter équipement</a>
+            <a class="dropdown-item disabled" href="#">Historique</a>
+          </div>
+        </li>
 
-      <li class="nav-item">
-        <a class="nav-link" href="calendrier">Contrôles EPI</a>
-      </li>
+        <li class="nav-item">
+          <a class="nav-link" href="calendrier">Contrôles EPI</a>
+        </li>
 
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle"  href="account" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mon compte</a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="account">Mon compte</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="deconnexion">Se déconnecter</a>
-        </div>
-      </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle"  href="account" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mon compte</a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="account">Mon compte</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="deconnexion">Se déconnecter</a>
+          </div>
+        </li>
 
       {% else %}
-
         <li class="nav-item active">
           <a class="nav-link" href="home">Accueil</a>
         </li>
-        
       {% endif %}
-      
+
       <li class="nav-item">
         <a class="nav-link" href="contact">Contact</a>
       </li>
