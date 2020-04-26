@@ -21,9 +21,16 @@ $primary:#007bff;
 
 .h1, h1 {
     font-size: 1.2rem;
+    margin-bottom: 0;
+    text-transform: uppercase;
 }
 .h2, h2 {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    span {
+    	font-size: 1rem;
+    	text-transform: none;
+    }
 }
 .h3, h3 {
     font-size: 1.1rem;
@@ -55,15 +62,17 @@ $primary:#007bff;
 }
 
 .section {
-	margin: 50px 0;
+	margin: 0 -30px;
 }
 
 .vignette {
-	padding: .5rem 1rem;
-  	font-size: 1em;
+	padding: .5rem;
+  	font-size: 1.1em;
   	margin: 5px;
+  	width: 100%;
   	span {
-  		font-size: 2em;
+  		font-size: 2.5em;
+		font-weight: bold;
   	}
 } 
 
@@ -71,64 +80,67 @@ $primary:#007bff;
 
 
 /* HEADER ====================== */
-header.entete {
-	
+nav#topNav {
 	font-family: 'Roboto Condensed', sans-serif;
+	background-color: white;
+	padding: 0.5em;
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
+
+
+	a:hover {
+		color: $texte-fonce;
+	}
+
+	img#logo {
+		height: 45px;
+	}
+
+	.dropdown-menu a, a:hover {
+		color:  $texte-fonce;
+	}
 
 	#pass-nature {
+		position: relative;
 		display: flex;
 		text-align: left;
-		position: relative;
-
-		#logo {
-			height: 100px;
-			margin: 15px; 
-		}
+		top: -15px;
+		
 		.pass-titre {
 			margin: 15px; 
 		}
 		.pass-orange {
 			line-height: 110%;
 			color: white;
-			font-size: 2.4em;
+			font-size: 1.5em;
 			font-weight: bold;
 			background-color: $orang;
 			transform: rotate(-10deg);
 			margin:0;
-			padding: 0 10px;
+			padding: 0 5px;
 		}
 		.pass-nom {
 			position: absolute;
 			width: 100%;
 			font-weight: bold;
-			font-size: 2.5em;
+			font-size: 1.5em;
 			margin:0;
-			top:40px;
-		}
-		.pass-accroche {
-			position: absolute;
-			bottom: 0;
-			width: 110%;
-			font-size: 1em;
+			top:33px;
 		}
 	}
 
 	#pass-epi {
-
-		flex: 3;
+		display: none;
 		text-align: center;
-		margin: 15px;
-		margin-left: 115px;
 
 		.titre {
-			font-size: 2.5em;
+			font-size: 2em;
 			margin:0;
 			line-height: 110%;
 		}
 		.sous-titre {
-			font-size: 1.3em;
+			font-size: 1em;
 			margin:0;
 		}
 		.pass-bleu {
@@ -142,39 +154,47 @@ header.entete {
 		}
 	}
 
-	#topNav {
-		margin: 15px; 
-		flex: 1;
-
-		a, a:hover {
-			color: $texte-fonce;
-			text-decoration: none;
-		}
-
-		.account {
-			padding: 0;
-			background-color: $vert;
-			a, a:hover {
-			color:  white;
-			}
-		}
-		.dropdown-menu a, a:hover {
-			color:  $texte-fonce;
-		}
+	#pass-nav {
+	
 	}
-
-} 
-
-main {
-	background: $arriere-plan;
 }
 
+/* MAIN ======================== */
+main {
+	background: $arriere-plan;
+
+	.groupeEntete {
+		background-color: lighten($fond-fonce, 65%);
+		padding: 20px 15px;
+		margin-left: -15px;
+    	margin-right: -15px;
+	}
+
+	.container h2 {
+		margin-top: 25px;
+	}
+}
+
+
 /* CARD ======================== */
+.carte {
+	background-color: white;
+	width: 100%;
+	border: 1px solid rgba(0,0,0,.125);
+	border-radius: .25rem;
+	padding: 15px;
+	margin-bottom: 1.3rem;
+}
+
+
 .card {
 	margin-bottom: 1.3rem;
 	width: 100%;
 }
 
+.card-body {
+    padding: .25rem;
+}
 
 .card-title {
     margin-bottom: 0;
@@ -239,7 +259,7 @@ main {
 		flex-wrap:nowrap;
 		color: white;
 		background-color: lighten($fond-fonce, 10%);
-		padding: 15px;
+		padding: 6px 15px;
 		width: 100%;
 
 		.fa-user-check {
@@ -304,6 +324,10 @@ table.users {
     width: 100%;
 }
 
+.dataTables_wrapper {
+	margin: 1%;
+}
+
 
 /* FORMULAIRE ===================== */
 
@@ -332,12 +356,6 @@ table.users {
 		display:none;
 	}
 
-	/* Ajout USER ------------------ */
-	#addUserForm {
-		padding: 15px 30px;
-	}
-
-
 	/* upEquipt----------------- */
 	#kitName {
 		display:none;
@@ -359,5 +377,65 @@ footer {
 	a, a:hover {
 	color: $texte-clair;
 	text-decoration: none;
+	}
+}
+
+
+/* -- TABLET  ---------------------------------------------------- */
+@media all and (min-width: 768px)
+{
+	nav#topNav {
+		img#logo {
+			height: 80px;
+		}
+
+		#pass-epi {
+			display: block;
+		}
+	}
+
+	.section {
+		margin: 30px 0;
+	}
+	.vignette {
+		padding: .5rem 1rem;
+	}
+
+	/* CARD ======================== */
+	.card-body {
+	    padding: .75rem;
+	}
+}
+
+/* -- ORDI  ---------------------------------------------------- */
+@media all and (min-width: 993px)
+{
+	nav#topNav {
+
+		padding: 0.5em 1em;
+
+		img#logo {
+			height: 100px;
+		}
+		#pass-nature {
+			min-width: 170px;
+			.pass-orange {
+				font-size: 2.4em;
+				padding: 0 10px;
+			}
+			.pass-nom {
+				font-size: 2.5em;
+				top:40px;
+			}
+		}
+
+		#pass-epi {
+			display: block;
+		}
+	}
+
+	/* CARD ======================== */
+	.card-body {
+	    padding: 1.25rem;
 	}
 }

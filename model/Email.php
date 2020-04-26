@@ -19,7 +19,7 @@ class Email
     	// Create the Transport
 		$transport = (new \Swift_SmtpTransport('smtp.webmo.fr', 587))
 		  ->setUsername('epi@pass-sport-nature.fr')
-		  ->setPassword('19SpotsWeb20*');
+		  ->setPassword('2u-eC2fHk');
 		return $transport;
     }
 
@@ -77,7 +77,7 @@ class Email
                     margin-left:30px;
                 }
 
-                .bouton_inscription_D {
+                button {
                     background: #EC8813;
                     margin: 5px;
                     padding:2px 3px 2px 3px;

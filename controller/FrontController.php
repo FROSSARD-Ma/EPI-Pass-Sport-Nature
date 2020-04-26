@@ -34,6 +34,9 @@ class FrontController
         $_SESSION['countEquiptReparer'] = $equiptReparation;
         $equiptValide = $equipementManager->countEquiptsStatut('Valide');
         $_SESSION['countEquiptValide'] = $equiptValide;
+        // Retard
+        $controlRetard = $equipementManager->countControleRetard(); // today
+        $_SESSION['countControleRetard'] = $controlRetard; 
 
         /* Liste USERS */
         $UserManager = new \Epi_Model\UserManager;
@@ -64,6 +67,9 @@ class FrontController
         $_SESSION['countEquiptReparer'] = $equiptReparation;
         $equiptValide = $equipementManager->countEquiptsStatut('Valide');
         $_SESSION['countEquiptValide'] = $equiptValide;
+        // Retard
+        $controlRetard = $equipementManager->countControleRetard(); // today
+        $_SESSION['countControleRetard'] = $controlRetard; 
 
         /* Liste Equipements */
         $equipementManager = new \Epi_Model\EquipementManager;
@@ -227,16 +233,8 @@ class FrontController
 
     public function deconnexion($params)
     {
-        /* User */
-        unset($_SESSION['userId']); 
-        unset($_SESSION['userFirstname']);
-        unset($_SESSION['userStatut']);
-
-        /* Groupe */
-        unset($_SESSION['countEquiptControler']); 
-        unset($_SESSION['countEquiptReparer']); 
-        unset($_SESSION['countEquiptValide']);
-
+        session_unset();
+        
         setcookie('userMail');
         setcookie('userPass');
 

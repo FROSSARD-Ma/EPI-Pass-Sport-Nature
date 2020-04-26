@@ -8,23 +8,14 @@
 	<title>Equipement - Gestion EPI</title>
 {% endblock %}
 
-{% block headerpage %}
-
-	<h1 class="mt-4">{{ session.groupeStatut }} : {{ session.groupeName }}</h1>
-    <div class="alert alert-secondary" role="alert">
-     <h2>GESTION DE L'ÉQUIPEMENT</h2>
-    </div>
-
-{% endblock %}
-
 
 {% block main %}
-        
-        <h3>{{ equipt.getCategorie }} - {{ equipt.getActivite }}</h3>
-   
-    <section class="row justify-content-around section">
+    <br>
+    <h2>{{ equipt.getCategorie }} - {{ equipt.getActivite }}</h2>
+    <hr> 
+    <section class="row justify-content-center section">
 
-        <div class="card-deck">
+        <div class="col-12 col-sm-6 col-md-4">
             <div class="card card-image">
                 <div class="card-img-ribbon">
 
@@ -48,15 +39,14 @@
                     <img src="public/img/equipement/{{ session.groupeId }}/{{ equipt.getId }}/{{ equipt.getImage }}" class="card-img-top" alt="Photo de l'équipement">
                 </a>
                 <div class="card-body">
-                </div>
-                <div class="card-footer">
                     <a class="btn btn-primary" href="{{ equipt.getNotice }}" role="button"><i class="fas fa-atlas"></i> Notice fournisseur</a>
                 </div>
             </div>
-
-            <div class="card">
+        </div>
+        <div class="col-12 col-sm-6 col-md-4">
+            <div class="card ">
                 <div class="card-header">
-                  <h4 class="card-title"><i class="fas fa-info-circle"></i> Informations</h4>
+                  <h4 class="card-title"><i class="far fa-file-alt"></i> Informations</h4>
                 </div>
                 <div class="card-body">
                     <p><strong>Fabriquant :</strong> {{ equipt.getFabriquant }}</p>
@@ -72,37 +62,71 @@
                     </p>
                 </div>
             </div>
-    
-            <div class="card">
+        </div>
+        <div class="col-12 col-sm-6 col-md-4">
+            <div class="card ">
+            <div class="card-header">
+              <h4 class="card-title"><i class="fas fa-history"></i> Chronologie</h4>
+            </div>
+            <div class="card-body">
+                <p><strong>Fabrication :</strong> {{ equipt.getFabrication }}</p>
+                <p><strong>Achat :</strong> {{ equipt.getAchat }}</p>
+                <p><strong>Première utilisation :</strong> {{ equipt.getUtilisation}}</p>
+                <p><strong>Rebut Théorique :</strong> {{ equipt.getRebutTheorique }}</p>
+          </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-4">
+            <div class="card ">
                 <div class="card-header">
-                  <h4 class="card-title"><i class="fas fa-clipboard"></i> Particularités</h4>
+                  <h4 class="card-title"><i class="fas fa-clipboard-list"></i> Particularités</h4>
                 </div>
                 <div class="card-body">
                     <p><strong>Taille :</strong> {{ equipt.getTaille }}</p>
                     <p><strong>Couleur :</strong> {{ equipt.getCouleur }}</p>
                     <p><strong>Marquage :</strong> {{ equipt.getMarquage }} - {{ equipt.getMarquageLieu }}</p>
-                    <hr>
-                    <p><i class="fas fa-link"></i> <strong>Kit :</strong> {{ kit.getName }}</p>
-                    <p><i class="fas fa-boxes"></i> <strong>Lot :</strong> {{ lot.getName }}</p>
                 </div>
-            </div>
-          
-            <div class="card">
-                <div class="card-header">
-                  <h4 class="card-title"><i class="fas fa-history"></i> Chronologie</h4>
-                </div>
-                <div class="card-body">
-                    <p><strong>Fabrication :</strong> {{ equipt.getFabrication }}</p>
-                    <p><strong>Achat :</strong> {{ equipt.getAchat }}</p>
-                    <p><strong>Première utilisation :</strong> {{ equipt.getUtilisation}}</p>
-                    <p><strong>Rebut Théorique :</strong> {{ equipt.getRebutTheorique }}</p>
-              </div>
             </div>
         </div>
+        <div class="col-12 col-sm-6 col-md-4">
+            <div class="card ">
+                <div class="card-header">
+                  <h4 class="card-title"><i class="fas fa-link"></i> Appartenance</h4>
+                </div>
+                <div class="card-body">
+                    
+                    <p><strong>Kit :</strong> {{ kit.getName }}</p>
+                    <hr>
+                    <p><strong>Lot :</strong> {{ lot.getName }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4">
+            <div class="card ">
+                <div class="card-header">
+                  <h4 class="card-title"><i class="fas fa-file-medical-alt"></i> Gestion des contrôles sécurité</h4>
+                </div>
+                <div class="card-body">
+                    <p><i class="fas fa-hourglass-half"></i> <strong>Temps de vie :</strong> 
+                        {% if equipt.getDureeVie == '' %}
+                            Durée illimitée
+                        {% else %}
+                            {{ equipt.getBarDureeVie }} % 
+                        {% endif %}    
+                    </p>
+                    <p><i class="far fa-calendar-alt"></i> <strong>Prochain contrôle :</strong> {{ equipt.getProchainControle}}</p>
+                    <p><i class="fas fa-sync-alt"></i> <strong>Fréquence des contrôles :</strong> {{ equipt.getFrequenceControle }}</p>
+                </div>
+            </div>
+        </div>
+
+        
     </section>
 
     <!-- Visuel des dernières DONNEES -->    
-    <section class="row">
+    <section class="row justify-content-center section">
+
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
@@ -110,30 +134,14 @@
                 </div>
                 <div class="card-body">
 
-                    <div class="row">
-                        <div class="col-4">
-                            <p><i class="fas fa-hourglass-half"></i> <strong>Temps de vie :</strong> {{ equipt.getBarDureeVie }} % 
-                            </p>
+                    {% if equipt.getDureeVie == '' %}
+                        <p>Durée illimitée</p>
+                    {% else %}
+                        <div class="progress">
+                            <div class="progress-bar {{ equipt.getColorBar}} 
+                            " role="progressbar" style="width:{{ equipt.getBarDureeVie }}%" aria-valuenow="{{ equipt.getBarDureeVie }}" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <div class="col-4">
-                            <p><i class="far fa-calendar-alt"></i> <strong>Prochain contrôle :</strong> {{ equipt.getProchainControle}}</p>
-                        </div>
-                        <div class="col-4">
-                            <p><i class="fas fa-sync-alt"></i> <strong>Fréquence des contrôles :</strong> {{ equipt.getFrequenceControle }}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            {% if equipt.getDureeVie == '' %}
-                                <p>Durée illimitée</p>
-                            {% else %}
-                                <div class="progress">
-                                    <div class="progress-bar {{ equipt.getColorBar}} 
-                                    " role="progressbar" style="width:{{ equipt.getBarDureeVie }}%" aria-valuenow="{{ equipt.getBarDureeVie }}" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
+                    {% endif %}
                     
                     <table id="table_equipmt" class="display table table-bordered" width="100%" cellspacing="0">
                         <thead>
@@ -168,6 +176,7 @@
                 </div>
             </div>
         </div>
+
     </section>
 
 {% endblock %}

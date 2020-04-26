@@ -12,17 +12,20 @@
 {% endblock %}
 
 
-{% block headerpage %}
-
-    <h1 class="mt-4">{{ session.groupeStatut }} : {{ session.groupeName }}</h1>
-    <div class="alert alert-secondary" role="alert">
-     <h2>GESTION DES ÉQUIPEMENTS</h2>
-    </div>
-
-{% endblock %}
-
 
 {% block main %} 
+
+    <section class="container">
+        <h2>Ajouter un équipement</h2>
+        <hr>
+        <p><i class="fas fa-exclamation-triangle"></i> Pour optimiser la prise en charge de cet équipement, veuillez vous munir de :</p>
+        <ul>
+            <li>Sa <strong>facture</strong> (à défaut, la date d'achat),</li>
+            <li>L'<strong>équipement</strong>, pour son étiquette d'identification</li>
+            <li>Sa <strong>notice d'utilisation</strong> ou son lien url sur le site du fournisseur.</li>
+        </ul>
+        <p>Remplissez ensuite correctement le formulaire ci-dessous <i class="fas fa-hand-point-down"></i></p>
+    </section>
 
     <section class="row justify-content-center section">
         <div class="col col-8">

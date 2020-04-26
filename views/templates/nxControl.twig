@@ -12,17 +12,18 @@
 {% endblock %}
 
 
-{% block headerpage %}
 
-    <h1 class="mt-4">{{ session.groupeStatut }} : {{ session.groupeName }}</h1>
-    <div class="alert alert-secondary" role="alert">
-     <h2>CONTRÔLE SÉCURITÉ DES ÉQUIPEMENTS</h2>
-    </div>
-
-{% endblock %}
-
-
-{% block main %} 
+{% block main %}
+     <section class="container">
+        <h2>Contrôler un équipement</h2>
+        <hr>
+        <p>Pour réaliser le contrôle munissez-vous de :</p>
+        <ul>
+            <li>Un contrôle visuel</li>
+            <li>Un contrôle fonctionnel</li>
+        </ul>
+        <p>Remplissez ensuite correctement le formulaire ci-dessous.</p>
+    </section>
 
     <!-- Form AJOUT Control --> 
     <section class="row justify-content-center section">

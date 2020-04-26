@@ -10,71 +10,76 @@
 {% endblock %}
 
 
-{% block headerpage %}
-
-	<h1 class="mt-4">Mon compte</h1>
-	<ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item active">Gestion du compte {{ session.userFirstname }}</li>
-    </ol>
-
-	<p>Ergo ego senator inimicus, si ita vultis, homini, amicus esse, sicut semper fui, rei publicae debeo. Quid? si ipsas inimicitias, depono rei publicae causa, quis me tandem iure reprehendet.</p>
-{% endblock %}
-
-
 {% block main %} 
+        <br>
+        <h2>Mon compte</h2>
+        <hr>
+     
+        <section class="row justify-content-center section">
 
-        <section class="row justify-content-center">
-            <div class="col col-8 alert-primary">
-                <p>Nom du groupe : {{ user.getGroupe }}</p>
-                <p>Nom : {{ user.getName }}</p>
-                <p>Prénom : {{ user.getFirstname }}</p>
-                <p>Statut : {{ user.getStatut }}</p>
-                <p>Date inscription : {{ user.getInscription }}</p>
+            <div class="col-sm-12 col-md-8 carte">
+                <p><strong>Nom du groupe :</strong> {{ user.getGroupe }}</p>
+                <p><strong>Nom :</strong> {{ user.getName }}
+                <br><strong>Prénom :</strong> {{ user.getFirstname }}</p>
+                <p><strong>Statut :</strong> {{ user.getStatut }}</p>
+                <p><strong>Date inscription :</strong> {{ user.getInscription }}</p>
             </div>
         </section>
 
         <section class="row justify-content-center section">
-            <div class="col col-5">
-                <h3>Email</h3>
-                <form method="post" action="upMail" id="mailForm" data-parsley-validate>
-                    <div class="form-group">
-                      <label for="userMail" class="sr-only">Email</label>
-                      <input type="email" id="userMail" name="userMail" class="form-control" placeholder="{{ user.getMail }}" value="{{ user.getMail }}" required>
+            <div class="col-sm-12 col-md-6 col-lg-5">
+                <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title">Email</h3>
                     </div>
+                    <div class="card-body">
+                        <form method="post" action="upMail" id="mailForm" data-parsley-validate>
+                            <div class="form-group">
+                              <label for="userMail" class="sr-only">Email</label>
+                              <input type="email" id="userMail" name="userMail" class="form-control" placeholder="{{ user.getMail }}" value="{{ user.getMail }}" required>
+                            </div>
 
-                    <div class="form-group">
-                        
-                        <input type="checkbox" id="userNotification" name="userNotification"
-                        {{ user.getNotification ? 'checked' }} >
+                            <div class="form-group">
+                                
+                                <input type="checkbox" id="userNotification" name="userNotification"
+                                {{ user.getNotification ? 'checked' }} >
 
-                        <label for="userNotification">Activer les notifications par Email</label>
-                        <small id="passwordHelpBlock" class="form-text text-muted">
-                          La notification vous permet de recevoir un email mensuel vous informant des contrôles des EPI à effectuer prochainement ou en retard.
-                        </small>
+                                <label for="userNotification">Activer les notifications par Email</label>
+                                <small id="passwordHelpBlock" class="form-text text-muted">
+                                  La notification vous permet de recevoir un email mensuel vous informant des contrôles des EPI à effectuer prochainement ou en retard.
+                                </small>
+                            </div>
+                            <input type="hidden" name="token" id="token" value="{{ session.account_token }}"/>
+                            <button class="btn btn-primary btn-block" type="submit">Modifier Email</button>
+                        </form>   
                     </div>
-                    <input type="hidden" name="token" id="token" value="{{ session.account_token }}"/>
-                    <button class="btn btn-primary btn-block" type="submit">Modifier Email</button>
-                </form>    
+                </div>
             </div>
 
-            <div class="col col-5">
-                <h3>Changer Mot de passe</h3>
-                <form method="post" action="upPass" id="passForm" enctype="multipart/form-data" data-parsley-validate>
-                    <div class="form-group">
-                        <label for="userPass1" class="sr-only">Nouveau Mot de passe</label>
-                        <input type="password" id="userPass1" name="userPass1" class="form-control" placeholder="Choisir un mot de passe" pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{6,20})" required>
+             <div class="col-sm-12 col-md-6 col-lg-5">
+                <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title">Changer Mot de passe</h3>
                     </div>
+                    <div class="card-body">
+                        <form method="post" action="upPass" id="passForm" enctype="multipart/form-data" data-parsley-validate>
+                            <div class="form-group">
+                                <label for="userPass1" class="sr-only">Nouveau Mot de passe</label>
+                                <input type="password" id="userPass1" name="userPass1" class="form-control" placeholder="Choisir un mot de passe" pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{6,20})" required>
+                            </div>
 
-                    <div class="form-group">
-                        <label for="userPass2" class="sr-only">Confirmer le nouveau le mot de passe</label>
-                        <input type="password" id="userPass2" name="userPass2" class="form-control" placeholder="Confirmer le mot de passe" pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{6,20})"required>
-                        <small class="form-text text-muted">
-                          Votre mot de passe doit comporter de 6 à 20 caractères, au moins une lettre minuscule, au moins une lettre majuscule, au moins un chiffre, au moins un de ces caractères spéciaux: $ @ % * + - _ ! , aucun autre caractère possible, pas d'espace.
-                        </small>
+                            <div class="form-group">
+                                <label for="userPass2" class="sr-only">Confirmer le nouveau le mot de passe</label>
+                                <input type="password" id="userPass2" name="userPass2" class="form-control" placeholder="Confirmer le mot de passe" pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{6,20})"required>
+                                <small class="form-text text-muted">
+                                  Votre mot de passe doit comporter de 6 à 20 caractères, au moins une lettre minuscule, au moins une lettre majuscule, au moins un chiffre, au moins un de ces caractères spéciaux: $ @ % * + - _ ! , aucun autre caractère possible, pas d'espace.
+                                </small>
+                            </div>
+                            <input type="hidden" name="token" id="token" value="{{ session.account_token }}"/>
+                            <button class="btn btn-primary btn-block" type="submit">Modifier mot de passe</button>
+                        </form>
                     </div>
-                    <input type="hidden" name="token" id="token" value="{{ session.account_token }}"/>
-                    <button class="btn btn-primary btn-block" type="submit">Modifier mot de passe</button>
-                </form>    
+                </div>  
             </div>
         </section>
 

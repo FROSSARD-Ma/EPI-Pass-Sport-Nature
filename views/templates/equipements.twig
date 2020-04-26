@@ -8,32 +8,28 @@
 	<title>Equipements - Gestion EPI</title>
 {% endblock %}
 
-{% block headerpage %}
-
-	<h1 class="mt-4">{{ session.groupeStatut }} : {{ session.groupeName }}</h1>
-    <div class="alert alert-secondary" role="alert">
-     <h2>GESTION DES ÉQUIPEMENTS</h2>
-    </div>
-
-{% endblock %}
-
 
 {% block main %}
 
     <section class="row section">
         
-        <div class="col-7">
-            <p>Retrouvez l'ensemble de vos équipements sportifs sur cette page.
+        <div class="col-sm-12 col-md-6">
+            <h2>Équipements</h2>
+            <hr>
+           <p>Retrouvez l'ensemble de vos équipements sportifs sur cette page.
             <br>En un coup d'oeil vous pouvez voir l'état de chacun d'eux, les tâches qui sont à réaliser, les réparations ou les contrôles sécurité à réaliser. Ajoutez également vos nouveaux équipements !</p>
         </div>
-
-        <div class="col-5">
-           <p class="btn btn-primary vignette">{{ session.countEquiptReparer > 1  ? 'RÉPARATIONS' : 'RÉPARATION' }}<br><span>{{ session.countEquiptReparer }}</span></a>
-
+        <div class="col-sm-6 col-md-3">
+            <p class="btn btn-danger vignette">{{ session.countControleRetard > 1  ? 'RETARDS' : 'RETARD' }}<br><span>{{ session.countControleRetard }}</span></a>
+            </p>
             <p class="btn btn-warning vignette">{{ session.countEquiptControler > 1  ? 'CONTRÔLES' : 'CONTRÔLE' }}<br><span>{{ session.countEquiptControler }}</span></a>
             </p>
-
+        </div>
+        <div class="col-sm-6 col-md-3">
             <p class="btn btn-success vignette">{{ session.countEquiptValide > 1  ? 'VALIDES' : 'VALIDE' }}<br><span>{{ session.countEquiptValide }}</span></a>
+            </p>
+
+            <p class="btn btn-primary vignette">{{ session.countEquiptReparer > 1  ? 'RÉPARATIONS' : 'RÉPARATION' }}<br><span>{{ session.countEquiptReparer }}</span></a>
             </p>
         </div>
     </section>

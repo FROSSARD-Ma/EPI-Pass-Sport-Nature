@@ -5,21 +5,18 @@
 {% endblock %}
 
 
-{% block headerpage %}
-	<h1 class="mt-4">Mon Compte</h1>
-	<ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item active">Demande d'un nouveau mot de passe</li>
-    </ol>
-
-	<p>Ergo ego senator inimicus, si ita vultis, homini, amicus esse, sicut semper fui, rei publicae debeo. Quid? si ipsas inimicitias, depono rei publicae causa, quis me tandem iure reprehendet, praesertim cum ego omnium meorum consiliorum atque factorum exempla semper ex summorum hominum consiliis atque factis mihi censuerim petenda.</p>
-
-{% endblock %}
-
-
 {% block main %}
 
-    <div class="row justify-content-center">
-        <div class="col-6">
+    <section class="container">
+        <h2>Réinitialiser mon mot de passe</h2>
+        <hr>
+        <p>Un oubli, un problème avec votre mot de passe ?
+        <br>Vous pouvez obtenir le lien pour ré-initialiser votre mot de passe en remplissant le formulaire ci-dessous <i class="fas fa-hand-point-down"></i>
+        </p>
+    </section>
+
+    <section class="row justify-content-center section">    
+        <div class="col-sm-12 col-md-10 carte">
   
             <form method="post" action="askPassMail" data-parsley-validate>
                 <div class="form-group">
@@ -29,10 +26,10 @@
 
                 <input type="hidden" name="token" id="token" value="{{ session.nxPass_token }}"/>
 
-                <button class="btn btn-primary" type="submit">Demander un nouveau mot de passe</button>
+                <button class="btn btn-primary right" type="submit">Demander un nouveau mot de passe</button>
             </form>
         </div>
-    </div>
+    </section>
 
 {% endblock %}
 
