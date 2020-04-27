@@ -8,20 +8,56 @@
 </section>
 
 <nav class="sidebar-nav">
+	<ul class="navbar-nav">
 
-  <a id="dashboard-btn"class="btn btn-primary" href="dashboard" role="button">Tableau de bord</a>
+		
+	  	<li class="nav-item">
+          	<a class="nav-link" class="" href="dashboard"><i class="fas fa-tachometer-alt"></i> Tableau de bord
+          		{% if session.countControleRetard > 0 %}
+          			<span class="badge badge-danger right">{{ session.countControleRetard }}</span>
+          		{% endif %}
+          	</a>
+      	</li>
+	  	<li class="nav-item">
+          	<a class="nav-link" href="equipements"><i class="fas fa-th"></i> Équipements
+          	{% if session.countEquiptValide > 0 %}
+          			<span class="badge badge-success right">{{ session.countEquiptValide }}</span>
+          		{% endif %}
+          	</a>
+      	</li>
 
-  <a id="equip-btn" class="btn btn-primary" href="equipements" role="button">Équipements</a>
-  	<div id="equip-btn-elt">
-		<a class="btn btn-success" href="nxEquipt" role="button">Ajouter</a>
-		<a class="btn btn-success" href="upEquipt/id/{{ equipt.getId }}" role="button">Modifier</a>
-		<a class="btn btn-success" href="nxControl/id/{{ equipt.getId }}" role="button">Controler</a>
-		<a class="btn btn-success" href="#" role="button">Imprimer</a>
-	</div>
+			<ul class="submenu">
+				<li class="nav-item">
+		          	<a class="nav-link" href="equipements"><i class="fas fa-th-list"></i> Liste</a>
+		      	</li>
+				<li class="nav-item">
+		          	<a class="nav-link" href="nxEquipt"><i class="far fa-plus-square"></i> Ajouter</a>
+		      	</li>
+				<li class="nav-item">
+		          	<a class="nav-link" href=""><i class="fas fa-history"></i> Historique</a>
+		      	</li>
+			</ul>
 
-  <a id="calendar-btn" class="btn btn-primary" href="calendrier" role="button">Calendrier</a>
+	  	<li class="nav-item">
+          	<a class="nav-link" href="calendrier"><i class="fas fa-calendar-alt"></i> Calendrier
+          		{% if session.countEquiptReparer > 0 %}
+          			<span class="badge badge-primary right"> {{ session.countEquiptReparer }} </span>
+          		{% endif %}
+          		{% if session.countEquiptControler > 0 %}
+          			<span class="badge badge-warning right"> {{ session.countEquiptControler }} </span>
+          		{% endif %}
+          	</a>
+      	</li>
 
-  <a id="history-btn" class="btn btn-primary" href="#" role="button">Historique</a>
+      	<li class="nav-header">INFORMATIONS</li>
+			<ul class="submenu">
+		      	<li class="nav-item">
+		          	<a class="nav-link" href=""><i class="fas fa-file"></i> Documentation</a>
+		      	</li>
 
+		      	<li class="nav-item">
+		          	<a class="nav-link" href=""><i class="fas fa-landmark"></i> Recommandations</a>
+		      	</li>
+		    </ul>
+	</ul>
 </nav>
-

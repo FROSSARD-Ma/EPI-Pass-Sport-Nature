@@ -29,6 +29,8 @@
 
 .right {
   float: right !important;
+  margin-bottom: 10px;
+  margin-left: 10px;
 }
 
 .alert {
@@ -206,6 +208,12 @@ main .container h2 {
   padding-right: 0px;
   padding-left: 0px;
   background-color: #344255;
+  color: #BFBDC6;
+}
+.sidebar .nav-link {
+  display: block;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
 }
 .sidebar .sidebar-header {
   display: inline-flex;
@@ -226,10 +234,33 @@ main .container h2 {
   display: flex;
   flex-flow: column;
   margin-top: 50px;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
 }
-.sidebar .sidebar-nav a {
-  width: 80%;
-  margin: 5% 10%;
+.sidebar .sidebar-nav .nav-item {
+  margin-bottom: 1em;
+}
+.sidebar .sidebar-nav .nav-header {
+  padding: 1.7rem 1rem 0.5rem;
+}
+.sidebar .sidebar-nav .submenu {
+  list-style: none;
+  padding-left: 15px;
+}
+.sidebar .sidebar-nav .submenu .nav-item {
+  margin-bottom: 0.3em;
+}
+.sidebar .sidebar-nav .submenu .nav-link {
+  padding: 0.5rem;
+}
+.sidebar .sidebar-nav a, .sidebar .sidebar-nav a:hover {
+  color: white;
+  width: 100%;
+  text-decoration: none;
+}
+.sidebar .sidebar-nav a:hover {
+  background-color: #475b75;
 }
 
 /* MESSAGE ===================== */
