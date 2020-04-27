@@ -23,11 +23,18 @@ class Equipement extends Manager
     private $_eq_statut;
 
     // Dates
-    private $_eq_fabrication;
+    private $_eq_fabricationFr;
+
     private $_eq_achat;
+    private $_eq_achatFr;
+
     private $_eq_utilisation;
+    private $_eq_utilisationFr;
+
     private $_eq_rebutTheorique;
-    private $_eq_prochainControle;
+    private $_eq_rebutTheoriqueFr;
+
+    private $_eq_prochainControleFr;
 
     //Paramètres
     private $_eq_frequenceControle;
@@ -133,19 +140,37 @@ class Equipement extends Manager
         // Dates
         public function getFabrication()
         { 
-            return $this->_eq_fabrication; 
+            return $this->_eq_fabricationFr; 
         }
         public function getAchat()
         { 
             return $this->_eq_achat; 
         }
+        public function getAchatFr()
+        { 
+            $date = new DateTime($this->_eq_achat);
+            $this->_eq_achatFr = $date->format('d-m-Y');
+            return $this->_eq_achatFr;
+        }
         public function getUtilisation()
         { 
             return $this->_eq_utilisation; 
         }
+        public function getUtilisationFr()
+        { 
+            $date = new DateTime($this->_eq_utilisation);
+            $this->_eq_utilisationFr = $date->format('d-m-Y');
+            return $this->_eq_utilisationFr;
+        }
         public function getRebutTheorique()
         { 
             return $this->_eq_rebutTheorique; 
+        }
+        public function getRebutTheoriqueFr()
+        { 
+            $date = new DateTime($this->_eq_rebutTheorique);
+            $this->_eq_rebutTheoriqueFr = $date->format('d-m-Y');
+            return $this->_eq_rebutTheoriqueFr;
         }
         public function getProchainControle()
         { 
@@ -356,7 +381,7 @@ class Equipement extends Manager
             if ($dateCreated)
             {
                 $date = new DateTime($dateCreated);
-                $this->_eq_fabrication = $date->format('d-m-Y');
+                $this->_eq_fabricationFr = $date->format('d-m-Y');
             }
         }
         public function setEq_achat($dateCreated)
@@ -364,7 +389,7 @@ class Equipement extends Manager
             if ($dateCreated)
             {
                 $date = new DateTime($dateCreated);
-                $this->_eq_achat = $date->format('d-m-Y');
+                $this->_eq_achat = $date->format('Y-m-d');
             }
         }
         public function setEq_utilisation($dateCreated)
@@ -372,7 +397,7 @@ class Equipement extends Manager
             if ($dateCreated)
             {
                 $date = new DateTime($dateCreated);
-                $this->_eq_utilisation = $date->format('d-m-Y');
+                $this->_eq_utilisation = $date->format('Y-m-d');
             }
         }
         public function setEq_rebutTheorique($dateCreated)
@@ -380,7 +405,7 @@ class Equipement extends Manager
             if ($dateCreated)
             {
                 $date = new DateTime($dateCreated);
-                $this->_eq_rebutTheorique = $date->format('d-m-Y');
+                $this->_eq_rebutTheorique = $date->format('Y-m-d');
             }
         }
         public function setEq_prochainControle($dateCreated)
