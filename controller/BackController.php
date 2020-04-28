@@ -183,7 +183,7 @@ class BackController
 			    	}
 			    	else
 			    	{
-						$imageControle= 'equipement.png';
+						$imageControle= '';
 			    	}
 
 					$controleManager = new \Epi_Model\ControleManager; 

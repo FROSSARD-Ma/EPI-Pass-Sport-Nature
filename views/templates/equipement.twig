@@ -35,13 +35,19 @@
                         </div>
                     {% endif %}
                 </div>
-                <a href="public/img/equipement/{{ session.groupeId }}/{{ equipt.getId }}/{{ equipt.getImage }}" target="_blank" title="Voir la photo">
-                    <img src="public/img/equipement/{{ session.groupeId }}/{{ equipt.getId }}/{{ equipt.getImage }}" class="card-img-top" alt="Photo de l'équipement">
-                </a>
+                {% if equipt.getImage %}
+                    <a href="public/img/equipement/{{ session.groupeId }}/{{ equipt.getId }}/{{ equipt.getImage }}" target="_blank" title="Voir la photo">
+                        <img src="public/img/equipement/{{ session.groupeId }}/{{ equipt.getId }}/{{ equipt.getImage }}" class="card-img-top" alt="Photo de l'équipement">
+                    </a>
+                {% else %}
+                    <img src="public/img/equipement/equipement.png" class="card-img-top" alt="Photo de l'équipement">
+                {% endif %}    
 
-                <div class="card-body">
-                <a class="btn btn-primary" href="{{ equipt.getNotice }}" role="button"><i class="fas fa-atlas"></i> Notice fournisseur</a>
-                </div>
+                {% if equipt.getNotice %} 
+                    <div class="card-body">
+                    <a class="btn btn-primary" href="{{ equipt.getNotice }}" role="button"><i class="fas fa-atlas"></i> Notice fournisseur</a>
+                    </div>
+                {% endif %}
             </div>
         </div>
         <div class="col-12 col-sm-6 col-md-4">
