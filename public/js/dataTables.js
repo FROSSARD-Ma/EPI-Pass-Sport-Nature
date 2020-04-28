@@ -4,6 +4,7 @@
 $(document).ready(function() {
     $('#tableau').DataTable( {
         order: [[ 3, "desc" ]],
+        responsive: true,
         language: {
         processing:     "Traitement en cours...",
         search:         "Rechercher&nbsp;:",
