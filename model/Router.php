@@ -25,7 +25,7 @@ class Router {
         "calendrier"    => ['FrontController','calendrier'],
         "reglementation"=> ['FrontController','reglementation'],
         "documentation" => ['FrontController','documentation'],
-    
+        "historique"    => ['FrontController','historique'],
         
     // ---- BACK Controller -----------------------------------------------------
         "creatEquipt"    => ['BackController','creatEquipt'],

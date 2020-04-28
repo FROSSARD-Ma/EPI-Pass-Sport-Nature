@@ -13,7 +13,12 @@ class Controle extends Manager
     private $_controle_equipementId;
     private $_controle_userId;
 
-    // Jointures id
+    // Jointures id Equipt
+    private $_eq_reference;
+    private $_eq_modele;
+    private $_eq_statut;
+
+    // Jointures id Controleur
     private $_user_name;
     private $_user_firstname;
 
@@ -36,7 +41,6 @@ class Controle extends Manager
             }
         }
     }
-
     // Liste des GETTERS --------------------------------------
         public function getId()
         { 
@@ -62,10 +66,43 @@ class Controle extends Manager
         { 
             return $this->_controle_image; 
         }
+
+        // Equipement
         public function getEquipementId()
         {
             return $this->_controle_equipementId;
         }
+        public function getEqStatut()
+        { 
+            return $this->_eq_statut; 
+        }
+
+        public function getColorStatut()
+        { 
+            if($this->getEqStatut() == 'Valide') // timestamp
+            {
+                echo 'badge-success';
+            }
+            elseif($this->getEqStatut() == 'À réparer') // timestamp
+            {
+                echo 'badge-primary';
+            }
+            else
+            { 
+                echo 'badge-warning';
+            }
+        }
+        
+        public function getEqModele()
+        { 
+            return $this->_eq_modele; 
+        }
+        public function getEqReference()
+        { 
+            return $this->_eq_reference; 
+        }
+
+        // Controleur
         public function getUserId()
         { 
             return $this->_controle_userId; 
@@ -125,6 +162,7 @@ class Controle extends Manager
               $this->_controle_image = $image;
             }
         }
+
         public function setControle_equipementId($equipementId)
         {
             $id = (int) $equipementId;
@@ -134,6 +172,28 @@ class Controle extends Manager
                 $this->_controle_equipementId = $id;
             }
         }
+        public function SetEq_statut($statut)
+        { 
+            if (is_string($statut))
+            {
+                $this->_eq_statut = $statut;
+            }
+        }
+        public function SetEq_modele($modele)
+        { 
+            if (is_string($modele))
+            {
+                $this->_eq_modele = $modele;
+            }
+        }
+        public function SetEq_reference($reference)
+        { 
+            if (is_string($reference))
+            {
+                $this->_eq_reference = $reference;
+            }
+        }
+
         public function setControle_userId($userId)
         {
             $id = (int) $userId;

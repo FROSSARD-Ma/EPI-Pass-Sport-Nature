@@ -1,0 +1,66 @@
+{% extends 'content-sidebar-S.twig' %}
+
+{% block sidebar %}
+    {% include('sidebarNav.twig') %}
+{% endblock %}
+
+{% block title %}
+	<title>Historique - Gestion EPI</title>
+{% endblock %}
+
+
+{% block main %}
+
+    <section class="container">
+        <h2>Historique</h2>
+        <hr>
+        <p>Retourner un aperçut des derniers contrôles réalisés au sein de votre groupe.</p>
+    </section>
+
+    <!-- Visuel des dernières DONNEES -->    
+    <section class="row justify-content-center section">
+        <div class="card">
+            <div class="card-header">
+              <h3 class="card-title"><i class="fas fa-calendar-alt"></i> Historique des contrôles de vos EPI</h3>
+            </div>
+            <table id="tableau" class="display table table-bordered" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Équipement</th>
+                            <th>Responsable contrôle</th>
+                            <th>Observation</th>
+                            <th>Statut</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for controle in controles %}
+                            <tr>
+                                <td>{{ controle.getDate }}</td>
+                                <td>
+                                    <a href="equipement/id/{{ controle.getEquipementId }}" class="badge badge-pill badge-primary" data-toggle="tooltip" data-placement="top" title="Cliquez pour voir de détails de l'équipement.">
+                                    <i class="fas fa-search"></i></a>
+                                    {{ controle.getEqReference }} - {{ controle.getEqModele }} 
+                                </td>
+                                <td>{{ controle.getUserName }} {{ controle.getUserFirstname }}</td>
+                                <td>{{ controle.getObservations }}</td>
+                                <td>
+                                    <a href="equipement/id/{{ controle.getEquipementId }}" class="badge badge-pill {{ controle.getColorStatut }}" data-toggle="tooltip" data-placement="top" title="Équipement {{ controle.getEqStatut }}!">{{ controle.getEqStatut }}
+                                    </a>
+                                    </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+            </table>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block javascript %}
+    <script src="vendor/datatables/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="public/js/dataTables.js"></script>
+
+{% endblock %}
+

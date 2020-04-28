@@ -216,6 +216,22 @@ class FrontController
             'equipts'=> $equipts));
     }
 
+    public function historique($params)
+    {
+         /* Liste Controles */
+        $controleManager = new \Epi_Model\ControleManager;
+        $dataControles = $controleManager->getGroupeControles($_SESSION['groupeId']);
+        foreach ($dataControles as $data)
+        {
+            $controle = new \Epi_Model\Controle($data);
+            $controles[] = $controle; // Tableau d'objet
+        }
+
+        $nxView = new \Epi_Model\View('historique');
+        $nxView->getView(array (
+            'controles'=> $controles));
+    }
+
     public function account($params)
     {
         $csrf = new \Epi_Model\SecuriteCsrf('account');
@@ -290,7 +306,7 @@ class FrontController
         $nxView->getView();
     }
   
-     public function documentation($params)
+    public function documentation($params)
     {
         $nxView = new \Epi_Model\View('documentation');
         $nxView->getView();
