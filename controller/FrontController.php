@@ -284,6 +284,13 @@ class FrontController
         }
     }
 
+     public function documentation($params)
+    {
+        $nxView = new \Epi_Model\View('documentation');
+        $nxView->getView();
+    }
+
+
     /* Link Button ----------------------------*/
     public function inscription($params)
     {
