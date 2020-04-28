@@ -1,4 +1,8 @@
-{% extends 'content-sidebar-L.twig' %}
+{% extends 'content-sidebar-S.twig' %}
+
+{% block sidebar %}
+    {% include('sidebarNav.twig') %}
+{% endblock %}
 
 {% block title %}
 	<title>Documentation - Gestion EPI</title>
