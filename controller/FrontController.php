@@ -283,13 +283,18 @@ class FrontController
             $nxView->redirectView('page404');
         }
     }
-
+  
+    public function reglementation($params)
+    {
+        $nxView = new \Epi_Model\View('reglementation');
+        $nxView->getView();
+    }
+  
      public function documentation($params)
     {
         $nxView = new \Epi_Model\View('documentation');
         $nxView->getView();
     }
-
 
     /* Link Button ----------------------------*/
     public function inscription($params)
