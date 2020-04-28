@@ -1,72 +1,62 @@
-<nav id="topNav" class="navbar sticky-top  navbar-expand-lg navbar-light bg-light">
-  
-  <div>
-    <a class="navbar-brand" href="https://pass-sport-nature.fr/" target="_blank" >
-      <img id="logo" src="public/img/logo.jpg">
-    </a>
-  </div>
-  <div id="pass-nature">
-    <div class="pass-titre">
-        <p class="pass-orange">PASS'</p>
-        <p class="pass-nom">Sport EPI</p>
-    </div>
-  </div>
-  <div id="pass-epi">
-        <p class="titre">Gestion Équipements de Sports</p>
-        <p class="pass-accroche">Sécurisez votre pratique sportive</p>
-        <p class="pass-bleu">NEIGE - TERRE - EAU - AIR</p>
-  </div>
+<nav id="navTop" class="navbar sticky-top navbar-expand-sm navbar-light bg-light">
 
-  
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+      <div id="logo" class="pass-nature">
+        <a href="https://pass-sport-nature.fr/" target="_blank" >
+          <p class="pass-orange">PASS'</p>
+          <p class="pass-nom">Sport Nature</p>
+        </a>
+      </div>
 
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-      {% if session.userId %}
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ml-auto">
 
-        <li class="nav-item">
-          <a class="nav-link" href="dashboard">Tableau de bord</a>
-        </li>
+          {% if session.userId %}
 
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle"  href="equipements" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Équipements</a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="equipements">Liste équipements</a>
-            <a class="dropdown-item" href="nxEquipt">Ajouter équipement</a>
-          </div>
-        </li>
+            <li class="nav-item">
+              <a class="nav-link" href="dashboard">Tableau de bord</a>
+            </li>
 
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle"  href="calendrier" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Contrôles EPI</a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="calendrier">Calendrier</a>
-            <a class="dropdown-item" href="historique">Historique</a>
-          </div>
-        </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle"  href="equipements" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Équipements</a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="equipements">Liste équipements</a>
+                <a class="dropdown-item" href="nxEquipt">Ajouter équipement</a>
+              </div>
+            </li>
 
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle"  href="account" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mon compte</a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="account">Mon compte</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="deconnexion">Se déconnecter</a>
-          </div>
-        </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle"  href="calendrier" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Contrôles EPI</a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="calendrier">Calendrier</a>
+                <a class="dropdown-item" href="historique">Historique</a>
+              </div>
+            </li>
 
-      {% else %}
-        <li class="nav-item active">
-          <a class="nav-link" href="home">Accueil</a>
-        </li>
-      {% endif %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle"  href="account" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mon compte</a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="account">Mon compte</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="deconnexion">Se déconnecter</a>
+              </div>
+            </li>
 
-      <li class="nav-item">
-        <a class="nav-link" href="contact">Contact</a>
-      </li>
+          {% else %}
+            <li class="nav-item active">
+              <a class="nav-link" href="home">Accueil</a>
+            </li>
+          {% endif %}
+
+          <li class="nav-item">
+            <a class="nav-link" href="contact">Contact</a>
+          </li>
 
 
-    </ul>
-  </div>
+        </ul>
+      </div>
+
 </nav>

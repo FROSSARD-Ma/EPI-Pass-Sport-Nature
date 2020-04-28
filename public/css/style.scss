@@ -78,63 +78,65 @@ $primary:#007bff;
   	}
 } 
 
+// LOGO ===============================
+.pass-nature {
+	position: relative;
+	display: flex;
+	text-align: left;
+	top: -15px;
+	min-width: 165px;
 
+	a, a:hover {
+		color: $texte-fonce;
+		text-decoration: none;
+	}
+	
+	.pass-titre {
+		margin: 15px; 
+	}
+	.pass-orange {
+		position: absolute;
+		line-height: 110%;
+		color: white;
+		font-size: 1.5em;
+		font-weight: bold;
+		background-color: $orang;
+		transform: rotate(-10deg);
+		margin:0;
+		padding: 1px 5px;
+		width: 71px;
+		top:-6px;
+	}
+	.pass-nom {
+		position: absolute;
+		width: 100%;
+		font-weight: bold;
+		font-size: 1.3em;
+		margin:0;
+		top:15px;
+	}
+}
 
 
 /* HEADER ====================== */
-nav#topNav {
+
+header#entete {
+	display: none;
 	font-family: 'Roboto Condensed', sans-serif;
 	background-color: white;
-	padding: 0.5em;
-	display: flex;
-	justify-content: space-between;
+	padding: 1em;
+	justify-content: space-around;
+	width: 100%;
 	align-items: center;
 
-
-	a:hover {
-		color: $texte-fonce;
-	}
-
-	img#logo {
-		height: 45px;
-	}
-
-	.dropdown-menu a, a:hover {
-		color:  $texte-fonce;
-	}
-
-	#pass-nature {
-		position: relative;
-		display: flex;
-		text-align: left;
-		top: -15px;
-		
-		.pass-titre {
-			margin: 15px; 
-		}
-		.pass-orange {
-			line-height: 110%;
-			color: white;
-			font-size: 1.5em;
-			font-weight: bold;
-			background-color: $orang;
-			transform: rotate(-10deg);
-			margin:0;
-			padding: 0 5px;
-		}
-		.pass-nom {
-			position: absolute;
-			width: 100%;
-			font-weight: bold;
-			font-size: 1.5em;
-			margin:0;
-			top:33px;
-		}
-	}
-
 	#pass-epi {
-		display: none;
+		display: flex;
+		flex-direction: column;
 		text-align: center;
+
+		p {
+			margin:0;
+		}
 
 		.titre {
 			font-size: 2em;
@@ -156,8 +158,23 @@ nav#topNav {
 		}
 	}
 
-	#pass-nav {
-	
+}
+
+/* NAV ========================== */
+
+nav#navTop {
+	background-color: white;
+	padding: 0.5em;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	#logo {
+		display: block;
+	}
+
+	.dropdown-menu a, a:hover {
+		color:  $texte-fonce;
 	}
 }
 
@@ -251,7 +268,7 @@ main {
 
 /* SIDEBAR ===================== */
 .sidebar {
-
+	display: none;
 	padding-right: 0px;
     padding-left: 0px;
     background-color: $fond-fonce;
@@ -422,14 +439,32 @@ footer {
 /* -- TABLET  ---------------------------------------------------- */
 @media all and (min-width: 768px)
 {
-	nav#topNav {
-		img#logo {
-			height: 80px;
-		}
+	header#entete {
+		display: inline-flex;
 
-		#pass-epi {
-			display: block;
+		.pass-orange {
+			font-size: 2.3em;
+			padding: 1px 10px;
+			width: 110px;
+			top:-15px;
 		}
+		.pass-nom {
+			font-size: 1.9em;
+			top:15px;
+		}
+	}
+
+	nav#navTop {
+
+		padding: 0.5em 1em;
+
+		#logo {
+			display: none;
+		}
+	}
+
+	.sidebar {
+		display: block;
 	}
 
 	.section {
@@ -448,29 +483,18 @@ footer {
 /* -- ORDI  ---------------------------------------------------- */
 @media all and (min-width: 993px)
 {
-	nav#topNav {
-
-		padding: 0.5em 1em;
-
-		img#logo {
-			height: 100px;
+	header#entete {
+		.pass-orange {
+			font-size: 2.5em;
+			top:-18px;
 		}
-		#pass-nature {
-			min-width: 170px;
-			.pass-orange {
-				font-size: 2.4em;
-				padding: 0 10px;
-			}
-			.pass-nom {
-				font-size: 2.5em;
-				top:40px;
-			}
-		}
-
-		#pass-epi {
-			display: block;
+		.pass-nom {
+			font-size: 2em;
 		}
 	}
+
+
+
 
 	/* CARD ======================== */
 	.card-body {
