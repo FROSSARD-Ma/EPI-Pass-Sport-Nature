@@ -10,6 +10,7 @@ $(function () {
 const form = document.querySelector('form');
 $('form').parsley();
 
+
 window.Parsley.addValidator('maxFileSize', {
   validateString: function(_value, maxSize, parsleyInstance) {
     if (!window.FormData) {
@@ -24,9 +25,3 @@ window.Parsley.addValidator('maxFileSize', {
     fr: 'Ce fichier est plus grand que %s Kb.'
   }
 });
-
-
-// TABLEAU --------------------------------------------
-$(document).ready(function() {
-    $('#tableEquipt').DataTable();
-} );

@@ -23,257 +23,251 @@
 
 
 {% block main %} 
-        <form id="form-addEquipt" method="post" action="updateEquipt/id/{{ equipt.getId }}" enctype="multipart/form-data" data-parsley-validate>
+    <form id="upEquiptForm" method="post" action="updateEquipt/id/{{ equipt.getId }}" enctype="multipart/form-data" data-parsley-validate>
 
-    <section class="row section">
+        <section class="row section">
 
-        <div class="col col-3">
-            <div class="card card-image">
-                <div class="card-img-ribbon">
+            <div class="col col-3">
+                <div class="card card-image">
+                    <div class="card-img-ribbon">
 
-                    {% if equipt.getStatut == 'À contrôler' %}
-                       <div class="ribbon bg-danger">
-                            <p>À contrôler</p>
-                        </div>
-                    {%  elseif equipt.getStatut == 'À réparer' %}
-                        <div class="ribbon bg-warning">
-                        <font style="vertical-align: inherit;">
-                            À réparer
-                            </font>
-                        </div>
+                        {% if equipt.getStatut == 'À contrôler' %}
+                           <div class="ribbon bg-danger">
+                                <p>À contrôler</p>
+                            </div>
+                        {%  elseif equipt.getStatut == 'À réparer' %}
+                            <div class="ribbon bg-warning">
+                            <font style="vertical-align: inherit;">
+                                À réparer
+                                </font>
+                            </div>
+                        {% else %}
+                            <div class="ribbon bg-success">
+                                <p>Valide</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% if equipt.getImage %}
+                        <a href="public/img/equipement/{{ session.groupeId }}/{{ equipt.getId }}/{{ equipt.getImage }}" target="_blank" title="Voir la photo">
+                            <img src="public/img/equipement/{{ session.groupeId }}/{{ equipt.getId }}/{{ equipt.getImage }}" class="card-img-top" alt="Photo de l'équipement">
+                        </a>
                     {% else %}
-                        <div class="ribbon bg-success">
-                            <p>Valide</p>
-                        </div>
+                        <img src="public/img/equipement/equipement.png" class="card-img-top" alt="Photo de l'équipement">
                     {% endif %}
                 </div>
-
-                <img src="public/img/equipement/{{ session.groupeId }}/{{ equipt.getId }}/{{ equipt.getImage }}" class="card-img-top" alt="Photo de l'équipement">
             </div>
-        </div>
-
-        <!-- FABRICATION -->    
-        <div class="col col-9">
-            <div class="card">
-                <div class="card-header">
-                  <h4 class="card-title">{{ equipt.getCategorie }} - {{ equipt.getActivite }}</h4>
-                </div>
-                <div class="card-body">
-                    <p><strong>Fabriquant :</strong> {{ equipt.getFabriquant }}</p>
-                    <p><strong>Modèle :</strong> {{ equipt.getModele }}</p>
-                    <p><strong>Référence :</strong> {{ equipt.getReference }}</p>
-                    <p><strong>N° série :</strong> {{ equipt.getSerie }}</p>
-                    <p><strong>Fabrication :</strong> {{ equipt.getFabrication }}</p>
-
-                    <hr>
-                    
-                    <div class="form-group row">
-                        <label for="statut" class="col-sm-3 col-form-label"><strong>Statut</strong></label>
-                        <div class="col-sm-9">
-                           <select class="form-control" id="statut" name="statut">
-                                <option value="{{ equipt.getStatut }}">{{ equipt.getStatut }}</option>
-                                <option value="">-------------</option>
-                                <option value="Valide">Valide</option>
-                                <option value="À contrôler">À contrôler</option>
-                                <option value="À réparer">À réparer</option>
-                            </select>
-                        </div>
+            <!-- FABRICATION -->    
+            <div class="col col-9">
+                <div class="card">
+                    <div class="card-header">
+                      <h4 class="card-title">{{ equipt.getCategorie }} - {{ equipt.getActivite }}</h4>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label" for="image" >Image</label>
-                        <div class="col-sm-9">
-                            <input type="file" name="image" data-parsley-max-file-size="500"/>
-                            <p class="required">Fichier (jgp, png, gif) - 500 Ko Max</p>
+                    <div class="card-body">
+                        <p><strong>Fabriquant :</strong> {{ equipt.getFabriquant }}</p>
+                        <p><strong>Modèle :</strong> {{ equipt.getModele }}</p>
+                        <p><strong>Référence :</strong> {{ equipt.getReference }}</p>
+                        <p><strong>N° série :</strong> {{ equipt.getSerie }}</p>
+                        <p><strong>Fabrication :</strong> {{ equipt.getFabrication }}</p>
+
+                        <hr>
+                        
+                        <div class="form-group row">
+                            <label for="statut" class="col-sm-3 col-form-label"><strong>Statut</strong></label>
+                            <div class="col-sm-9">
+                               <select class="form-control" id="statut" name="statut">
+                                    <option value="{{ equipt.getStatut }}">{{ equipt.getStatut }}</option>
+                                    <option value="">-------------</option>
+                                    <option value="Valide">Valide</option>
+                                    <option value="À contrôler">À contrôler</option>
+                                    <option value="À réparer">À réparer</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label" for="image" >Image</label>
+                            <div class="col-sm-9">
+                                <input type="file" name="image" data-parsley-max-file-size="500"/>
+                                <p class="required">Fichier (jgp, png, gif) - 500 Ko Max</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <section class="row justify-content-center section">       
+        </section>
 
-        <!-- CARACTÉRISTIQUES -->
-        <div class="col col6">
-            <div class="card">
-                <div class="card-header">
-                  <h4 class="card-title">Caractéristiques</h4>
-                </div>
-                <div class="card-body">
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label" for="matiere">Matière <span class="required">*</span></label>
-                        <div class="col-sm-9">
-                            <div class="custom-control custom-checkbox">
-                              <input type="checkbox" id="matiereMetal" name="matiereMetal"class="custom-control-input" {{ equipt.getMatiereMetal ? 'checked' }} >
-                              <label class="custom-control-label" for="matiereMetal">Métalique</label>
+        <section class="row justify-content-center section">
+            <!-- CARACTÉRISTIQUES -->
+            <div class="col col6">
+                <div class="card">
+                    <div class="card-header">
+                      <h4 class="card-title">Caractéristiques</h4>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label" for="matiere">Matière <span class="required">*</span></label>
+                            <div class="col-sm-9">
+                                <div class="custom-control custom-checkbox">
+                                  <input type="checkbox" id="matiereMetal" name="matiereMetal"class="custom-control-input" {{ equipt.getMatiereMetal ? 'checked' }} >
+                                  <label class="custom-control-label" for="matiereMetal">Métalique</label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" id="matiereTextile" name="matiereTextile"class="custom-control-input" {{ equipt.getMatiereTextile ? 'checked' }} >
+                                  <label class="custom-control-label" for="matiereTextile">Textile</label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                  <input type="checkbox" id="matierePlastique" name="matierePlastique"class="custom-control-input" {{ equipt.getMatierePlastique ? 'checked' }} >
+                                  <label class="custom-control-label" for="matierePlastique">Plastique</label>
+                                </div>
                             </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" id="matiereTextile" name="matiereTextile"class="custom-control-input" {{ equipt.getMatiereTextile ? 'checked' }} >
-                              <label class="custom-control-label" for="matiereTextile">Textile</label>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label" for="taille">Taille</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="taille" name="taille" class="form-control" placeholder="{{ equipt.getTaille }}" value="{{ equipt.getTaille }}">
                             </div>
-                            <div class="custom-control custom-checkbox">
-                              <input type="checkbox" id="matierePlastique" name="matierePlastique"class="custom-control-input" {{ equipt.getMatierePlastique ? 'checked' }} >
-                              <label class="custom-control-label" for="matierePlastique">Plastique</label>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label" for="couleur">Couleur</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="couleur" name="couleur" class="form-control" placeholder="{{ equipt.getCouleur }}" value="{{ equipt.getCouleur }}">
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label" for="taille">Taille</label>
-                        <div class="col-sm-9">
-                            <input type="text" id="taille" name="taille" class="form-control" placeholder="{{ equipt.getTaille }}" value="{{ equipt.getTaille }}">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label" for="couleur">Couleur</label>
-                        <div class="col-sm-9">
-                            <input type="text" id="couleur" name="couleur" class="form-control" placeholder="{{ equipt.getCouleur }}" value="{{ equipt.getCouleur }}">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label" for="marquage">Marquage</label>
-                        <div class="col-sm-9">
-                            <input type="text" id="marquage" name="marquage" class="form-control"placeholder="{{ equipt.getMarquage }}" value="{{ equipt.getMarquage }}">
-                        </div>
-                    </div>
 
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label" for="marquageLieu">Lieu</label>
-                        <div class="col-sm-9">
-                            <input type="text" id="marquageLieu" name="marquageLieu" class="form-control" placeholder="{{ equipt.getMarquageLieu }}" value="{{ equipt.getMarquageLieu }}">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label" for="marquage">Marquage</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="marquage" name="marquage" class="form-control"placeholder="{{ equipt.getMarquage }}" value="{{ equipt.getMarquage }}">
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- KIT -->
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label" for="kitId">Kit</label>
-                        <div class="col-sm-9">
-                            <select class="form-control" id="kitId" name="kitId">
-                                {% if equipt.getKitId %}
-                                    <option value="{{ equipt.getKitId }}">{{ equipt.getKit }}</option>
-                                {% else %}
-                                    <option value="">Aucun</option>
-                                {% endif %}
-                                <option value="">-------------</option>
-                                {% for kit in kits %}
-                                    <option value="{{ kit.getId }}">{{ kit.getName }}</option>
-                                {% endfor %}
-                                <option value="">-------------</option>
-                                <option value="kitName">Nouveau kit</option>
-                            </select>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label" for="marquageLieu">Lieu</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="marquageLieu" name="marquageLieu" class="form-control" placeholder="{{ equipt.getMarquageLieu }}" value="{{ equipt.getMarquageLieu }}">
+                            </div>
                         </div>
-                    </div>
-                    <div id="kitName" class="form-group row">
-                        <label class="col-sm-3 col-form-label" for="nxKit">Nom</label>
-                        <div class="col-sm-9">
-                            <input type="text" id="nxKit" name="nxKit" class="form-control" placeholder="Nom du kit">
-                        </div>
-                    </div>
-                    
-                    <!-- LOT -->
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label" for="lotId">Lot</label>
-                        <div class="col-sm-9">
-                           <select class="form-control" id="lotId" name="lotId">
-                                {% if equipt.getLotId %}
-                                    <option value="{{ equipt.getLotId }}">{{ equipt.getLot }}</option>
-                                {% else %}
-                                    <option value="">Aucun</option>
-                                {% endif %}
-                                <option value="">-------------</option>
-                                {% for lot in lots %}
-                                    <option value="{{ lot.getId }}">{{ lot.getName }}</option>
-                                {% endfor %}
-                                <option value="">-------------</option>
-                                <option value="lotName">Nouveau lot</option>
-                            </select>
-                        </div>
-                    </div>
 
-                    <div id="lotName" class="form-group row">
-                        <label class="col-sm-3 col-form-label" for="nxLot">Nom lot</label>
-                        <div class="col-sm-9">
-                            <input type="text" id="nxLot" name="nxLot" class="form-control" placeholder="Nom du lot">
+                        <!-- KIT -->
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label" for="kitId">Kit</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" id="kitId" name="kitId">
+                                    {% if equipt.getKitId %}
+                                        <option value="{{ equipt.getKitId }}">{{ equipt.getKit }}</option>
+                                    {% else %}
+                                        <option value="">Aucun</option>
+                                    {% endif %}
+                                    <option value="">-------------</option>
+                                    {% for kit in kits %}
+                                        <option value="{{ kit.getId }}">{{ kit.getName }}</option>
+                                    {% endfor %}
+                                    <option value="">-------------</option>
+                                    <option value="kitName">Nouveau kit</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
+                        <div id="kitName" class="form-group row">
+                            <label class="col-sm-3 col-form-label" for="nxKit">Nom</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="nxKit" name="nxKit" class="form-control" placeholder="Nom du kit">
+                            </div>
+                        </div>
 
-                </div>
-            </div>
-        </div>
-
-        <!-- CONTROLE ETAT -->
-        <div class="col col-6">
+                        <!-- LOT -->
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label" for="lotId">Lot</label>
+                            <div class="col-sm-9">
+                               <select class="form-control" id="lotId" name="lotId">
+                                    {% if equipt.getLotId %}
+                                        <option value="{{ equipt.getLotId }}">{{ equipt.getLot }}</option>
+                                    {% else %}
+                                        <option value="">Aucun</option>
+                                    {% endif %}
+                                    <option value="">-------------</option>
+                                    {% for lot in lots %}
+                                        <option value="{{ lot.getId }}">{{ lot.getName }}</option>
+                                    {% endfor %}
+                                    <option value="">-------------</option>
+                                    <option value="lotName">Nouveau lot</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="lotName" class="form-group row">
+                            <label class="col-sm-3 col-form-label" for="nxLot">Nom lot</label>
+                            <div class="col-sm-9">
+                                <input type="text" id="nxLot" name="nxLot" class="form-control" placeholder="Nom du lot">
+                            </div>
+                        </div>
             
-            <div class="card">
-                <div class="card-header">
-                  <h4 class="card-title">Information utilisation</h4>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label" for="notice">URL Notice</label>
+                            <div class="col-sm-9">
+                                <input type="url" id="notice" name="notice" class="form-control" placeholder="{{ equipt.getNotice }}" value="{{ equipt.getNotice }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label" for="achat">Date d'achat</label>
+                            <div class="col-sm-9">
+                                <input type="date" id="achat" name="achat" class="form-control" value="{{ equipt.getAchat }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label" for="utilisation">Première utilisation</label>
+                            <div class="col-sm-9">
+                                <input type="date" id="utilisation" name="utilisation" class="form-control" value="{{ equipt.getUtilisation }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label" for="rebutTheorique">Rebut théorique</label>
+                            <div class="col-sm-9">
+                                <input type="date" id="rebutTheorique" name="rebutTheorique" class="form-control" value="{{ equipt.getRebutTheorique }}" >
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label" for="frequenceControle">Fréquence Contrôle <span class="required">*</span></label>
+                            <div class="col-sm-9">
+                                <select class="form-control" id="frequenceControle" name="frequenceControle" >
+                                {% if equipt.getFrequenceControle %}
+                                    <option value="{{ equipt.getFrequenceControle }}">{{ equipt.getFrequenceControle }}</option>
+                                {% else %}
+                                    <option value="">Quelle est la fréquence du controle ?</option>
+                                {% endif %}
+                                <option value="">-------------</option>
+                                <option value="15">15 jours</option>
+                                <option value="30">1 mois</option>
+                                <option value="90">3 mois</option>
+                                <option value="180">6 mois</option>
+                                <option value="365">1 an</option>
+                                <option value="730">2 ans</option>
+                            </select>
+                            </div>
+                        </div>
+                    </div>      
                 </div>
-                <div class="card-body">
+                
+                <input type="hidden" name="token" id="token" value="{{ session.upEquipt_token }}"/>
 
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label" for="notice">URL Notice</label>
-                        <div class="col-sm-9">
-                            <input type="url" id="notice" name="notice" class="form-control" placeholder="{{ equipt.getNotice }}" value="{{ equipt.getNotice }}">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label" for="achat">Date d'achat</label>
-                        <div class="col-sm-9">
-                            <input type="date" id="achat" name="achat" class="form-control" value="{{ equipt.getAchat }}">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label" for="utilisation">Première utilisation</label>
-                        <div class="col-sm-9">
-                            <input type="date" id="utilisation" name="utilisation" class="form-control" value="{{ equipt.getUtilisation }}">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label" for="rebutTheorique">Rebut théorique</label>
-                        <div class="col-sm-9">
-                            <input type="date" id="rebutTheorique" name="rebutTheorique" class="form-control" value="{{ equipt.getRebutTheorique }}" >
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label" for="frequenceControle">Fréquence Contrôle <span class="required">*</span></label>
-                        <div class="col-sm-9">
-                            <select class="form-control" id="frequenceControle" name="frequenceControle" >
-                            {% if equipt.getFrequenceControle %}
-                                <option value="{{ equipt.getFrequenceControle }}">{{ equipt.getFrequenceControle }}</option>
-                            {% else %}
-                                <option value="">Quelle est la fréquence du controle ?</option>
-                            {% endif %}
-                            <option value="">-------------</option>
-                            <option value="15">15 jours</option>
-                            <option value="30">1 mois</option>
-                            <option value="90">3 mois</option>
-                            <option value="180">6 mois</option>
-                            <option value="365">1 an</option>
-                            <option value="730">2 ans</option>
-                        </select>
-                        </div>
-                    </div>
-                    
+                <div class="right">
+                    <p><span class="required">*</span> Champs obligatoires</p>
+                    <button id="addEquipt-btn" class="btn btn-primary right" type="submit">Mettre à jour</button>
                 </div>
             </div>
+        </section>
 
-            <input type="hidden" name="token" id="token" value="{{ session.upEquipt_token }}"/>
-
-            <div class="right">
-                <p><span class="required">*</span> Champs obligatoires</p>
-                <button id="addEquipt-btn" class="btn btn-primary right" type="submit">Mettre à jour</button>
-            </div>
-        </div>
-    </section>
-
-</form>  
+    </form>  
 
 {% endblock %}
 
 {% block javascript %}
-        {# // <script src="public/js/upEquipement.js"></script> #}
+
+        <script src="public/js/formUpEquipt.js"></script> #}
 {% endblock %}
 
