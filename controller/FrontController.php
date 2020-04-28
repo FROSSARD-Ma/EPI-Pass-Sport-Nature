@@ -218,8 +218,18 @@ class FrontController
 
     public function historique($params)
     {
+         /* Liste Controles */
+        $controleManager = new \Epi_Model\ControleManager;
+        $dataControles = $controleManager->getGroupeControles($_SESSION['groupeId']);
+        foreach ($dataControles as $data)
+        {
+            $controle = new \Epi_Model\Controle($data);
+            $controles[] = $controle; // Tableau d'objet
+        }
+
         $nxView = new \Epi_Model\View('historique');
-        $nxView->getView();
+        $nxView->getView(array (
+            'controles'=> $controles));
     }
 
     public function account($params)

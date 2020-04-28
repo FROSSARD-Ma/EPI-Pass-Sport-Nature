@@ -28,23 +28,27 @@
                         <tr>
                             <th>Date</th>
                             <th>Équipement</th>
-                            <th>Référence</th>
-                            <th>Modèle</th>
                             <th>Responsable contrôle</th>
+                            <th>Observation</th>
                             <th>Statut</th>
                         </tr>
                     </thead>
                     <tbody>
 
-                        {% for equipt in equipts %}
+                        {% for controle in controles %}
                             <tr>
-                                <td></td>
-                                <td>{{ equipt.getCategorie }} {{ equipt.getActivite }}</td>
-                                <td>{{ equipt.getReference }}</td>
-                                <td>{{ equipt.getModele }}</td>
-                                <td></td>
-                                <td>{{ equipt.getStatut }}</td>
-
+                                <td>{{ controle.getDate }}</td>
+                                <td>
+                                    <a href="equipement/id/{{ controle.getEquipementId }}" class="badge badge-pill badge-primary" data-toggle="tooltip" data-placement="top" title="Cliquez pour voir de détails de l'équipement.">
+                                    <i class="fas fa-search"></i></a>
+                                    {{ controle.getEqReference }} - {{ controle.getEqModele }} 
+                                </td>
+                                <td>{{ controle.getUserName }} {{ controle.getUserFirstname }}</td>
+                                <td>{{ controle.getObservations }}</td>
+                                <td>
+                                    <a href="equipement/id/{{ controle.getEquipementId }}" class="badge badge-pill {{ controle.getColorStatut }}" data-toggle="tooltip" data-placement="top" title="Équipement {{ controle.getEqStatut }}!">{{ controle.getEqStatut }}
+                                    </a>
+                                    </td>
                             </tr>
                         {% endfor %}
                     </tbody>
