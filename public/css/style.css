@@ -1,9 +1,11 @@
 @charset "UTF-8";
 /* COLOR  ====================== */
 .h1, h1 {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   margin-bottom: 0;
   text-transform: uppercase;
+  text-align: center;
+  color: #f4f6f9;
 }
 
 .h2, h2 {
@@ -153,10 +155,11 @@ main {
   background: #f4f6f9;
 }
 main .groupeEntete {
-  background-color: #e5e9ef;
-  padding: 20px 15px;
+  background-color: #475b75;
+  padding: 17px 15px;
   margin-left: -15px;
   margin-right: -15px;
+  margin-bottom: 20px;
 }
 main .container h2 {
   margin-top: 25px;
