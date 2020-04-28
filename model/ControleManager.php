@@ -44,6 +44,26 @@ class ControleManager extends Manager
         return $datas;
     }
 
+    public function getGroupeControles($groupeId)
+    {
+        $idGroupe = (int)$groupeId;
+
+        $sql = 'SELECT EPI_controles.*, EPI_users.user_name, EPI_users.user_firstname, EPI_equipement.eq_reference, EPI_equipement.eq_modele, EPI_equipement.eq_statut
+            FROM EPI_controles
+                JOIN EPI_equipement
+                ON EPI_equipement.eq_id=EPI_controles.controle_equipementId
+
+                JOIN EPI_users
+                ON EPI_users.user_id=EPI_controles.controle_userId
+
+            WHERE controle_groupeId=?
+            ORDER BY EPI_controles.controle_date DESC';
+            
+        $datas = $this->reqSQL($sql, array ($idGroupe));
+        return $datas;
+    }
+
+
     /*---  DELETE -------------------------------------------------------- */
     public function deleteControle($id)
     {
