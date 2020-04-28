@@ -284,6 +284,12 @@ class FrontController
         }
     }
 
+    public function reglementation($params)
+    {
+        $nxView = new \Epi_Model\View('reglementation');
+        $nxView->getView();
+    }
+
     /* Link Button ----------------------------*/
     public function inscription($params)
     {
