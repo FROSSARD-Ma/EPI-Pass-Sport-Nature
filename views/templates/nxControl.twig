@@ -27,46 +27,30 @@
 
     <!-- Form AJOUT Control --> 
     <section class="row justify-content-center section">
-        <div class="col col-8">
 
-            <form id="form-creatControl" method="post" action="creatControl/id/{{ equipt.getId }}" enctype="multipart/form-data"data-parsley-validate >
-
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label" for="visuelControle">Visuel</label>
-                    <div class="col-sm-8">
-                        <select class="form-control" id="visuelControle" name="visuelControle" required>
-                            <option value="RAS">RAS</option>
-                            <option value="Défaut mineur">Défaut mineur</option>
-                            <option value="Défaut majeur">Défaut majeur</option>   
-                        </select>
-                    </div>
+        <div class="col-sm-12 col-md-8 carte">
+            <p>
+            <strong>Equipement :</strong> {{ equipt.getCategorie }} - {{ equipt.getActivite }}
+            <br><strong>Fabriquant :</strong> {{ equipt.getFabriquant }}
+            <br><strong>Modèle :</strong> {{ equipt.getModele }}
+            <br><strong>Référence :</strong> {{ equipt.getReference}}
+            <br><strong>Série :</strong> {{ equipt.getSerie}}
+            <br><strong>Matière :</strong>
+                {% if equipt.getMatiereMetal %}Métalique {% endif %}
+                {% if equipt.getMatiereTextile %}Textile {% endif %}
+                {% if equipt.getMatierePlastique %}Plastique {% endif %}
+            </p>
+        </div>
+    </section>
+    
+    <section class="row justify-content-center section">
+        <div class="col-sm-12 col-md-6">
+            <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">Contrôle sécurité</h3>
                 </div>
-
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label" for="fonctionnelControle">Fonctionnel</label>
-                    <div class="col-sm-8">
-                        <select class="form-control" id="fonctionnelControle" name="fonctionnelControle"  required>
-                            <option value="RAS">RAS</option>
-                            <option value="Défaut mineur">Défaut mineur</option>
-                            <option value="Défaut majeur">Défaut majeur</option>  
-                        </select>
-                    </div>
-                </div>
-                
                 <div class="card-body">
-                    <p>
-                    <strong>Equipement :</strong> {{ equipt.getCategorie }} - {{ equipt.getActivite }}
-                    <br><strong>Fabriquant :</strong> {{ equipt.getFabriquant }}
-                    <br><strong>Modèle :</strong> {{ equipt.getModele }}
-                    <br><strong>Référence :</strong> {{ equipt.getReference}}
-                    <br><strong>Série :</strong> {{ equipt.getSerie}}
-                    <br><strong>Matière :</strong>
-                        {% if equipt.getMatiereMetal %}Métalique {% endif %}
-                        {% if equipt.getMatiereTextile %}Textile {% endif %}
-                        {% if equipt.getMatierePlastique %}Plastique {% endif %}
-                    </p>
-                    <hr>
-                    <form id="form-creatControl" method="post" action="creatControl/id/{{ equipt.getId }}"  data-parsley-validate>
+                    <form id="form-creatControl" method="post" action="creatControl/id/{{ equipt.getId }}" enctype="multipart/form-data" data-parsley-validate>
 
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label" for="visuelControle">Visuel <span class="required">*</span></label>
@@ -121,13 +105,14 @@
                         <input type="hidden" name="token" id="token" value="{{ session.nxControl_token }}"/>
 
                         <div class="right">
-                            <button id="addControl-btn" class="btn btn-primary" type="submit">Valider</button>
+                            <button id="addControl-btn" class="btn btn-primary" type="submit">Enregistrer Contrôle</button>
                             <p><span class="required">*</span> Champs obligatoires</p>
                         </div>
-                    </form>    
+                    </form> 
+                </div>
             </div>
         </div>
-    </section>
+    </section>    
 
 {% endblock %}
 
