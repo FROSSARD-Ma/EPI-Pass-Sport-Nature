@@ -1,0 +1,62 @@
+{% extends 'content-sidebar-S.twig' %}
+
+{% block sidebar %}
+    {% include('sidebarNav.twig') %}
+{% endblock %}
+
+{% block title %}
+	<title>Historique - Gestion EPI</title>
+{% endblock %}
+
+
+{% block main %}
+
+    <section class="container">
+        <h2>Historique</h2>
+        <hr>
+        <p>Retourver un apperçut des derniers contrôles réalisés au sein de votre groupe.</p>
+    </section>
+
+    <!-- Visuel des dernières DONNEES -->    
+    <section class="row justify-content-center section">
+        <div class="card">
+            <div class="card-header">
+              <h3 class="card-title"><i class="fas fa-calendar-alt"></i> Historique des contrôles de vos EPI</h3>
+            </div>
+            <table id="tableau" class="display table table-bordered" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Équipement</th>
+                            <th>Référence</th>
+                            <th>Modèle</th>
+                            <th>Responsable contrôle</th>
+                            <th>Statut</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for equipt in equipts %}
+                            <tr>
+                                <td></td>
+                                <td>{{ equipt.getCategorie }} {{ equipt.getActivite }}</td>
+                                <td>{{ equipt.getReference }}</td>
+                                <td>{{ equipt.getModele }}</td>
+                                <td></td>
+                                <td>{{ equipt.getStatut }}</td>
+
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+            </table>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block javascript %}
+    <script src="vendor/datatables/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="public/js/dataTables.js"></script>
+
+{% endblock %}
+

@@ -216,6 +216,12 @@ class FrontController
             'equipts'=> $equipts));
     }
 
+    public function historique($params)
+    {
+        $nxView = new \Epi_Model\View('historique');
+        $nxView->getView();
+    }
+
     public function account($params)
     {
         $csrf = new \Epi_Model\SecuriteCsrf('account');
@@ -290,7 +296,7 @@ class FrontController
         $nxView->getView();
     }
   
-     public function documentation($params)
+    public function documentation($params)
     {
         $nxView = new \Epi_Model\View('documentation');
         $nxView->getView();
