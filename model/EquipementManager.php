@@ -14,10 +14,7 @@ class EquipementManager extends Manager
         {
             $fabrication = new DateTime($_POST['fabrication']);
             $fabricationJour = $fabrication->getTimestamp();
-
-            $dureeJour = $dureeAnnee*365;
-            $dureeExpire = $dureeJour*24*3600;
-
+            $dureeExpire = $dureeAnnee*24*3600;
             $dureeVie = $fabricationJour + $dureeExpire;
             $rebutTheorique = date("Y-m-d", $dureeVie);
         }

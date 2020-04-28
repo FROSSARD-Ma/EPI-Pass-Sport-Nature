@@ -19,10 +19,12 @@
            <p>Retrouvez l'ensemble de vos équipements sportifs sur cette page.
             <br>En un coup d'oeil vous pouvez voir :</p>
             <ul>
-                <li>l'état de chacun d'eux,</li>
-                <li>les tâches qui sont à réaliser,</li>
-                <li>les réparations à réaliser,</li>
-                <li>les contrôles sécurité,</li>
+                <li>L'état de chacun d'eux,</li>
+                <li>Les tâches qui sont à réaliser :</li>
+                <ul>
+                    <li>Les réparations,</li>
+                    <li>Les contrôles sécurité,</li>
+                </ul>
                 <li>Ajoutez également vos nouveaux équipements !</li>
             </ul>
         </div>
@@ -65,19 +67,8 @@
                         {% for equipt in equipts %}
                             <tr>
                                 <td>
-                                    {% if equipt.getStatut == 'À contrôler' %}
-                                        <a role="button" class="btn btn-danger" href="nxControl/id/{{ equipt.getId }}" data-toggle="tooltip" data-placement="top" title="Votre équipement doit être controlé !">
-                                        <i class="fas fa-exclamation-triangle"></i>
-                                        </a>
-                                    {%  elseif equipt.getStatut == 'À réparer' %}
-                                         <a role="button" class="btn btn-warning" href="equipement/id/{{ equipt.getId }}" data-toggle="tooltip" data-placement="top" title="Votre équipement doit être réparé !">
-                                        <i class="fas fa-wrench"></i>
-                                        </a>
-                                    {% else %}
-                                        <a role="button" class="btn btn-success" href="equipement/id/{{ equipt.getId }}" data-toggle="tooltip" data-placement="top" title="Votre équipement est opérationnel !">
-                                        <i class="fas fa-thumbs-up"></i>
-                                        </a>
-                                    {% endif %}
+                                    <a href="nxControl/id/{{ equipt.getId }}" class="badge badge-pill {{ equipt.getColorStatut }}" data-toggle="tooltip" data-placement="top" title="Votre équipement est : {{ equipt.getStatut }}!">{{ equipt.getStatut }} 
+                                    </a> {{ equipt.getColorProControle }}
                                 </td>
                                 <td>{{ equipt.getActivite }}</td>
                                 <td>{{ equipt.getCategorie }}</td>

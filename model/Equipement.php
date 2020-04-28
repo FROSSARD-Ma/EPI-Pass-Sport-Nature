@@ -136,6 +136,21 @@ class Equipement extends Manager
         { 
             return $this->_eq_statut; 
         }
+        public function getColorStatut()
+        { 
+            if($this->getStatut() == 'Valide') // timestamp
+            {
+                echo 'badge-success';
+            }
+            elseif($this->getStatut() == 'À réparer') // timestamp
+            {
+                echo 'badge-primary';
+            }
+            else
+            { 
+                echo 'badge-warning';
+            }
+        }
 
         // Dates
         public function getFabrication()
@@ -176,11 +191,18 @@ class Equipement extends Manager
         { 
             return $this->_eq_prochainControle; 
         }
+        public function getColorProControle()
+        { 
+            if(strtotime($this->getProchainControle()) < strtotime(date('Y-m-d'))) // timestamp
+            {
+                echo '<span class="badge badge-pill badge-danger"><i class="fas fa-exclamation-triangle"></i> Retard</span>';
+            }
+        }
         public function getColorControle()
         { 
             if(strtotime($this->getProchainControle()) < strtotime(date('Y-m-d'))) // timestamp
             {
-                echo '<span class="badge badge-pill badge-danger">retard</span>';
+                echo '<span class="badge badge-pill badge-danger"> <i class="fas fa-exclamation-triangle"></i>retard</span>';
             }
             else
             { 
