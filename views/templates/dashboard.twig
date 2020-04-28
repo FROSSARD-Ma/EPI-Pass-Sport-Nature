@@ -72,7 +72,7 @@
                                         <td>
                                             <input type="hidden" name="userId" id="userId" value="{{ user.getId }}"/>
                                             <input type="hidden" name="token" id="token" value="{{ session.dashboard_token }}"/>
-                                            <button class="btn btn-danger btn-block" type="submit"><i class="fas fa-trash"></i></button>
+                                            <button  id="delUserBtn"class="btn btn-danger btn-block" type="submit"><i class="fas fa-trash"></i></button>
                                         </td>
                                     </form>
                                 </tr>
@@ -89,7 +89,7 @@
                       <h3 class="card-title">Ajouter un utilisateur</h3>
                     </div>
                     <div class="card-body">
-                        <form method="post" action="addUser" id="addUserForm" data-parsley-validate>
+                        <form id="addUserForm" method="post" action="addUser"  data-parsley-validate>
 
                             <!-- User -->
                             <div class="form-group">
@@ -129,7 +129,6 @@
 {% endblock %}
 
 {% block javascript %}
-    <script src="public/js/sideBarNav.js"></script>
     <script src="public/js/formDashboard.js"></script>
 {% endblock %}
 

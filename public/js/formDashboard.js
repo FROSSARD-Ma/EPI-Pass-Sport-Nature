@@ -1,28 +1,33 @@
 
 /* == Update User STATUT  ================================ */
-	const upUserForm = document.getElementById('upUserForm');
+	let upUserForm = document.getElementById('upUserForm');
+	let upUserBtn = upUserForm.querySelector('button[type=submit]');
+	
 	upUserForm.addEventListener('submit', function (e) {
-console.log('coucou');
- 	e.preventDefault()
- 	const formData = new FormData(this);
- 	const nxForm = new Formulaire (this, formData);
-	nxForm.verifForm();
+	 	e.preventDefault()
+	 	let formData = new FormData(this);
+	 	let nxForm = new Formulaire (this, formData);
+		nxForm.verifForm();
 	})
 
 /* == Delete USER  ======================================= */
-	const delUserForm = document.getElementById('delUserForm');
+	let delUserForm = document.getElementById('delUserForm');
+	let delUserBtn = delUserForm.querySelector('button[type=submit]');
+
 	delUserForm.addEventListener('submit', function (e) {
- 	e.preventDefault()
- 	const formData = new FormData(this);
- 	const nxForm = new Formulaire (this, formData);
-	nxForm.verifForm();
+	 	e.preventDefault()
+	 	let formData = new FormData(this);
+	 	let nxForm = new Formulaire (this, formData);
+		nxForm.verifForm();
 	})
 
 /* == Ajout USER  ================================ */
-	const addUserForm = document.getElementById('addUserForm');
+	let addUserForm = document.getElementById('addUserForm');
+	let addUserBtn = addUserForm.querySelector('button[type=submit]');
+
 	addUserForm.addEventListener('submit', function (e) {
- 	e.preventDefault()
- 	const formData = new FormData(this);
- 	const nxForm = new Formulaire (this, formData);
-	nxForm.verifForm();
+	 	e.preventDefault()
+	 	let formData = new FormData(this);
+	 	let nxForm = new Formulaire (this, formData);
+		nxForm.verifForm();
 	})
