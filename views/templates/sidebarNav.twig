@@ -18,46 +18,47 @@
           		{% endif %}
           	</a>
       	</li>
-	  	<li class="nav-item">
-          	<a class="nav-link" href="equipements"><i class="fas fa-th"></i> Équipements
-          	{% if session.countEquiptValide > 0 %}
-          			<span class="badge badge-success right">{{ session.countEquiptValide }}</span>
-          		{% endif %}
-          	</a>
-      	</li>
 
-			<ul class="submenu">
-				<li class="nav-item">
-		          	<a class="nav-link" href="equipements"><i class="fas fa-th-list"></i> Liste</a>
-		      	</li>
-				<li class="nav-item">
-		          	<a class="nav-link" href="nxEquipt"><i class="far fa-plus-square"></i> Ajouter</a>
-		      	</li>
-				<li class="nav-item">
-		          	<a class="nav-link" href="historique"><i class="fas fa-history"></i> Historique</a>
-		      	</li>
-			</ul>
 
-	  	<li class="nav-item">
-          	<a class="nav-link" href="calendrier"><i class="fas fa-calendar-alt"></i> Calendrier
-          		{% if session.countEquiptReparer > 0 %}
-          			<span class="badge badge-primary right"> {{ session.countEquiptReparer }} </span>
-          		{% endif %}
-          		{% if session.countEquiptControler > 0 %}
-          			<span class="badge badge-warning right"> {{ session.countEquiptControler }} </span>
-          		{% endif %}
-          	</a>
-      	</li>
+      	<li class="nav-header">ÉQUIPEMENTS</li>
+
+			<li class="nav-item">
+	          	<a class="nav-link" href="equipements"><i class="fas fa-th-list"></i> Liste
+	          		{% if session.countEquiptValide > 0 %}
+	          			<span class="badge badge-success right">{{ session.countEquiptValide }}</span>
+	          		{% endif %}
+	          	</a></a>
+	      	</li>
+			<li class="nav-item">
+	          	<a class="nav-link" href="nxEquipt"><i class="far fa-plus-square"></i> Ajouter</a>
+	      	</li>
+
+	  	<li class="nav-header">CONTRÔLES</li>
+
+		  	<li class="nav-item">
+	          	<a class="nav-link" href="calendrier"><i class="fas fa-calendar-alt"></i> Calendrier
+	          		{% if session.countEquiptReparer > 0 %}
+	          			<span class="badge badge-primary right"> {{ session.countEquiptReparer }} </span>
+	          		{% endif %}
+	          		{% if session.countEquiptControler > 0 %}
+	          			<span class="badge badge-warning right"> {{ session.countEquiptControler }} </span>
+	          		{% endif %}
+	          	</a>
+	      	</li>
+
+	      	<li class="nav-item">
+	          	<a class="nav-link" href="historique"><i class="fas fa-history"></i> Historique</a>
+	      	</li>
 
       	<li class="nav-header">INFORMATIONS</li>
-			<ul class="submenu">
-		      	<li class="nav-item">
-		          	<a class="nav-link" href="documentation"><i class="fas fa-file"></i> Documentation</a>
-		      	</li>
+			
+	      	<li class="nav-item">
+	          	<a class="nav-link" href="documentation"><i class="fas fa-file"></i> Documentation</a>
+	      	</li>
 
-		      	<li class="nav-item">
-		          	<a class="nav-link" href="reglementation"><i class="fas fa-landmark"></i> Règlementation</a>
-		      	</li>
-		    </ul>
+	      	<li class="nav-item">
+	          	<a class="nav-link" href="reglementation"><i class="fas fa-landmark"></i> Règlementation</a>
+	      	</li>
+		    
 	</ul>
 </nav>

@@ -239,7 +239,7 @@ main .container h2 {
   list-style: none;
 }
 .sidebar .sidebar-nav .nav-item {
-  margin-bottom: 1em;
+  margin-left: 1em;
 }
 .sidebar .sidebar-nav .nav-header {
   padding: 1.7rem 1rem 0.5rem;
