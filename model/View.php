@@ -24,5 +24,11 @@ class View
 		$twig->addGlobal('session', $_SESSION);
 		echo $twig->render($this->_page . '.twig', $datas);
 	}
+
+	public function redirectView($route)
+	{
+		header('Location:'.HOST.$route);
+		exit;
+	}
 }
 ?>

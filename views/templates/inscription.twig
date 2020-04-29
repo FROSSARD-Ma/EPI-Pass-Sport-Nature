@@ -43,7 +43,7 @@
 
                     <div class="form-group">
                         <label for="groupeMail">Email du groupe</label>
-                        <input type="email" id="groupeMail" name="groupeMail" class="form-control" placeholder="Adresse mail de l'organisme">
+                        <input type="email" id="groupeMail" name="groupeMail" class="form-control" placeholder="Adresse mail de l'organisme"
                     </div>
                 </div>
 
@@ -77,15 +77,10 @@
                     <input type="hidden" name="userStatut" id="userStatut" value="Responsable"/>
                     
                 </div>
-
                 <input type="hidden" name="token" id="token" value="{{ session.inscription_token }}"/>
-
                 <button type="submit" class="btn btn-primary right"><i class="fas fa-check"></i> Valider inscription</button>
-
                 <span type="button" id="previous-btn" class="btn btn-primary left"><i class="fas fa-angle-left"></i> Précédent</span>
-
                 <span type="button" id="next-btn" class="btn btn-primary right">Suivant <i class="fas fa-angle-right"></i></span>
-
             </form>
         </div>
     </div>

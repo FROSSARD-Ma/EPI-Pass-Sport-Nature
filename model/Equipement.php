@@ -10,7 +10,11 @@ class Equipement extends Manager
     private $_eq_reference;
     private $_eq_serie;
     private $_eq_taille;
-    private $_eq_matiere;
+
+    private $_eq_matiereMetal;
+    private $_eq_matiereTextile;
+    private $_eq_matierePlastique;
+
     private $_eq_couleur;
     private $_eq_marquage;
     private $_eq_marquageLieu;
@@ -19,12 +23,23 @@ class Equipement extends Manager
     private $_eq_statut;
 
     // Dates
-    private $_eq_fabrication;
+    private $_eq_fabricationFr;
+
     private $_eq_achat;
+    private $_eq_achatFr;
+
     private $_eq_utilisation;
+    private $_eq_utilisationFr;
+
     private $_eq_rebutTheorique;
-    private $_eq_prochainControle;
+    private $_eq_rebutTheoriqueFr;
+
+    private $_eq_prochainControleFr;
+
+    //Paramètres
     private $_eq_frequenceControle;
+    private $_eq_dureeVie;
+    private $_eq_barDureeVie;
 
     // Jonctions ID
     private $_eq_groupeId;
@@ -50,19 +65,12 @@ class Equipement extends Manager
     {
         foreach ($dataSQL as $key => $value)
         {
-            // Forcer Majuscule, supp 'eq_' = 3 caractères
+            // Forcer Majuscule, supp '' = 0 caractères
             // On récupère le nom du setter correspondant à l'attribut
-            $method = 'set' . ucfirst(substr($key,3));
+            $method = 'set' . ucfirst(substr($key,0));
             if (method_exists($this, $method))
             {
-                if ($method == 'setContent')
-                {
-                    $this->$method($value);
-                }
-                else
-                {
-                    $this->$method(htmlspecialchars($value));
-                }
+                $this->$method(htmlspecialchars($value));
             }
         }
     }
@@ -92,9 +100,17 @@ class Equipement extends Manager
         { 
             return $this->_eq_taille; 
         }
-        public function getMatiere()
+        public function getMatiereMetal()
         {
-            return $this->_eq_matiere;
+            return $this->_eq_matiereMetal;
+        }
+        public function getMatiereTextile()
+        {
+            return $this->_eq_matiereTextile;
+        }
+        public function getMatierePlastique()
+        {
+            return $this->_eq_matierePlastique;
         }
         public function getCouleur()
         { 
@@ -120,32 +136,114 @@ class Equipement extends Manager
         { 
             return $this->_eq_statut; 
         }
+        public function getColorStatut()
+        { 
+            if($this->getStatut() == 'Valide') // timestamp
+            {
+                echo 'badge-success';
+            }
+            elseif($this->getStatut() == 'À réparer') // timestamp
+            {
+                echo 'badge-primary';
+            }
+            else
+            { 
+                echo 'badge-warning';
+            }
+        }
 
         // Dates
         public function getFabrication()
         { 
-            return $this->_eq_fabrication; 
+            return $this->_eq_fabricationFr; 
         }
         public function getAchat()
         { 
             return $this->_eq_achat; 
         }
+        public function getAchatFr()
+        { 
+            $date = new DateTime($this->_eq_achat);
+            $this->_eq_achatFr = $date->format('d-m-Y');
+            return $this->_eq_achatFr;
+        }
         public function getUtilisation()
         { 
             return $this->_eq_utilisation; 
+        }
+        public function getUtilisationFr()
+        { 
+            $date = new DateTime($this->_eq_utilisation);
+            $this->_eq_utilisationFr = $date->format('d-m-Y');
+            return $this->_eq_utilisationFr;
         }
         public function getRebutTheorique()
         { 
             return $this->_eq_rebutTheorique; 
         }
+        public function getRebutTheoriqueFr()
+        { 
+            $date = new DateTime($this->_eq_rebutTheorique);
+            $this->_eq_rebutTheoriqueFr = $date->format('d-m-Y');
+            return $this->_eq_rebutTheoriqueFr;
+        }
         public function getProchainControle()
         { 
             return $this->_eq_prochainControle; 
+        }
+        public function getColorProControle()
+        { 
+            if(strtotime($this->getProchainControle()) < strtotime(date('Y-m-d'))) // timestamp
+            {
+                echo '<span class="badge badge-pill badge-danger"><i class="fas fa-exclamation-triangle"></i> Retard</span>';
+            }
+        }
+        public function getColorControle()
+        { 
+            if(strtotime($this->getProchainControle()) < strtotime(date('Y-m-d'))) // timestamp
+            {
+                echo '<span class="badge badge-pill badge-danger"> <i class="fas fa-exclamation-triangle"></i>retard</span>';
+            }
+            else
+            { 
+                echo '<span class="badge badge-pill badge-warning">À venir</span>';
+            }
         }
         public function getFrequenceControle()
         { 
             return $this->_eq_frequenceControle; 
         }
+        public function getDureeVie()
+        { 
+            return $this->_eq_dureeVie; 
+        }
+        public function getBarDureeVie()
+        { 
+            $fabrication = new DateTime($this->getFabrication());
+            $fabricationJour = $fabrication->getTimestamp();
+            
+            $dureeVieRestante = time()-($fabricationJour);
+            $dureeVieTotale = ($this->getDureeVie())*24*3600;
+            $dureeViePourentage = floor (($dureeVieRestante*100)/$dureeVieTotale);
+
+            return $dureeViePourentage;
+        }
+        public function getColorBar()
+        { 
+            if ($this->getBarDureeVie()>=66)
+            {
+                $colorBar='bg-danger';
+            }
+            elseif ($this->getBarDureeVie()>=33)
+            {
+               $colorBar='bg-warning'; 
+            }
+            else {
+                $colorBar='bg-success';
+            }    
+            return $colorBar;
+        }
+
 
         // id Jonctions
         public function getGroupeId()
@@ -190,7 +288,7 @@ class Equipement extends Manager
         
     // Liste des SETTERS ---------------------------------------
 
-        public function setId($id)
+        public function setEq_id($id)
         {
             // convertit l'argument en nombre entier.
             $id = (int) $id;
@@ -200,84 +298,98 @@ class Equipement extends Manager
                 $this->_eq_id = $id;
             }
         }
-        public function setFabriquant($fabriquant)
+        public function setEq_fabriquant($fabriquant)
         {
             if (is_string($fabriquant))
             {
               $this->_eq_fabriquant = $fabriquant;
             }
         }
-        public function setModele($modele)
+        public function setEq_modele($modele)
         {
             if (is_string($modele))
             {
               $this->_eq_modele = $modele;
             }
         }
-        public function setReference($reference)
+        public function setEq_reference($reference)
         {
             if (is_string($reference))
             {
               $this->_eq_reference = $reference;
             }
         }
-        public function setSerie($serie)
+        public function setEq_serie($serie)
         {
             if (is_string($serie))
             {
               $this->_eq_serie = $serie;
             }
         }
-        public function setTaille($taille)
+        public function setEq_taille($taille)
         {
             if (is_string($taille))
             {
               $this->_eq_taille = $taille;
             }
         }
-        public function setMatiere($matiere)
+        public function setEq_matiereMetal($matiere)
         {
             if (is_string($matiere))
             {
-              $this->_eq_matiere = $matiere;
+              $this->_eq_matiereMetal = $matiere;
             }
         }
-        public function setcouleur($couleur)
+        public function setEq_matiereTextile($matiere)
+        {
+            if (is_string($matiere))
+            {
+              $this->_eq_matiereTextile = $matiere;
+            }
+        }
+        public function setEq_matierePlastique($matiere)
+        {
+            if (is_string($matiere))
+            {
+              $this->_eq_matierePlastique = $matiere;
+            }
+        }
+        public function setEq_couleur($couleur)
         {
             if (is_string($couleur))
             {
               $this->_eq_couleur = $couleur;
             }
         }
-        public function setMarquage($marquage)
+        public function setEq_marquage($marquage)
         {
             if (is_string($marquage))
             {
               $this->_eq_marquage = $marquage;
             }
         }
-        public function setMarquageLieu($marquageLieu)
+        public function setEq_marquageLieu($marquageLieu)
         {
             if (is_string($marquageLieu))
             {
               $this->_eq_marquageLieu = $marquageLieu;
             }
         }
-        public function setNotice($notice)
+        public function setEq_notice($notice)
         {
             if (is_string($notice))
             {
               $this->_eq_notice = $notice;
             }
         }
-        public function setImage($image)
+        public function setEq_image($image)
         {
             if (is_string($image))
             {
               $this->_eq_image = $image;
             }
         }
-        public function setStatut($statut)
+        public function setEq_statut($statut)
         {
             if (is_string($statut))
             {
@@ -286,40 +398,64 @@ class Equipement extends Manager
         }
 
         // Dates
-        public function SetFabrication($dateCreated)
+        public function setEq_fabrication($dateCreated)
         { 
-            $date = new DateTime($dateCreated);
-            $this->_eq_fabrication = $date->format('d-m-Y');
+            if ($dateCreated)
+            {
+                $date = new DateTime($dateCreated);
+                $this->_eq_fabricationFr = $date->format('d-m-Y');
+            }
         }
-        public function SetAchat($dateCreated)
+        public function setEq_achat($dateCreated)
         { 
-            $date = new DateTime($dateCreated);
-            $this->_eq_achat = $date->format('d-m-Y');
+            if ($dateCreated)
+            {
+                $date = new DateTime($dateCreated);
+                $this->_eq_achat = $date->format('Y-m-d');
+            }
         }
-        public function SetUtilisation($dateCreated)
+        public function setEq_utilisation($dateCreated)
         { 
-             $date = new DateTime($dateCreated);
-            $this->_eq_utilisation = $date->format('d-m-Y');
+            if ($dateCreated)
+            {
+                $date = new DateTime($dateCreated);
+                $this->_eq_utilisation = $date->format('Y-m-d');
+            }
         }
-        public function SetRebutTheorique($dateCreated)
+        public function setEq_rebutTheorique($dateCreated)
         { 
-            $date = new DateTime($dateCreated);
-            $this->_eq_rebutTheorique = $date->format('d-m-Y');
+            if ($dateCreated)
+            {
+                $date = new DateTime($dateCreated);
+                $this->_eq_rebutTheorique = $date->format('Y-m-d');
+            }
         }
-        public function SetProchainControle($dateCreated)
+        public function setEq_prochainControle($dateCreated)
         { 
-            $date = new DateTime($dateCreated);
-            $this->_eq_prochainControle = $date->format('d-m-Y');
+            if ($dateCreated)
+            {
+                $date = new DateTime($dateCreated);
+                $this->_eq_prochainControle = $date->format('d-m-Y');
+            }
         }
-        public function SetFrequenceControle($dateCreated)
+        public function setEq_frequenceControle($frequence)
         { 
-            $date = new DateTime($dateCreated);
-            $this->_eq_frequenceControle = $date->format('d-m-Y');
+            if (is_string($frequence))
+            {
+              $this->_eq_frequenceControle = $frequence;
+            }
         }
-
+        public function setEq_dureeVie($nb)
+        { 
+            $duree = (int) $nb;
+            if ($duree > 0)
+            {
+                $this->_eq_dureeVie = $duree;
+            }
+        }
 
         // ID jonction
-        public function setgroupeId($id)
+        public function setEq_groupeId($id)
         {
             // convertit l'argument en nombre entier.
             $groupeId = (int) $id;
@@ -329,7 +465,17 @@ class Equipement extends Manager
                 $this->_eq_groupeId = $groupeId;
             }
         }
-        public function setCategorieId($id)
+        public function setEq_activiteId($id)
+        {
+            // convertit l'argument en nombre entier.
+            $activiteId = (int) $id;
+            
+            if ($activiteId > 0)
+            {
+                $this->_eq_activiteId = $activiteId;
+            }
+        }
+        public function setEq_categorieId($id)
         {
             // convertit l'argument en nombre entier.
             $categorieId = (int) $id;
@@ -339,7 +485,7 @@ class Equipement extends Manager
                 $this->_eq_categorieId = $categorieId;
             }
         }
-        public function setKitId($id)
+        public function setEq_kitId($id)
         {
             // convertit l'argument en nombre entier.
             $kitId = (int) $id;
@@ -349,7 +495,7 @@ class Equipement extends Manager
                 $this->_eq_kitId = $kitId;
             }
         }
-        public function setLotId($id)
+        public function setEq_lotId($id)
         {
             // convertit l'argument en nombre entier.
             $lotId = (int) $id;
@@ -361,35 +507,35 @@ class Equipement extends Manager
         }
 
         //  Jonctions 
-        public function SetGroupe($groupe)
+        public function setGroupe_name($groupe)
         {
             if (is_string($groupe))
             {
                 $this->_eq_groupe = $groupe; 
             }
         }
-        public function SetActivite($activite)
+        public function setActivite_name($activite)
         { 
             if (is_string($activite))
             {
                 $this->_eq_activite = $activite; 
             }
         }
-        public function SetCategorie($categorie)
+        public function setCat_name($categorie)
         {
             if (is_string($categorie))
             { 
                 $this->_eq_categorie = $categorie; 
             }
         }
-        public function SetKit($kit)
+        public function setKit_name($kit)
         {
             if (is_string($kit))
             { 
                 $this->_eq_kit = $kit; 
             }
         }
-        public function SetLot($lot)
+        public function setLot_name($lot)
         {
             if (is_string($lot))
             { 

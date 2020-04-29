@@ -1,3 +1,4 @@
+
 // INSCRIPTION -------------------------------------------
 let inscriptForm = document.getElementById('inscriptForm');
 

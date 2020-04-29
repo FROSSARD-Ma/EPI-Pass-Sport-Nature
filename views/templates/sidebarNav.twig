@@ -1,10 +1,64 @@
 
-<section>
-    <p>{{ session.userFirstname }}</p>
-    <p>{{ session.userStatut }}</p>
+<section class="sidebar-header">
+	<i class="fas fa-user-check"></i>
+	<div class="user">
+	    <p>{{ session.userFirstname }}</p>
+	    <p>{{ session.userStatut }}</p>
+	</div>
 </section>
 
-<section>
+<nav class="sidebar-nav">
+	<ul class="navbar-nav">
 
-</section>
+		
+	  	<li class="nav-item">
+          	<a class="nav-link" class="" href="dashboard"><i class="fas fa-tachometer-alt"></i> Tableau de bord
+          		{% if session.countControleRetard > 0 %}
+          			<span class="badge badge-danger right">{{ session.countControleRetard }}</span>
+          		{% endif %}
+          	</a>
+      	</li>
 
+
+      	<li class="nav-header">ÉQUIPEMENTS</li>
+
+			<li class="nav-item">
+	          	<a class="nav-link" href="equipements"><i class="fas fa-th-list"></i> Liste
+	          		{% if session.countEquiptValide > 0 %}
+	          			<span class="badge badge-success right">{{ session.countEquiptValide }}</span>
+	          		{% endif %}
+	          	</a></a>
+	      	</li>
+			<li class="nav-item">
+	          	<a class="nav-link" href="nxEquipt"><i class="far fa-plus-square"></i> Ajouter</a>
+	      	</li>
+
+	  	<li class="nav-header">CONTRÔLES</li>
+
+		  	<li class="nav-item">
+	          	<a class="nav-link" href="calendrier"><i class="fas fa-calendar-alt"></i> Calendrier
+	          		{% if session.countEquiptReparer > 0 %}
+	          			<span class="badge badge-primary right"> {{ session.countEquiptReparer }} </span>
+	          		{% endif %}
+	          		{% if session.countEquiptControler > 0 %}
+	          			<span class="badge badge-warning right"> {{ session.countEquiptControler }} </span>
+	          		{% endif %}
+	          	</a>
+	      	</li>
+
+	      	<li class="nav-item">
+	          	<a class="nav-link" href="historique"><i class="fas fa-history"></i> Historique</a>
+	      	</li>
+
+      	<li class="nav-header">INFORMATIONS</li>
+			
+	      	<li class="nav-item">
+	          	<a class="nav-link" href="documentation"><i class="fas fa-file"></i> Documentation</a>
+	      	</li>
+
+	      	<li class="nav-item">
+	          	<a class="nav-link" href="reglementation"><i class="fas fa-landmark"></i> Règlementation</a>
+	      	</li>
+		    
+	</ul>
+</nav>

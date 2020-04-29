@@ -10,54 +10,61 @@
 {% endblock %}
 
 
-{% block headerpage %}
-	<h1 class="mt-4">Bienvenue</h1>
-	<ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item active">Page accueil</li>
-    </ol>
-
-	<p>Bonjour  {{ session.userFirstname }},</p>
-    <p>Ergo ego senator inimicus, si ita vultis, homini, amicus esse, sicut semper fui, rei publicae debeo. Quid? si ipsas inimicitias, depono rei publicae causa, quis me tandem iure reprehendet, praesertim cum ego omnium meorum consiliorum atque factorum exempla semper ex summorum hominum consiliis atque factis mihi censuerim petenda.</p>
-
-    {% if not session.userId %}
-        <a class="btn btn-primary" href="inscription" role="button">Créer un compte</a>
-    {% endif %}
-
-{% endblock %}
-
 
 {% block main %}
 
+    <section class="container">
+        <h2>Bienvenue</h2>
+        <hr>
+        {% if not session.userId %}
+            <p>Bonjour,</p>
+        {% else %}
+            <p>Bonjour  {{ session.userFirstname }},</p>
+        {% endif %}
+
+        <p>Découvrez <strong>Pass'Sport EPI</strong>, un outils <strong>simple</strong> et <strong>gratuit</strong> pour vous faciliter la gestion de tout vos équipements sportifs quelque soit votre activité !
+        <br>Il vous aide à <strong>sécuriser votre pratique sportive</strong> en organisant le suivi de vos équipements de sport nécessitant un contrôle régulier.</p>
+        
+    </section>
+
     {% if not session.userId %}
-        <div class="row justify-content-center">
-            <div class="col-6">
-                <h2>Se connecter !</h2>
-                <form method="post" action="loginUser" data-parsley-validate>
-                    <div class="form-group">
-                        <label for="userMail">Email</label>
-                        <input type="email" id="userMail" name="userMail" class="form-control" placeholder="Adresse Email" maxlength="50" required>
+        <section class="row justify-content-center section">
+            <div class="col-sm-12 col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title">Se connecter !</h3>
                     </div>
+                    <div class="card-body">
+                        <form method="post" action="loginUser" data-parsley-validate>
+                            <div class="form-group">
+                                <label for="userMail">Email</label>
+                                <input type="email" id="userMail" name="userMail" class="form-control" placeholder="Adresse Email" maxlength="50" required>
+                            </div>
 
-                    <div class="form-group">
-                        <label for="userPass">Mot de passe</label>
-                        <input type="password" id="userPass" name="userPass" class="form-control" placeholder="Mot de passe" pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{6,20})" required>
-                        <small class="form-text text-muted">
-                            Votre mot de passe doit comporter de 6 à 20 caractères, au moins une lettre minuscule, au moins une lettre majuscule, au moins un chiffre, au moins un de ces caractères spéciaux: $ @ % * + - _ ! , aucun autre caractère possible, pas d'espace.
-                        </small>
+                            <div class="form-group">
+                                <label for="userPass">Mot de passe</label>
+                                <input type="password" id="userPass" name="userPass" class="form-control" placeholder="Mot de passe" pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{6,20})" required>
+                                <small class="form-text text-muted">
+                                    Votre mot de passe doit comporter de 6 à 20 caractères, au moins une lettre minuscule, au moins une lettre majuscule, au moins un chiffre, au moins un de ces caractères spéciaux: $ @ % * + - _ ! , aucun autre caractère possible, pas d'espace.
+                                </small>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="checkbox" id="userRemember" name="userRemember">
+                                <label for="userRemember">Se souvenir de moi</label>
+                            </div>
+                            <input type="hidden" name="token" id="token" value="{{ session.login_token }}"/>
+
+                            <a class="btn btn-primary" href="inscription" role="button">Créer un compte</a>
+
+                            <button class="btn btn-primary right" type="submit">Se connecter</button>
+
+                            <div class="text-right">
+                              <a class="small" href="nxPass">Mot de passe oublié ?</a>
+                            </div>
+                        </form>
                     </div>
-
-                    <div class="form-group">
-                        <label for="userRemember">Se souvenir de moi</label>
-                        <input type="checkbox" id="userRemember" name="userRemember">
-                    </div>
-                    <input type="hidden" name="token" id="token" value="{{ session.login_token }}"/>
-
-                    <button class="btn btn-primary" type="submit">Se connecter</button>
-
-                    <div class="text-center">
-                      <a class="small" href="nxPass">Mot de passe oublié ?</a>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     {% endif %}

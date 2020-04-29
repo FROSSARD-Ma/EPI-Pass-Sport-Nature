@@ -1,9 +1,11 @@
 @charset "UTF-8";
 /* COLOR  ====================== */
 .h1, h1 {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   margin-bottom: 0;
   text-transform: uppercase;
+  text-align: center;
+  color: #f4f6f9;
 }
 
 .h2, h2 {
@@ -60,34 +62,24 @@
   font-weight: bold;
 }
 
-/* HEADER ====================== */
-nav#topNav {
-  font-family: "Roboto Condensed", sans-serif;
-  background-color: white;
-  padding: 0.5em;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-nav#topNav a:hover {
-  color: #3A3A3A;
-}
-nav#topNav img#logo {
-  height: 45px;
-}
-nav#topNav .dropdown-menu a, nav#topNav a:hover {
-  color: #3A3A3A;
-}
-nav#topNav #pass-nature {
+.pass-nature {
+
   position: relative;
   display: flex;
   text-align: left;
   top: -15px;
+  min-width: 165px;
 }
-nav#topNav #pass-nature .pass-titre {
+.pass-nature a, .pass-nature a:hover {
+  color: #3A3A3A;
+  text-decoration: none;
+}
+.pass-nature .pass-titre {
   margin: 15px;
 }
-nav#topNav #pass-nature .pass-orange {
+.pass-nature .pass-orange {
+  position: absolute;
+
   line-height: 110%;
   color: white;
   font-size: 1.5em;
@@ -95,30 +87,50 @@ nav#topNav #pass-nature .pass-orange {
   background-color: #EC8813;
   transform: rotate(-10deg);
   margin: 0;
-  padding: 0 5px;
+  padding: 1px 5px;
+  width: 71px;
+  top: -6px;
 }
-nav#topNav #pass-nature .pass-nom {
+.pass-nature .pass-nom {
   position: absolute;
   width: 100%;
   font-weight: bold;
-  font-size: 1.5em;
+  font-size: 1.3em;
   margin: 0;
-  top: 33px;
+  top: 15px;
 }
-nav#topNav #pass-epi {
+
+/* HEADER ====================== */
+header#entete {
   display: none;
+  font-family: "Roboto Condensed", sans-serif;
+  background-color: white;
+  padding: 1em;
+  justify-content: space-around;
+  width: 100%;
+  align-items: center;
+}
+header#entete #pass-epi {
+  display: flex;
+  flex-direction: column;
   text-align: center;
 }
-nav#topNav #pass-epi .titre {
+header#entete #pass-epi p {
+  margin: 0;
+}
+header#entete #pass-epi .titre {
+
   font-size: 2em;
   margin: 0;
   line-height: 110%;
 }
-nav#topNav #pass-epi .sous-titre {
+
+header#entete #pass-epi .sous-titre {
   font-size: 1em;
   margin: 0;
 }
-nav#topNav #pass-epi .pass-bleu {
+header#entete #pass-epi .pass-bleu {
+
   width: 250px;
   color: white;
   font-size: 1.3em;
@@ -127,15 +139,32 @@ nav#topNav #pass-epi .pass-bleu {
   margin-right: auto;
   margin-left: auto;
 }
+
+/* NAV ========================== */
+nav#navTop {
+  background-color: white;
+  padding: 0.5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+nav#navTop #logo {
+  display: block;
+}
+nav#navTop .dropdown-menu a, nav#navTop a:hover {
+  color: #3A3A3A;
+}
+
 /* MAIN ======================== */
 main {
   background: #f4f6f9;
 }
 main .groupeEntete {
-  background-color: #e5e9ef;
-  padding: 20px 15px;
+  background-color: #475b75;
+  padding: 17px 15px;
   margin-left: -15px;
   margin-right: -15px;
+  margin-bottom: 20px;
 }
 main .container h2 {
   margin-top: 25px;
@@ -205,6 +234,7 @@ main .container h2 {
 
 /* SIDEBAR ===================== */
 .sidebar {
+  display: none;
   padding-right: 0px;
   padding-left: 0px;
   background-color: #344255;
@@ -360,10 +390,28 @@ footer a, footer a:hover {
 
 /* -- TABLET  ---------------------------------------------------- */
 @media all and (min-width: 768px) {
-  nav#topNav img#logo {
-    height: 80px;
+  header#entete {
+    display: inline-flex;
   }
-  nav#topNav #pass-epi {
+  header#entete .pass-orange {
+    font-size: 2.3em;
+    padding: 1px 10px;
+    width: 110px;
+    top: -15px;
+  }
+  header#entete .pass-nom {
+    font-size: 1.9em;
+    top: 15px;
+  }
+
+  nav#navTop {
+    padding: 0.5em 1em;
+  }
+  nav#navTop #logo {
+    display: none;
+  }
+
+  .sidebar {
     display: block;
   }
 
@@ -382,25 +430,12 @@ footer a, footer a:hover {
 }
 /* -- ORDI  ---------------------------------------------------- */
 @media all and (min-width: 993px) {
-  nav#topNav {
-    padding: 0.5em 1em;
-  }
-  nav#topNav img#logo {
-    height: 100px;
-  }
-  nav#topNav #pass-nature {
-    min-width: 170px;
-  }
-  nav#topNav #pass-nature .pass-orange {
-    font-size: 2.4em;
-    padding: 0 10px;
-  }
-  nav#topNav #pass-nature .pass-nom {
+  header#entete .pass-orange {
     font-size: 2.5em;
-    top: 40px;
+    top: -18px;
   }
-  nav#topNav #pass-epi {
-    display: block;
+  header#entete .pass-nom {
+    font-size: 2em;
   }
 
   /* CARD ======================== */

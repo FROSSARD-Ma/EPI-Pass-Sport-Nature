@@ -1,0 +1,200 @@
+{% extends 'content-sidebar-S.twig' %}
+
+{% block sidebar %}
+    {% include('sidebarNav.twig') %}
+{% endblock %}
+
+{% block title %}
+	<title>Equipement - Gestion EPI</title>
+{% endblock %}
+
+
+{% block main %}
+    <br>
+    <h2>{{ equipt.getCategorie }} - {{ equipt.getActivite }}</h2>
+    <hr> 
+    <section class="row justify-content-center section">
+
+        <div class="col-12 col-sm-6 col-md-4">
+            <div class="card card-image">
+                <div class="card-img-ribbon">
+
+                    {% if equipt.getStatut == 'invalid' %}
+                       <div class="ribbon bg-danger">
+                            <p>À contrôler</p>
+                        </div>
+                    {%  elseif equipt.getStatut == 'reparation' %}
+                        <div class="ribbon bg-warning">
+                        <font style="vertical-align: inherit;">
+                            À réparer
+                            </font>
+                        </div>
+                    {% else %}
+                        <div class="ribbon bg-success">
+                            <p>Valide</p>
+                        </div>
+                    {% endif %}
+                </div>
+                {% if equipt.getImage %}
+                    <a href="public/img/equipement/{{ session.groupeId }}/{{ equipt.getId }}/{{ equipt.getImage }}" target="_blank" title="Voir la photo">
+                        <img src="public/img/equipement/{{ session.groupeId }}/{{ equipt.getId }}/{{ equipt.getImage }}" class="card-img-top" alt="Photo de l'équipement">
+                    </a>
+                {% else %}
+                    <img src="public/img/equipement/equipement.png" class="card-img-top" alt="Photo de l'équipement">
+                {% endif %}    
+
+                {% if equipt.getNotice %} 
+                    <div class="card-body">
+                    <a class="btn btn-primary" href="{{ equipt.getNotice }}" role="button"><i class="fas fa-atlas"></i> Notice fournisseur</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4">
+            <div class="card ">
+                <div class="card-header">
+                  <h4 class="card-title"><i class="far fa-file-alt"></i> Informations</h4>
+                </div>
+                <div class="card-body">
+                    <p><strong>Fabriquant :</strong> {{ equipt.getFabriquant }}</p>
+                    <p><strong>Modèle :</strong> {{ equipt.getModele }}</p>
+                    <p><strong>Référence :</strong> {{ equipt.getReference}}</p>
+                    <p><strong>Série :</strong> {{ equipt.getSerie}}</p>
+                    <hr>
+                    <p><strong>Matière :</strong>
+                        <br>
+                        {% if equipt.getMatiereMetal %}<i class="fas fa-check"></i> Métalique<br> {% endif %}
+                        {% if equipt.getMatiereTextile %}<i class="fas fa-check"></i> Textile<br> {% endif %}
+                        {% if equipt.getMatierePlastique %}<i class="fas fa-check"></i> Plastique {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4">
+            <div class="card ">
+            <div class="card-header">
+              <h4 class="card-title"><i class="fas fa-history"></i> Chronologie</h4>
+            </div>
+            <div class="card-body">
+                <p><strong>Fabrication :</strong> {{ equipt.getFabrication }}</p>
+                <p><strong>Achat :</strong> {{ equipt.getAchatFr }}</p>
+                <p><strong>Première utilisation :</strong> {{ equipt.getUtilisationFr}}</p>
+                <p><strong>Rebut Théorique :</strong> {{ equipt.getRebutTheoriqueFr }}</p>
+          </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-4">
+            <div class="card ">
+                <div class="card-header">
+                  <h4 class="card-title"><i class="fas fa-clipboard-list"></i> Particularités</h4>
+                </div>
+                <div class="card-body">
+                    <p><strong>Taille :</strong> {{ equipt.getTaille }}</p>
+                    <p><strong>Couleur :</strong> {{ equipt.getCouleur }}</p>
+                    <p><strong>Marquage :</strong> {{ equipt.getMarquage }} - {{ equipt.getMarquageLieu }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4">
+            <div class="card ">
+                <div class="card-header">
+                  <h4 class="card-title"><i class="fas fa-link"></i> Appartenance</h4>
+                </div>
+                <div class="card-body">
+                    
+                    <p><strong>Kit :</strong> {{ kit.getName }}</p>
+                    <hr>
+                    <p><strong>Lot :</strong> {{ lot.getName }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4">
+            <div class="card ">
+                <div class="card-header">
+                  <h4 class="card-title"><i class="fas fa-file-medical-alt"></i> Gestion des contrôles sécurité</h4>
+                </div>
+                <div class="card-body">
+                    <p><i class="fas fa-hourglass-half"></i> <strong>Temps de vie :</strong> 
+                        {% if equipt.getDureeVie == '' %}
+                            Durée illimitée
+                        {% else %}
+                            {{ equipt.getBarDureeVie }} % 
+                        {% endif %}    
+                    </p>
+                    <p><i class="far fa-calendar-alt"></i> <strong>Prochain contrôle :</strong> {{ equipt.getProchainControle}}</p>
+                    <p><i class="fas fa-sync-alt"></i> <strong>Fréquence des contrôles :</strong> {{ equipt.getFrequenceControle }}</p>
+                </div>
+            </div>
+        </div>
+
+        
+    </section>
+
+                                
+    <!-- Visuel des dernières DONNEES -->    
+    <section class="row justify-content-center section">
+        <div class="col-12">
+
+            <div class="container">
+                <a role="button" class="btn btn-success right" href="upEquipt/id/{{ equipt.getId }}" data-toggle="tooltip" data-placement="top" title="Cliquez pour modifier l'équipement."><i class="fas fa-sync"></i> Modifier l'équipement</a>
+
+                <a role="button" class="btn btn-success right" href="nxControl/id/{{ equipt.getId }}" data-toggle="tooltip" data-placement="top" title="Cliquez pour effectuer un controle sécurité de l'équipement."><i class="fas fa-tools"></i> Contrôler l'équipement</a>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title"><i class="fas fa-tools"></i> Contrôle Sécurité</h4>
+                </div>
+                <div class="card-body">
+                    {% if equipt.getDureeVie == '' %}
+                        <p>Durée illimitée</p>
+                    {% else %}
+                        <div class="progress">
+                            <div class="progress-bar {{ equipt.getColorBar}} 
+                            " role="progressbar" style="width:{{ equipt.getBarDureeVie }}%" aria-valuenow="{{ equipt.getBarDureeVie }}" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    {% endif %}
+                    
+                    <table id="table_equipmt" class="display table table-bordered" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Visuel</th>
+                                <th>Fonctionnel</th>
+                                <th>Contrôleur</th>
+                                <th>Observations</th>
+                                <th>Photo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for controle in controles %}
+                                <tr>
+                                    <td>{{ controle.getDate }}</td>
+                                    <td>{{ controle.getVisuel }}</td>
+                                    <td>{{ controle.getFonctionnel }}</td>
+                                    <td>{{ controle.getUserName }} {{ controle.getUserFirstname }}</td>
+                                    <td>{{ controle.getObservations }}</td>
+                                    <td>
+                                        {% if controle.getImage %}
+                                        <a role="button" class="btn btn-primary" href="public/img/equipement/{{ session.groupeId }}/{{ equipt.getId }}/{{ controle.getImage }}" target="_blank" title="Voir la photo">
+                                          <i class="fas fa-camera"></i></i>
+                                        </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+{% endblock %}
+
+{% block javascript %}
+    <script src="public/js/sideBarNav.js"></script>
+{% endblock %}
+

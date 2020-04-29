@@ -5,22 +5,19 @@
 {% endblock %}
 
 
-{% block headerpage %}
-	<h1 class="mt-4">Mon Compte</h1>
-	<ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item active">Réinitialiser mon mot de passe</li>
-    </ol>
-
-	<p>Ergo ego senator inimicus, si ita vultis, homini, amicus esse, sicut semper fui, rei publicae debeo. Quid? si ipsas inimicitias, depono rei publicae causa, quis me tandem iure reprehendet, praesertim cum ego omnium meorum consiliorum atque factorum exempla semper ex summorum hominum consiliis atque factis mihi censuerim petenda.</p>
-
-{% endblock %}
-
-
 {% block main %}
 
-    <div class="row justify-content-center">
-        <div class="col-6">
-            <h2>Changer mot de passe</h2>
+    <section class="container">
+        <h2>Réinitialiser mon mot de passe</h2>
+        <hr>
+        <p>Un oubli, un problème avec votre mot de passe ?
+        <br>Vous pouvez le ré-initialiser en remplissant le formulaire ci-dessous <i class="fas fa-hand-point-down"></i>
+        </p>
+    </section>
+
+    <section class="row justify-content-center section">    
+        <div class="col-sm-12 col-md-10 carte">
+            
             <form method="post" action="addPass" data-parsley-validate>
 
                 <div class="form-group">
@@ -40,10 +37,10 @@
                         Votre mot de passe doit comporter de 6 à 20 caractères, au moins une lettre minuscule, au moins une lettre majuscule, au moins un chiffre, au moins un de ces caractères spéciaux: $ @ % * + - _ ! , aucun autre caractère possible, pas d'espace.
                     </small>
                 </div>
-                <input type="hidden" id="userId" name="userId" value="{{ userId.getId }} ">
+
                  <input type="hidden" name="token" id="token" value="{{ session.changePass_token }}"/>
 
-                <button class="btn btn-primary" type="submit">Changer Mot de passe</button>
+                <button class="btn btn-primary right" type="submit">Changer Mot de passe</button>
             </form>
         </div>
     </div>

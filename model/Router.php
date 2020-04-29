@@ -17,8 +17,22 @@ class Router {
         "deconnexion"   => ['FrontController','deconnexion'],
         "account"       => ['FrontController','account'],
         "contact"       => ['FrontController','contact'],
+        "equipements"   => ['FrontController','equipements'],
+        "equipement"    => ['FrontController','equipement'],
+        "nxEquipt"      => ['FrontController','nxEquipt'],
+        "upEquipt"      => ['FrontController','upEquipt'],
+        "nxControl"     => ['FrontController','nxControl'],
+        "calendrier"    => ['FrontController','calendrier'],
+        "reglementation"=> ['FrontController','reglementation'],
+        "documentation" => ['FrontController','documentation'],
+        "historique"    => ['FrontController','historique'],
         
     // ---- BACK Controller -----------------------------------------------------
+        "creatEquipt"    => ['BackController','creatEquipt'],
+        "delEquipt"      => ['BackController','delEquipt'],
+        "updateEquipt"   => ['BackController','updateEquipt'],
+        "creatControl"   => ['BackController','creatControl'],
+
 
     // ---- USER Controller -----------------------------------------------------
         "creatGroupe"       => ['UserController'    ,'creatGroupe'],
@@ -27,7 +41,10 @@ class Router {
         "upPass"            => ['UserController'    ,'upPass'],
         "askPassMail"       => ['UserController'    ,'askPassMail'],
         "addPass"           => ['UserController'    ,'addPass'],
-        "sendEmailContact"  => ['UserController'    ,'sendEmailContact']
+        "sendEmailContact"  => ['UserController'    ,'sendEmailContact'],
+        "addUser"           => ['UserController'    ,'addUser'],
+        "delUser"           => ['UserController'    ,'delUser'],
+        "upUser"            => ['UserController'    ,'upUser']
     ];
 
     public function __construct($url)
@@ -37,14 +54,22 @@ class Router {
 
     public function getRoute()
     {
-        $page = explode('/', $this->_url); // crée un chemin sous format tableau
-        return $page[0]; // route = premier élément de la route
+        $elements = explode('/', $this->_url); // crée un chemin sous format tableau
+        return $elements[0]; // route = premier élément de la route
     }
 
     public function getParams()
     {   
-        $params = explode('/', $this->_url); // tableau
-        unset($params[0]); // Suppression Element page
+        $elements = explode('/', $this->_url); // tableau
+        unset($elements[0]); // Suppression Element page
+
+        // récupère les PARAMS
+        for ($i=1; $i<count($elements); $i++)
+        {
+            $params[$elements[$i]] = $elements[$i+1];
+            $i++;
+        }
+
         if (!isset($params)) $params = null;
         return $params;
     }

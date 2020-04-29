@@ -13,10 +13,15 @@ class Controle extends Manager
     private $_controle_equipementId;
     private $_controle_userId;
 
-    // Jointures id
-    private $_controle_equipCatName;
-    private $_controle_userControle;
-    
+    // Jointures id Equipt
+    private $_eq_reference;
+    private $_eq_modele;
+    private $_eq_statut;
+
+    // Jointures id Controleur
+    private $_user_name;
+    private $_user_firstname;
+
     public function __construct(array $dataSQL)
     {
         $this->hydrate($dataSQL);
@@ -27,23 +32,15 @@ class Controle extends Manager
     {
         foreach ($dataSQL as $key => $value)
         {
-            // Forcer Majuscule, supp 'controle_' = 9 caractères
+            // Forcer Majuscule, supp '' = 0 caractères
             // On récupère le nom du setter correspondant à l'attribut
-            $method = 'set' . ucfirst(substr($key,9));
+            $method = 'set' . ucfirst(substr($key,0));
             if (method_exists($this, $method))
             {
-                if ($method == 'setContent')
-                {
-                    $this->$method($value);
-                }
-                else
-                {
-                    $this->$method(htmlspecialchars($value));
-                }
+                $this->$method(htmlspecialchars($value));
             }
         }
     }
-
     // Liste des GETTERS --------------------------------------
         public function getId()
         { 
@@ -69,27 +66,60 @@ class Controle extends Manager
         { 
             return $this->_controle_image; 
         }
+
+        // Equipement
         public function getEquipementId()
         {
             return $this->_controle_equipementId;
         }
+        public function getEqStatut()
+        { 
+            return $this->_eq_statut; 
+        }
+
+        public function getColorStatut()
+        { 
+            if($this->getEqStatut() == 'Valide') // timestamp
+            {
+                echo 'badge-success';
+            }
+            elseif($this->getEqStatut() == 'À réparer') // timestamp
+            {
+                echo 'badge-primary';
+            }
+            else
+            { 
+                echo 'badge-warning';
+            }
+        }
+        
+        public function getEqModele()
+        { 
+            return $this->_eq_modele; 
+        }
+        public function getEqReference()
+        { 
+            return $this->_eq_reference; 
+        }
+
+        // Controleur
         public function getUserId()
         { 
             return $this->_controle_userId; 
         }
-        public function getEquipCatName()
+        public function getUserName()
         { 
-            return $this->_controle_equipCatName; 
+            return $this->_user_name; 
         }
-        public function getUserControle()
+        public function getUserFirstname()
         { 
-            return $this->_controle_userControle; 
+            return $this->_user_firstname; 
         }
         
         
     // Liste des SETTERS ---------------------------------------
 
-        public function setId($id)
+        public function setControle_id($id)
         {
             // convertit l'argument en nombre entier.
             $id = (int) $id;
@@ -99,40 +129,41 @@ class Controle extends Manager
                 $this->_controle_id = $id;
             }
         }
-        public function SetDate($dateCreated)
+        public function setControle_date($dateCreated)
         { 
             $date = new DateTime($dateCreated);
             $this->_controle_date = $date->format('d-m-Y');
         }
-        public function setVisuel($visuel)
+        public function setControle_visuel($visuel)
         {
             if (is_string($visuel))
             {
               $this->_controle_visuel = $visuel;
             }
         }
-        public function setFonctionnel($fonctionnel)
+        public function setControle_fonctionnel($fonctionnel)
         {
             if (is_string($fonctionnel))
             {
               $this->_controle_fonctionnel = $fonctionnel;
             }
         }
-        public function setObservations($observations)
+        public function setControle_observations($observations)
         {
             if (is_string($observations))
             {
               $this->_controle_observations = $observations;
             }
         }
-        public function setImage($image)
+        public function setControle_image($image)
         {
             if (is_string($image))
             {
               $this->_controle_image = $image;
             }
         }
-        public function setEquipementId($equipementId)
+
+        public function setControle_equipementId($equipementId)
         {
             $id = (int) $equipementId;
             
@@ -141,7 +172,29 @@ class Controle extends Manager
                 $this->_controle_equipementId = $id;
             }
         }
-        public function setUserId($userId)
+        public function SetEq_statut($statut)
+        { 
+            if (is_string($statut))
+            {
+                $this->_eq_statut = $statut;
+            }
+        }
+        public function SetEq_modele($modele)
+        { 
+            if (is_string($modele))
+            {
+                $this->_eq_modele = $modele;
+            }
+        }
+        public function SetEq_reference($reference)
+        { 
+            if (is_string($reference))
+            {
+                $this->_eq_reference = $reference;
+            }
+        }
+
+        public function setControle_userId($userId)
         {
             $id = (int) $userId;
             
@@ -150,18 +203,18 @@ class Controle extends Manager
                 $this->_controle_userId = $id;
             }
         }
-        public function setEquipCatName($equipement)
-        {
-            if (is_string($equipement))
-            {
-              $this->_controle_equipCatName = $equipement;
-            }
-        }
-        public function setUserControle($name)
+        public function setUser_name($name)
         {
             if (is_string($name))
             {
-              $this->_controle_userControle = $name;
+              $this->_user_name = $name;
+            }
+        }
+        public function setUser_firstname($firstname)
+        {
+            if (is_string($firstname))
+            {
+              $this->_user_firstname = $firstname;
             }
         }
 }

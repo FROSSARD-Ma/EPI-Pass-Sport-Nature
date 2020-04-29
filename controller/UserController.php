@@ -235,15 +235,14 @@ class UserController
 						/* Groupe */
 						$groupeManager = new \Epi_Model\GroupeManager;
 						$groupe = $groupeManager->getGroupe($groupeId);
-						if ($groupe)
-					    {
 
-					    	$nxGroupe = new \Epi_Model\Groupe($groupe);
-							$_SESSION['groupeId']		= $nxGroupe->getId();
-							$_SESSION['groupeStatut']	= $nxGroupe->getStatut();
-							$_SESSION['groupeName']		= $nxGroupe->getName();
-
-						}
+              if ($groupe)
+              {
+                $nxGroupe = new \Epi_Model\Groupe($groupe);
+                $_SESSION['groupeId']		= $nxGroupe->getId();
+                $_SESSION['groupeStatut']	= $nxGroupe->getStatut();
+                $_SESSION['groupeName']		= $nxGroupe->getName();
+						  }
 				        //-- Se SOUVENIR du MDP
 				        if (isset($_POST['userRemember']))
 				        { 
@@ -251,8 +250,6 @@ class UserController
 				        }
 				        $nxView = new \Epi_Model\View();
 				        $nxView->redirectView('dashboard');
-
-
 				    }
 				    else
 				    {

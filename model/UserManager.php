@@ -25,11 +25,10 @@ class UserManager extends Manager
         return $data;
     }
 
-    /*---  CREAT -------------------------------------------------------- */
+    /*---  CREAT ------------------------------------------- */
     public function addUser($groupeId, $nxPassCrypt)
     {
         $idGroupe = (int)$groupeId;
-
         $sql ='INSERT INTO EPI_users(user_groupeId, user_name, user_firstname, user_mail, user_pass, user_statut)
             VALUES(:idGroupe,:name,:firstname,:mail,:pass,:statut)';
 
@@ -41,10 +40,24 @@ class UserManager extends Manager
         $data->bindValue(':pass', htmlspecialchars($nxPassCrypt), PDO::PARAM_STR);
         $data->bindValue(':statut',htmlspecialchars($_POST['userStatut']), PDO::PARAM_STR);
         $data->execute();  
-
         return $data;
     }
 
+    public function creatPass()
+    {
+        // Génération d'un mot de passe aléatoire  de 8 caractères  
+        $chaine = 'azertyuiopqsdfghjklmwxcvbn123456789';
+        $nb_lettres = strlen($chaine) - 1;
+        $nwPass = '';
+        for($i=0; $i < 8 ; $i++) // 8 caractères
+        {
+            $pos = mt_rand(0, $nb_lettres); 
+            $car = $chaine[$pos]; 
+            $nwPass .= $car;
+        }
+        return $nwPass;
+    }
+    
     /*---  READ ---------------------------------------------------------- */
     
     public function getGroupe($id)
@@ -68,6 +81,19 @@ class UserManager extends Manager
                      ON EPI_users.user_groupeId=EPI_groupes.groupe_id
                 WHERE user_id =?';
         $data = $this->reqSQL($sql, array ($idUser), $one = true);
+        return $data;
+    }
+
+    public function getUsers($groupeId)
+    {       
+        $idGroupe = (int)$groupeId;
+
+        $sql ='SELECT *
+            FROM EPI_users 
+            WHERE user_groupeId = :id';
+        $data = $this->getPDO()->prepare($sql);
+        $data->bindValue(':id', $idGroupe, PDO::PARAM_STR); 
+        $data->execute();
         return $data;
     }
 
@@ -99,6 +125,22 @@ class UserManager extends Manager
 
         $data = $this->getPDO()->prepare($sql); 
         $data->bindValue(':pass', $nxPass, PDO::PARAM_STR);
+        $data->bindValue(':id', $idUser, PDO::PARAM_STR); 
+        $data->execute();
+
+        return $data;
+    }
+
+    public function updateUser($id, $statut)
+    {
+        $idUser = (int)$id;
+
+        $sql ='UPDATE EPI_users 
+            SET user_statut = :statut
+            WHERE  user_id = :id';
+
+        $data = $this->getPDO()->prepare($sql); 
+        $data->bindValue(':statut', htmlspecialchars($statut), PDO::PARAM_STR);
         $data->bindValue(':id', $idUser, PDO::PARAM_STR); 
         $data->execute();
 
