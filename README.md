@@ -7,8 +7,8 @@ Dans le cadre de la validation de mon projet 5 de la formation Développeur Web 
 
 Pass'Sport EPI est une application simple d'utilisation qui a vocation à évoluer dans le temps pour répondre au mieux aux attentes des utilisateurs.
 
-Les EPI (Équipements de protection individuelle) correspondent À l'ensemble des équipementS que le sportif utilise dans le cadre de son activité sportive qui lui assure sa sécurité, comme par exemple : 
-- Casque
+Les EPI (Équipements de protection individuelle) correspondent À l'ensemble des équipements que le sportif utilise dans le cadre de son activité sportive qui lui assure sa sécurité, comme par exemple : 
+- Casque,
 - Baudrier,
 - Corde,
 - Longe,
@@ -16,7 +16,7 @@ Les EPI (Équipements de protection individuelle) correspondent À l'ensemble de
 - ...
 
 Mieux vaut prévenir... un contrôle régulier des équipements permet d'assurer la sécurité du pratiquant. 
-Pass'Sport EPI a été créé pour faciliter la gestion et le suivi de l'ensemble de équipemnts.
+Pass'Sport EPI a été créé pour faciliter la gestion et le suivi de l'ensemble de équipements.
 
 ## Utilisateurs
 - Entreprises : Location d’équipement sportif, salle d’escalade.
@@ -30,10 +30,8 @@ Pass'Sport EPI a été créé pour faciliter la gestion et le suivi de l'ensembl
 ## Pour commencer
 Vous pouvez découvrir et/ou utiliser la version en ligne, disponible à cette adresse : https://epi.pass-sport-nature.fr
 
-### Installation
+## Installation
 Pour installer le projet, vous devez attendre la version avec l'option des paramètres personnalisables.
-
-
 
 ## Développement
 L'application est développée avec les 5 langages : HTML, CSS, JS, PHP et SQL
@@ -44,9 +42,9 @@ L'application utilise plusieurs bibliothèques :
 - Bootstrap
 - Twig
 - Sass
-- Contrôle Formulaires : Parsley - https://parsleyjs.org/ 
-- Envoi d’email : Composer => swiftmailer https://packagist.org/packages/swiftmailer/swiftmailer
-- Gestion des tableaux : DataBases - https://datatables.net/
+- Parsley - https://parsleyjs.org/ 
+- Swiftmailer https://packagist.org/packages/swiftmailer/swiftmailer
+- DataBases - https://datatables.net/
 
 
 ## Versions
