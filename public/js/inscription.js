@@ -1,14 +1,12 @@
 class Inscription {
 
-    constructor(formElt, statut, groupeElt, gpH3, gpName, gpMail, userElt, nameLabel, userName, userFirstname, userMail, userPass, inscBtn, nextBtn, prevBtn) {
+    constructor(formElt, statut, groupeElt, gpName, gpMail, userElt, nameLabel, userName, userFirstname, userMail, userPass, inscBtn, nextBtn, prevBtn) {
 
         // DOM selectors
         this.formulaire     = formElt;
         this.gpStatut       = statut;
 
         this.groupeElt      = groupeElt;
-        this.gpH3           = gpH3;
-        this.h3             = this.gpStatut.value;
         this.gpName         = gpName;
         this.gpMail         = gpMail;
 
@@ -53,10 +51,11 @@ class Inscription {
 
     groupeSection()
     {
-        
         this.groupeElt.style.display = 'block';
-        this.gpH3.innerHTML = this.h3;
         this.userElt.style.display = 'none';
+
+        /* Ajout require aux champs */
+        //required
 
         /*inscBtn*/
         this.prevBtn.style.display = 'none';

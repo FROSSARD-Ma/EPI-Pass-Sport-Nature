@@ -11,18 +11,18 @@
     <section class="container">
         <h2>Inscription</h2>
         <hr>
-        <p>Retrouvez sur le tableau de bord l'ensemble des informations sur l'état de vos équipements sportifs.
-        <br>En un coup d'oeil vous pouvez voir les tâches qui sont à réaliser, ajouter de nouveau utilisateur et leur attribuer un rôle au sein de la gestion des équipements de votre groupe.</p>
+        <p>L'inscription est simple et rapide !<br>
+        Remplissez le formulaire ci-dessous pour profiter de l'outils de gestion des EPI de Pass'Sport Nature.</p>
     </section>
 
     <section class="row justify-content-center section">  
-        <div class="col-sm-12 col-md-10 carte">
-            <form id="form-inscription" method="post" action="creatGroupe" data-parsley-validate>
+        <div class="col-sm-12 col-md-10">
+            <form id="inscriptForm" method="post" action="creatGroupe" data-parsley-validate>
 
-                <div class="form-group">
-                    <label for="groupeStatut">Statut</label>
+                <div class="form-group carte">
+                    <label for="groupeStatut"><i class="fas fa-users"></i> Profil</label>
                     <select class="form-control" id="groupeStatut" name="groupeStatut" required>
-                        <option value="">Sélectionnez votre statut</option>
+                        <option value="">Sélectionnez votre profil</option>
                         <option value="Particulier">Particulier</option>
                         <option value="Association">Association</option>
                         <option value="Entreprise">Entreprise</option>
@@ -33,21 +33,24 @@
                 </div>
 
                 <!-- Groupe -->
-                <div id='groupe' class="section">
-                    <h3></h3>
+                <div id='groupe' class="section carte">
+                    <h3><i class="fas fa-users-cog"></i> Groupe</h3>
+                    <hr>
                     <div class="form-group">
-                        <label for="groupeName"></label>
-                        <input type="text" id="groupeName" name="groupeName" class="form-control" placeholder="Nom de l'organisme" minlength="2" maxlength="50" required>
+                        <label for="groupeName">Nom du groupe</label>
+                        <input type="text" id="groupeName" name="groupeName" class="form-control" placeholder="Nom de l'organisme" minlength="2" maxlength="50">
                     </div>
 
                     <div class="form-group">
-                        <label for="groupeMail"></label>
-                        <input type="email" id="groupeMail" name="groupeMail" class="form-control" placeholder="Adresse mail de l'organisme" required>
+                        <label for="groupeMail">Email du groupe</label>
+                        <input type="email" id="groupeMail" name="groupeMail" class="form-control" placeholder="Adresse mail de l'organisme"
                     </div>
                 </div>
 
                 <!-- User -->
-                <div id='user' class="section">
+                <div id='user' class="section carte">
+                    <h3><i class="fas fa-user-tag"></i> Responsable</h3>
+                    <hr>
                     <div class="form-group">
                         <label for="userName" id="labelUserName"></label>
                         <input type="text" id="userName" name="userName" class="form-control" placeholder="Votre nom"  minlength="2" maxlength="50" required>
@@ -74,14 +77,10 @@
                     <input type="hidden" name="userStatut" id="userStatut" value="Responsable"/>
                     
                 </div>
-
                 <input type="hidden" name="token" id="token" value="{{ session.inscription_token }}"/>
-
-                <span type="button" id="previous-btn" class="btn btn-info">&lt; Précédent</span>
-
-                <span type="button" id="next-btn" class="btn btn-info">Suivant</span>
-
-                <button type="submit" class="btn btn-primary btn-block" >Valider inscription</button>
+                <button type="submit" class="btn btn-primary right"><i class="fas fa-check"></i> Valider inscription</button>
+                <span type="button" id="previous-btn" class="btn btn-primary left"><i class="fas fa-angle-left"></i> Précédent</span>
+                <span type="button" id="next-btn" class="btn btn-primary right">Suivant <i class="fas fa-angle-right"></i></span>
             </form>
         </div>
     </div>
@@ -90,7 +89,7 @@
 
 {% block javascript %}
     <script src="public/js/formInscription.js"></script>
-    <script src="public/js/Inscription.js"></script>
+    <script src="public/js/inscription.js"></script>
 {% endblock %}
 
            

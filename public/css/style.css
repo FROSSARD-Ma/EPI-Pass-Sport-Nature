@@ -63,6 +63,7 @@
 }
 
 .pass-nature {
+
   position: relative;
   display: flex;
   text-align: left;
@@ -78,6 +79,7 @@
 }
 .pass-nature .pass-orange {
   position: absolute;
+
   line-height: 110%;
   color: white;
   font-size: 1.5em;
@@ -117,15 +119,18 @@ header#entete #pass-epi p {
   margin: 0;
 }
 header#entete #pass-epi .titre {
+
   font-size: 2em;
   margin: 0;
   line-height: 110%;
 }
+
 header#entete #pass-epi .sous-titre {
   font-size: 1em;
   margin: 0;
 }
 header#entete #pass-epi .pass-bleu {
+
   width: 250px;
   color: white;
   font-size: 1.3em;

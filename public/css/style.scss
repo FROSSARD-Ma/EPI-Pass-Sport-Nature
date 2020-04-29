@@ -140,6 +140,7 @@ header#entete {
 			margin:0;
 		}
 
+
 		.titre {
 			font-size: 2em;
 			margin:0;
@@ -160,7 +161,6 @@ header#entete {
 		}
 	}
 
-}
 
 /* NAV ========================== */
 
@@ -177,6 +177,7 @@ nav#navTop {
 
 	.dropdown-menu a, a:hover {
 		color:  $texte-fonce;
+
 	}
 }
 
@@ -403,16 +404,7 @@ table.users {
 		background-color: $fond-clair;
 		margin: 20px 0;
 	}
-	#user {
-		display:none;
-	}
 	
-	#next-btn {
-		display:none;
-	}
-	#previous-btn {
-		display:none;
-	}
 
 	/* upEquipt----------------- */
 	#kitName {
@@ -470,6 +462,7 @@ footer {
 		display: block;
 	}
 
+
 	.section {
 		margin: 30px 0;
 	}
@@ -495,9 +488,6 @@ footer {
 			font-size: 2em;
 		}
 	}
-
-
-
 
 	/* CARD ======================== */
 	.card-body {

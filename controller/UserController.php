@@ -28,8 +28,8 @@ class UserController
 
 				// Vérifier si Mail existe déjà
 				$mailManager = new \Epi_Model\GroupeManager; 
-			    $mailExist = $mailManager->existGroupe($groupeMail);
-			    if ($mailExist) 
+			    $mailExist = $mailManager->existGroupe($groupeMail); 
+			    if ($mailExist) // Cle unique sur eamil groupe
 			    {
 			    	// Message erreur
 					throw new \Epi_Model\AppException('Un compte existe déjà avec cet mail.', 'home');
@@ -78,7 +78,7 @@ class UserController
 
 
 				// Message
-				$_SESSION['message'] = 'Votre inscription est validée ! Vous allez recevoir un email de confirmation.';
+				$_SESSION['message'] = 'Votre inscription est validée !';
 				// Nouvelle page 
 				$nxView = new \Epi_Model\View();
 				$nxView->redirectView('home');
@@ -235,14 +235,14 @@ class UserController
 						/* Groupe */
 						$groupeManager = new \Epi_Model\GroupeManager;
 						$groupe = $groupeManager->getGroupe($groupeId);
-					    if ($groupe)
-					    {
-					    	$nxGroupe = new \Epi_Model\Groupe($groupe);
-							$_SESSION['groupeId']		= $nxGroupe->getId();
-							$_SESSION['groupeStatut']	= $nxGroupe->getStatut();
-							$_SESSION['groupeName']		= $nxGroupe->getName();
 
-						}
+              if ($groupe)
+              {
+                $nxGroupe = new \Epi_Model\Groupe($groupe);
+                $_SESSION['groupeId']		= $nxGroupe->getId();
+                $_SESSION['groupeStatut']	= $nxGroupe->getStatut();
+                $_SESSION['groupeName']		= $nxGroupe->getName();
+						  }
 				        //-- Se SOUVENIR du MDP
 				        if (isset($_POST['userRemember']))
 				        { 
