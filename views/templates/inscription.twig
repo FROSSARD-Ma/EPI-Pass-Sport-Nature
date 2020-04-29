@@ -5,92 +5,96 @@
 {% endblock %}
 
 
-{% block headerpage %}
-    <h1 class="mt-4">Inscription</h1>
-    <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item active">Page d'inscription</li>
-    </ol>
-
-    <p>Ergo ego senator inimicus, si ita vultis, homini, amicus esse, sicut semper fui, rei publicae debeo. Quid? si ipsas inimicitias, depono rei publicae causa, quis me tandem iure reprehendet, praesertim cum ego omnium meorum consiliorum atque factorum exempla semper ex summorum hominum consiliis atque factis mihi censuerim petenda.</p>
-{% endblock %}
-
 
 {% block main %}
 
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-8">
-                <h2>S'inscrire !</h2>
-                <form id="form-inscription" method="post" action="creatGroupe" data-parsley-validate>
+    <section class="container">
+        <h2>Inscription</h2>
+        <hr>
+        <p>L'inscription est simple et rapide !<br>
+        Remplissez le formulaire ci-dessous pour profiter de l'outils de gestion des EPI de Pass'Sport Nature.</p>
+    </section>
+
+    <section class="row justify-content-center section">  
+        <div class="col-sm-12 col-md-10">
+            <form id="inscriptForm" method="post" action="creatGroupe" data-parsley-validate>
+
+                <div class="form-group carte">
+                    <label for="groupeStatut"><i class="fas fa-users"></i> Profil</label>
+                    <select class="form-control" id="groupeStatut" name="groupeStatut" required>
+                        <option value="">Sélectionnez votre profil</option>
+                        <option value="Particulier">Particulier</option>
+                        <option value="Association">Association</option>
+                        <option value="Entreprise">Entreprise</option>
+                        <option value="Etablissement Scolaire">Etablissement scolaire</option>
+                        <option value="Service Secours">Service Secours</option>
+                        <option value="Autre">Autre</option>
+                    </select>
+                </div>
+
+                <!-- Groupe -->
+                <div id='groupe' class="section carte">
+                    <h3><i class="fas fa-users-cog"></i> Groupe</h3>
+                    <hr>
+                    <div class="form-group">
+                        <label for="groupeName">Nom du groupe</label>
+                        <input type="text" id="groupeName" name="groupeName" class="form-control" placeholder="Nom de l'organisme" minlength="2" maxlength="50">
+                    </div>
 
                     <div class="form-group">
-                        <label for="groupeStatut">Statut</label>
-                        <select class="form-control" id="groupeStatut" name="groupeStatut" required>
-                            <option value="">Sélectionnez votre statut</option>
-                            <option value="Particulier">Particulier</option>
-                            <option value="Association">Association</option>
-                            <option value="Entreprise">Entreprise</option>
-                            <option value="Etablissement Scolaire">Etablissement scolaire</option>
-                            <option value="Service Secours">Service Secours</option>
-                            <option value="Autre">Autre</option>
-                        </select>
+                        <label for="groupeMail">Email du groupe</label>
+                        <input type="email" id="groupeMail" name="groupeMail" class="form-control" placeholder="Adresse mail de l'organisme">
+                    </div>
+                </div>
+
+                <!-- User -->
+                <div id='user' class="section carte">
+                    <h3><i class="fas fa-user-tag"></i> Responsable</h3>
+                    <hr>
+                    <div class="form-group">
+                        <label for="userName" id="labelUserName"></label>
+                        <input type="text" id="userName" name="userName" class="form-control" placeholder="Votre nom"  minlength="2" maxlength="50" required>
                     </div>
 
-                    <!-- Groupe -->
-                    <div id='groupe' class="section">
-                        <h3></h3>
-                        <div class="form-group">
-                            <label for="groupeName"></label>
-                            <input type="text" id="groupeName" name="groupeName" class="form-control" placeholder="Nom de l'organisme" minlength="2" maxlength="50" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="groupeMail"></label>
-                            <input type="email" id="groupeMail" name="groupeMail" class="form-control" placeholder="Adresse mail de l'organisme" required>
-                        </div>
+                    <div class="form-group">
+                        <label for="userFirstname">Prénom</label>
+                        <input type="text" id="userFirstname" name="userFirstname" class="form-control" placeholder="Votre prénom"  minlength="2" maxlength="50" required>
                     </div>
 
-                    <!-- User -->
-                    <div id='user' class="section">
-                        <div class="form-group">
-                            <label for="userName" id="labelUserName"></label>
-                            <input type="text" id="userName" name="userName" class="form-control" placeholder="Votre nom"  minlength="2" maxlength="50" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="userFirstname">Prénom</label>
-                            <input type="text" id="userFirstname" name="userFirstname" class="form-control" placeholder="Votre prénom"  minlength="2" maxlength="50" required>
-                        </div>
-
-                        <div class="form-group">
-                          <label for="userMail">Email</label>
-                          <input type="email" id="userMail" name="userMail" class="form-control" placeholder="Votre adresse mail" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="userPass">Mot de passe</label>
-                            <input type="password" id="userPass" name="userPass" class="form-control" placeholder="Choisir un mot de passe"pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{6,20})" required>
-                            <small class="form-text text-muted">
-                            Votre mot de passe doit comporter de 6 à 20 caractères, au moins une lettre minuscule, au moins une lettre majuscule, au moins un chiffre, au moins un de ces caractères spéciaux: $ @ % * + - _ ! , aucun autre caractère possible, pas d'espace.
-                        </small>
-                        </div>
-
-                        <input type="hidden" name="userStatut" id="userStatut" value="Responsable"/>
-                        
+                    <div class="form-group">
+                      <label for="userMail">Email</label>
+                      <input type="email" id="userMail" name="userMail" class="form-control" placeholder="Votre adresse mail" required>
                     </div>
 
-                    <input type="hidden" name="token" id="token" value="{{ session.inscription_token }}"/>
+                    <div class="form-group">
+                        <label for="userPass">Mot de passe</label>
+                        <input type="password" id="userPass" name="userPass" class="form-control" placeholder="Choisir un mot de passe"pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{6,20})" required>
+                        <small class="form-text text-muted">
+                        Votre mot de passe doit comporter de 6 à 20 caractères, au moins une lettre minuscule, au moins une lettre majuscule, au moins un chiffre, au moins un de ces caractères spéciaux: $ @ % * + - _ ! , aucun autre caractère possible, pas d'espace.
+                    </small>
+                    </div>
 
-                    <span type="button" id="previous-btn" class="btn btn-info">&lt; Précédent</span>
+                    <input type="hidden" name="userStatut" id="userStatut" value="Responsable"/>
+                    
+                </div>
 
-                    <span type="button" id="next-btn" class="btn btn-info">Suivant</span>
+                <input type="hidden" name="token" id="token" value="{{ session.inscription_token }}"/>
 
-                    <button type="submit" class="btn btn-primary btn-block" >Valider inscription</button>
-                </form>
-            </div>
+                <button type="submit" class="btn btn-primary right"><i class="fas fa-check"></i> Valider inscription</button>
+
+                <span type="button" id="previous-btn" class="btn btn-primary left"><i class="fas fa-angle-left"></i> Précédent</span>
+
+                <span type="button" id="next-btn" class="btn btn-primary right">Suivant <i class="fas fa-angle-right"></i></span>
+
+            </form>
         </div>
     </div>
 
+{% endblock %}
+
+{% block javascript %}
+    <script src="public/js/formInscription.js"></script>
+    <script src="public/js/inscription.js"></script>
 {% endblock %}
 
            

@@ -1,5 +1,42 @@
 @charset "UTF-8";
 /* COLOR  ====================== */
+.h1, h1 {
+  font-size: 1.2rem;
+  margin-bottom: 0;
+  text-transform: uppercase;
+}
+
+.h2, h2 {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+.h2 span, h2 span {
+  font-size: 1rem;
+  text-transform: none;
+}
+
+.h3, h3 {
+  font-size: 1.1rem;
+}
+
+.h4, h4 {
+  font-size: 1rem;
+}
+
+.left {
+  float: left !important;
+}
+
+.right {
+  float: right !important;
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+
+.alert {
+  padding: 0.2rem 1.25rem;
+}
+
 .error {
   background-color: #DC354E;
 }
@@ -8,25 +45,222 @@
   background-color: #28a745;
 }
 
+.section {
+  margin: 0 -30px;
+}
+
+.vignette {
+  padding: 0.5rem;
+  font-size: 1.1em;
+  margin: 5px;
+  width: 100%;
+}
+.vignette span {
+  font-size: 2.5em;
+  font-weight: bold;
+}
+
+/* HEADER ====================== */
+nav#topNav {
+  font-family: "Roboto Condensed", sans-serif;
+  background-color: white;
+  padding: 0.5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+nav#topNav a:hover {
+  color: #3A3A3A;
+}
+nav#topNav img#logo {
+  height: 45px;
+}
+nav#topNav .dropdown-menu a, nav#topNav a:hover {
+  color: #3A3A3A;
+}
+nav#topNav #pass-nature {
+  position: relative;
+  display: flex;
+  text-align: left;
+  top: -15px;
+}
+nav#topNav #pass-nature .pass-titre {
+  margin: 15px;
+}
+nav#topNav #pass-nature .pass-orange {
+  line-height: 110%;
+  color: white;
+  font-size: 1.5em;
+  font-weight: bold;
+  background-color: #EC8813;
+  transform: rotate(-10deg);
+  margin: 0;
+  padding: 0 5px;
+}
+nav#topNav #pass-nature .pass-nom {
+  position: absolute;
+  width: 100%;
+  font-weight: bold;
+  font-size: 1.5em;
+  margin: 0;
+  top: 33px;
+}
+nav#topNav #pass-epi {
+  display: none;
+  text-align: center;
+}
+nav#topNav #pass-epi .titre {
+  font-size: 2em;
+  margin: 0;
+  line-height: 110%;
+}
+nav#topNav #pass-epi .sous-titre {
+  font-size: 1em;
+  margin: 0;
+}
+nav#topNav #pass-epi .pass-bleu {
+  width: 250px;
+  color: white;
+  font-size: 1.3em;
+  background-color: #007bff;
+  margin: 0;
+  margin-right: auto;
+  margin-left: auto;
+}
+/* MAIN ======================== */
+main {
+  background: #f4f6f9;
+}
+main .groupeEntete {
+  background-color: #e5e9ef;
+  padding: 20px 15px;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+main .container h2 {
+  margin-top: 25px;
+}
+
+/* CARD ======================== */
+.carte {
+  background-color: white;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  padding: 15px;
+  margin-bottom: 1.3rem;
+}
+
+.card {
+  margin-bottom: 1.3rem;
+  width: 100%;
+}
+
+.card-body {
+  padding: 0.25rem;
+}
+
+.card-title {
+  margin-bottom: 0;
+}
+
+.card-image {
+  position: relative;
+  background: #f4f6f9;
+  border: 0;
+}
+
+.card-img-ribbon {
+  position: absolute;
+  left: 0px;
+  top: 0;
+  height: 200px;
+  width: 200px;
+  overflow: hidden;
+  z-index: 10;
+}
+.card-img-ribbon .ribbon {
+  position: relative;
+  width: 250px;
+  font-size: 1.5rem;
+  padding: 0.2rem 0;
+  color: white;
+  left: -50px;
+  text-align: center;
+  text-transform: uppercase;
+  top: 50px;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(-45deg);
+}
+.card-img-ribbon p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.card-footer {
+  padding: 1rem 3rem;
+  background-color: #f4f6f9;
+  border-top: 0;
+}
+
 /* SIDEBAR ===================== */
 .sidebar {
   padding-right: 0px;
   padding-left: 0px;
+  background-color: #344255;
+  color: #BFBDC6;
+}
+.sidebar .nav-link {
+  display: block;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+}
+.sidebar .sidebar-header {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  color: white;
+  background-color: #475b75;
+  padding: 6px 15px;
+  width: 100%;
+}
+.sidebar .sidebar-header .fa-user-check {
+  font-size: 20px;
+  padding: 15px;
+}
+.sidebar .sidebar-header .user p {
+  margin: 0;
 }
 .sidebar .sidebar-nav {
   display: flex;
-  flex-flow: column nowrap;
-  height: 80%;
-  background-color: #212529;
-  color: #BFBDC6;
+  flex-flow: column;
+  margin-top: 50px;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
 }
-.sidebar .sidebar-footer {
-  background-color: #344255;
-  padding: 0.75rem;
+.sidebar .sidebar-nav .nav-item {
+  margin-left: 1em;
 }
-.sidebar .sidebar-footer a, .sidebar a:hover {
-  color: #BFBDC6;
+.sidebar .sidebar-nav .nav-header {
+  padding: 1.7rem 1rem 0.5rem;
+}
+.sidebar .sidebar-nav .submenu {
+  list-style: none;
+  padding-left: 15px;
+}
+.sidebar .sidebar-nav .submenu .nav-item {
+  margin-bottom: 0.3em;
+}
+.sidebar .sidebar-nav .submenu .nav-link {
+  padding: 0.5rem;
+}
+.sidebar .sidebar-nav a, .sidebar .sidebar-nav a:hover {
+  color: white;
+  width: 100%;
   text-decoration: none;
+}
+.sidebar .sidebar-nav a:hover {
+  background-color: #475b75;
 }
 
 /* MESSAGE ===================== */
@@ -65,7 +299,24 @@
   display: none;
 }
 
+/* TABLEAU ====================== */
+table.users {
+  border-collapse: initial;
+  width: 100%;
+}
+
+.dataTables_wrapper {
+  margin: 1%;
+}
+
 /* FORMULAIRE ===================== */
+.required {
+  font-size: 12px;
+  color: red;
+  vertical-align: top;
+}
+
+/* Inscription----------------- */
 #groupe {
   display: none;
   padding: 1rem;
@@ -83,6 +334,79 @@
 
 #previous-btn {
   display: none;
+}
+
+/* upEquipt----------------- */
+#kitName {
+  display: none;
+}
+
+#lotName {
+  display: none;
+}
+
+/* FOOTER ===================== */
+footer {
+  display: flex;
+  justify-content: space-around;
+  background-color: #344255;
+  padding: 0.75rem;
+  color: white;
+}
+footer a, footer a:hover {
+  color: #BFBDC6;
+  text-decoration: none;
+}
+
+/* -- TABLET  ---------------------------------------------------- */
+@media all and (min-width: 768px) {
+  nav#topNav img#logo {
+    height: 80px;
+  }
+  nav#topNav #pass-epi {
+    display: block;
+  }
+
+  .section {
+    margin: 30px 0;
+  }
+
+  .vignette {
+    padding: 0.5rem 1rem;
+  }
+
+  /* CARD ======================== */
+  .card-body {
+    padding: 0.75rem;
+  }
+}
+/* -- ORDI  ---------------------------------------------------- */
+@media all and (min-width: 993px) {
+  nav#topNav {
+    padding: 0.5em 1em;
+  }
+  nav#topNav img#logo {
+    height: 100px;
+  }
+  nav#topNav #pass-nature {
+    min-width: 170px;
+  }
+  nav#topNav #pass-nature .pass-orange {
+    font-size: 2.4em;
+    padding: 0 10px;
+  }
+  nav#topNav #pass-nature .pass-nom {
+    font-size: 2.5em;
+    top: 40px;
+  }
+  nav#topNav #pass-epi {
+    display: block;
+  }
+
+  /* CARD ======================== */
+  .card-body {
+    padding: 1.25rem;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

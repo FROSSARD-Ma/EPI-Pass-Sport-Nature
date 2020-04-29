@@ -28,8 +28,8 @@ class UserController
 
 				// Vérifier si Mail existe déjà
 				$mailManager = new \Epi_Model\GroupeManager; 
-			    $mailExist = $mailManager->existGroupe($groupeMail);
-			    if ($mailExist) 
+			    $mailExist = $mailManager->existGroupe($groupeMail); 
+			    if ($mailExist) // Cle unique sur eamil groupe
 			    {
 			    	// Message erreur
 					throw new \Epi_Model\AppException('Un compte existe déjà avec cet mail.', 'home');
@@ -78,10 +78,10 @@ class UserController
 
 
 				// Message
-				$_SESSION['message'] = 'Votre inscription est validée ! Vous allez recevoir un email de confirmation.';
+				$_SESSION['message'] = 'Votre inscription est validée !';
 				// Nouvelle page 
-				$nxView = new \Epi_Model\View('dashboard');
-				$nxView->getView();
+				$nxView = new \Epi_Model\View();
+				$nxView->redirectView('home');
 			}
 			else
 			{
@@ -95,6 +95,106 @@ class UserController
 			$e->getRedirection();
 		}
 	}
+
+	public function addUser()
+	{
+		try
+		{
+	 		$UserManager = new \Epi_Model\UserManager;
+	 		$userPass = $UserManager->creatPass();
+			$nxPassCrypt = $this->cryptPass($userPass);
+			$addUser = $UserManager->addUser($_SESSION['groupeId'], $nxPassCrypt);
+			if ($addUser)
+			{
+				// Message
+				$_SESSION['message'] = 'L\'inscription est validée !';
+				// Nouvelle page 
+				$nxView = new \Epi_Model\View();
+				$nxView->redirectView('dashboard');
+			}
+			else
+			{
+				// Message erreur
+				throw new \Epi_Model\AppException('l\'utilisateur n\'a pas été créé.', 'dashboard');
+			}
+
+		}
+		catch (\Epi_Model\AppException $e)
+		{
+			$e->getRedirection();
+		}
+	}
+
+	public function upUser()
+	{
+		try
+		{
+			$csrf = new \Epi_Model\SecuriteCsrf('dashboard');
+			$dashboardToken = $csrf->verifToken(HOST.'dashboard');
+			if ($dashboardToken)
+			{
+		 		$UserManager = new \Epi_Model\UserManager;
+		 		$upUser = $UserManager->updateUser($_POST['userId'], $_POST['userStatut']);
+		 		if ($upUser)
+			    {
+			    	$_SESSION['message'] = 'le statut utilisateur a été mis à jour !';
+					$nxView = new \Epi_Model\View();
+					$nxView->redirectView('dashboard');
+			    }
+			    else
+			    {
+			    	// Message erreur
+					throw new \Epi_Model\AppException('le statut utilisateur n\'a pas été mis à jour.', 'dashboard');
+			    }
+		 	}
+			else
+			{
+				throw new \Epi_Model\AppException('vous avez dépassé le temps d\'envoie du formulaire. Rechargez la page et validez !', 'dashboard');
+			}
+
+		}
+		catch (\Epi_Model\AppException $e)
+		{
+			$e->getRedirection();
+		}
+	}
+
+	public function delUser()
+	{
+		try
+		{
+			$csrf = new \Epi_Model\SecuriteCsrf('dashboard');
+			$dashboardToken = $csrf->verifToken(HOST.'dashboard');
+			if ($dashboardToken)
+			{
+		 		$UserManager = new \Epi_Model\UserManager;
+		 		$delUser = $UserManager->deleteUser($_POST['userId']);
+		 		if ($delUser)
+			    {
+			    	$_SESSION['message'] = 'L\'utilisateur a été supprimé !';
+					$nxView = new \Epi_Model\View();
+					$nxView->redirectView('dashboard');
+			    }
+			    else
+			    {
+			    	// Message erreur
+					throw new \Epi_Model\AppException('l\'utilisateur n\'a pas été supprimé.', 'dashboard');
+			    }
+		 	}
+			else
+			{
+				throw new \Epi_Model\AppException('vous avez dépassé le temps d\'envoie du formulaire. Rechargez la page et validez !', 'dashboard');
+			}
+
+		}
+		catch (\Epi_Model\AppException $e)
+		{
+			$e->getRedirection();
+		}
+
+	}
+
+
 
 	// ---- COOKIE -------------------------------------------
 	public function addCookieUser()
@@ -124,18 +224,35 @@ class UserController
 			    	$nxUser = new \Epi_Model\User($mailExist);
 					if (password_verify($_POST['userPass'], $nxUser->getPass()))
 					{
-						// enregistrement pour la session
+						$groupeId = $nxUser->getGroupeId();
+
+						/* User */
 						$_SESSION['userId']			= $nxUser->getId();
+						$_SESSION['userName']		= $nxUser->getName();
 						$_SESSION['userFirstname']	= $nxUser->getFirstname();
 				        $_SESSION['userStatut']		= $nxUser->getStatut();
+						
+						/* Groupe */
+						$groupeManager = new \Epi_Model\GroupeManager;
+						$groupe = $groupeManager->getGroupe($groupeId);
+						if ($groupe)
+					    {
 
+					    	$nxGroupe = new \Epi_Model\Groupe($groupe);
+							$_SESSION['groupeId']		= $nxGroupe->getId();
+							$_SESSION['groupeStatut']	= $nxGroupe->getStatut();
+							$_SESSION['groupeName']		= $nxGroupe->getName();
+
+						}
 				        //-- Se SOUVENIR du MDP
 				        if (isset($_POST['userRemember']))
 				        { 
 				            $this->addCookieUser();
 				        }
-				        $nxView = new \Epi_Model\View('dashboard');
-				        $nxView->getView();
+				        $nxView = new \Epi_Model\View();
+				        $nxView->redirectView('dashboard');
+
+
 				    }
 				    else
 				    {
@@ -177,8 +294,8 @@ class UserController
 				    	// Message		    	
 						$_SESSION['message'] = 'Votre adresse Email a été mis à jour !';
 				    	// Redirection page
-				    	$nxView = new \Epi_Model\View('account');
-					    $nxView->getView();
+				    	$nxView = new \Epi_Model\View();
+					    $nxView->redirectView('account');
 					}
 					else
 					{
@@ -252,8 +369,8 @@ class UserController
 			    	// Message
 					$_SESSION['message'] = 'Une demande de changement vous a été envoyé par Email !';
 					// Redirection page
-			    	$nxView = new \Epi_Model\View('home');
-				    $nxView->getView();
+			    	$nxView = new \Epi_Model\View();
+				    $nxView->redirectView('home');
 			    }
 			    else
 			    {
@@ -307,8 +424,8 @@ class UserController
 								    	// Message		    	
 										$_SESSION['message'] = 'Votre mot de passe a été mis à jour !';
 								    	// Redirection page
-								    	$nxView = new \Epi_Model\View('home');
-									    $nxView->getView();
+								    	$nxView = new \Epi_Model\View();
+									    $nxView->redirectView('home');
 								    }
 								    else
 								    {
@@ -384,8 +501,8 @@ class UserController
 						    	// Message		    	
 								$_SESSION['message'] = 'Votre mot de passe a été mis à jour !';
 						    	// Redirection page
-						    	$nxView = new \Epi_Model\View('account');
-							    $nxView->getView();
+						    	$nxView = new \Epi_Model\View();
+							    $nxView->redirectView('account');
 						    }
 						    else
 						    {
@@ -495,8 +612,8 @@ class UserController
 			    	// Message
 					$_SESSION['message'] = 'Votre message a bien été envoyé ! Je vous recontacteria dans les plus bref délais ! ';
 					// Redirection page
-			    	$nxView = new \Epi_Model\View('home');
-				    $nxView->getView();
+			    	$nxView = new \Epi_Model\View();
+				    $nxView->redirectView('home');
 			    }
 			    else
 		    	{
