@@ -100,14 +100,20 @@ class FrontController
             // Kit
             // $idKit = $equipt->getKitId($id);
             // $kitManager = new \Epi_Model\KitManager;
-            // $dataKit = $kitManager->getKit(array($idKit));
-            // $kit = new \Epi_Model\Kit($dataKit);
+            // $dataKit = $kitManager->getKit($idKit);
+            // if ($dataKit)
+            // {
+            //     $kit = new \Epi_Model\Kit($dataKit);
+            // }
 
             // Lot
             $idLot = $equipt->getLotId($id);
             $lotManager = new \Epi_Model\LotManager;
-            $dataLot = $lotManager->getLot(array($idLot));
-            $lot = new \Epi_Model\Kit($dataLot);
+            $dataLot = $lotManager->getLot($idLot);
+            if ($dataLot)
+            {
+                $lot = new \Epi_Model\Lot($dataLot);
+            }
             
             // Controles
             $controleManager = new \Epi_Model\ControleManager;
@@ -121,9 +127,10 @@ class FrontController
             $nxView->getView(
             array (
                 'equipt'=> $equipt,
+                'controles'=>$controles,
                 //'kit'=> $kit,
-                'lot'=> $lot,
-                'controles'=>$controles));
+                'lot'=> $lot
+                ));
         }
         else
         {
