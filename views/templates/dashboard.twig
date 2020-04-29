@@ -17,7 +17,7 @@
             <h2>TABLEAU DE BORD <span>{{ session.userStatut }}</span></h2>
             <hr>
             <p>Retrouvez sur le tableau de bord l'ensemble des informations sur l'état de vos équipements sportifs.
-            <br>En un coup d'oeil vous pouvez voir les tâches qui sont à réaliser, ajouter de nouveau utilisateur et leur attribuer un rôle au sein de la gestion des équipements de votre groupe.</p>
+            <br>En un coup d'œil vous pouvez voir les tâches qui sont à réaliser, ajouter de nouveau utilisateur et leur attribuer un rôle au sein de la gestion des équipements de votre groupe.</p>
         </div>
 
         <div class="col-sm-6 col-md-3">
@@ -65,14 +65,14 @@
                                         <td>
                                             <input type="hidden" name="userId" id="userId" value="{{ user.getId }}"/>
                                             <input type="hidden" name="token" id="token" value="{{ session.dashboard_token }}"/>
-                                            <button class="btn btn-success btn-block" type="submit"><i class="fas fa-pencil-alt"></i></button></td>
+                                            <button class="btn btn-success btn-block" type="submit" data-toggle="tooltip" data-placement="top" title="Changer le statut de l'utilisateur de votre groupe."><i class="fas fa-pencil-alt"></i></button></td>
                                     </form>
                                     <!-- Form SUPPRESSION User --> 
                                     <form method="post" action="delUser" id="delUserForm" enctype="multipart/form-data" data-parsley-validate>
                                         <td>
                                             <input type="hidden" name="userId" id="userId" value="{{ user.getId }}"/>
                                             <input type="hidden" name="token" id="token" value="{{ session.dashboard_token }}"/>
-                                            <button  id="delUserBtn"class="btn btn-danger btn-block" type="submit"><i class="fas fa-trash"></i></button>
+                                            <button  id="delUserBtn"class="btn btn-danger btn-block" type="submit" data-toggle="tooltip" data-placement="top" title="Supprimer l'utilisateur du groupe. Les controles qu'il aura effectué seront conservés en son nom."><i class="fas fa-trash"></i></button>
                                         </td>
                                     </form>
                                 </tr>
@@ -86,7 +86,7 @@
             <div class="col-sm-12 col-md-6">
                 <div class="card">
                     <div class="card-header">
-                      <h3 class="card-title">Ajouter un utilisateur</h3>
+                      <h3 class="card-title">Ajouter un utilisateur <span data-toggle="tooltip" data-placement="top" title="Ajouter un nouvel utilisateur pour la gestion de vos contrôles EPI au sein de votre groupe."><i class="fas fa-info-circle"></i></span></h3>
                     </div>
                     <div class="card-body">
                         <form id="addUserForm" method="post" action="addUser"  data-parsley-validate>
