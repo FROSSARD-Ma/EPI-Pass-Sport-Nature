@@ -30,22 +30,9 @@
             <div class="col col-3">
                 <div class="card card-image">
                     <div class="card-img-ribbon">
-
-                        {% if equipt.getStatut == 'À contrôler' %}
-                           <div class="ribbon bg-danger">
-                                <p>À contrôler</p>
-                            </div>
-                        {%  elseif equipt.getStatut == 'À réparer' %}
-                            <div class="ribbon bg-warning">
-                            <font style="vertical-align: inherit;">
-                                À réparer
-                                </font>
-                            </div>
-                        {% else %}
-                            <div class="ribbon bg-success">
-                                <p>Valide</p>
-                            </div>
-                        {% endif %}
+                       <div class="ribbon {{ equipt.getColorBgStatut }}">
+                            <p>{{ equipt.getStatut }}</p>
+                        </div>
                     </div>
                     {% if equipt.getImage %}
                         <a href="public/img/equipement/{{ session.groupeId }}/{{ equipt.getId }}/{{ equipt.getImage }}" target="_blank" title="Voir la photo">
@@ -235,8 +222,18 @@
                             <label class="col-sm-3 col-form-label" for="frequenceControle">Fréquence Contrôle <span class="required">*</span></label>
                             <div class="col-sm-9">
                                 <select class="form-control" id="frequenceControle" name="frequenceControle" >
-                                {% if equipt.getFrequenceControle %}
-                                    <option value="{{ equipt.getFrequenceControle }}">{{ equipt.getFrequenceControle }}</option>
+                                {% if equipt.getFrequenceControle == '15' %}
+                                    <option value="{{ equipt.getFrequenceControle }}">15 jours</option>                        
+                                {% elseif equipt.getFrequenceControle == '30' %}
+                                    <option value="{{ equipt.getFrequenceControle }}">1 mois</option>
+                                {% elseif equipt.getFrequenceControle == '90' %}
+                                    <option value="{{ equipt.getFrequenceControle }}">3 mois</option>
+                                {% elseif equipt.getFrequenceControle == '180' %}
+                                    <option value="{{ equipt.getFrequenceControle }}">6 mois</option>
+                                {% elseif equipt.getFrequenceControle == '365' %}
+                                    <option value="{{ equipt.getFrequenceControle }}">1 an</option>
+                                {% elseif equipt.getFrequenceControle == '730' %}
+                                    <option value="{{ equipt.getFrequenceControle }}">2 ans</option>
                                 {% else %}
                                     <option value="">Quelle est la fréquence du controle ?</option>
                                 {% endif %}

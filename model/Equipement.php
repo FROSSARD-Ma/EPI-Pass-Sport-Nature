@@ -151,6 +151,21 @@ class Equipement extends Manager
                 echo 'badge-warning';
             }
         }
+        public function getColorBgStatut()
+        { 
+            if($this->getStatut() == 'Valide') // timestamp
+            {
+                echo 'badge-success';
+            }
+            elseif($this->getStatut() == 'À réparer') // timestamp
+            {
+                echo 'badge-primary';
+            }
+            else
+            { 
+                echo 'badge-warning';
+            }
+        }
 
         // Dates
         public function getFabrication()

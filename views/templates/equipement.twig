@@ -18,22 +18,9 @@
         <div class="col-12 col-sm-6 col-md-4">
             <div class="card card-image">
                 <div class="card-img-ribbon">
-
-                    {% if equipt.getStatut == 'invalid' %}
-                       <div class="ribbon bg-danger">
-                            <p>À contrôler</p>
-                        </div>
-                    {%  elseif equipt.getStatut == 'reparation' %}
-                        <div class="ribbon bg-warning">
-                        <font style="vertical-align: inherit;">
-                            À réparer
-                            </font>
-                        </div>
-                    {% else %}
-                        <div class="ribbon bg-success">
-                            <p>Valide</p>
-                        </div>
-                    {% endif %}
+                    <div class="ribbon {{ equipt.getColorBgStatut }}">
+                        <p>{{ equipt.getStatut }}</p>
+                    </div>
                 </div>
                 {% if equipt.getImage %}
                     <a href="public/img/equipement/{{ session.groupeId }}/{{ equipt.getId }}/{{ equipt.getImage }}" target="_blank" title="Voir la photo">
@@ -123,7 +110,15 @@
                         {% endif %}    
                     </p>
                     <p><i class="far fa-calendar-alt"></i> <strong>Prochain contrôle :</strong> {{ equipt.getProchainControle}}</p>
-                    <p><i class="fas fa-sync-alt"></i> <strong>Fréquence des contrôles :</strong> {{ equipt.getFrequenceControle }}</p>
+                    <p><i class="fas fa-sync-alt"></i> <strong>Fréquence des contrôles :</strong> 
+                        {% if equipt.getFrequenceControle == '15'%} 15 jours
+                        {% elseif equipt.getFrequenceControle == '30' %}1 mois
+                        {% elseif equipt.getFrequenceControle == '90' %}3 mois
+                        {% elseif equipt.getFrequenceControle == '180' %}6 mois
+                        {% elseif equipt.getFrequenceControle == '365' %}1 an
+                        {% elseif equipt.getFrequenceControle == '730' %}2 ans
+                        {% endif %} 
+                    </p>
                 </div>
             </div>
         </div>
