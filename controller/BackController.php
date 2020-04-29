@@ -323,7 +323,7 @@ class BackController
 			    {
 			    	$_SESSION['message'] = 'L\'équipement a été mis à jour !';
 					$nxView = new \Epi_Model\View();
-					$nxView->redirectView('upEquipt/id/'.$id);
+					$nxView->redirectView('equipement/id/'.$id);
 			    }
 			    else
 			    {
