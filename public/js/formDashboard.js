@@ -1,7 +1,7 @@
 
 /* == Update User STATUT  ================================ */
 
-const userForm  = document.getElementById('users');
+const userForm  = document.getElementById('upUserForm');
 form = userForm.querySelectorAll('form');
 
 for (let i=0, nbForm=form.length; i<nbForm; i++) {
