@@ -40,7 +40,7 @@ class FrontController
             $controlRetard = $equipementManager->countControleRetard(); // today
             $_SESSION['countControleRetard'] = $controlRetard; 
 
-            /* Liste USERS */
+            /* Liste USERS ACTIFS */
             $UserManager = new \Epi_Model\UserManager;
             $dataUsers = $UserManager->getUsers($_SESSION['groupeId']);
             foreach ($dataUsers as $data)

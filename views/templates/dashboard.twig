@@ -50,9 +50,10 @@
                                 {% for user in users %}
                                 <tr>
                                     <!-- Form STATUT User  --> 
-                                    <form method="post" action="upUser" id="upUserForm" enctype="multipart/form-data"  data-parsley-validate>
-                                        <td><a href="mailto:{{ user.getMail }}">{{ user.getName }} {{ user.getFirstname }}</a></td>
-                                       
+                                    <form id="upUserForm" method="post" action="upUser"  enctype="multipart/form-data">
+                                        <td>
+                                            <a href="mailto:{{ user.getMail }}">{{ user.getName }} {{ user.getFirstname }}</a>
+                                        </td>
                                         <td>
                                             <select class="form-control" id="userStatut" name="userStatut" value ="{{ user.getStatut }}" required>
                                                 <option value="{{ user.getStatut }}">{{ user.getStatut }}</option>
@@ -65,14 +66,14 @@
                                         <td>
                                             <input type="hidden" name="userId" id="userId" value="{{ user.getId }}"/>
                                             <input type="hidden" name="token" id="token" value="{{ session.dashboard_token }}"/>
-                                            <button class="btn btn-success btn-block" type="submit" data-toggle="tooltip" data-placement="top" title="Changer le statut de l'utilisateur de votre groupe."><i class="fas fa-pencil-alt"></i></button></td>
+                                            <button id="upUserBtn" class="btn btn-success btn-block" type="submit" data-toggle="tooltip" data-placement="top" title="Changer le statut de l'utilisateur de votre groupe."><i class="fas fa-pencil-alt"></i></button></td>
                                     </form>
                                     <!-- Form SUPPRESSION User --> 
-                                    <form method="post" action="delUser" id="delUserForm" enctype="multipart/form-data" data-parsley-validate>
+                                    <form method="post" action="delUser" id="delUserForm" enctype="multipart/form-data">
                                         <td>
                                             <input type="hidden" name="userId" id="userId" value="{{ user.getId }}"/>
                                             <input type="hidden" name="token" id="token" value="{{ session.dashboard_token }}"/>
-                                            <button  id="delUserBtn"class="btn btn-danger btn-block" type="submit" data-toggle="tooltip" data-placement="top" title="Supprimer l'utilisateur du groupe. Les controles qu'il aura effectué seront conservés en son nom."><i class="fas fa-trash"></i></button>
+                                            <button class="btn btn-danger btn-block" type="submit" data-toggle="tooltip" data-placement="top" title="Supprimer l'utilisateur du groupe. Les controles qu'il aura effectué seront conservés en son nom."><i class="fas fa-trash"></i></button>
                                         </td>
                                     </form>
                                 </tr>

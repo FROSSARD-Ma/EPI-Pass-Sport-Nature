@@ -90,7 +90,7 @@ class UserManager extends Manager
 
         $sql ='SELECT *
             FROM EPI_users 
-            WHERE user_groupeId = :id';
+            WHERE user_groupeId = :id AND user_profile="on"';
         $data = $this->getPDO()->prepare($sql);
         $data->bindValue(':id', $idGroupe, PDO::PARAM_STR); 
         $data->execute();
@@ -146,6 +146,24 @@ class UserManager extends Manager
 
         return $data;
     }
+
+    public function profilUser($id)
+    {
+        $idUser = (int)$id;
+        $profile = 'off';
+
+        $sql ='UPDATE EPI_users 
+            SET user_profile = :profile
+            WHERE  user_id = :id';
+
+        $data = $this->getPDO()->prepare($sql); 
+        $data->bindValue(':profile', $profile, PDO::PARAM_STR);
+        $data->bindValue(':id', $idUser, PDO::PARAM_STR); 
+        $data->execute();
+
+        return $data;
+    }
+
 
     /*---  DELETE -------------------------------------------------------- */
     public function deleteUser($id)

@@ -168,7 +168,7 @@ class UserController
 			if ($dashboardToken)
 			{
 		 		$UserManager = new \Epi_Model\UserManager;
-		 		$delUser = $UserManager->deleteUser($_POST['userId']);
+		 		$delUser = $UserManager->profilUser($_POST['userId']);
 		 		if ($delUser)
 			    {
 			    	$_SESSION['message'] = 'L\'utilisateur a été supprimé !';
