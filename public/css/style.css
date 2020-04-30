@@ -300,7 +300,7 @@ main .container h2 {
 }
 
 /* TABLEAU ====================== */
-table.users {
+table#users {
   border-collapse: initial;
   width: 100%;
 }
