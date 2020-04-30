@@ -66,14 +66,14 @@
                                         <td>
                                             <input type="hidden" name="userId" id="userId" value="{{ user.getId }}"/>
                                             <input type="hidden" name="token" id="token" value="{{ session.dashboard_token }}"/>
-                                            <button class="btn btn-success btn-block" type="submit" data-toggle="tooltip" data-placement="top" title="Changer le statut de l'utilisateur de votre groupe."><i class="fas fa-pencil-alt"></i></button></td>
+                                            <button class="btn btn-success btn-block" name="upUserBtn" type="submit" data-toggle="tooltip" data-placement="top" title="Changer le statut de l'utilisateur de votre groupe."><i class="fas fa-pencil-alt"></i></button></td>
                                     </form>
                                     <!-- Form SUPPRESSION User --> 
                                     <form method="post" action="delUser"enctype="multipart/form-data">
                                         <td>
                                             <input type="hidden" name="userId" id="userId" value="{{ user.getId }}"/>
                                             <input type="hidden" name="token" id="token" value="{{ session.dashboard_token }}"/>
-                                            <button class="btn btn-danger btn-block" type="submit" data-toggle="tooltip" data-placement="top" title="Supprimer l'utilisateur du groupe. Les controles qu'il aura effectué seront conservés en son nom."><i class="fas fa-trash"></i></button>
+                                            <button class="btn btn-danger btn-block" name="delUserBtn" type="submit" data-toggle="tooltip" data-placement="top" title="Supprimer l'utilisateur du groupe. Les controles qu'il aura effectué seront conservés en son nom."><i class="fas fa-trash"></i></button>
                                         </td>
                                     </form>
                                 </tr>

@@ -25,6 +25,10 @@
   font-size: 1rem;
 }
 
+a, a:hover {
+  color: #EC8813;
+}
+
 .left {
   float: left !important;
 }
@@ -146,7 +150,7 @@ nav#navTop {
 nav#navTop #logo {
   display: block;
 }
-nav#navTop .dropdown-menu a, nav#navTop a:hover {
+nav#navTop .dropdown-menu a, nav#navTop a, nav#navTop a:hover {
   color: #3A3A3A;
 }
 
@@ -227,6 +231,10 @@ main .container h2 {
 }
 
 /* SIDEBAR ===================== */
+aside.sidebar img {
+  width: 100%;
+}
+
 .sidebar {
   display: none;
   padding-right: 0px;

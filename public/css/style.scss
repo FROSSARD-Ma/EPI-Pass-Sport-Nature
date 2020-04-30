@@ -41,6 +41,9 @@ $primary:#007bff;
     font-size: 1rem;
 }
 
+a, a:hover {
+	color:  $orang;
+}
 
 .left {
   float: left!important;
@@ -173,7 +176,7 @@ nav#navTop {
 		display: block;
 	}
 
-	.dropdown-menu a, a:hover {
+	.dropdown-menu a,a, a:hover {
 		color:  $texte-fonce;
 	}
 }
@@ -269,6 +272,10 @@ main {
 
 
 /* SIDEBAR ===================== */
+aside.sidebar img {
+	width: 100%;
+}
+
 .sidebar {
 	display: none;
 	padding-right: 0px;
