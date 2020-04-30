@@ -23,287 +23,368 @@ class FrontController
 
     public function dashboard($params)
     {
-        $csrf = new \Epi_Model\SecuriteCsrf('dashboard');
-        $token = $csrf->getToken();
-
-        /* Count STATUT */
-        $equipementManager = new \Epi_Model\EquipementManager;
-        $equiptControle = $equipementManager->countEquiptsStatut('À contrôler');
-        $_SESSION['countEquiptControler'] = $equiptControle;
-        $equiptReparation = $equipementManager->countEquiptsStatut('À réparer');
-        $_SESSION['countEquiptReparer'] = $equiptReparation;
-        $equiptValide = $equipementManager->countEquiptsStatut('Valide');
-        $_SESSION['countEquiptValide'] = $equiptValide;
-        // Retard
-        $controlRetard = $equipementManager->countControleRetard(); // today
-        $_SESSION['countControleRetard'] = $controlRetard; 
-
-        /* Liste USERS */
-        $UserManager = new \Epi_Model\UserManager;
-        $dataUsers = $UserManager->getUsers($_SESSION['groupeId']);
-        foreach ($dataUsers as $data)
+        if ($_SESSION['userId'])
         {
-            $user = new \Epi_Model\User($data);
-            $users[] = $user; // Tableau d'objet
+            $csrf = new \Epi_Model\SecuriteCsrf('dashboard');
+            $token = $csrf->getToken();
+
+            /* Count STATUT */
+            $equipementManager = new \Epi_Model\EquipementManager;
+            $equiptControle = $equipementManager->countEquiptsStatut('À contrôler');
+            $_SESSION['countEquiptControler'] = $equiptControle;
+            $equiptReparation = $equipementManager->countEquiptsStatut('À réparer');
+            $_SESSION['countEquiptReparer'] = $equiptReparation;
+            $equiptValide = $equipementManager->countEquiptsStatut('Valide');
+            $_SESSION['countEquiptValide'] = $equiptValide;
+            // Retard
+            $controlRetard = $equipementManager->countControleRetard(); // today
+            $_SESSION['countControleRetard'] = $controlRetard; 
+
+            /* Liste USERS */
+            $UserManager = new \Epi_Model\UserManager;
+            $dataUsers = $UserManager->getUsers($_SESSION['groupeId']);
+            foreach ($dataUsers as $data)
+            {
+                $user = new \Epi_Model\User($data);
+                $users[] = $user; // Tableau d'objet
+            }
+
+            $nxView = new \Epi_Model\View('dashboard');
+            $nxView->getView(array (
+                'userResp'=> $userResp,
+                'users'=> $users
+            ));
+        }
+        else
+        {
+            $nxView = new \Epi_Model\View();
+            $nxView->redirectView('home');
         }
 
-        $nxView = new \Epi_Model\View('dashboard');
-        $nxView->getView(array (
-            'userResp'=> $userResp,
-            'users'=> $users
-        ));
     }
 
     public function equipements($params)
     {
-        $csrf = new \Epi_Model\SecuriteCsrf('equipements');
-        $token = $csrf->getToken();
-
-        /* Count STATUT */
-        $equipementManager = new \Epi_Model\EquipementManager;
-        $equiptControle = $equipementManager->countEquiptsStatut('À contrôler');
-        $_SESSION['countEquiptControler'] = $equiptControle;
-        $equiptReparation = $equipementManager->countEquiptsStatut('À réparer');
-        $_SESSION['countEquiptReparer'] = $equiptReparation;
-        $equiptValide = $equipementManager->countEquiptsStatut('Valide');
-        $_SESSION['countEquiptValide'] = $equiptValide;
-        // Retard
-        $controlRetard = $equipementManager->countControleRetard(); // today
-        $_SESSION['countControleRetard'] = $controlRetard; 
-
-        /* Liste Equipements */
-        $equipementManager = new \Epi_Model\EquipementManager;
-        $dataEquipts = $equipementManager->getEquipements($_SESSION['groupeId']);
-        foreach ($dataEquipts as $data)
+        if ($_SESSION['userId'])
         {
-            $equipt = new \Epi_Model\Equipement($data);
-            $equipts[] = $equipt; // Tableau d'objet
+            $csrf = new \Epi_Model\SecuriteCsrf('equipements');
+            $token = $csrf->getToken();
+
+            /* Count STATUT */
+            $equipementManager = new \Epi_Model\EquipementManager;
+            $equiptControle = $equipementManager->countEquiptsStatut('À contrôler');
+            $_SESSION['countEquiptControler'] = $equiptControle;
+            $equiptReparation = $equipementManager->countEquiptsStatut('À réparer');
+            $_SESSION['countEquiptReparer'] = $equiptReparation;
+            $equiptValide = $equipementManager->countEquiptsStatut('Valide');
+            $_SESSION['countEquiptValide'] = $equiptValide;
+            // Retard
+            $controlRetard = $equipementManager->countControleRetard(); // today
+            $_SESSION['countControleRetard'] = $controlRetard; 
+
+            /* Liste Equipements */
+            $equipementManager = new \Epi_Model\EquipementManager;
+            $dataEquipts = $equipementManager->getEquipements($_SESSION['groupeId']);
+            foreach ($dataEquipts as $data)
+            {
+                $equipt = new \Epi_Model\Equipement($data);
+                $equipts[] = $equipt; // Tableau d'objet
+            }
+            $nxView = new \Epi_Model\View('equipements');
+            $nxView->getView(array (
+                'equipts'=> $equipts));
         }
-        $nxView = new \Epi_Model\View('equipements');
-        $nxView->getView(array (
-            'equipts'=> $equipts));
+        else
+        {
+            $nxView = new \Epi_Model\View();
+            $nxView->redirectView('home');
+        }
     }
 
     public function equipement($params)
     {
-        extract($params); // id equipement
-        
-        // Vérifier si Equipement existe 
-        $equiptManager = new \Epi_Model\EquipementManager; 
-        $equiptExist = $equiptManager->existEquipt($id);
-        if ($equiptExist) 
+        if ($_SESSION['userId'])
         {
-            $equipementManager = new \Epi_Model\EquipementManager;
-            $dataEquipt = $equipementManager->getEquipement($id);
-            $equipt = new \Epi_Model\Equipement($dataEquipt);
-           
-            // Kit
-            // $idKit = $equipt->getKitId($id);
-            // $kitManager = new \Epi_Model\KitManager;
-            // $dataKit = $kitManager->getKit($idKit);
-            // if ($dataKit)
-            // {
-            //     $kit = new \Epi_Model\Kit($dataKit);
-            // }
-
-            // Lot
-            $idLot = $equipt->getLotId($id);
-            $lotManager = new \Epi_Model\LotManager;
-            $dataLot = $lotManager->getLot($idLot);
-            if ($dataLot)
-            {
-                $lot = new \Epi_Model\Lot($dataLot);
-            }
+            extract($params); // id equipement
             
-            // Controles
-            $controleManager = new \Epi_Model\ControleManager;
-            $dataControles = $controleManager->getControles($id);
-            foreach ($dataControles as $data)
+            // Vérifier si Equipement existe 
+            $equiptManager = new \Epi_Model\EquipementManager; 
+            $equiptExist = $equiptManager->existEquipt($id);
+            if ($equiptExist) 
             {
-                $controle = new \Epi_Model\Controle($data);
-                $controles[] = $controle; // Tableau d'objet
+                $equipementManager = new \Epi_Model\EquipementManager;
+                $dataEquipt = $equipementManager->getEquipement($id);
+                $equipt = new \Epi_Model\Equipement($dataEquipt);
+               
+                // Kit
+                // $idKit = $equipt->getKitId($id);
+                // $kitManager = new \Epi_Model\KitManager;
+                // $dataKit = $kitManager->getKit($idKit);
+                // if ($dataKit)
+                // {
+                //     $kit = new \Epi_Model\Kit($dataKit);
+                // }
+
+                // Lot
+                $idLot = $equipt->getLotId($id);
+                $lotManager = new \Epi_Model\LotManager;
+                $dataLot = $lotManager->getLot($idLot);
+                if ($dataLot)
+                {
+                    $lot = new \Epi_Model\Lot($dataLot);
+                }
+                
+                // Controles
+                $controleManager = new \Epi_Model\ControleManager;
+                $dataControles = $controleManager->getControles($id);
+                foreach ($dataControles as $data)
+                {
+                    $controle = new \Epi_Model\Controle($data);
+                    $controles[] = $controle; // Tableau d'objet
+                }
+                $nxView = new \Epi_Model\View('equipement');
+                $nxView->getView(
+                array (
+                    'equipt'=> $equipt,
+                    'controles'=>$controles,
+                    //'kit'=> $kit,
+                    'lot'=> $lot
+                    ));
             }
-            $nxView = new \Epi_Model\View('equipement');
-            $nxView->getView(
-            array (
-                'equipt'=> $equipt,
-                'controles'=>$controles,
-                //'kit'=> $kit,
-                'lot'=> $lot
-                ));
+            else
+            {
+               // Nouvelle page 
+                $nxView = new \Epi_Model\View();
+                $nxView->redirectView('page404');
+            }
         }
         else
         {
-           // Nouvelle page 
             $nxView = new \Epi_Model\View();
-            $nxView->redirectView('page404');
+            $nxView->redirectView('home');
         }
     }
 
 
     public function nxEquipt($params)
     {
-        $csrf = new \Epi_Model\SecuriteCsrf('nxEquipt');
-        $token = $csrf->getToken();
-
-        // Liste des activites
-        $activiteManager = new \Epi_Model\ActiviteManager;
-        $activites = $activiteManager->getActivites();
-
-        // Liste des categories
-        $categorieManager = new \Epi_Model\CategorieManager;
-        $categories = $categorieManager->getCategories();
-
-        // Liste des kits
-        $kitManager = new \Epi_Model\KitManager;
-        $kits = $kitManager->getKits();
-        
-        // Liste des lots
-        $lotManager = new \Epi_Model\LotManager;
-        $lots = $lotManager->getLots();
-
-        $nxView = new \Epi_Model\View('nxEquipt');
-        $nxView->getView(array (
-            'activites'=> $activites,
-            'categories' => $categories,
-            'kits' => $kits,
-            'lots' => $lots));
-    }
-
-    public function nxControl($params)
-    {
-        $csrf = new \Epi_Model\SecuriteCsrf('nxControl');
-        $token = $csrf->getToken();
-
-        extract($params); // id equipement
-        
-        // Vérifier si Equipement existe 
-        $equiptManager = new \Epi_Model\EquipementManager; 
-        $equiptExist = $equiptManager->existEquipt($id);
-        if ($equiptExist) 
+        if ($_SESSION['userId'])
         {
-            $equipementManager = new \Epi_Model\EquipementManager;
-            $dataEquipt = $equipementManager->getEquipement($id);
-            $equipt = new \Epi_Model\Equipement($dataEquipt);
-            
-            $nxView = new \Epi_Model\View('nxControl');
-            $nxView->getView(
-            array (
-                'equipt'=> $equipt));
-        }
-        else
-        {
-           // Nouvelle page 
-            $nxView = new \Epi_Model\View();
-            $nxView->redirectView('page404');
-        }
-    }
+            $csrf = new \Epi_Model\SecuriteCsrf('nxEquipt');
+            $token = $csrf->getToken();
 
-    public function calendrier($params)
-    {
-        /* Count STATUT */
-        $equipementManager = new \Epi_Model\EquipementManager;
-        // A réparer        
-        $equiptReparation = $equipementManager->countEquiptsStatut('À réparer');
-        $_SESSION['countEquiptReparer'] = $equiptReparation;
-        // Retard
-        $controlRetard = $equipementManager->countControleRetard(); // today
-        $_SESSION['countControleRetard'] = $controlRetard; 
+            // Liste des activites
+            $activiteManager = new \Epi_Model\ActiviteManager;
+            $activites = $activiteManager->getActivites();
 
-        /* Liste Equipements */
-        $equipementManager = new \Epi_Model\EquipementManager;
-        $dataEquipts = $equipementManager->getEquiptsInvalide($_SESSION['groupeId']);
-        foreach ($dataEquipts as $data)
-        {
-            $equipt = new \Epi_Model\Equipement($data);
-            $equipts[] = $equipt; // Tableau d'objet
-        }
-        $nxView = new \Epi_Model\View('calendrier');
-        $nxView->getView(array (
-            'equipts'=> $equipts));
-    }
-
-    public function historique($params)
-    {
-         /* Liste Controles */
-        $controleManager = new \Epi_Model\ControleManager;
-        $dataControles = $controleManager->getGroupeControles($_SESSION['groupeId']);
-        foreach ($dataControles as $data)
-        {
-            $controle = new \Epi_Model\Controle($data);
-            $controles[] = $controle; // Tableau d'objet
-        }
-
-        $nxView = new \Epi_Model\View('historique');
-        $nxView->getView(array (
-            'controles'=> $controles));
-    }
-
-    public function account($params)
-    {
-        $csrf = new \Epi_Model\SecuriteCsrf('account');
-        $token = $csrf->getToken();
-
-        $UserManager = new \Epi_Model\UserManager; 
-        $dataUser = $UserManager->getUser($_SESSION['userId']);
-
-        $user = new \Epi_Model\User($dataUser); // hydratation
-
-        $nxView = new \Epi_Model\View('account');
-        $nxView->getView(array (
-            'user'=> $user));
-    }
-
-    public function deconnexion($params)
-    {
-        session_unset();
-        
-        setcookie('userMail');
-        setcookie('userPass');
-
-        $_SESSION['message'] = 'Vous êtes déconnecté de votre espace !';
-
-        $nxView = new \Epi_Model\View();
-        $nxView->redirectView('home');
-    }
-
-    public function upEquipt($params)
-    {
-        $csrf = new \Epi_Model\SecuriteCsrf('upEquipt');
-        $upEquiptToken = $csrf->getToken();
-
-        extract($params); // id equipement
-
-        // Vérifier si Equipement existe 
-        $equiptManager = new \Epi_Model\EquipementManager; 
-        $equiptExist = $equiptManager->existEquipt($id);
-        if ($equiptExist) 
-        {
-            $equipementManager = new \Epi_Model\EquipementManager;
-            $dataEquipt = $equipementManager->getEquipement($id);
-
-            $equipt = new \Epi_Model\Equipement($dataEquipt);
+            // Liste des categories
+            $categorieManager = new \Epi_Model\CategorieManager;
+            $categories = $categorieManager->getCategories();
 
             // Liste des kits
             $kitManager = new \Epi_Model\KitManager;
             $kits = $kitManager->getKits();
             
             // Liste des lots
-            // $lotManager = new \Epi_Model\LotManager;
-            // $lots = $lotManager->getLots();
+            $lotManager = new \Epi_Model\LotManager;
+            $lots = $lotManager->getLots();
 
-            $nxView = new \Epi_Model\View('upEquipt');
-            $nxView->getView(
-            array (
-                'equipt'=> $equipt,
+            $nxView = new \Epi_Model\View('nxEquipt');
+            $nxView->getView(array (
+                'activites'=> $activites,
+                'categories' => $categories,
                 'kits' => $kits,
                 'lots' => $lots));
         }
         else
         {
-           // Nouvelle page 
             $nxView = new \Epi_Model\View();
-            $nxView->redirectView('page404');
+            $nxView->redirectView('home');
+        }
+    }
+
+    public function nxControl($params)
+    {
+        if ($_SESSION['userId'])
+        {
+            $csrf = new \Epi_Model\SecuriteCsrf('nxControl');
+            $token = $csrf->getToken();
+
+            extract($params); // id equipement
+            
+            // Vérifier si Equipement existe 
+            $equiptManager = new \Epi_Model\EquipementManager; 
+            $equiptExist = $equiptManager->existEquipt($id);
+            if ($equiptExist) 
+            {
+                $equipementManager = new \Epi_Model\EquipementManager;
+                $dataEquipt = $equipementManager->getEquipement($id);
+                $equipt = new \Epi_Model\Equipement($dataEquipt);
+                
+                $nxView = new \Epi_Model\View('nxControl');
+                $nxView->getView(
+                array (
+                    'equipt'=> $equipt));
+            }
+            else
+            {
+               // Nouvelle page 
+                $nxView = new \Epi_Model\View();
+                $nxView->redirectView('page404');
+            }
+        }
+        else
+        {
+            $nxView = new \Epi_Model\View();
+            $nxView->redirectView('home');
+        }
+    }
+
+    public function calendrier($params)
+    {
+        if ($_SESSION['userId'])
+        {
+            /* Count STATUT */
+            $equipementManager = new \Epi_Model\EquipementManager;
+            // A réparer        
+            $equiptReparation = $equipementManager->countEquiptsStatut('À réparer');
+            $_SESSION['countEquiptReparer'] = $equiptReparation;
+            // Retard
+            $controlRetard = $equipementManager->countControleRetard(); // today
+            $_SESSION['countControleRetard'] = $controlRetard; 
+
+            /* Liste Equipements */
+            $equipementManager = new \Epi_Model\EquipementManager;
+            $dataEquipts = $equipementManager->getEquiptsInvalide($_SESSION['groupeId']);
+            foreach ($dataEquipts as $data)
+            {
+                $equipt = new \Epi_Model\Equipement($data);
+                $equipts[] = $equipt; // Tableau d'objet
+            }
+            $nxView = new \Epi_Model\View('calendrier');
+            $nxView->getView(array (
+                'equipts'=> $equipts));
+        }
+        else
+        {
+            $nxView = new \Epi_Model\View();
+            $nxView->redirectView('home');
+        }
+    }
+
+    public function historique($params)
+    {
+        if ($_SESSION['userId'])
+        {
+             /* Liste Controles */
+            $controleManager = new \Epi_Model\ControleManager;
+            $dataControles = $controleManager->getGroupeControles($_SESSION['groupeId']);
+            foreach ($dataControles as $data)
+            {
+                $controle = new \Epi_Model\Controle($data);
+                $controles[] = $controle; // Tableau d'objet
+            }
+
+            $nxView = new \Epi_Model\View('historique');
+            $nxView->getView(array (
+                'controles'=> $controles));
+        }
+        else
+        {
+            $nxView = new \Epi_Model\View();
+            $nxView->redirectView('home');
+        }
+    }
+
+    public function account($params)
+    {
+        if ($_SESSION['userId'])
+        {
+            $csrf = new \Epi_Model\SecuriteCsrf('account');
+            $token = $csrf->getToken();
+
+            $UserManager = new \Epi_Model\UserManager; 
+            $dataUser = $UserManager->getUser($_SESSION['userId']);
+
+            $user = new \Epi_Model\User($dataUser); // hydratation
+
+            $nxView = new \Epi_Model\View('account');
+            $nxView->getView(array (
+                'user'=> $user));
+        }
+        else
+        {
+            $nxView = new \Epi_Model\View();
+            $nxView->redirectView('home');
+        }
+    }
+
+    public function deconnexion($params)
+    {
+        if ($_SESSION['userId'])
+        {
+            session_unset();
+            
+            setcookie('userMail');
+            setcookie('userPass');
+
+            $_SESSION['message'] = 'Vous êtes déconnecté de votre espace !';
+
+            $nxView = new \Epi_Model\View();
+            $nxView->redirectView('home');
+        }
+        else
+        {
+            $nxView = new \Epi_Model\View();
+            $nxView->redirectView('home');
+        }
+    }
+
+    public function upEquipt($params)
+    {
+        if ($_SESSION['userId'])
+        {
+            $csrf = new \Epi_Model\SecuriteCsrf('upEquipt');
+            $upEquiptToken = $csrf->getToken();
+
+            extract($params); // id equipement
+
+            // Vérifier si Equipement existe 
+            $equiptManager = new \Epi_Model\EquipementManager; 
+            $equiptExist = $equiptManager->existEquipt($id);
+            if ($equiptExist) 
+            {
+                $equipementManager = new \Epi_Model\EquipementManager;
+                $dataEquipt = $equipementManager->getEquipement($id);
+
+                $equipt = new \Epi_Model\Equipement($dataEquipt);
+
+                // Liste des kits
+                $kitManager = new \Epi_Model\KitManager;
+                $kits = $kitManager->getKits();
+                
+                // Liste des lots
+                // $lotManager = new \Epi_Model\LotManager;
+                // $lots = $lotManager->getLots();
+
+                $nxView = new \Epi_Model\View('upEquipt');
+                $nxView->getView(
+                array (
+                    'equipt'=> $equipt,
+                    'kits' => $kits,
+                    'lots' => $lots));
+            }
+            else
+            {
+               // Nouvelle page 
+                $nxView = new \Epi_Model\View();
+                $nxView->redirectView('page404');
+            }
+        }
+        else
+        {
+            $nxView = new \Epi_Model\View();
+            $nxView->redirectView('home');
         }
     }
   

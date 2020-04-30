@@ -90,142 +90,158 @@ class BackController
 
 	public function creatEquipt($params)
 	{
-		try
-		{
-			$csrf = new \Epi_Model\SecuriteCsrf('nxEquipt');
-			$inscriptionToken = $csrf->verifToken(HOST.'nxEquipt');
-			if ($inscriptionToken)
+		if ($_SESSION['userId'])
+        {
+			try
 			{
-				// ACTIVITE --------------
-					if (($_POST['activiteId']=='nxActivite') AND (isset($_POST['nxActivite'])) AND !empty($_POST['nxActivite']))
-					{
-						$activiteId = $this->creatActivite($_POST['nxActivite']);
-					}	    
-				    else
-			        {
-			            $activiteId = $_POST['activiteId'];
-			        }			
-		        // CATEGORIE --------------
-					if (($_POST['categorieId']=='nxCategorie') AND (isset($_POST['nxCategorie'])) AND !empty($_POST['nxCategorie']))
-					{
-
-						$categorieId = $this->creatCategorie($activiteId, $_POST['nxCategorie']);
-					}	    
-				    else
-			        {
-			            $categorieId = $_POST['categorieId'];
-			        }
-		        // KIT --------------------
-					if (($_POST['kitId']=='nxKit') AND (isset($_POST['nxKit'])) AND !empty($_POST['nxKit']))
-					{
-						$kitId = $this->creatKit($_SESSION['groupeId'], $_POST['nxKit']);
-					}	    
-				    else
-			        {
-			            $kitId = $_POST['kitId'];
-			        }
-				// LOT --------------------
-					if (($_POST['lotId']=='nxLot') AND (isset($_POST['nxLot'])) AND !empty($_POST['nxLot']))
-					{
-						$lotId = $this->creatLot($_SESSION['groupeId'], $_POST['nxLot']);
-					}	    
-				    else
-			        {
-			            $lotId = $_POST['lotId'];
-			        }
-
-				$EquipementManager = new \Epi_Model\EquipementManager; 
-				$creatEquipt = $EquipementManager->addEquipement($_SESSION['groupeId'], $activiteId, $categorieId, $kitId, $lotId);
-				if ($creatEquipt)
+				$csrf = new \Epi_Model\SecuriteCsrf('nxEquipt');
+				$inscriptionToken = $csrf->verifToken(HOST.'nxEquipt');
+				if ($inscriptionToken)
 				{
-					$_SESSION['message'] = 'Votre équipement est ajoutée !';
-					// Nouvelle page 
-					$nxView = new \Epi_Model\View();
-					$nxView->redirectView('equipement/id/'.$creatEquipt);
+					// ACTIVITE --------------
+						if (($_POST['activiteId']=='nxActivite') AND (isset($_POST['nxActivite'])) AND !empty($_POST['nxActivite']))
+						{
+							$activiteId = $this->creatActivite($_POST['nxActivite']);
+						}	    
+					    else
+				        {
+				            $activiteId = $_POST['activiteId'];
+				        }			
+			        // CATEGORIE --------------
+						if (($_POST['categorieId']=='nxCategorie') AND (isset($_POST['nxCategorie'])) AND !empty($_POST['nxCategorie']))
+						{
+
+							$categorieId = $this->creatCategorie($activiteId, $_POST['nxCategorie']);
+						}	    
+					    else
+				        {
+				            $categorieId = $_POST['categorieId'];
+				        }
+			        // KIT --------------------
+						if (($_POST['kitId']=='nxKit') AND (isset($_POST['nxKit'])) AND !empty($_POST['nxKit']))
+						{
+							$kitId = $this->creatKit($_SESSION['groupeId'], $_POST['nxKit']);
+						}	    
+					    else
+				        {
+				            $kitId = $_POST['kitId'];
+				        }
+					// LOT --------------------
+						if (($_POST['lotId']=='nxLot') AND (isset($_POST['nxLot'])) AND !empty($_POST['nxLot']))
+						{
+							$lotId = $this->creatLot($_SESSION['groupeId'], $_POST['nxLot']);
+						}	    
+					    else
+				        {
+				            $lotId = $_POST['lotId'];
+				        }
+
+					$EquipementManager = new \Epi_Model\EquipementManager; 
+					$creatEquipt = $EquipementManager->addEquipement($_SESSION['groupeId'], $activiteId, $categorieId, $kitId, $lotId);
+					if ($creatEquipt)
+					{
+						$_SESSION['message'] = 'Votre équipement est ajoutée !';
+						// Nouvelle page 
+						$nxView = new \Epi_Model\View();
+						$nxView->redirectView('equipement/id/'.$creatEquipt);
+					}
+					else
+					{
+						throw new \Epi_Model\AppException('il y a eu un problème, l\'équipement n\'a pas été créé', 'nxEquipt');
+					}
 				}
 				else
 				{
-					throw new \Epi_Model\AppException('il y a eu un problème, l\'équipement n\'a pas été créé', 'nxEquipt');
+					throw new \Epi_Model\AppException('vous avez dépassé le temps d\'envoie du formulaire. Rechargez la page et validez !', 'nxEquipt');
 				}
 			}
-			else
+			catch (\Epi_Model\AppException $e)
 			{
-				throw new \Epi_Model\AppException('vous avez dépassé le temps d\'envoie du formulaire. Rechargez la page et validez !', 'nxEquipt');
+				$e->getRedirection();
 			}
 		}
-		catch (\Epi_Model\AppException $e)
-		{
-			$e->getRedirection();
-		}
+        else
+        {
+            $nxView = new \Epi_Model\View();
+            $nxView->redirectView('home');
+        }
 	}
 
 	public function creatControl($params)
 	{
-		try
-		{
-			// Controle TOKEN Formulaire
-			$csrf = new \Epi_Model\SecuriteCsrf('nxControl');
-			$controleToken = $csrf->verifToken('nxControl');
-			if ($controleToken)
+		if ($_SESSION['userId'])
+        {
+			try
 			{
-				extract($params); // recup $id de l'équipement dans url
-				// Vérifier si Equipement existe 
-				$equiptManager = new \Epi_Model\EquipementManager; 
-			    $equiptExist = $equiptManager->existEquipt($id);
-			    if ($equiptExist) 
-			    {
-			    	// Gestion image
-			    	if ($_FILES['image']['name'])
-					{
-				    	// Sélection du dossier image du groupe / équipement
-				    	$dossierImg = $this->existDossier('equipement', $_SESSION['groupeId'], $id);
-				    	$imageControle= $this->addImage($dossierImg, $id);
-			    	}
-			    	else
-			    	{
-						$imageControle= '';
-			    	}
+				// Controle TOKEN Formulaire
+				$csrf = new \Epi_Model\SecuriteCsrf('nxControl');
+				$controleToken = $csrf->verifToken('nxControl');
+				if ($controleToken)
+				{
+					extract($params); // recup $id de l'équipement dans url
+					// Vérifier si Equipement existe 
+					$equiptManager = new \Epi_Model\EquipementManager; 
+				    $equiptExist = $equiptManager->existEquipt($id);
+				    if ($equiptExist) 
+				    {
+				    	// Gestion image
+				    	if ($_FILES['image']['name'])
+						{
+					    	// Sélection du dossier image du groupe / équipement
+					    	$dossierImg = $this->existDossier('equipement', $_SESSION['groupeId'], $id);
+					    	$imageControle= $this->addImage($dossierImg, $id);
+				    	}
+				    	else
+				    	{
+							$imageControle= '';
+				    	}
 
-					$controleManager = new \Epi_Model\ControleManager; 
-					$creatControl = $controleManager->addControle($id, $_SESSION['userId'], $imageControle);
-					if ($creatControl)
+						$controleManager = new \Epi_Model\ControleManager; 
+						$creatControl = $controleManager->addControle($id, $_SESSION['userId'], $imageControle);
+						if ($creatControl)
+						{
+							// Mettre à jour le statut de l'équipement
+							$equipementManager = new \Epi_Model\EquipementManager;
+					 		$upEquipt = $equipementManager->updateStatutEquipt($id, $_SESSION['groupeId']);
+					 		if ($upEquipt)
+						    {
+								$_SESSION['message'] = 'Votre contrôle EPI est ajouté !';
+								// Nouvelle page 
+								$nxView = new \Epi_Model\View();
+								$nxView->redirectView('equipement/id/'.$id);
+							}
+						    else
+						    {
+						    	// Message erreur
+								throw new \Epi_Model\AppException('le statut de l\'équipement n\'a pas été mis à jour.', 'upEquipt/id/'.$id);
+						    }	
+				        }
+				        else
+				        {
+				        	throw new \Epi_Model\AppException('votre controle EPI n\'a pas été créé', 'nxControl');
+				        }
+					}
+					else
 					{
-						// Mettre à jour le statut de l'équipement
-						$equipementManager = new \Epi_Model\EquipementManager;
-				 		$upEquipt = $equipementManager->updateStatutEquipt($id, $_SESSION['groupeId']);
-				 		if ($upEquipt)
-					    {
-							$_SESSION['message'] = 'Votre contrôle EPI est ajouté !';
-							// Nouvelle page 
-							$nxView = new \Epi_Model\View();
-							$nxView->redirectView('equipement/id/'.$id);
-						}
-					    else
-					    {
-					    	// Message erreur
-							throw new \Epi_Model\AppException('le statut de l\'équipement n\'a pas été mis à jour.', 'upEquipt/id/'.$id);
-					    }	
-			        }
-			        else
-			        {
-			        	throw new \Epi_Model\AppException('votre controle EPI n\'a pas été créé', 'nxControl');
-			        }
+						throw new \Epi_Model\AppException('l\'équipement n\'éxiste pas.', 'nxControl');
+					}        
 				}
 				else
 				{
-					throw new \Epi_Model\AppException('l\'équipement n\'éxiste pas.', 'nxControl');
-				}        
+					throw new \Epi_Model\AppException('vous avez dépassé le temps d\'envoie du formulaire. Rechargez la page et validez !', 'nxControl');
+				}
+				
 			}
-			else
+			catch (\Epi_Model\AppException $e)
 			{
-				throw new \Epi_Model\AppException('vous avez dépassé le temps d\'envoie du formulaire. Rechargez la page et validez !', 'nxControl');
+				$e->getRedirection();
 			}
-			
 		}
-		catch (\Epi_Model\AppException $e)
-		{
-			$e->getRedirection();
-		}
+        else
+        {
+            $nxView = new \Epi_Model\View();
+            $nxView->redirectView('home');
+        }
 	}
 
 	public function existDossier($dossier, $groupeId, $equiptId)
@@ -293,95 +309,109 @@ class BackController
 	//---- UPDATE -----------------------------------
 	public function updateEquipt($params)
 	{
-		try
-		{
-			extract($params); // recup $id de l'équipement dans url
-
-			// Vérifier si Equipement existe 
-			$equiptManager = new \Epi_Model\EquipementManager; 
-		    $equiptExist = $equiptManager->existEquipt($id);
-		    if ($equiptExist) 
-		    {
-		    	// Gestion image
-		    	if ($_FILES['image']['name'])
-				{
-			    	// Sélection du dossier image du groupe / équipement
-			    	$dossierImg = $this->existDossier('equipement', $_SESSION['groupeId'], $id);
-			    	// Ajout de l'image
-			    	$imageControle= $this->addImage($dossierImg, $id);
-		    	}
-		    	else
-		    	{	// Si pas de post, conservation de l'image d'origine
-		    		$equiptManager = new \Epi_Model\EquipementManager; 
-		    		$imageControle = $equiptManager->getImageEquipt($id);
-		    	}
-
-		    	// Mise à jour Equipement
-				$equipementManager = new \Epi_Model\EquipementManager;
-		 		$upEquipt = $equipementManager->updateEquipement($id, $_SESSION['groupeId'], $imageControle);
-		 		if ($upEquipt)
-			    {
-			    	$_SESSION['message'] = 'L\'équipement a été mis à jour !';
-					$nxView = new \Epi_Model\View();
-					$nxView->redirectView('equipement/id/'.$id);
-			    }
-			    else
-			    {
-			    	// Message erreur
-					throw new \Epi_Model\AppException('l\'équipement n\'a pas été mis à jour.', 'upEquipt/id/'.$id);
-			    }
-		 	}
-			else
+		if ($_SESSION['userId'])
+        {
+			try
 			{
-				throw new \Epi_Model\AppException('l\'équipement n\'éxiste pas.', 'equipements');
-			}
+				extract($params); // recup $id de l'équipement dans url
 
+				// Vérifier si Equipement existe 
+				$equiptManager = new \Epi_Model\EquipementManager; 
+			    $equiptExist = $equiptManager->existEquipt($id);
+			    if ($equiptExist) 
+			    {
+			    	// Gestion image
+			    	if ($_FILES['image']['name'])
+					{
+				    	// Sélection du dossier image du groupe / équipement
+				    	$dossierImg = $this->existDossier('equipement', $_SESSION['groupeId'], $id);
+				    	// Ajout de l'image
+				    	$imageControle= $this->addImage($dossierImg, $id);
+			    	}
+			    	else
+			    	{	// Si pas de post, conservation de l'image d'origine
+			    		$equiptManager = new \Epi_Model\EquipementManager; 
+			    		$imageControle = $equiptManager->getImageEquipt($id);
+			    	}
+
+			    	// Mise à jour Equipement
+					$equipementManager = new \Epi_Model\EquipementManager;
+			 		$upEquipt = $equipementManager->updateEquipement($id, $_SESSION['groupeId'], $imageControle);
+			 		if ($upEquipt)
+				    {
+				    	$_SESSION['message'] = 'L\'équipement a été mis à jour !';
+						$nxView = new \Epi_Model\View();
+						$nxView->redirectView('equipement/id/'.$id);
+				    }
+				    else
+				    {
+				    	// Message erreur
+						throw new \Epi_Model\AppException('l\'équipement n\'a pas été mis à jour.', 'upEquipt/id/'.$id);
+				    }
+			 	}
+				else
+				{
+					throw new \Epi_Model\AppException('l\'équipement n\'éxiste pas.', 'equipements');
+				}
+
+			}
+			catch (\Epi_Model\AppException $e)
+			{
+				$e->getRedirection();
+			}
 		}
-		catch (\Epi_Model\AppException $e)
-		{
-			$e->getRedirection();
-		}
+        else
+        {
+            $nxView = new \Epi_Model\View();
+            $nxView->redirectView('home');
+        }
 	}
 
 	//---- DELETE -----------------------------------
 	public function delEquipt($params)
 	{
-		try
-		{
-			extract($params); // recup $id de l'équipement dans url
+		if ($_SESSION['userId'])
+        {
+			try
+			{
+				extract($params); // recup $id de l'équipement dans url
 
-			// Vérifier si Equipement existe 
-			$equiptManager = new \Epi_Model\EquipementManager; 
-		    $equiptExist = $equiptManager->existEquipt($id);
-		    if ($equiptExist) 
-		    {
-		 		$equipementManager = new \Epi_Model\EquipementManager;
-
-		 		$delEquipt = $equipementManager->deleteEquipement($id);	 		
-		 		if ($delEquipt)
+				// Vérifier si Equipement existe 
+				$equiptManager = new \Epi_Model\EquipementManager; 
+			    $equiptExist = $equiptManager->existEquipt($id);
+			    if ($equiptExist) 
 			    {
-			    	$_SESSION['message'] = 'L\'équipement a été supprimé !';
-					$nxView = new \Epi_Model\View();
-					$nxView->redirectView('equipements');
-			    }
-			    else
+			 		$equipementManager = new \Epi_Model\EquipementManager;
+
+			 		$delEquipt = $equipementManager->deleteEquipement($id);	 		
+			 		if ($delEquipt)
+				    {
+				    	$_SESSION['message'] = 'L\'équipement a été supprimé !';
+						$nxView = new \Epi_Model\View();
+						$nxView->redirectView('equipements');
+				    }
+				    else
+				    {
+				    	// Message erreur
+						throw new \Epi_Model\AppException('l\'équipement n\'a pas été supprimé.', 'equipements');
+				    }
+				}
+				else
 			    {
 			    	// Message erreur
-					throw new \Epi_Model\AppException('l\'équipement n\'a pas été supprimé.', 'equipements');
+					throw new \Epi_Model\AppException('l\'équipement n\'éxiste pas.', 'equipements');
 			    }
+
 			}
-			else
-		    {
-		    	// Message erreur
-				throw new \Epi_Model\AppException('l\'équipement n\'éxiste pas.', 'equipements');
-		    }
-
+			catch (\Epi_Model\AppException $e)
+			{
+				$e->getRedirection();
+			}
 		}
-		catch (\Epi_Model\AppException $e)
-		{
-			$e->getRedirection();
-		}
-
+        else
+        {
+            $nxView = new \Epi_Model\View();
+            $nxView->redirectView('home');
+        }
 	}
-
 }
