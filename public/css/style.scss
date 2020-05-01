@@ -229,6 +229,9 @@ main {
 	background: $arriere-plan;
 	border: 0;
 }
+.card-img, img.card-img-top {
+	max-height: 250px;
+}
 
 .card-img-ribbon {
     position: absolute;

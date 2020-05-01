@@ -197,6 +197,11 @@ main .container h2 {
   border: 0;
 }
 
+.card-img, img.card-img-top {
+  max-height: 350px;
+  width: auto;
+}
+
 .card-img-ribbon {
   position: absolute;
   left: 0px;
