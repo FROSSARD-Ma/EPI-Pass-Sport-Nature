@@ -184,6 +184,11 @@ class BackController
 				    $equiptExist = $equiptManager->existEquipt($id);
 				    if ($equiptExist) 
 				    {
+				    	
+				    	// Fréquence des contrôles
+						$frequenceManager = new \Epi_Model\EquipementManager; 
+						$jourFrequenceControle = $frequenceManager->getFrequenceControleEquipt($id);
+
 				    	// Gestion image
 				    	if ($_FILES['image']['name'])
 						{
@@ -196,13 +201,14 @@ class BackController
 							$imageControle= '';
 				    	}
 
+				    	// Ajout controle sécurité
 						$controleManager = new \Epi_Model\ControleManager; 
-						$creatControl = $controleManager->addControle($id, $_SESSION['userId'], $imageControle);
+						$creatControl = $controleManager->addControle($_SESSION['groupeId'], $id, $_SESSION['userId'], $imageControle);
 						if ($creatControl)
 						{
 							// Mettre à jour le statut de l'équipement
 							$equipementManager = new \Epi_Model\EquipementManager;
-					 		$upEquipt = $equipementManager->updateStatutEquipt($id, $_SESSION['groupeId']);
+					 		$upEquipt = $equipementManager->updateStatutEquipt($id, $_SESSION['groupeId'], $jourFrequenceControle);
 					 		if ($upEquipt)
 						    {
 								$_SESSION['message'] = 'Votre contrôle EPI est ajouté !';

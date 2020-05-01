@@ -195,6 +195,18 @@ class EquipementManager extends Manager
         $image = implode($datas);
         return $image;
     }
+
+    public function getFrequenceControleEquipt($equiptId)
+    {
+        $idEquipt = (int)$equiptId;
+
+        $sql = 'SELECT EPI_equipement.eq_frequenceControle
+            FROM EPI_equipement 
+            WHERE eq_id = ?';
+        $datas = $this->reqSQL($sql, array ($idEquipt), $one = true);
+        $frequence = implode($datas);
+        return $frequence;
+    }
     
 
     /*---  UPDATE ----------------------------------------- */
@@ -234,17 +246,31 @@ class EquipementManager extends Manager
         return $datas;
     }
 
-    public function updateStatutEquipt($equiptId, $groupeId)
+    public function updateStatutEquipt($equiptId, $groupeId, $jourFrequenceControle)
     {
         $idEquipt = (int)$equiptId;
         $idGroupe = (int)$groupeId;
-        
+
+        // Calcul date du prochain controle
+        if (is_numeric($jourFrequenceControle))
+        {
+            $TimeToday =time("Y-m-d H:i:s");
+            $TimeFrequenceControle = $jourFrequenceControle*24*3600;
+            $TimeProchainControle = $TimeToday + $TimeFrequenceControle;
+            $prochainControle = date("Y-m-d", $TimeProchainControle);
+        }
+        else
+        {
+            $prochainControle = '';
+        }
+
         $sql ='UPDATE EPI_equipement 
-        SET eq_statut=:statut
+        SET eq_statut=:statut, eq_prochainControle=:prochainControle
         WHERE  eq_id = :idEquipt AND eq_groupeId = :idGroupe';
         $data = $this->getPDO()->prepare($sql);
         $data->bindValue(':statut', htmlspecialchars($_POST['statut']), PDO::PARAM_STR);
         $data->bindValue(':idEquipt', $idEquipt, PDO::PARAM_STR);
+        $data->bindValue(':prochainControle', $prochainControle, PDO::PARAM_STR);
         $data->bindValue(':idGroupe', $idGroupe, PDO::PARAM_STR);
         $data->execute();
         return $data;

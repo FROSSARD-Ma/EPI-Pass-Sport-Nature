@@ -5,19 +5,21 @@ use \PDO;
 class ControleManager extends Manager
 {
     /*---  CREAT -------------------------------------------------------- */
-    public function addControle($equipId, $userId, $imageControle)
+    public function addControle($groupeId, $equipId, $userId, $imageControle)
     {
+        $idGroupe = (int)$groupeId;
         $idEquipt = (int)$equipId;
         $idUser = (int)$userId;
 
-        $sql ='INSERT INTO EPI_controles(controle_visuel, controle_fonctionnel, controle_observations, controle_image, controle_equipementId, controle_userId)
-            VALUES(:visuel,:fonctionnel,:observations,:image,:idEquipt,:idUser)';
+        $sql ='INSERT INTO EPI_controles(controle_visuel, controle_fonctionnel, controle_observations, controle_image, controle_groupeId, controle_equipementId, controle_userId)
+            VALUES(:visuel,:fonctionnel,:observations,:image,:idGroupe,:idEquipt,:idUser)';
 
         $datas = $this->getPDO()->prepare($sql);
         $datas->bindValue(':visuel',htmlspecialchars($_POST['visuelControle']), PDO::PARAM_STR);
         $datas->bindValue(':fonctionnel',htmlspecialchars($_POST['fonctionnelControle']), PDO::PARAM_STR);
         $datas->bindValue(':observations',htmlspecialchars($_POST['observationControle']), PDO::PARAM_STR); 
         $datas->bindValue(':image', $imageControle, PDO::PARAM_STR);
+        $datas->bindValue(':idGroupe', $idGroupe, PDO::PARAM_STR);
         $datas->bindValue(':idEquipt', $idEquipt, PDO::PARAM_STR);
         $datas->bindValue(':idUser', $idUser, PDO::PARAM_STR); 
         $datas->execute();
